@@ -27,6 +27,7 @@ dialog[class]
 /* Dialogs without their own scroll body use the dialog as the scroll container. */
 dialog.modal[open]:not(
     :has(
+      > .fighter-details,
       > .heroes-dialog-body,
       > .hero-confirm-body,
       > .battle-result-scroll,
@@ -39,6 +40,7 @@ dialog.modal[open]:not(
 }
 dialog.modal[open]:not(
     :has(
+      > .fighter-details,
       > .heroes-dialog-body,
       > .hero-confirm-body,
       > .battle-result-scroll,
@@ -51,6 +53,7 @@ dialog.modal[open]:not(
 }
 dialog.modal[open]:not(
     :has(
+      > .fighter-details,
       > .heroes-dialog-body,
       > .hero-confirm-body,
       > .battle-result-scroll,
@@ -64,6 +67,7 @@ dialog.modal[open]:not(
 }
 dialog.modal[open]:not(
     :has(
+      > .fighter-details,
       > .heroes-dialog-body,
       > .hero-confirm-body,
       > .battle-result-scroll,
@@ -74,6 +78,7 @@ dialog.modal[open]:not(
   > :last-child:not(.modal-header):not(.modal-footer),
 dialog.modal[open]:not(
     :has(
+      > .fighter-details,
       > .heroes-dialog-body,
       > .hero-confirm-body,
       > .battle-result-scroll,
@@ -83,4 +88,17 @@ dialog.modal[open]:not(
   )
   > :has(+ .modal-footer) {
   margin-bottom: auto;
+}
+
+/* Fighter inspection keeps its header outside the scrolling content. */
+dialog.modal[open]:has(> .fighter-details) {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+dialog.modal[open] > .fighter-details {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
