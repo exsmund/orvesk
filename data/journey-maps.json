@@ -1,0 +1,315 @@
+[
+  {
+    "id": "forest",
+    "name": "Тропинка в лесу",
+    "background": "/ui/journey/maps/forest-v1.png",
+    "battleBackground": "/ui/journey/maps/forest-battle-v1.png",
+    "width": 1000,
+    "height": 1500,
+    "nodes": [
+      {
+        "id": "fight-1",
+        "kind": "fight",
+        "stage": 1,
+        "name": "Первый противник",
+        "x": 50,
+        "y": 87
+      },
+      {
+        "id": "forge-1",
+        "kind": "forge",
+        "stage": 1,
+        "name": "Кузница",
+        "x": 74,
+        "y": 79
+      },
+      {
+        "id": "fight-2",
+        "kind": "fight",
+        "stage": 2,
+        "name": "Второй противник",
+        "x": 50,
+        "y": 68
+      },
+      {
+        "id": "camp-2",
+        "kind": "camp",
+        "stage": 2,
+        "name": "Костёр",
+        "x": 24,
+        "y": 64
+      },
+      {
+        "id": "forge-2",
+        "kind": "forge",
+        "stage": 2,
+        "name": "Кузница",
+        "x": 75,
+        "y": 64
+      },
+      {
+        "id": "fight-3",
+        "kind": "fight",
+        "stage": 3,
+        "name": "Третий противник",
+        "x": 50,
+        "y": 52
+      },
+      {
+        "id": "camp-3",
+        "kind": "camp",
+        "stage": 3,
+        "name": "Костёр",
+        "x": 24,
+        "y": 44
+      },
+      {
+        "id": "forge-3",
+        "kind": "forge",
+        "stage": 3,
+        "name": "Кузница",
+        "x": 75,
+        "y": 44
+      },
+      {
+        "id": "fight-4",
+        "kind": "fight",
+        "stage": 4,
+        "name": "Четвёртый противник",
+        "x": 50,
+        "y": 35
+      },
+      {
+        "id": "camp-4",
+        "kind": "camp",
+        "stage": 4,
+        "name": "Костёр",
+        "x": 25,
+        "y": 19
+      },
+      {
+        "id": "fight-5",
+        "kind": "fight",
+        "stage": 5,
+        "name": "Чемпион",
+        "x": 50,
+        "y": 8
+      }
+    ],
+    "edges": [
+      ["fight-1", "fight-2"],
+      ["fight-1", "forge-1"],
+      ["forge-1", "fight-2"],
+      ["fight-2", "camp-2"],
+      ["camp-2", "fight-3"],
+      ["fight-2", "forge-2"],
+      ["forge-2", "fight-3"],
+      ["fight-3", "camp-3"],
+      ["camp-3", "fight-4"],
+      ["fight-3", "forge-3"],
+      ["forge-3", "fight-4"],
+      ["fight-4", "camp-4"],
+      ["fight-4", "fight-5"],
+      ["camp-4", "fight-5"]
+    ]
+  },
+  {
+    "id": "steppe",
+    "name": "Каменистая тропа в степях",
+    "background": "/ui/journey/maps/steppe-v1.png",
+    "battleBackground": "/ui/journey/maps/steppe-battle-v1.png",
+    "width": 1000,
+    "height": 1500,
+    "nodes": [
+      {
+        "id": "fight-1",
+        "kind": "fight",
+        "stage": 1,
+        "name": "Первый противник",
+        "x": 40,
+        "y": 88
+      },
+      {
+        "id": "forge-1",
+        "kind": "forge",
+        "stage": 1,
+        "name": "Кузница",
+        "x": 72,
+        "y": 76
+      },
+      {
+        "id": "fight-2",
+        "kind": "fight",
+        "stage": 2,
+        "name": "Второй противник",
+        "x": 50,
+        "y": 66
+      },
+      {
+        "id": "camp-2",
+        "kind": "camp",
+        "stage": 2,
+        "name": "Костёр",
+        "x": 30,
+        "y": 53
+      },
+      {
+        "id": "fight-3",
+        "kind": "fight",
+        "stage": 3,
+        "name": "Третий противник",
+        "x": 70,
+        "y": 44
+      },
+      {
+        "id": "camp-3",
+        "kind": "camp",
+        "stage": 3,
+        "name": "Костёр",
+        "x": 30,
+        "y": 32
+      },
+      {
+        "id": "forge-3",
+        "kind": "forge",
+        "stage": 3,
+        "name": "Кузница",
+        "x": 70,
+        "y": 34
+      },
+      {
+        "id": "fight-4",
+        "kind": "fight",
+        "stage": 4,
+        "name": "Четвёртый противник",
+        "x": 55,
+        "y": 23
+      },
+      {
+        "id": "forge-4",
+        "kind": "forge",
+        "stage": 4,
+        "name": "Кузница",
+        "x": 75,
+        "y": 13
+      },
+      {
+        "id": "fight-5",
+        "kind": "fight",
+        "stage": 5,
+        "name": "Чемпион",
+        "x": 35,
+        "y": 8
+      }
+    ],
+    "edges": [
+      ["fight-1", "fight-2"],
+      ["fight-1", "forge-1"],
+      ["forge-1", "fight-2"],
+      ["fight-2", "fight-3"],
+      ["fight-2", "camp-2"],
+      ["camp-2", "fight-3"],
+      ["fight-3", "camp-3"],
+      ["camp-3", "fight-4"],
+      ["fight-3", "forge-3"],
+      ["forge-3", "fight-4"],
+      ["fight-4", "fight-5"],
+      ["fight-4", "forge-4"],
+      ["forge-4", "fight-5"]
+    ]
+  },
+  {
+    "id": "ruins",
+    "name": "Заброшенные руины",
+    "background": "/ui/journey/maps/ruins-v1.png",
+    "battleBackground": "/ui/journey/maps/ruins-battle-v1.png",
+    "width": 1000,
+    "height": 1500,
+    "nodes": [
+      {
+        "id": "fight-1",
+        "kind": "fight",
+        "stage": 1,
+        "name": "Первый противник",
+        "x": 50,
+        "y": 87
+      },
+      {
+        "id": "camp-1",
+        "kind": "camp",
+        "stage": 1,
+        "name": "Костёр",
+        "x": 22,
+        "y": 68
+      },
+      {
+        "id": "forge-1",
+        "kind": "forge",
+        "stage": 1,
+        "name": "Кузница",
+        "x": 75,
+        "y": 70
+      },
+      {
+        "id": "fight-2",
+        "kind": "fight",
+        "stage": 2,
+        "name": "Второй противник",
+        "x": 50,
+        "y": 52
+      },
+      {
+        "id": "forge-2",
+        "kind": "forge",
+        "stage": 2,
+        "name": "Кузница",
+        "x": 75,
+        "y": 43
+      },
+      {
+        "id": "fight-3",
+        "kind": "fight",
+        "stage": 3,
+        "name": "Третий противник",
+        "x": 50,
+        "y": 28
+      },
+      {
+        "id": "camp-2",
+        "kind": "camp",
+        "stage": 2,
+        "name": "Костёр",
+        "x": 18,
+        "y": 32
+      },
+      {
+        "id": "fight-4",
+        "kind": "fight",
+        "stage": 4,
+        "name": "Четвёртый противник",
+        "x": 75,
+        "y": 18
+      },
+      {
+        "id": "fight-5",
+        "kind": "fight",
+        "stage": 5,
+        "name": "Чемпион",
+        "x": 50,
+        "y": 7
+      }
+    ],
+    "edges": [
+      ["fight-1", "camp-1"],
+      ["fight-1", "forge-1"],
+      ["camp-1", "fight-2"],
+      ["forge-1", "fight-2"],
+      ["fight-2", "camp-2"],
+      ["fight-2", "forge-2"],
+      ["camp-2", "fight-3"],
+      ["forge-2", "fight-3"],
+      ["fight-3", "fight-4"],
+      ["fight-4", "fight-5"]
+    ]
+  }
+]

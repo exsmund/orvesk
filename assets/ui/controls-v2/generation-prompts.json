@@ -1,0 +1,19 @@
+{
+  "date": "2026-09-22",
+  "mode": "built-in image_gen",
+  "reference": "public/ui/navigation/left-v1.png",
+  "prompts": [
+    {
+      "id": "close-v2",
+      "prompt": "Edit this single gothic game UI button. Preserve EXACTLY the reference canvas dimensions, the button's outer silhouette, its position, scale, corner chamfers, frame ornament, bronze and dark iron textures, lighting and transparent margins. The outer frame must occupy exactly the same pixels and dimensions as the reference arrow button: do not zoom, crop, enlarge or reduce the chassis. Change ONLY the central left-chevron symbol to an X close symbol, two bold equal diagonal metal strokes. Match the old gold material of the original arrow. Keep central symbol within the arrow's central region, clearly legible at 44 pixels. Genuine transparency outside the frame. Exactly one button, no text, no additional objects."
+    },
+    {
+      "id": "minus-v1",
+      "prompt": "Edit this single gothic game UI button. Preserve EXACTLY the reference canvas dimensions, the button's outer silhouette, its position, scale, corner chamfers, frame ornament, bronze and dark iron textures, lighting and transparent margins. The outer frame must occupy exactly the same pixels and dimensions as the reference arrow button: do not zoom, crop, enlarge or reduce the chassis. Change ONLY the central left-chevron symbol to a minus sign: one bold horizontal metal bar, centered. Match the old gold material of the original arrow. Keep central symbol within the arrow's central region, clearly legible at 44 pixels. Genuine transparency outside the frame. Exactly one button, no text, no additional objects."
+    },
+    {
+      "id": "plus-v1",
+      "prompt": "Edit this single gothic game UI button. Preserve EXACTLY the reference canvas dimensions, the button's outer silhouette, its position, scale, corner chamfers, frame ornament, bronze and dark iron textures, lighting and transparent margins. The outer frame must occupy exactly the same pixels and dimensions as the reference arrow button: do not zoom, crop, enlarge or reduce the chassis. Change ONLY the central left-chevron symbol to a plus sign: two bold equal perpendicular horizontal and vertical metal bars, centered. Match the old gold material of the original arrow. Keep central symbol within the arrow's central region, clearly legible at 44 pixels. Genuine transparency outside the frame. Exactly one button, no text, no additional objects."
+    }
+  ]
+}

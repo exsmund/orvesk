@@ -1,0 +1,260 @@
+.portrait-creation .creation-layout {
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 70px;
+  align-items: start;
+  padding: 40px 0;
+}
+.portrait-creation .creation-copy > .eyebrow {
+  margin-bottom: 16px;
+}
+.portrait-creation .creation-copy h1 {
+  font-size: clamp(1.9rem, 3vw, 2.65rem);
+  line-height: 1.4;
+}
+.portrait-creation .creation-lead {
+  margin: 14px 0 23px;
+  font-size: 0.875rem;
+  line-height: 1.7;
+}
+.portrait-creation .creation-copy form {
+  max-width: 480px;
+}
+.portrait-creation .creation-copy input#name {
+  padding: 13px 15px;
+}
+.portrait-picker {
+  border: 0;
+  padding: 0;
+  margin: 22px 0 0;
+  min-width: 0;
+}
+.portrait-picker legend {
+  width: 100%;
+  padding: 0;
+  margin-bottom: 12px;
+  font-size: 0.875rem;
+  color: #c3cbb4;
+}
+.portrait-picker legend > span {
+  float: right;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  color: #909b80;
+}
+.portrait-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 9px;
+}
+.portrait-grid .portrait-option {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  margin: 0;
+  min-width: 0;
+  border: 1px solid #454d3a;
+  border-radius: 3px;
+  background: #101310;
+  overflow: hidden;
+  aspect-ratio: 5 / 6;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+.portrait-option img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 30%;
+  opacity: 0.78;
+  transition: opacity 0.15s;
+}
+.portrait-option:hover img,
+.portrait-option.selected img {
+  opacity: 1;
+}
+.portrait-option:hover {
+  border-color: #9c9872;
+}
+.portrait-grid .portrait-option.selected {
+  border: 2px solid var(--accent);
+  box-shadow: 0 0 0 2px #e3a17620;
+}
+.portrait-option:has(input:focus-visible) {
+  outline: 2px solid var(--bright);
+  outline-offset: 3px;
+}
+.portrait-picker:disabled .portrait-option {
+  cursor: wait;
+  opacity: 0.6;
+}
+.portrait-number {
+  position: absolute;
+  bottom: 5px;
+  left: 6px;
+  font-size: 0.75rem;
+  color: #d9d6c6;
+  text-shadow:
+    0 1px 5px #000,
+    0 0 4px #000;
+}
+.portrait-selected {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #1c2118;
+  height: 19px;
+  width: 19px;
+  display: grid;
+  place-items: center;
+}
+.portrait-hint {
+  margin-top: 12px;
+  font-size: 0.75rem;
+  color: #a1ac92;
+  line-height: 1.6;
+}
+.portrait-creation .creation-foot {
+  margin-top: 17px;
+}
+.portrait-preview {
+  position: sticky;
+  top: 30px;
+  padding: 0;
+  width: 100%;
+  max-width: 410px;
+  justify-self: center;
+}
+.portrait-art {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  max-height: 545px;
+  border: 1px solid #626047;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #0b0e0c;
+  box-shadow: 0 16px 50px #0003;
+}
+.portrait-art > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.portrait-art-index {
+  position: absolute;
+  bottom: 20px;
+  left: 22px;
+  color: #ded7bd;
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  text-shadow: 0 2px 8px #000;
+}
+.portrait-art-index small {
+  font-family: "Golos Text", sans-serif;
+  font-size: 0.75rem;
+  color: #aeb49d;
+}
+.portrait-preview .character-caption {
+  margin-top: 20px;
+}
+.portrait-preview .character-caption h2 {
+  margin-top: 8px;
+}
+.portrait-preview .initial-stats {
+  margin-top: 22px;
+  padding-top: 19px;
+  gap: 24px;
+}
+.portrait-preview .initial-stats b {
+  font-size: 1.4rem;
+}
+.portrait-preview .initial-stats span {
+  margin-top: 7px;
+}
+.fighter-identity {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin: 17px 0 22px;
+  min-width: 0;
+}
+.fighter-panel .fighter-identity h2 {
+  margin: 0;
+  min-height: 0;
+  font-size: 1.05rem;
+}
+@media (max-width: 1150px) {
+  .portrait-creation .creation-layout {
+    gap: 40px;
+  }
+  .portrait-preview {
+    max-width: 360px;
+  }
+  .portrait-preview .initial-stats {
+    gap: 17px;
+  }
+}
+@media (max-width: 930px) {
+  .portrait-creation .creation-layout {
+    gap: 28px;
+  }
+  .portrait-grid {
+    gap: 6px;
+  }
+  .portrait-preview {
+    max-width: 320px;
+  }
+  .portrait-preview .initial-stats {
+    gap: 12px;
+  }
+  .portrait-creation .creation-copy h1 {
+    font-size: 2rem;
+  }
+  .fighter-identity {
+    flex-wrap: wrap;
+    gap: 9px;
+  }
+}
+@media (max-width: 720px) {
+  .portrait-creation .creation-layout {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 28px 0;
+    gap: 30px;
+  }
+  .portrait-creation .creation-copy form {
+    max-width: none;
+  }
+  .portrait-creation .creation-copy h1 {
+    font-size: 1.8rem;
+  }
+  .portrait-creation .creation-lead {
+    margin-bottom: 20px;
+  }
+  .portrait-grid {
+    gap: 7px;
+  }
+  .portrait-preview {
+    position: static;
+    max-width: 340px;
+  }
+  .portrait-preview .portrait-art {
+    max-height: none;
+  }
+  .portrait-preview .initial-stats {
+    gap: 20px;
+  }
+  .portrait-creation .creation-foot {
+    font-size: 0.75rem;
+  }
+  .fighter-identity {
+    margin: 13px 0 18px;
+  }
+  .fighter-panel .fighter-identity h2 {
+    font-size: 0.95rem;
+  }
+}

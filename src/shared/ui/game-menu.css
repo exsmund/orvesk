@@ -1,0 +1,16 @@
+.game-menu-options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 16px;
+}
+.game-menu-options > button {
+  width: 100%;
+}
+.game-menu-options svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: #d4b581;
+}

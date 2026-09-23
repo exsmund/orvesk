@@ -1,0 +1,23 @@
+.app.combat-app {
+  isolation: isolate;
+}
+.combat-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: #10150f;
+}
+.combat-backdrop > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.combat-backdrop > div {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(#080d0a66, #080d0a99),
+    radial-gradient(ellipse at center, transparent 30%, #05080599);
+}

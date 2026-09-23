@@ -1,0 +1,293 @@
+.board-combat {
+  --piece-cell: 36px;
+  --piece-gap: 4px;
+}
+.board-combat .action-board {
+  width: calc(3 * var(--piece-cell) + 2 * var(--piece-gap));
+  max-width: none;
+  aspect-ratio: auto;
+  grid-template-columns: repeat(3, var(--piece-cell));
+  grid-template-rows: repeat(3, var(--piece-cell));
+  gap: var(--piece-gap);
+  flex-shrink: 0;
+}
+.board-combat .board-cell {
+  width: var(--piece-cell);
+  height: var(--piece-cell);
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  border-radius: 3px;
+}
+.board-combat .board-cell.occupied > b {
+  position: absolute;
+  right: 1px;
+  bottom: 0;
+  font-size: 0.6rem;
+  text-shadow: 0 1px 2px #000;
+  z-index: 1;
+}
+.board-combat .board-cell.occupied > small {
+  display: none;
+}
+.board-combat .board-cell .action-source {
+  width: calc(var(--piece-cell) - 8px);
+  height: calc(var(--piece-cell) - 8px);
+}
+.board-combat .planning-workspace {
+  grid-template-columns: minmax(110px, 0.7fr) minmax(170px, 1.5fr);
+}
+.board-combat .board-column {
+  align-items: center;
+  padding-top: 10px;
+}
+.board-combat .board-tools,
+.board-combat .charm-tools {
+  width: 100%;
+  max-width: 210px;
+}
+.board-combat .maneuver-column {
+  height: 100%;
+  min-height: 0;
+}
+.board-combat .maneuver-description {
+  display: none;
+}
+.piece-tray {
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 3px;
+}
+.board-combat .figure-palette {
+  display: grid;
+  gap: 8px;
+  justify-content: center;
+  align-content: start;
+  align-items: start;
+  min-height: 0;
+  padding: 0;
+}
+.board-combat .figure-palette .maneuver-piece {
+  border: 0;
+  border-radius: 0;
+  background: none;
+  padding: 0 2px;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  gap: 4px;
+  align-items: center;
+  box-shadow: none;
+  text-align: center;
+  color: #c9cbb4;
+}
+.action-figure {
+  display: grid;
+  gap: var(--piece-gap);
+  flex-shrink: 0;
+  pointer-events: none;
+}
+.piece-square {
+  display: grid;
+  place-items: center;
+  width: var(--piece-cell);
+  height: var(--piece-cell);
+  box-sizing: border-box;
+  background: #454b34;
+  border: 1px solid #8f966b;
+  border-radius: 3px;
+  box-shadow:
+    inset 0 1px 3px #ffffff12,
+    0 2px 2px #0003;
+}
+.maneuver-piece.selected .piece-square {
+  background: #6a5135;
+  border-color: #efbc8f;
+  box-shadow:
+    0 0 0 1px #d3aa7455,
+    inset 0 0 8px #d2b48533;
+}
+.maneuver-piece:hover .piece-square {
+  border-color: #dcc9a0;
+}
+.maneuver-piece.already-placed .piece-square {
+  opacity: 0.5;
+}
+.board-combat .piece-caption {
+  display: block;
+  font-size: 0.6rem;
+  line-height: 1.15;
+  max-height: 2.3em;
+  overflow: hidden;
+  max-width: 100%;
+  height: 22px;
+}
+.action-source {
+  display: inline-grid;
+  place-items: center;
+  width: calc(var(--piece-cell) - 6px);
+  height: calc(var(--piece-cell) - 6px);
+  overflow: hidden;
+  border-radius: 2px;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+.action-source > .item-artwork {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: transparent;
+  border: 0;
+}
+.action-source > svg {
+  width: 65%;
+  height: 65%;
+  color: #d3ceb0;
+}
+.figure-pages {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  min-height: 22px;
+  font-size: 0.6rem;
+  color: #a9b995;
+}
+.figure-pages button {
+  border: 1px solid #64734e;
+  background: #293222;
+  border-radius: 3px;
+  width: 28px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+}
+.action-order .action-source,
+.revealed-actions .action-source {
+  width: 22px;
+  height: 22px;
+}
+.revealed-actions b {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+@media (max-width: 760px) {
+  .board-combat .planning-workspace {
+    grid-template-columns: minmax(95px, 0.65fr) minmax(165px, 1.5fr);
+    gap: 6px;
+  }
+  .board-combat .board-column {
+    padding-top: 4px;
+  }
+  .board-combat .board-tools,
+  .board-combat .charm-tools {
+    flex-wrap: wrap;
+  }
+  .action-order .action-source,
+  .revealed-actions .action-source {
+    width: 16px;
+    height: 16px;
+  }
+}
+@media (max-height: 700px) and (max-width: 760px), (max-height: 530px) {
+  .board-combat .piece-caption {
+    font-size: 0.49rem;
+    height: 14px;
+    max-height: 14px;
+    line-height: 1.05;
+  }
+  .board-combat .figure-palette .maneuver-piece {
+    gap: 3px;
+  }
+  .board-combat .board-cell.occupied > b {
+    font-size: 0.5rem;
+  }
+  .board-combat .figure-pages {
+    min-height: 20px;
+  }
+}
+
+.piece-tray[data-compact="true"] .piece-caption {
+  height: 14px;
+  max-height: 14px;
+  font-size: 0.52rem;
+  line-height: 1.05;
+}
+.piece-tray[data-compact="true"] .maneuver-piece {
+  gap: 3px;
+}
+.action-order li > .action-source {
+  flex: none;
+}
+
+.board-combat .planning-workspace {
+  grid-template-rows: minmax(0, 1fr);
+}
+
+@media (max-width: 760px) and (max-height: 700px), (max-height: 530px) {
+  .action-order li {
+    height: 24px;
+    padding: 1px;
+    gap: 3px;
+    box-sizing: border-box;
+  }
+  .action-order button {
+    height: 20px;
+    width: 20px;
+    padding: 0;
+  }
+  .revealed-actions .action-source {
+    width: 12px;
+    height: 12px;
+  }
+  .revealed-actions b {
+    padding: 2px;
+    font-size: 0.48rem;
+  }
+}
+
+.action-figure {
+  position: relative;
+}
+.figure-damage {
+  position: absolute;
+  right: -5px;
+  bottom: -5px;
+  top: auto;
+  z-index: 3;
+  background: #18180fef;
+  color: #f1d5a0;
+  border: 1px solid #9b8055;
+  border-radius: 3px;
+  padding: 1px 3px;
+  font-size: 0.65rem;
+  line-height: 1.2;
+  min-width: 16px;
+  text-align: center;
+  white-space: nowrap;
+  box-shadow: 0 1px 4px #0009;
+  pointer-events: none;
+}
+.figure-damage small {
+  display: none;
+}
+.figure-damage.zero-damage {
+  color: #afb79d;
+  border-color: #606c51;
+}
+.piece-tray[data-compact="true"] .figure-damage {
+  font-size: 0.52rem;
+  padding: 0 2px;
+  min-width: 15px;
+}
+.piece-tray[data-compact="true"] .figure-damage small {
+  display: none;
+}

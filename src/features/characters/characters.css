@@ -1,0 +1,12 @@
+.creation-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+}
+@media (max-width: 600px) {
+  .creation-back {
+    font-size: 0.7rem;
+    padding: 8px;
+  }
+}

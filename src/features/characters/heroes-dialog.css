@@ -1,0 +1,112 @@
+dialog.modal.heroes-dialog {
+  padding: 0;
+  overflow: hidden;
+}
+dialog.heroes-dialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.heroes-dialog-body {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 24px 28px;
+}
+.heroes-dialog .heroes-roster {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+}
+.heroes-dialog .heroes-empty {
+  padding: 32px 0;
+}
+@media (max-width: 600px) {
+  .heroes-dialog-body {
+    padding: 16px;
+  }
+  .heroes-dialog .heroes-roster {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+}
+
+.heroes-dialog .hero-select {
+  display: grid;
+  grid-template-columns: 130px minmax(0, 1fr);
+  align-items: center;
+  gap: 24px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
+}
+.heroes-dialog .hero-select:hover {
+  background: transparent;
+  box-shadow: none;
+}
+.heroes-dialog .hero-select > div {
+  min-width: 0;
+  padding: 0;
+}
+.heroes-dialog .hero-select h2 {
+  margin: 0 0 8px;
+}
+.heroes-dialog .hero-select .eyebrow {
+  display: block;
+  margin-bottom: 10px;
+}
+.heroes-dialog .hero-select p {
+  margin: 0 0 12px;
+}
+.heroes-dialog .hero-select:hover h2 {
+  color: #e5c799;
+}
+@media (max-width: 600px) {
+  .heroes-dialog .hero-select {
+    grid-template-columns: 96px minmax(0, 1fr);
+    gap: 16px;
+  }
+}
+
+.heroes-dialog .hero-roster-entry {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+}
+.heroes-dialog .hero-select {
+  min-width: 0;
+}
+.hero-roster-entry .hero-delete {
+  margin: 0;
+}
+@media (max-width: 600px) {
+  .heroes-dialog .hero-roster-entry {
+    gap: 10px;
+  }
+  .heroes-dialog .hero-select {
+    grid-template-columns: clamp(56px, 20vw, 80px) minmax(0, 1fr);
+    gap: 12px;
+  }
+}
+dialog.hero-confirm-dialog[data-size] {
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.hero-confirm-body {
+  padding: 20px 28px;
+  overflow: auto;
+  min-height: 0;
+}
+@media (max-width: 600px) {
+  dialog.hero-confirm-dialog[data-size] {
+    height: 100dvh;
+  }
+  .hero-confirm-body {
+    flex: 1;
+  }
+}

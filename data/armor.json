@@ -1,0 +1,96 @@
+[
+  {
+    "id": "robe",
+    "name": "Хламида странника",
+    "kind": "armor",
+    "slot": "body",
+    "tier": 0,
+    "requirements": { "intelligence": 1 },
+    "defense": {},
+    "resistance": { "magic": 0.3 },
+    "description": "Простая ткань с древними знаками. Снижает магический урон на 30%."
+  },
+  {
+    "id": "rags",
+    "name": "Обмотки паломника",
+    "kind": "armor",
+    "slot": "body",
+    "tier": 0,
+    "requirements": { "endurance": 1 },
+    "defense": { "slash": 1 },
+    "description": "Плотная ткань смягчает режущие удары."
+  },
+  {
+    "id": "leather",
+    "name": "Куртка следопыта",
+    "kind": "armor",
+    "slot": "body",
+    "tier": 1,
+    "requirements": { "agility": 2 },
+    "defense": { "pierce": 1, "slash": 1 },
+    "description": "Выделанная кожа для лёгкого бойца."
+  },
+  {
+    "id": "chainmail",
+    "name": "Кольчуга дозорного",
+    "kind": "armor",
+    "slot": "body",
+    "tier": 2,
+    "requirements": { "strength": 2, "endurance": 2 },
+    "defense": { "pierce": 1, "slash": 2, "blunt": 1 },
+    "description": "Потемневшие кольца помнят сотню ударов."
+  },
+  {
+    "id": "plate",
+    "name": "Панцирь полого рыцаря",
+    "kind": "armor",
+    "slot": "body",
+    "tier": 3,
+    "requirements": { "strength": 3, "endurance": 3 },
+    "defense": { "pierce": 3, "slash": 3, "blunt": 2 },
+    "description": "Тяжёлая сталь. Защищает тело, но не душу."
+  },
+  {
+    "id": "ash-mantle",
+    "name": "Мантия пепла",
+    "kind": "armor",
+    "slot": "body",
+    "tier": 2,
+    "requirements": { "intelligence": 3 },
+    "defense": { "fire": 2, "frost": 1 },
+    "resistance": { "magic": 0.3, "wind": 0.2 },
+    "description": "Пропитана пеплом и обрывками заклинаний."
+  },
+  {
+    "id": "iron-boots",
+    "name": "Ботинки с железным носком",
+    "kind": "armor",
+    "slot": "feet",
+    "tier": 0,
+    "requirements": { "strength": 1 },
+    "defense": {},
+    "kickBonus": 0.05,
+    "description": "Шанс сбить с равновесия пинком: 10% вместо 5%."
+  },
+  {
+    "id": "wanderer-boots",
+    "name": "Сапоги скитальца",
+    "kind": "armor",
+    "slot": "feet",
+    "tier": 1,
+    "requirements": { "agility": 2 },
+    "defense": { "frost": 1 },
+    "description": "Защищают от холода забытой земли."
+  },
+  {
+    "id": "greaves",
+    "name": "Поножи бастиона",
+    "kind": "armor",
+    "slot": "feet",
+    "tier": 2,
+    "requirements": { "strength": 2, "endurance": 2 },
+    "defense": { "slash": 1, "blunt": 1 },
+    "kickBonus": 0.05,
+    "description": "Сталь на голени и носке. +5% к потере равновесия от пинка."
+  }
+]

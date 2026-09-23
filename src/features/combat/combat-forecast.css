@@ -1,0 +1,184 @@
+.combat-forecast {
+  grid-column: 1/-1;
+  background: #182117;
+  border: 1px solid #566347;
+  border-radius: 4px;
+  padding: 7px;
+  font-size: 0.62rem;
+  line-height: 1.4;
+  max-height: 155px;
+  overflow: auto;
+  min-width: 0;
+}
+.combat-forecast p {
+  margin: 3px 0;
+  overflow-wrap: anywhere;
+}
+.forecast-totals {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.forecast-totals > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.forecast-player {
+  color: #c4e2a7;
+}
+.forecast-enemy {
+  color: #f2bb94;
+}
+.forecast-totals b {
+  font-size: 0.55rem;
+  letter-spacing: 0.08em;
+}
+.forecast-totals strong {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.forecast-totals em {
+  font-style: normal;
+  color: #f2ce8e;
+}
+.forecast-blocked,
+.forecast-delta {
+  color: #bcc6a9;
+}
+.combat-forecast details {
+  margin-top: 4px;
+  color: #c0c8b3;
+}
+.combat-forecast summary {
+  cursor: pointer;
+  color: #d4bc96;
+}
+.combo-notes p {
+  font-size: 0.62rem;
+  line-height: 1.4;
+  color: #e0c788;
+  margin: 3px 0;
+}
+.combo-notes b {
+  color: #f1d799;
+}
+.forecast-hidden {
+  color: #b6c2a4;
+}
+.combo-links {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+  overflow: visible;
+}
+.combo-links line {
+  stroke-width: 2;
+  stroke-dasharray: 4 3;
+  vector-effect: non-scaling-stroke;
+  filter: drop-shadow(0 1px 2px #000);
+}
+.combo-link-player {
+  stroke: #e5d279;
+  fill: #e5d279;
+}
+.combo-link-enemy {
+  stroke: #f2a780;
+  fill: #f2a780;
+}
+.terrain-board:has(.combo-links) {
+  position: relative;
+}
+.terrain-cell.combo-player .layer-player {
+  border-color: #f7d773;
+  box-shadow:
+    inset 0 0 0 1px #f7d773,
+    0 0 7px #edcf6e88;
+}
+.terrain-cell.combo-enemy .layer-enemy {
+  border-color: #ffa778;
+  box-shadow: inset 0 0 0 1px #ffa778;
+}
+.item-combo-rule {
+  font-size: 0.73rem;
+  color: #e2c78d;
+  background: #282e20;
+  border: 1px solid #776444;
+  padding: 10px;
+  line-height: 1.5;
+  margin: 10px 0;
+}
+@media (max-width: 760px) {
+  .combat-forecast {
+    font-size: 0.56rem;
+    padding: 5px;
+    max-height: 132px;
+  }
+  .combo-notes p {
+    font-size: 0.55rem;
+  }
+  .forecast-totals {
+    gap: 5px;
+  }
+  .forecast-totals b {
+    font-size: 0.5rem;
+  }
+  .forecast-delta {
+    font-size: 0.52rem;
+  }
+}
+@media (max-height: 700px) {
+  .combat-forecast {
+    max-height: 105px;
+  }
+  .forecast-totals {
+    gap: 4px;
+  }
+  .forecast-totals span {
+    font-size: 0.54rem;
+  }
+}
+
+.cell-attack-power {
+  position: absolute;
+  bottom: 5%;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  flex-wrap: wrap;
+  background: #131b13e6;
+  color: #c4e2a7;
+  padding: 4px;
+  pointer-events: none;
+  font-variant-numeric: tabular-nums;
+}
+.cell-attack-power b {
+  font-size: clamp(0.85rem, 1.7vw, 1.2rem);
+  font-weight: 500;
+}
+.cell-attack-power small {
+  font-size: 0.62rem;
+}
+.cell-attack-power > small {
+  color: #f1d799;
+}
+@media (max-width: 760px) {
+  .cell-attack-power {
+    gap: 3px;
+    padding: 2px;
+    bottom: 2%;
+  }
+  .cell-attack-power b {
+    font-size: 0.8rem;
+  }
+  .cell-attack-power small {
+    font-size: 0.5rem;
+  }
+}

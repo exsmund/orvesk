@@ -1,0 +1,27 @@
+@import "./modal-header.css";
+/* Separate generated materials; cover each panel once instead of visible repeated tiles. */
+dialog.modal[class],
+dialog.creation-dialog[class] {
+  --modal-footer-height: 96px;
+  box-shadow:
+    0 20px 100px #0009,
+    0 4px 24px #0007;
+  background-color: #181c16;
+}
+/* Footers share the dialog's uninterrupted body surface instead of restarting its texture. */
+dialog.modal[class] > footer,
+dialog.modal[class] .hero-profile > footer,
+dialog.creation-dialog[class] .creation-dialog-actions {
+  background: transparent;
+  border-top: 1px solid #544d36;
+}
+dialog.modal[class] .fighter-details .fighter-panel {
+  background: transparent;
+}
+
+@media (max-width: 600px) {
+  dialog.modal[class],
+  dialog.creation-dialog[class] {
+    --modal-footer-height: 92px;
+  }
+}

@@ -1,0 +1,4 @@
+{
+  "mode": "built-in image_gen",
+  "prompt": "Edit this exact UI button asset. Change ONLY the central left-pointing gold chevron to a RIGHT-pointing gold chevron. Preserve the outer frame's exact size, position, shape, all four corners, metal thickness, dark textured inset, style, lighting, worn gold materials and transparent padding. Square canvas, transparent background outside the button. Match the reference framing precisely: outer visible button extends from about 6.3% to 93.5% horizontally and 6.8% to 93.2% vertically; same generous transparent margins. Do not enlarge the frame. Right arrow same size and weight as the original left arrow, centered. No text, no extra elements. This is a matching navigation button for the same game."
+}

@@ -1,0 +1,227 @@
+.special-legend {
+  font-size: 0.58rem;
+  color: #dfc896;
+  margin: 0;
+  line-height: 1.35;
+  flex-shrink: 0;
+}
+.special-cell {
+  position: absolute;
+  top: 1px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  color: #ffdc82;
+  background: #302517ef;
+  border: 1px solid #b99957;
+  border-radius: 3px;
+  min-width: 15px;
+  font-size: 0.7rem;
+  text-align: center;
+  pointer-events: none;
+}
+.terrain-cell:has(.special-cell) {
+  outline: 1px solid #b99957;
+  outline-offset: -2px;
+}
+.piece-square {
+  position: relative;
+}
+.piece-cell-power {
+  position: absolute;
+  bottom: 1px;
+  right: 1px;
+  z-index: 2;
+  background: #111d;
+  color: #f4dcaa;
+  font-size: clamp(7px, 0.7vw, 10px);
+  line-height: 1;
+  padding: 2px;
+  pointer-events: none;
+}
+.maneuver-piece:disabled {
+  opacity: 0.42;
+}
+.maneuver-piece:disabled .piece-caption {
+  color: #e7ba95;
+}
+.journey-choices {
+  width: 100%;
+  margin-top: 12px;
+}
+.journey-choices h3 {
+  font-size: 1rem;
+  color: #e1c69b;
+}
+.journey-choices > p {
+  font-size: 0.72rem;
+  line-height: 1.5;
+}
+.journey-map {
+  display: flex;
+  list-style: none;
+  gap: 8px;
+  margin: 15px 0;
+  padding: 0;
+}
+.journey-map li {
+  flex: 1;
+  text-align: center;
+  border: 1px solid #5d5941;
+  padding: 8px 2px;
+  color: #8a9279;
+}
+.journey-map .cleared {
+  color: #c7dcaa;
+  background: #303e28;
+}
+.journey-map .current {
+  border-color: #c8a273;
+  color: #ebcf9f;
+}
+.journey-map span {
+  display: block;
+  font-size: 0.6rem;
+  margin-top: 4px;
+}
+.route-options {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+.route-option {
+  border: 1px solid #766142;
+  background: #252b20;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+.route-option h4 {
+  font-size: 0.8rem;
+}
+.route-option p,
+.route-option small {
+  font-size: 0.64rem;
+  line-height: 1.45;
+  margin: 0;
+}
+.route-option .primary {
+  margin-top: auto;
+  padding: 8px;
+  font-size: 0.65rem;
+  min-height: 32px;
+  justify-content: center;
+}
+.route-option select {
+  width: 100%;
+  min-width: 0;
+  background: #1b2219;
+  color: #dfd2b8;
+  border: 1px solid #756646;
+  padding: 5px;
+  font-size: 0.65rem;
+}
+.route-option .secondary {
+  padding: 5px;
+  font-size: 0.65rem;
+}
+.combat-app .fight-tab-content:has(.journey-choices) {
+  overflow: auto;
+}
+.combat-app .fight-tab-content:has(.journey-choices) > .arena {
+  display: none;
+}
+.combat-app .result-panel:has(.journey-choices) {
+  padding: 14px;
+}
+.result-panel:has(.journey-choices) .result-content {
+  width: 100%;
+  min-width: 0;
+}
+@media (max-width: 760px) {
+  .special-legend {
+    font-size: 0.48rem;
+    max-height: 3.8em;
+    overflow: auto;
+  }
+  .special-cell {
+    font-size: 0.6rem;
+  }
+  .route-options {
+    grid-template-columns: 1fr;
+  }
+  .journey-map {
+    gap: 4px;
+  }
+  .journey-map span {
+    font-size: 0.5rem;
+  }
+}
+
+.action-figure:has(.piece-cell-power) > .figure-damage {
+  bottom: auto;
+  top: -7px;
+  right: -5px;
+}
+.piece-cell-power {
+  border: 1px solid #8d754e66;
+  border-radius: 2px;
+}
+.combat-app .result-panel:has(.journey-choices) {
+  max-height: none;
+  overflow: visible;
+  flex: 1;
+  align-items: flex-start;
+}
+.result-panel:has(.journey-choices) > .result-symbol {
+  display: none;
+}
+
+.expedition-tools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  font-size: 0.64rem;
+  flex-shrink: 0;
+  color: #c4ccb7;
+}
+.expedition-tools .secondary {
+  padding: 5px 9px;
+  font-size: 0.65rem;
+  min-height: 28px;
+}
+@media (max-width: 760px) {
+  .expedition-tools {
+    font-size: 0.52rem;
+  }
+  .expedition-tools .secondary {
+    font-size: 0.55rem;
+    padding: 3px 6px;
+    min-height: 24px;
+  }
+}
+
+.battle-mode {
+  flex: 0 0 auto;
+  border: 1px solid #545d40;
+  padding: 8px 12px;
+  background: #1d2419;
+  font-size: 0.82rem;
+}
+.battle-mode summary {
+  color: #d8ba87;
+  cursor: pointer;
+  font-weight: 700;
+}
+.battle-mode p {
+  margin: 6px 0 0;
+  line-height: 1.4;
+  color: #bac3a1;
+}
+.reaction-board .battle-mode[open] {
+  max-height: 145px;
+  overflow-y: auto;
+}

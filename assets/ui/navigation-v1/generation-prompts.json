@@ -1,0 +1,19 @@
+{
+  "date": "2026-09-22",
+  "mode": "built-in image_gen",
+  "reference": "public/ui/gothic-frame.png",
+  "prompts": [
+    {
+      "id": "left",
+      "prompt": "Use case: stylized-concept. Create ONE production game UI button asset for dark gothic fantasy game Heroes of Orvesk. Square canvas, front view, centered small square medallion occupying 94% of canvas width/height, with subtly chamfered corners. Background outside button genuinely transparent, no baked checkerboard. The supplied frame is a STYLE reference only: match its tarnished antique bronze edges, blackened iron, sculptural aged surfaces, delicate sharp gothic corner details, warm muted highlights from upper left and deep olive-charcoal recess. This is a tiny navigation button displayed at 44px: the central symbol must be bold, simple, ivory-gold metal with strong contrast, approximately 55% of button width, no excessive ornament, no words, no lettering, no scene, no mockup, no glow. Not glossy, not modern vector. Crisp silhouette. Same square chassis for the whole set. The central symbol is a thick left-pointing chevron <. Exactly one button."
+    },
+    {
+      "id": "right",
+      "prompt": "Use case: stylized-concept. Create ONE production game UI button asset for dark gothic fantasy game Heroes of Orvesk. Square canvas, front view, centered small square medallion occupying 94% of canvas width/height, with subtly chamfered corners. Background outside button genuinely transparent, no baked checkerboard. The supplied frame is a STYLE reference only: match its tarnished antique bronze edges, blackened iron, sculptural aged surfaces, delicate sharp gothic corner details, warm muted highlights from upper left and deep olive-charcoal recess. This is a tiny navigation button displayed at 44px: the central symbol must be bold, simple, ivory-gold metal with strong contrast, approximately 55% of button width, no excessive ornament, no words, no lettering, no scene, no mockup, no glow. Not glossy, not modern vector. Crisp silhouette. Same square chassis for the whole set. The central symbol is a thick right-pointing chevron >. Exactly one button."
+    },
+    {
+      "id": "close",
+      "prompt": "Use case: stylized-concept. Create ONE production game UI button asset for dark gothic fantasy game Heroes of Orvesk. Square canvas, front view, centered small square medallion occupying 94% of canvas width/height, with subtly chamfered corners. Background outside button genuinely transparent, no baked checkerboard. The supplied frame is a STYLE reference only: match its tarnished antique bronze edges, blackened iron, sculptural aged surfaces, delicate sharp gothic corner details, warm muted highlights from upper left and deep olive-charcoal recess. This is a tiny navigation button displayed at 44px: the central symbol must be bold, simple, ivory-gold metal with strong contrast, approximately 55% of button width, no excessive ornament, no words, no lettering, no scene, no mockup, no glow. Not glossy, not modern vector. Crisp silhouette. Same square chassis for the whole set. The central symbol is a thick diagonal X for CLOSE, two equal diagonal strokes. Exactly one button."
+    }
+  ]
+}

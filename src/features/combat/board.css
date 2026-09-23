@@ -1,0 +1,624 @@
+.board-combat {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  flex: 1;
+  padding: 14px;
+  gap: 12px;
+  background: #20271e;
+}
+.planning-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: center;
+}
+.planning-header .eyebrow {
+  font-size: 0.6rem;
+  color: #c09c75;
+}
+.planning-header h2 {
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 5px 0 0;
+}
+.planning-header > span {
+  font-size: 0.65rem;
+  color: #a8b995;
+}
+.planning-workspace {
+  display: grid;
+  grid-template-columns: minmax(130px, 0.8fr) minmax(200px, 1.4fr);
+  gap: 16px;
+  min-height: 0;
+  flex: 1;
+  align-items: start;
+}
+.board-column {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+.action-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+  max-width: 290px;
+  aspect-ratio: 1;
+  width: 100%;
+  margin: 0 auto;
+}
+.board-cell {
+  background: #30382b;
+  border: 1px solid #62734b;
+  color: #7d8d6d;
+  border-radius: 4px;
+  min-width: 0;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 1.3rem;
+}
+.board-cell.blocked {
+  background: repeating-linear-gradient(
+    45deg,
+    #25291f,
+    #25291f 5px,
+    #323328 5px,
+    #323328 6px
+  );
+  border-color: #454739;
+  color: #ad7a60;
+}
+.board-cell.occupied {
+  border-color: #aaa178;
+  color: #eee7c8;
+}
+.board-cell.occupied small {
+  font-size: 0.55rem;
+  line-height: 1.15;
+}
+.board-cell.occupied b {
+  font-size: 0.85rem;
+}
+.board-cell.hue-0 {
+  background: #655336;
+}
+.board-cell.hue-1 {
+  background: #3b5753;
+}
+.board-cell.hue-2 {
+  background: #594858;
+}
+.board-cell.hue-3 {
+  background: #525d37;
+}
+.board-cell.preview {
+  box-shadow: inset 0 0 0 2px #cbb28a;
+}
+.board-cell.unlocked {
+  border-color: #bcb574;
+}
+.board-cell:disabled {
+  opacity: 1;
+}
+.board-tools,
+.charm-tools {
+  display: flex;
+  gap: 5px;
+}
+.board-tools button,
+.charm-tools button {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background: #293123;
+  border: 1px solid #526140;
+  border-radius: 3px;
+  padding: 6px 3px;
+  font-size: 0.6rem;
+}
+.charm-tools button[aria-pressed="true"] {
+  border-color: #e1ad80;
+  color: #f2bd8d;
+}
+.maneuver-column,
+.ordering-column {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.maneuver-palette {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 5px;
+}
+.maneuver-palette button {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 42px;
+  background: #293023;
+  border: 1px solid #424b38;
+  border-radius: 3px;
+  text-align: left;
+  padding: 5px;
+  color: #d0d0b9;
+  font-size: 0.68rem;
+}
+.maneuver-palette button.selected {
+  border-color: #d6a37b;
+  background: #403727;
+}
+.maneuver-palette button.already-placed {
+  color: #9cae83;
+}
+.shape-preview {
+  display: grid;
+  grid-template-columns: repeat(3, 6px);
+  grid-template-rows: repeat(3, 6px);
+  gap: 2px;
+  flex-shrink: 0;
+}
+.shape-preview i.filled {
+  background: #c9b589;
+  border: 1px solid #e0c79c;
+}
+.maneuver-description,
+.board-help {
+  font-size: 0.65rem;
+  color: #aeb89d;
+  line-height: 1.45;
+}
+.maneuver-column select {
+  max-width: 100%;
+  background: #252e22;
+  color: #e0dfc3;
+  padding: 6px;
+  border: 1px solid #6a7255;
+  font-size: 0.7rem;
+}
+.planning-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: auto;
+  border-top: 1px solid #48513a;
+  padding-top: 9px;
+}
+.planning-footer > div {
+  font-size: 0.65rem;
+  line-height: 1.4;
+  color: #b3bda0;
+}
+.planning-footer .primary {
+  min-height: 38px;
+  padding: 0 16px;
+  flex-shrink: 0;
+}
+.revealed-actions > span {
+  font-size: 0.55rem;
+  color: #ba937a;
+}
+.revealed-actions > div {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-top: 5px;
+}
+.revealed-actions b {
+  font-weight: 400;
+  font-size: 0.65rem;
+  padding: 5px 7px;
+  border: 1px solid #685140;
+  border-radius: 3px;
+  background: #382d25;
+}
+.action-order {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.action-order li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #526145;
+  border-radius: 3px;
+  background: #2c3526;
+  padding: 5px;
+  font-size: 0.72rem;
+}
+.action-order li > b {
+  color: #d1ab80;
+  width: 15px;
+  text-align: center;
+}
+.action-order li > span {
+  flex: 1;
+}
+.action-order button {
+  width: 27px;
+  height: 27px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #657455;
+  border-radius: 3px;
+  background: #343e2c;
+}
+.fight-tab-content:has(.board-combat) > .arena {
+  display: none;
+}
+.combat-app .fight-tab-content:has(.board-combat) {
+  overflow: hidden;
+}
+.combat-app .fighter-panel {
+  position: relative;
+}
+.fighter-panel > .floating-damage {
+  top: 120px;
+  left: 50%;
+  z-index: 5;
+}
+.doll-slot.slot-ring {
+  left: 2%;
+  top: 75%;
+  transform: none;
+}
+.doll-slot.slot-amulet {
+  right: 2%;
+  top: 75%;
+  transform: none;
+}
+.jewel-art {
+  display: block;
+  background: radial-gradient(ellipse, #433927, #161c17);
+  border-radius: 4px;
+}
+.combat-app .initial-stats {
+  gap: 15px;
+}
+.combat-app .stats {
+  gap: 7px;
+}
+.board-stage-label {
+  font-size: 0.6rem;
+  color: #bca185;
+}
+@media (max-width: 1100px) {
+  .planning-workspace {
+    gap: 10px;
+    grid-template-columns: minmax(100px, 0.8fr) minmax(165px, 1.4fr);
+  }
+  .board-combat {
+    padding: 10px;
+    gap: 8px;
+  }
+  .maneuver-palette button {
+    font-size: 0.6rem;
+    min-height: 38px;
+  }
+  .maneuver-description {
+    font-size: 0.6rem;
+  }
+}
+@media (max-width: 760px) {
+  .planning-header h2 {
+    font-size: 0.78rem;
+  }
+  .planning-header .eyebrow {
+    font-size: 0.48rem;
+  }
+  .planning-header > span {
+    font-size: 0.5rem;
+  }
+  .planning-workspace {
+    grid-template-columns: minmax(95px, 0.8fr) minmax(160px, 1.25fr);
+    gap: 8px;
+  }
+  .board-combat {
+    padding: 8px;
+    gap: 8px;
+  }
+  .maneuver-palette {
+    gap: 4px;
+  }
+  .maneuver-palette button {
+    font-size: 0.55rem;
+    min-height: 33px;
+    padding: 3px;
+    gap: 4px;
+  }
+  .shape-preview {
+    grid-template-columns: repeat(3, 4px);
+    grid-template-rows: repeat(3, 4px);
+    gap: 1px;
+  }
+  .maneuver-description,
+  .board-help {
+    font-size: 0.55rem;
+  }
+  .board-cell.occupied small {
+    display: none;
+  }
+  .board-tools button,
+  .charm-tools button {
+    font-size: 0.49rem;
+    padding: 5px 1px;
+  }
+  .board-tools svg {
+    display: none;
+  }
+  .planning-footer {
+    gap: 6px;
+    padding-top: 6px;
+  }
+  .planning-footer > div {
+    font-size: 0.52rem;
+  }
+  .planning-footer .primary {
+    min-height: 34px;
+    font-size: 0.68rem;
+    padding: 0 10px;
+  }
+  .revealed-actions b {
+    font-size: 0.55rem;
+    padding: 3px;
+  }
+  .action-order {
+    gap: 4px;
+  }
+  .action-order li {
+    font-size: 0.6rem;
+    gap: 4px;
+    padding: 3px;
+  }
+  .action-order button {
+    width: 24px;
+    height: 24px;
+  }
+  .action-board {
+    gap: 3px;
+  }
+  .combat-app .doll-stage {
+    grid-template-columns: repeat(6, 1fr);
+  }
+  .combat-app .doll-slot {
+    min-width: 0;
+  }
+  .combat-app .stats {
+    gap: 3px;
+  }
+}
+@media (max-height: 700px) and (max-width: 760px), (max-height: 530px) {
+  .board-combat {
+    gap: 5px;
+    padding: 6px;
+  }
+  .planning-header h2 {
+    display: none;
+  }
+  .planning-workspace {
+    gap: 6px;
+  }
+  .maneuver-palette button {
+    min-height: 25px;
+    font-size: 0.52rem;
+    padding: 2px;
+  }
+  .shape-preview {
+    grid-template-columns: repeat(3, 4px);
+    grid-template-rows: repeat(3, 4px);
+    gap: 1px;
+  }
+  .maneuver-description {
+    font-size: 0.51rem;
+    line-height: 1.2;
+  }
+  .maneuver-column,
+  .ordering-column {
+    gap: 4px;
+  }
+  .board-column {
+    gap: 4px;
+  }
+  .action-board {
+    max-width: 125px;
+  }
+  .board-tools button,
+  .charm-tools button {
+    font-size: 0.48rem;
+    padding: 3px 0;
+  }
+  .planning-footer {
+    padding-top: 4px;
+  }
+  .planning-footer > div {
+    font-size: 0.48rem;
+  }
+  .planning-footer .primary {
+    min-height: 28px;
+  }
+  .board-help {
+    font-size: 0.5rem;
+  }
+  .action-order {
+    gap: 3px;
+  }
+  .action-order li {
+    padding: 2px;
+    font-size: 0.55rem;
+  }
+  .action-order button {
+    height: 22px;
+    width: 22px;
+  }
+  .revealed-actions b {
+    font-size: 0.5rem;
+  }
+  .combat-app .fighter-panel .stats {
+    gap: 2px;
+  }
+}
+
+@media (max-width: 760px) {
+  .combat-app .doll-slot {
+    width: calc((100% - 15px) / 6);
+    flex-shrink: 1;
+  }
+  .combat-app .doll-stage {
+    gap: 3px;
+  }
+  .combat-app .doll-slot > svg {
+    width: 13px;
+  }
+  .combat-app .stats {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .combat-app .doll-slot.slot-ring,
+  .combat-app .doll-slot.slot-amulet {
+    inset: auto;
+    transform: none;
+  }
+}
+@media (max-width: 760px) and (max-height: 700px), (max-height: 530px) {
+  .ordering-column > .board-help,
+  .board-column > .board-help {
+    display: none;
+  }
+  .maneuver-description strong {
+    font-weight: 500;
+    color: #d0b38b;
+  }
+}
+
+@media (max-width: 760px) and (max-height: 700px) {
+  .combat-app .doll-stage {
+  }
+  .combat-app .doll-item-detail {
+    margin-top: 3px;
+  }
+  .maneuver-description {
+    display: none;
+  }
+  .planning-footer > div {
+    font-size: 0.52rem;
+  }
+}
+@media (max-width: 760px) and (max-height: 430px) {
+  .combat-app .stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .combat-app .stats > div {
+    justify-content: start;
+    gap: 2px;
+  }
+  .combat-app .doll-stage {
+  }
+  .combat-app .doll-item-detail strong {
+    max-width: 100px;
+  }
+}
+@media (max-width: 760px) and (max-height: 700px) {
+  .action-board {
+    max-width: 100px;
+  }
+  .maneuver-palette button {
+    min-height: 23px;
+  }
+  .board-tools button,
+  .charm-tools button {
+    padding: 2px 0;
+  }
+  .planning-header {
+    min-height: 10px;
+  }
+}
+
+.board-pickup {
+  display: flex;
+  gap: 4px;
+  min-width: 0;
+}
+.board-pickup select {
+  min-width: 0;
+  flex: 1;
+}
+.board-pickup button {
+  font-size: 0.55rem;
+  background: #30392a;
+  border: 1px solid #64714f;
+  border-radius: 3px;
+  padding: 3px;
+}
+@media (max-height: 530px) {
+  .maneuver-description {
+    display: none;
+  }
+}
+@media (min-width: 761px) {
+  .combat-app .doll-stage {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    grid-template-areas: "ring body amulet" "weapon feet shield";
+    gap: 15px 5px;
+    padding: 13px 0 3px;
+  }
+  .combat-app .doll-slot {
+    position: relative;
+    inset: auto;
+    translate: none;
+    transform: none;
+    width: min(42px, 100%);
+    align-self: center;
+    justify-self: center;
+  }
+  .combat-app .slot-ring {
+    grid-area: ring;
+  }
+  .combat-app .slot-amulet {
+    grid-area: amulet;
+  }
+  .combat-app .slot-body {
+    grid-area: body;
+  }
+  .combat-app .slot-feet {
+    grid-area: feet;
+  }
+  .combat-app .slot-weapon {
+    grid-area: weapon;
+  }
+  .combat-app .slot-shield {
+    grid-area: shield;
+  }
+  .combat-app .doll-slot-label {
+    font-size: 0.45rem;
+  }
+}
+@media (min-width: 761px) and (max-height: 590px) {
+  .combat-app .doll-stage {
+    gap: 10px 4px;
+    padding-top: 10px;
+  }
+  .combat-app .doll-slot {
+    width: 29px;
+  }
+  .combat-app .doll-slot-label {
+    font-size: 0.38rem;
+  }
+}

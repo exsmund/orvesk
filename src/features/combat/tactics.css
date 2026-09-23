@@ -1,0 +1,126 @@
+.combat-resources {
+  display: grid;
+  gap: 2px;
+  margin-top: 8px;
+  min-width: 0;
+  flex-shrink: 0;
+}
+
+.exposed-label {
+  color: #f0ad81;
+  font-weight: 500;
+}
+.combat-app .action-card {
+  padding-right: 20px;
+}
+.combat-app .action-card .action-cost {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  font-size: 0.55rem;
+  color: #aebc8e;
+}
+.chosen-cost {
+  font-size: 0.63rem;
+  color: #b5c79a;
+}
+.combat-app .result-panel {
+  max-height: calc(100% - 42px);
+}
+.fight-tab-content:has(.result-panel) .arena {
+  flex: 0 0 42px;
+  min-height: 42px;
+}
+.fight-tab-content:has(.result-panel) .combatants,
+.fight-tab-content:has(.result-panel) .arena-top {
+  display: none;
+}
+.fight-tab-content:has(.result-panel) .arena-reach {
+  margin: auto;
+}
+@media (max-height: 760px) {
+  .combat-app .doll-stage {
+  }
+}
+@media (max-width: 760px) {
+  .combat-app .action-card {
+    padding-right: 10px;
+  }
+  .combat-app .action-card .action-cost {
+    font-size: 0.45rem;
+    top: 2px;
+    right: 3px;
+  }
+  .combat-app .action-card strong {
+    font-size: 0.53rem;
+  }
+  .chosen-cost {
+    font-size: 0.55rem;
+  }
+  .combat-app .attack-info {
+    gap: 4px;
+  }
+  .combat-app .doll-stage {
+  }
+  .combat-app .result-content > .eyebrow {
+    display: none;
+  }
+}
+@media (max-width: 760px) and (max-height: 700px) {
+  .combat-app .arena {
+    min-height: 30px;
+  }
+  .combat-app .combatants {
+    display: none;
+  }
+  .combat-app .arena-reach {
+    margin: auto;
+  }
+  .combat-app .action-card {
+    min-height: 36px;
+  }
+  .combat-app .attack-info > .chosen-cost {
+    display: none;
+  }
+}
+@media (min-width: 761px) and (max-height: 590px) {
+  .combat-app .doll-stage {
+  }
+}
+@media (max-width: 760px) and (max-height: 700px), (max-height: 450px) {
+  .fight-tab-content:has(.result-panel) .arena {
+    display: none;
+  }
+  .combat-app .result-panel {
+    max-height: 100%;
+    padding: 8px;
+  }
+  .combat-app .result-content > .item-image-button {
+    display: none;
+  }
+  .combat-app .result-content h2 {
+    font-size: 0.8rem;
+    margin: 4px 0;
+  }
+  .combat-app .result-content > p {
+    font-size: 0.61rem;
+    line-height: 1.4;
+  }
+  .combat-app .result-content > .eyebrow {
+    display: none;
+  }
+  .combat-app .reward-details {
+    min-height: 26px;
+    margin-top: 3px;
+  }
+  .combat-app .reward-buttons {
+    flex-direction: row;
+    gap: 5px;
+    margin-top: 7px;
+  }
+  .combat-app .reward-buttons button {
+    min-height: 30px;
+    padding: 0 8px;
+    font-size: 0.6rem;
+  }
+}

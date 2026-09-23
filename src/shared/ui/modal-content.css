@@ -1,0 +1,86 @@
+/* Keep short content centred; safe alignment starts overflowing content at the top. */
+dialog[class]
+  :is(
+    .creation-dialog-body,
+    .heroes-dialog-body,
+    .hero-confirm-body,
+    .battle-result-scroll,
+    .reward-window-scroll,
+    .journey-node-details
+  ) {
+  display: flex;
+  flex-direction: column;
+  justify-content: safe center;
+}
+dialog[class]
+  :is(
+    .creation-dialog-body,
+    .heroes-dialog-body,
+    .hero-confirm-body,
+    .battle-result-scroll,
+    .reward-window-scroll,
+    .journey-node-details
+  )
+  > * {
+  flex-shrink: 0;
+}
+/* Dialogs without their own scroll body use the dialog as the scroll container. */
+dialog.modal[open]:not(
+    :has(
+      > .heroes-dialog-body,
+      > .hero-confirm-body,
+      > .battle-result-scroll,
+      > .reward-window-scroll,
+      > .journey-node-details
+    )
+  ) {
+  display: flex;
+  flex-direction: column;
+}
+dialog.modal[open]:not(
+    :has(
+      > .heroes-dialog-body,
+      > .hero-confirm-body,
+      > .battle-result-scroll,
+      > .reward-window-scroll,
+      > .journey-node-details
+    )
+  )
+  > :not(.modal-header):not(.modal-footer) {
+  flex-shrink: 0;
+}
+dialog.modal[open]:not(
+    :has(
+      > .heroes-dialog-body,
+      > .hero-confirm-body,
+      > .battle-result-scroll,
+      > .reward-window-scroll,
+      > .journey-node-details
+    )
+  )
+  > .modal-header
+  + * {
+  margin-top: auto;
+}
+dialog.modal[open]:not(
+    :has(
+      > .heroes-dialog-body,
+      > .hero-confirm-body,
+      > .battle-result-scroll,
+      > .reward-window-scroll,
+      > .journey-node-details
+    )
+  )
+  > :last-child:not(.modal-header):not(.modal-footer),
+dialog.modal[open]:not(
+    :has(
+      > .heroes-dialog-body,
+      > .hero-confirm-body,
+      > .battle-result-scroll,
+      > .reward-window-scroll,
+      > .journey-node-details
+    )
+  )
+  > :has(+ .modal-footer) {
+  margin-bottom: auto;
+}

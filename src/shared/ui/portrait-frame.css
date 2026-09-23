@@ -1,0 +1,58 @@
+/* All source portraits are 1024 × 1536. Frame and image keep their 2:3 ratio. */
+:root {
+  --portrait-frame: url("/ui/portrait-frame-v1.png");
+}
+.character-portrait {
+  --portrait-edge: 28px;
+  --portrait-inset: calc(var(--portrait-edge) / 4);
+  isolation: isolate;
+  display: block;
+  aspect-ratio: 2 / 3;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  background: transparent;
+}
+.character-portrait {
+  position: relative;
+  filter: drop-shadow(0 8px 14px #0007);
+}
+/* The transparent outer margin belongs to the metal asset, not the photograph.
+   Vertical inset is 1.5 × horizontal inset so the inner image also stays 2:3. */
+.character-portrait > img.identity-portrait {
+  position: absolute;
+  left: var(--portrait-inset);
+  top: calc(var(--portrait-inset) * 1.5);
+  display: block;
+  width: calc(100% - var(--portrait-inset) * 2);
+  height: calc(100% - var(--portrait-inset) * 3);
+  border: 0;
+  border-radius: 0;
+  object-fit: contain;
+  object-position: center;
+}
+.character-portrait::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  border: var(--portrait-edge) solid transparent;
+  border-image: var(--portrait-frame) 24% / var(--portrait-edge) / 0 stretch;
+}
+.creation-portrait-frame {
+  min-width: 0;
+}
+.roster-portrait-frame {
+  width: 100%;
+}
+@media (max-width: 760px) {
+  .fighter-portrait-button,
+  .portrait-frame {
+    --portrait-edge: 18px;
+  }
+  .creation-portrait-frame,
+  .roster-portrait-frame {
+    --portrait-edge: 24px;
+  }
+}

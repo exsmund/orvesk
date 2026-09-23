@@ -1,0 +1,211 @@
+@import "../../shared/ui/modal-surfaces.css";
+/* Generated gothic frame uses nine-slice borders: corners keep their proportions. */
+:root {
+  --gothic-frame: url("/ui/gothic-frame.png");
+}
+.fighter-portrait-button,
+.portrait-frame {
+  position: relative;
+  isolation: isolate;
+  border-radius: 0;
+  display: block;
+}
+.doll-slot::before,
+.doll-stage::after,
+.inspection-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+  border: 18px solid transparent;
+  border-image: var(--gothic-frame) 22% / 18px / 0 stretch;
+}
+.fighter-portrait-button:focus-visible {
+  outline: 2px solid #e1ba8b;
+  outline-offset: 3px;
+}
+.portrait-frame {
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+.portrait-frame .identity-portrait {
+  display: block;
+}
+.equipment-doll .doll-stage {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 5 / 6;
+  flex: none;
+  display: block;
+  padding: 0;
+  background: #171c17;
+  border: 1px solid #514534;
+  border-radius: 2px;
+  overflow: visible;
+}
+.equipment-doll .doll-silhouette {
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.88;
+  pointer-events: none;
+  z-index: 0;
+}
+.equipment-doll .doll-stage::after {
+  border-image-width: 12px;
+  border-width: 12px;
+  z-index: 1;
+}
+.equipment-doll .doll-slot {
+  position: absolute;
+  inset: auto;
+  grid-area: auto;
+  z-index: 2;
+  border-radius: 0;
+  background-color: #101410ed;
+}
+.equipment-doll .doll-slot::before {
+  inset: -2px;
+  border-width: 8px;
+  border-image-width: 8px;
+  opacity: 0.8;
+}
+.equipment-doll .doll-slot:hover::before,
+.equipment-doll .doll-slot.inspected::before {
+  opacity: 1;
+  filter: brightness(1.3);
+}
+.equipment-doll .doll-slot.empty::before {
+  opacity: 0.45;
+}
+.equipment-doll .doll-slot-label {
+  color: #d1bfa0;
+  text-shadow:
+    0 1px 3px #000,
+    0 0 4px #000;
+  background: #171c17c9;
+  padding: 1px 3px;
+  border-radius: 2px;
+}
+.equipment-doll .slot-ring {
+  left: 4%;
+  top: 20%;
+  transform: none;
+}
+.equipment-doll .slot-amulet {
+  right: 4%;
+  top: 20%;
+  transform: none;
+}
+.equipment-doll .slot-body {
+  left: 50%;
+  top: 35%;
+  translate: -50% 0;
+}
+.equipment-doll .slot-weapon,
+.equipment-doll .slot-shield {
+  top: 57%;
+}
+.equipment-doll .slot-weapon {
+  left: 4%;
+}
+.equipment-doll .slot-shield {
+  right: 4%;
+}
+.equipment-doll .slot-feet {
+  left: 50%;
+  bottom: 4%;
+  translate: -50% 0;
+}
+.inspection-card {
+  position: relative;
+  isolation: isolate;
+}
+.inspection-card::after {
+  border-width: 14px;
+  border-image-width: 14px;
+}
+/* Cicada layers: coprime periods; stitched noise and wrapped marks have no tile edges. */
+.inspection-card,
+.catalog-item,
+.catalog-item.locked {
+  --card-tone: linear-gradient(145deg, #293022, #181f18 75%);
+  background-color: #192018;
+  background-image:
+    url("/ui/item-scuffs-v2.svg"), url("/ui/item-grain-v2.svg?v=2"),
+    url("/ui/item-patina-v2.svg?v=2"), var(--card-tone);
+  background-size:
+    293px 293px,
+    251px 251px,
+    263px 263px,
+    100% 100%;
+  background-position:
+    47px -71px,
+    -19px 31px,
+    83px 17px,
+    0 0;
+  background-repeat: repeat, repeat, repeat, no-repeat;
+}
+.inspection-card.candidate-card {
+  --card-tone: linear-gradient(145deg, #393023, #1d2119 75%);
+  background-color: #252219;
+  /* Explicit longhands override the existing candidate background shorthand. */
+  background-image:
+    url("/ui/item-scuffs-v2.svg"), url("/ui/item-grain-v2.svg?v=2"),
+    url("/ui/item-patina-v2.svg?v=2"), var(--card-tone);
+  background-size:
+    293px 293px,
+    251px 251px,
+    263px 263px,
+    100% 100%;
+  background-position:
+    47px -71px,
+    -19px 31px,
+    83px 17px,
+    0 0;
+  background-repeat: repeat, repeat, repeat, no-repeat;
+}
+dialog.modal[class],
+dialog.creation-dialog[class] {
+  --modal-frame-inset: 32px;
+  border: 32px solid transparent;
+  border-image: var(--gothic-frame) 22% / 56px / 0 stretch;
+  border-radius: 0;
+}
+.fighter-details .doll-stage {
+  max-width: 270px;
+  margin-top: 12px;
+}
+.fighter-details .doll-slot {
+  width: 60px;
+}
+@media (max-width: 760px) {
+  .inspection-card::after {
+    border-width: 10px;
+    border-image-width: 10px;
+  }
+  .fighter-details .doll-stage {
+    max-width: 250px;
+  }
+  .fighter-details .doll-slot {
+    width: 54px;
+  }
+}
+
+/* One mobile viewport contract for every dialog, including nested reward views. */
+@media (max-width: 600px) {
+  dialog.modal[class],
+  dialog.creation-dialog[class] {
+    --modal-frame-inset: 20px;
+    border-width: 20px;
+    border-image-width: 40px;
+    position: fixed;
+    inset: 0;
+    margin: 0;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    height: 100dvh;
+    max-height: 100dvh;
+  }
+}

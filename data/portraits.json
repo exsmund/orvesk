@@ -1,0 +1,177 @@
+[
+  {
+    "id": "character-01-ash",
+    "label": "Пепельный",
+    "src": "/portraits/character-01-ash.png"
+  },
+  {
+    "id": "character-02-earth",
+    "label": "Земляной",
+    "src": "/portraits/character-02-earth.png"
+  },
+  {
+    "id": "character-03-ivory",
+    "label": "Светлый",
+    "src": "/portraits/character-03-ivory.png"
+  },
+  {
+    "id": "character-04-copper",
+    "label": "Медный",
+    "src": "/portraits/character-04-copper.png"
+  },
+  {
+    "id": "character-05-mist",
+    "label": "Туманный",
+    "src": "/portraits/character-05-mist.png"
+  },
+  {
+    "id": "character-06-flint",
+    "label": "Кремень",
+    "src": "/portraits/character-06-flint.png"
+  },
+  {
+    "id": "character-07-amber",
+    "label": "Янтарный",
+    "src": "/portraits/character-07-amber.png"
+  },
+  {
+    "id": "character-08-raven",
+    "label": "Вороний",
+    "src": "/portraits/character-08-raven.png"
+  },
+  {
+    "id": "character-09-frost",
+    "label": "Инеевый",
+    "src": "/portraits/character-09-frost.png"
+  },
+  {
+    "id": "character-10-ochre",
+    "label": "Охристый",
+    "src": "/portraits/character-10-ochre.png"
+  },
+  {
+    "id": "character-11-ember",
+    "label": "Угольный",
+    "src": "/portraits/character-11-ember.png"
+  },
+  {
+    "id": "character-12-willow",
+    "label": "Ивовый",
+    "src": "/portraits/character-12-willow.png"
+  },
+  {
+    "id": "character-13-storm",
+    "label": "Грозовой",
+    "src": "/portraits/character-13-storm.png"
+  },
+  {
+    "id": "character-14-sand",
+    "label": "Песочный",
+    "src": "/portraits/character-14-sand.png"
+  },
+  {
+    "id": "character-15-slate",
+    "label": "Сланцевый",
+    "src": "/portraits/character-15-slate.png"
+  },
+  {
+    "id": "character-16-silver",
+    "label": "Серебряный",
+    "src": "/portraits/character-16-silver.png"
+  },
+  {
+    "id": "character-17-heather",
+    "label": "Вересковый",
+    "src": "/portraits/character-17-heather.png"
+  },
+  {
+    "id": "character-18-bronze",
+    "label": "Бронзовый",
+    "src": "/portraits/character-18-bronze.png"
+  },
+  {
+    "id": "character-19-night",
+    "label": "Ночной",
+    "src": "/portraits/character-19-night.png"
+  },
+  {
+    "id": "character-20-dawn",
+    "label": "Рассветный",
+    "src": "/portraits/character-20-dawn.png"
+  },
+  {
+    "id": "character-21-reed",
+    "label": "Тростниковый",
+    "src": "/portraits/character-21-reed.png"
+  },
+  {
+    "id": "character-22-pine",
+    "label": "Сосновый",
+    "src": "/portraits/character-22-pine.png"
+  },
+  {
+    "id": "character-23-clay",
+    "label": "Глиняный",
+    "src": "/portraits/character-23-clay.png"
+  },
+  {
+    "id": "character-24-steppe",
+    "label": "Степной",
+    "src": "/portraits/character-24-steppe.png"
+  },
+  {
+    "id": "character-25-saffron",
+    "label": "Шафрановый",
+    "src": "/portraits/character-25-saffron.png"
+  },
+  {
+    "id": "character-26-basalt",
+    "label": "Базальтовый",
+    "src": "/portraits/character-26-basalt.png"
+  },
+  {
+    "id": "character-27-cinder",
+    "label": "Зольный",
+    "src": "/portraits/character-27-cinder.png"
+  },
+  {
+    "id": "character-28-cypress",
+    "label": "Кипарисовый",
+    "src": "/portraits/character-28-cypress.png"
+  },
+  {
+    "id": "character-29-thorn",
+    "label": "Терновый",
+    "src": "/portraits/character-29-thorn.png"
+  },
+  {
+    "id": "character-30-flax",
+    "label": "Льняной",
+    "src": "/portraits/character-30-flax.png"
+  },
+  {
+    "id": "character-31-moss",
+    "label": "Мшистый",
+    "src": "/portraits/character-31-moss.png"
+  },
+  {
+    "id": "character-32-quartz",
+    "label": "Кварцевый",
+    "src": "/portraits/character-32-quartz.png"
+  },
+  {
+    "id": "character-33-umber",
+    "label": "Умбровый",
+    "src": "/portraits/character-33-umber.png"
+  },
+  {
+    "id": "character-34-silt",
+    "label": "Илистый",
+    "src": "/portraits/character-34-silt.png"
+  },
+  {
+    "id": "character-35-lichen",
+    "label": "Лишайниковый",
+    "src": "/portraits/character-35-lichen.png"
+  }
+]

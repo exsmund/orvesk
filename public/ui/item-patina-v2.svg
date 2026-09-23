@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="263" height="263" viewBox="0 0 263 263">
+<defs><filter id="patina" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+<feTurbulence type="fractalNoise" baseFrequency=".022 .035" numOctaves="3" seed="53" stitchTiles="stitch"/>
+<feColorMatrix type="matrix" values="0 0 0 0 .045 0 0 0 0 .036 0 0 0 0 .022 .7 0 0 0 -.17"/>
+</filter></defs><rect width="263" height="263" filter="url(#patina)" opacity=".45"/>
+</svg>

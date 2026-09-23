@@ -1,0 +1,62 @@
+dialog.item-inspection-window {
+  width: min(1120px, calc(100vw - 32px));
+  max-width: none;
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  padding: 0 8px 12px;
+  border: 0;
+  background: transparent;
+  color: var(--text, #dfdfcf);
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+dialog.item-inspection-window.own-item-window {
+  width: min(576px, calc(100vw - 32px));
+}
+.item-inspection-window::backdrop {
+  background: #060b08c9;
+  backdrop-filter: blur(3px);
+}
+.item-window-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: flex-end;
+  height: 32px;
+  pointer-events: none;
+}
+.item-window-toolbar > button {
+  pointer-events: auto;
+  transform: translateY(0);
+}
+.item-inspection-window > .item-inspection {
+  padding: 0 12px;
+}
+.item-inspection-window .inspection-columns {
+  gap: 20px;
+}
+.item-inspection-window .inspection-card {
+  box-shadow: 0 12px 28px #0007;
+}
+@media (max-width: 600px) {
+  dialog.item-inspection-window,
+  dialog.item-inspection-window.own-item-window {
+    width: 100%;
+    height: 100dvh;
+    max-height: 100dvh;
+    inset: 0;
+    margin: 0;
+    padding: 8px 0 16px;
+  }
+  .item-inspection-window > .item-inspection {
+    padding: 0 8px;
+  }
+  .item-inspection-window .inspection-columns {
+    gap: 8px;
+  }
+  .item-window-toolbar {
+    margin-right: 4px;
+  }
+}

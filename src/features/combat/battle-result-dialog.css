@@ -1,0 +1,15 @@
+dialog.modal.battle-result-dialog {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.battle-result-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 20px;
+}
+.battle-result-scroll .clash-outcome {
+  margin: 0;
+}

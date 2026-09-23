@@ -1,0 +1,553 @@
+.terrain-cell {
+  position: relative;
+  isolation: isolate;
+  background-color: #30352b;
+  background-size: cover;
+  background-position: center;
+  border: 1px solid #677358;
+  border-radius: 4px;
+  overflow: hidden;
+  min-width: 0;
+}
+.terrain-cell.grass {
+  background-image:
+    linear-gradient(#101b1333, #101b1344), url("/terrain/grass.png");
+}
+.terrain-cell.rock {
+  background-image:
+    linear-gradient(#11151a22, #11151a55), url("/terrain/rock.png");
+}
+.terrain-cell.own-layer {
+  box-shadow: inset 3px 0 #aac788;
+}
+.terrain-cell.enemy-layer {
+  border-right: 3px solid #d19771;
+}
+.cell-layer {
+  position: absolute;
+  top: 12%;
+  width: 43%;
+  height: 64%;
+  display: grid;
+  place-items: center;
+  z-index: 2;
+  background: #101610cc;
+  border: 1px solid #9ca67c;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.layer-player {
+  left: 3%;
+  border-color: #b0d593;
+}
+.layer-enemy {
+  right: 3%;
+  border-color: #d79d7a;
+}
+.terrain-board .cell-layer .action-source {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+.terrain-board .cell-layer .action-source > .item-artwork,
+.terrain-board .cell-layer .action-source > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.terrain-board .cell-layer svg {
+  width: 75%;
+  height: 75%;
+}
+.rock-mark {
+  position: absolute;
+  right: 1px;
+  top: 0;
+  color: #dacaba;
+  z-index: 3;
+  font-size: 0.6rem;
+}
+.figure-number {
+  position: absolute;
+  bottom: 0;
+  left: 3px;
+  z-index: 3;
+  font-size: 0.6rem;
+  color: #d8efc8;
+  text-shadow: 0 1px 3px #000;
+}
+.terrain-cell.valid-preview {
+  outline: 2px solid #d5e9ae;
+  outline-offset: -3px;
+}
+.terrain-cell.invalid-preview {
+  outline: 2px solid #c78474;
+  outline-offset: -3px;
+}
+.layer-legend {
+  display: flex;
+  gap: 8px;
+  margin: 0;
+  justify-content: center;
+  font-size: 0.52rem;
+}
+.layer-legend span:first-child {
+  color: #b0d593;
+}
+.layer-legend span:last-child {
+  color: #d79d7a;
+}
+.action-source > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.reaction-board .board-column {
+  padding-top: 0;
+}
+.reaction-board .planning-footer > div {
+  max-width: 70%;
+  font-size: 0.59rem;
+}
+.reaction-board .planning-footer .primary {
+  font-size: 0.67rem;
+  padding-inline: 10px;
+}
+.item-figures {
+  border-top: 1px solid #515c42;
+  margin: 16px 0;
+  padding-top: 12px;
+  --piece-cell: 30px;
+  --piece-gap: 3px;
+}
+.item-figures h4 {
+  font-size: 0.85rem;
+  margin: 0 0 12px;
+}
+.item-figure-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.item-figure-card {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: #283022;
+  border: 1px solid #59664a;
+  padding: 9px;
+  min-width: 150px;
+  flex: 1;
+}
+.item-figure-card > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.item-figure-card strong {
+  font-size: 0.75rem;
+}
+.item-figure-card small {
+  font-size: 0.63rem;
+  color: #aeba99;
+}
+.item-figures > p {
+  font-size: 0.72rem;
+  color: #aeba99;
+}
+.combat-app .fight-tab-content:has(.clash-outcome) > .arena,
+.combat-app .fight-tab-content:has(.reaction-board) > .arena {
+  display: none;
+}
+.clash-outcome {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  padding: 14px;
+  gap: 10px;
+  overflow: hidden;
+}
+.clash-outcome header .eyebrow {
+  font-size: 0.57rem;
+  color: #c3a783;
+}
+.clash-outcome h2 {
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 4px 0 0;
+}
+.outcome-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(120px, 0.7fr);
+  gap: 16px;
+  min-height: 0;
+  flex: 1;
+}
+.outcome-field {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+  gap: 5px;
+  min-height: 0;
+  max-height: 380px;
+}
+.outcome-field .cell-layer {
+  top: 8%;
+  height: 52%;
+}
+.cell-damage {
+  position: absolute;
+  bottom: 5%;
+  left: 0;
+  right: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  z-index: 3;
+  background: #131b13d9;
+  padding: 3px;
+}
+.cell-damage b {
+  font-size: 1rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 1px 2px #000;
+}
+.damage-player {
+  color: #c4e2a7;
+}
+.damage-enemy {
+  color: #f2bb94;
+}
+.outcome-field button[aria-pressed="true"] {
+  outline: 2px solid #e7c48f;
+  outline-offset: -2px;
+}
+.outcome-info {
+  min-height: 0;
+  overflow: auto;
+}
+.outcome-totals {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.outcome-totals p {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 0;
+}
+.outcome-totals p > span {
+  font-size: 0.55rem;
+  color: #b4bd9f;
+}
+.outcome-totals strong {
+  font-weight: 500;
+  font-size: 1.3rem;
+}
+.outcome-totals strong small {
+  font-size: 0.63rem;
+}
+.outcome-totals p > small {
+  font-size: 0.65rem;
+  color: #a8b18f;
+}
+.cell-explanation {
+  font-size: 0.65rem;
+  line-height: 1.5;
+  color: #b3bea0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.clash-outcome .planning-footer {
+  flex-shrink: 0;
+}
+@media (max-width: 760px) {
+  .reaction-board .planning-footer > div {
+    font-size: 0.5rem;
+    max-width: 60%;
+  }
+  .reaction-board .planning-footer .primary {
+    font-size: 0.58rem;
+    padding-inline: 5px;
+  }
+  .layer-legend {
+    font-size: 0.43rem;
+    gap: 5px;
+  }
+  .clash-outcome {
+    padding: 8px;
+    gap: 7px;
+  }
+  .outcome-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(100px, 1fr) auto;
+    gap: 8px;
+  }
+  .outcome-totals {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .outcome-totals strong {
+    font-size: 0.95rem;
+  }
+  .outcome-info {
+    max-height: 95px;
+  }
+  .cell-explanation {
+    font-size: 0.54rem;
+    margin: 6px 0;
+  }
+  .outcome-field {
+    max-height: none;
+  }
+  .cell-damage b {
+    font-size: 0.8rem;
+  }
+  .item-figures {
+    --piece-cell: 24px;
+  }
+  .item-figure-card {
+    min-width: 120px;
+    padding: 6px;
+  }
+}
+@media (max-height: 700px) and (max-width: 760px), (max-height: 530px) {
+  .clash-outcome h2 {
+    display: none;
+  }
+  .clash-outcome {
+    gap: 5px;
+    padding: 6px;
+  }
+  .clash-outcome .planning-footer .primary {
+    min-height: 28px;
+    font-size: 0.6rem;
+  }
+  .outcome-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(110px, 0.7fr);
+    grid-template-rows: minmax(0, 1fr);
+    gap: 7px;
+  }
+  .outcome-info {
+    max-height: none;
+  }
+  .outcome-totals {
+    flex-direction: column;
+    gap: 5px;
+  }
+  .outcome-totals p {
+    gap: 2px;
+  }
+  .cell-damage b {
+    font-size: 0.6rem;
+  }
+  .cell-damage {
+    padding: 1px;
+  }
+  .layer-legend {
+    display: none;
+  }
+  .reaction-board .board-column {
+    gap: 4px;
+  }
+  .reaction-board .planning-footer > div {
+    max-height: 3.9em;
+    overflow: auto;
+  }
+}
+@keyframes reaction-die {
+  0% {
+    transform: translateY(-12px) rotate(-100deg);
+    opacity: 0.3;
+  }
+  55% {
+    transform: translateY(3px) rotate(14deg);
+  }
+  80% {
+    transform: translateY(-2px) rotate(-5deg);
+  }
+  100% {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+.piece-tray[data-compact="true"] .piece-caption {
+  height: 17px;
+  max-height: 17px;
+  font-size: 0.48rem;
+  line-height: 1.1;
+}
+
+/* The planning field uses the same large terrain grid as the resolved field.
+   Palette previews keep their own scale; placement previews use the real cells. */
+.reaction-board .planning-workspace {
+  grid-template-columns: minmax(0, 1fr) minmax(120px, 0.7fr);
+  gap: 16px;
+  align-items: stretch;
+}
+.reaction-board .board-column {
+  height: 100%;
+  min-height: 0;
+  padding: 0;
+  align-items: stretch;
+  gap: 8px;
+}
+.reaction-board .action-board.outcome-field {
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  max-width: none;
+  max-height: 380px;
+  flex: 1;
+  aspect-ratio: auto;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+  gap: 5px;
+  margin: 0;
+}
+.reaction-board .action-board .board-cell {
+  width: auto;
+  height: auto;
+  min-height: 0;
+  border-radius: 4px;
+  font-size: inherit;
+  background-size: cover;
+  background-position: center;
+}
+.reaction-board .placement-tools {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+  flex-shrink: 0;
+}
+.reaction-board .board-tools,
+.reaction-board .charm-tools {
+  max-width: none;
+  width: 100%;
+  flex-wrap: nowrap;
+}
+.reaction-board .layer-legend {
+  grid-column: 1/-1;
+  font-size: 0.58rem;
+}
+.reaction-board .rock-mark {
+  right: 5px;
+  top: 3px;
+  font-size: 0.85rem;
+  text-shadow: 0 1px 3px #000;
+}
+.cell-actions {
+  position: absolute;
+  bottom: 5%;
+  left: 0;
+  right: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  background: #131b13d9;
+  padding: 4px 2px;
+  z-index: 3;
+  pointer-events: none;
+}
+.cell-actions > span {
+  font-size: 0.58rem;
+  line-height: 1.15;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
+}
+.reaction-board .maneuver-column {
+  overflow: hidden;
+}
+@media (max-width: 760px) and (min-height: 701px) {
+  .reaction-board .planning-workspace {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(100px, 1fr) 116px;
+    gap: 10px;
+  }
+  .reaction-board .board-column {
+    gap: 5px;
+  }
+  .reaction-board .action-board.outcome-field {
+    max-height: none;
+  }
+  .reaction-board .placement-tools {
+    grid-template-columns: 1fr 1fr auto;
+    align-items: center;
+  }
+  .reaction-board .layer-legend {
+    grid-column: auto;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 0.45rem;
+  }
+  .reaction-board .maneuver-column {
+    border-top: 1px solid #48513a;
+    padding-top: 6px;
+  }
+  .reaction-board .board-tools button,
+  .reaction-board .charm-tools button {
+    font-size: 0.53rem;
+    min-height: 25px;
+  }
+  .reaction-board .cell-actions > span {
+    font-size: 0.5rem;
+  }
+}
+@media (max-width: 760px) and (max-height: 700px), (max-height: 530px) {
+  .reaction-board .planning-workspace {
+    grid-template-columns: minmax(0, 1fr) minmax(110px, 0.7fr);
+    gap: 7px;
+  }
+  .reaction-board .placement-tools {
+    grid-template-columns: 1fr;
+    gap: 3px;
+  }
+  .reaction-board .board-column {
+    gap: 4px;
+  }
+  .reaction-board .action-board.outcome-field {
+    gap: 4px;
+  }
+  .reaction-board .cell-actions {
+    bottom: 1px;
+    padding: 1px;
+  }
+  .reaction-board .cell-actions > span {
+    font-size: 0.4rem;
+  }
+  .reaction-board .layer-legend {
+    display: none;
+  }
+}
+
+.reaction-board .cell-damage {
+  pointer-events: none;
+}
+.reaction-board .cell-damage b {
+  font-size: clamp(0.8rem, 1.5vw, 1.1rem);
+}
+.reaction-board .valid-preview .layer-player {
+  opacity: 0.7;
+  border-style: dashed;
+}
+.reaction-board .damage-forecast {
+  font-variant-numeric: tabular-nums;
+}
+@media (max-width: 760px) and (max-height: 700px), (max-height: 530px) {
+  .reaction-board .cell-damage b {
+    font-size: 0.58rem;
+  }
+  .reaction-board .cell-damage {
+    bottom: 1px;
+    padding: 1px;
+  }
+}

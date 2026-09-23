@@ -1,0 +1,139 @@
+.sb-canvas {
+  min-height: 100vh;
+  background: #141b13;
+  color: #e7e6d6;
+  padding: 20px;
+  font:
+    15px/1.5 system-ui,
+    sans-serif;
+}
+.sb-example {
+  position: relative;
+  min-height: 320px;
+  padding: 20px;
+  isolation: isolate;
+}
+.sb-catalog {
+  max-width: 1280px;
+  margin: auto;
+}
+.sb-catalog h1 {
+  font-size: 30px;
+  margin-bottom: 16px;
+}
+.sb-catalog p {
+  margin: 12px 0;
+}
+.sb-usage {
+  background: #252d21;
+  border: 1px solid #596149;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  overflow-wrap: anywhere;
+}
+.sb-usage h2 {
+  font: 600 20px system-ui;
+  margin: 0 0 6px;
+}
+.sb-usage p {
+  margin: 5px 0;
+}
+.sb-active {
+  color: #b5d89e;
+}
+.sb-unused {
+  color: #f1b984;
+}
+.sb-usage code,
+.sb-assets code {
+  font: 12px/1.5 monospace;
+  overflow-wrap: anywhere;
+}
+.sb-filters {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 20px 0;
+  align-items: center;
+}
+.sb-filters input:not([type="checkbox"]),
+.sb-filters select {
+  padding: 10px;
+  background: #283022;
+  color: #eee;
+  border: 1px solid #788362;
+  border-radius: 4px;
+}
+.sb-assets {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 18px;
+}
+.sb-assets article {
+  min-width: 0;
+  background: #232c20;
+  border: 1px solid #4f5c42;
+  padding: 12px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.sb-asset-preview {
+  height: 200px;
+  display: grid;
+  place-items: center;
+  background: repeating-conic-gradient(#30382d 0% 25%, #20281e 0% 50%) 0/20px
+    20px;
+}
+.sb-asset-preview img {
+  max-width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+}
+.sb-canvas a {
+  color: #edcb8e;
+}
+.sb-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.sb-stage {
+  max-width: 820px;
+  position: relative;
+  min-height: 320px;
+}
+.sb-notice {
+  padding: 14px;
+  background: #303928;
+  border-radius: 6px;
+  margin-bottom: 16px;
+}
+.sb-canvas .sb-launch {
+  padding: 12px 22px;
+  margin: 12px;
+  background: #425132;
+  border: 1px solid #b49b68;
+  border-radius: 4px;
+}
+.sb-example .sb-board {
+  height: 780px;
+  max-width: 800px;
+}
+.sb-example .sb-board .reaction-board {
+  height: 100%;
+}
+@media (max-width: 600px) {
+  .sb-canvas {
+    padding: 8px;
+  }
+  .sb-example {
+    padding: 8px;
+  }
+  .sb-assets {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "mode": "built-in image_gen",
+  "date": "2026-09-21",
+  "styleReferences": [
+    "ART_DIRECTION.md",
+    "public/portraits/character-01-ash.png",
+    "refs/image2.png"
+  ],
+  "prompts": {
+    "silhouette": "Use case: stylized-concept. Asset type: equipment paper-doll background for dark gothic fantasy game Duelyant, portrait 1024x1536. One full-length androgynous adult human standing FRONT FACING, covered in a simple close-fitting opaque dark charcoal linen tunic with long sleeves and plain dark trousers, soft plain foot wraps. No decorative costume, no armor, weapons or accessories. Quiet silhouette for equipment icons to be overlaid by software. Arms slightly away from sides, hands near hips, legs slightly apart, relaxed neutral stance. Head at 8% height and feet at 94%, full hands and feet visible, figure centered occupying 60% canvas width. Face obscured by painterly shadow, no distinct identity. Muted ash brown and warm ivory narrow highlights, sculptural oil-painted volume, rough fine engraved brushgrain, directional upper-left light, strong chiaroscuro, desaturated charcoal graphite linen ochre palette. Almost-black green charcoal #171c17 background with restrained aged canvas texture. Figure readable but subdued. Original dark gothic illustration. No text, no frames, no equipment slots, no symbols, no grid, no scenery. Not vector, no glossy 3D, no neon.",
+    "frame": "Use case: stylized-concept. Asset type: SINGLE square reusable nine-slice UI frame texture, 1024x1024, for dark gothic fantasy oil-painted portrait game. Front-facing flat rectangular frame seen straight on, perfectly square outside silhouette with straight parallel edges. Thin weathered dark iron and antique bronze rails hugging all four canvas edges. Small symmetrical sculpted gothic thorn-leaf corner ornaments confined strictly to the four 120x120 pixel corner squares. Each straight rail stays within the outer 45 pixels. No large central ornaments: straight middle edges must tile/stretch cleanly. Frame outer edges exactly touch canvas edges. Interior from x=128 to896 and y=128 to896 is entirely flat solid near-black #101410, EMPTY with no art, no scene. Embossed old metal texture, warm bone-ivory worn highlights and tarnished ochre edges, rough engraved oil-paint grain, dark recesses, directional upper-left light. Restrained elegant narrow frame like an antique gothic fantasy portrait surround. Sculptural painterly realism, NOT shiny gold or plastic, no gemstones, skulls, faces, lettering, UI symbols, watermark, perspective, drop shadow outside canvas, or extra frames. One frame only. Production border-image asset, decorative corners are the focus."
+  },
+  "outputs": {
+    "silhouette": "public/ui/equipment-silhouette.png",
+    "frame": "public/ui/gothic-frame.png"
+  },
+  "integration": "Decorative equipment underlay only; clothing in the illustration grants no equipment or stats. Real worn items remain in interactive slots. Frame uses CSS nine-slice at 22%, without filling the center."
+}

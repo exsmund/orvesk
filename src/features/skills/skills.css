@@ -1,0 +1,101 @@
+.fighter-skills {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid #636648;
+}
+.fighter-skills h3 {
+  font: 400 1rem var(--serif);
+  color: #d7c49d;
+  margin: 0 0 10px;
+}
+.fighter-skills > p,
+.skill-reward > p {
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: #b4bea3;
+}
+.skill-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  background: #151e17;
+  border: 1px solid #526044;
+  margin: 8px 0;
+  --piece-cell: 24px;
+  --piece-gap: 4px;
+  min-width: 0;
+}
+.skill-card .action-figure {
+  flex-shrink: 0;
+}
+.skill-card > div {
+  min-width: 0;
+}
+.skill-card h4 {
+  margin: 0 0 6px;
+  color: #e3d0aa;
+  font-size: 0.9rem;
+}
+.skill-card p {
+  font-size: 0.75rem;
+  line-height: 1.5;
+  margin: 0 0 7px;
+  color: #bcc9aa;
+}
+.skill-card small {
+  font-size: 0.68rem;
+  color: #a5b997;
+}
+.skill-replacements {
+  display: grid;
+  gap: 8px;
+}
+.skill-replacements > button {
+  font: inherit;
+  color: #d9ddca;
+  background: #202a1e;
+  text-align: left;
+  padding: 10px;
+  border: 1px solid #566045;
+}
+.skill-replacements > button[aria-pressed="true"] {
+  border-color: #e6c285;
+  background: #373d28;
+}
+.skill-replacements .skill-card {
+  margin-bottom: 0;
+}
+.skill-reward .reward-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.action-source.skill-source {
+  color: #d7bf80;
+  background: radial-gradient(#465642, #152217);
+  border: 1px solid #8f986a;
+  border-radius: 4px;
+}
+.action-source.skill-source svg {
+  width: 75%;
+  height: 75%;
+}
+@media (max-width: 760px) {
+  .arena-layout > .fighter-panel > .fighter-skills {
+    display: none;
+  }
+  .skill-card {
+    padding: 8px;
+    gap: 8px;
+    --piece-cell: 20px;
+  }
+  .skill-card p {
+    font-size: 0.68rem;
+  }
+}
+
+.fighter-skills-open {
+  margin-top: 8px;
+  font-size: 0.7rem;
+}

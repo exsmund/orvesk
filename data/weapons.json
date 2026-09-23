@@ -1,0 +1,373 @@
+[
+  {
+    "id": "fist",
+    "name": "Кулак",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 1,
+    "tier": 0,
+    "range": 80,
+    "requirements": {},
+    "damage": [
+      {
+        "type": "blunt",
+        "stat": "strength",
+        "scale": 1,
+        "base": 0
+      }
+    ],
+    "description": "Всегда с вами. Не занимает руку, если выбран для удара."
+  },
+  {
+    "id": "dagger",
+    "name": "Кинжал изгнанника",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 1,
+    "tier": 0,
+    "range": 95,
+    "requirements": {
+      "agility": 1
+    },
+    "damage": [
+      {
+        "type": "pierce",
+        "stat": "agility",
+        "scale": 1,
+        "base": 1
+      }
+    ],
+    "description": "Короткое, лёгкое лезвие. Надёжное начало пути."
+  },
+  {
+    "id": "club",
+    "name": "Сучковатая дубина",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 1,
+    "tier": 0,
+    "range": 105,
+    "requirements": {
+      "strength": 1
+    },
+    "damage": [
+      {
+        "type": "blunt",
+        "stat": "strength",
+        "scale": 1,
+        "base": 1
+      }
+    ],
+    "description": "Грубое дерево, верный удар."
+  },
+  {
+    "id": "shortsword",
+    "name": "Меч дозорного",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 1,
+    "tier": 1,
+    "range": 130,
+    "requirements": {
+      "strength": 2
+    },
+    "damage": [
+      {
+        "type": "slash",
+        "stat": "strength",
+        "scale": 1,
+        "base": 2
+      }
+    ],
+    "description": "Сбалансированный меч забытого караула."
+  },
+  {
+    "id": "rapier",
+    "name": "Рапира скорби",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 1,
+    "tier": 1,
+    "range": 145,
+    "requirements": {
+      "agility": 2
+    },
+    "damage": [
+      {
+        "type": "pierce",
+        "stat": "agility",
+        "scale": 1,
+        "base": 2
+      }
+    ],
+    "description": "Тонкое острие для выверенных выпадов."
+  },
+  {
+    "id": "axe",
+    "name": "Топор пепельника",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 1,
+    "tier": 2,
+    "range": 115,
+    "requirements": {
+      "strength": 3
+    },
+    "damage": [
+      {
+        "type": "slash",
+        "stat": "strength",
+        "scale": 1.5,
+        "base": 1
+      }
+    ],
+    "description": "Тяжёлое лезвие, выкованное в остывшей кузнице."
+  },
+  {
+    "id": "spear",
+    "name": "Копьё паломника",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 2,
+    "tier": 1,
+    "range": 195,
+    "requirements": {
+      "agility": 2
+    },
+    "damage": [
+      {
+        "type": "pierce",
+        "stat": "agility",
+        "scale": 1,
+        "base": 2
+      }
+    ],
+    "description": "Дистанция — лучшая защита. Требует обе руки."
+  },
+  {
+    "id": "greatsword",
+    "name": "Двуручник безымянных",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 2,
+    "tier": 2,
+    "range": 165,
+    "requirements": {
+      "strength": 3,
+      "endurance": 2
+    },
+    "damage": [
+      {
+        "type": "slash",
+        "stat": "strength",
+        "scale": 1.5,
+        "base": 3
+      }
+    ],
+    "description": "Две руки. Один веский довод."
+  },
+  {
+    "id": "hammer",
+    "name": "Молот могильщика",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 2,
+    "tier": 3,
+    "range": 140,
+    "requirements": {
+      "strength": 4,
+      "endurance": 2
+    },
+    "damage": [
+      {
+        "type": "blunt",
+        "stat": "strength",
+        "scale": 2,
+        "base": 2
+      }
+    ],
+    "description": "Дробит камень и сталь."
+  },
+  {
+    "id": "frost-dagger",
+    "name": "Иней",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 1,
+    "tier": 2,
+    "range": 100,
+    "requirements": {
+      "agility": 2,
+      "intelligence": 2
+    },
+    "damage": [
+      {
+        "type": "pierce",
+        "stat": "agility",
+        "scale": 1,
+        "base": 0
+      },
+      {
+        "type": "frost",
+        "stat": "intelligence",
+        "scale": 0.5,
+        "base": 1
+      }
+    ],
+    "description": "Холод остаётся в ране дольше клинка."
+  },
+  {
+    "id": "ember-sword",
+    "name": "Угольный клинок",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 1,
+    "tier": 2,
+    "range": 135,
+    "requirements": {
+      "strength": 2,
+      "intelligence": 2
+    },
+    "damage": [
+      {
+        "type": "slash",
+        "stat": "strength",
+        "scale": 1,
+        "base": 0
+      },
+      {
+        "type": "fire",
+        "stat": "intelligence",
+        "scale": 0.5,
+        "base": 1
+      }
+    ],
+    "description": "Последнее пламя погасшего ордена."
+  },
+  {
+    "id": "wind-sickle",
+    "name": "Серп ветра",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 1,
+    "tier": 2,
+    "range": 150,
+    "requirements": {
+      "agility": 2,
+      "intelligence": 2
+    },
+    "damage": [
+      {
+        "type": "wind",
+        "stat": "agility",
+        "scale": 1,
+        "base": 2
+      }
+    ],
+    "description": "Его кромка рассекает сам воздух."
+  },
+  {
+    "id": "staff",
+    "name": "Посох отшельника",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 2,
+    "tier": 1,
+    "range": 210,
+    "requirements": {
+      "intelligence": 2
+    },
+    "damage": [
+      {
+        "type": "magic",
+        "stat": "intelligence",
+        "scale": 1,
+        "base": 2
+      }
+    ],
+    "description": "Магический импульс. Занимает обе руки."
+  },
+  {
+    "id": "buckler",
+    "name": "Потёртый баклер",
+    "kind": "shield",
+    "slot": "shield",
+    "hands": 1,
+    "tier": 0,
+    "range": 70,
+    "requirements": {
+      "endurance": 1
+    },
+    "defense": {
+      "pierce": 1,
+      "slash": 1,
+      "blunt": 1
+    },
+    "description": "Маленький щит. Позволяет бить щитом: сила + 1."
+  },
+  {
+    "id": "kite-shield",
+    "name": "Щит сумеречного стража",
+    "kind": "shield",
+    "slot": "shield",
+    "hands": 1,
+    "tier": 2,
+    "range": 70,
+    "requirements": {
+      "strength": 2,
+      "endurance": 2
+    },
+    "defense": {
+      "pierce": 3,
+      "slash": 3,
+      "blunt": 2,
+      "fire": 1,
+      "frost": 1
+    },
+    "fullBlockPoiseRecovery": 1,
+    "description": "За каждую полностью перекрытую блоками этого щита фигуру атаки восстанавливает 1 стойки. Без ограничения срабатываний за раунд, до максимальной стойки."
+  },
+  {
+    "id": "mirror-shield",
+    "name": "Зеркало забвения",
+    "kind": "shield",
+    "slot": "shield",
+    "hands": 1,
+    "tier": 3,
+    "range": 70,
+    "requirements": {
+      "endurance": 2,
+      "intelligence": 3
+    },
+    "defense": {
+      "pierce": 2,
+      "slash": 2,
+      "blunt": 1,
+      "magic": 4,
+      "wind": 2
+    },
+    "description": "Отражает отголоски чужого колдовства."
+  },
+  {
+    "id": "ephemeral-sword",
+    "name": "Эфемерный меч",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 1,
+    "tier": 1,
+    "range": 110,
+    "requirements": {
+      "intelligence": 2
+    },
+    "damage": [
+      {
+        "type": "magic",
+        "stat": "intelligence",
+        "scale": 1,
+        "base": 1
+      }
+    ],
+    "ignoreBlocked": true,
+    "description": "Призрачный клинок проходит сквозь скалы: его фигуры можно размещать на заблокированных клетках. Границы поля, свой слой и лимит клеток сохраняются."
+  }
+]

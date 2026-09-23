@@ -1,0 +1,70 @@
+:root {
+  --control-shadow: drop-shadow(0 8px 14px #0007);
+}
+/* Shared hit areas and presentation for the generated gothic control set. */
+button.gothic-button {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  min-height: 48px;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  box-shadow: none;
+  filter: var(--control-shadow);
+  flex-shrink: 0;
+}
+.gothic-button > .gothic-control-art {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+  transition:
+    filter 0.15s,
+    transform 0.15s;
+}
+button.gothic-button:hover {
+  background: transparent;
+}
+.gothic-button:hover:not(:disabled) > .gothic-control-art {
+  filter: brightness(1.25);
+}
+.gothic-button:active:not(:disabled) > .gothic-control-art {
+  transform: scale(0.94);
+}
+.gothic-button:focus-visible {
+  outline: 2px solid #e2c38b;
+  outline-offset: 3px;
+}
+.gothic-button:disabled {
+  opacity: 1;
+  filter: brightness(0.6) var(--control-shadow);
+}
+.allocation-controls button.gothic-button,
+button.stat-upgrade.gothic-button {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+@media (max-width: 600px) {
+  button.gothic-button {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gothic-button > .gothic-control-art {
+    transition: none;
+  }
+}

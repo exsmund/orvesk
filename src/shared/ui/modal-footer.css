@@ -1,0 +1,73 @@
+/* Reserve one hint line even when empty; additional lines expand the footer. */
+dialog[class] footer.modal-footer {
+  --footer-overlap: calc(var(--modal-frame-inset) * 0.625);
+  display: grid;
+  grid-template-rows: minmax(18px, auto) auto;
+  gap: 0;
+  box-sizing: border-box;
+  height: auto;
+  min-height: var(--modal-footer-height);
+  flex-shrink: 0;
+  margin: 0;
+  align-items: stretch;
+  align-content: center;
+  justify-content: stretch;
+  padding: calc(
+      (
+          var(--modal-footer-height) - var(--text-control-height) +
+            var(--footer-overlap)
+        ) /
+        2 - 18px
+    )
+    28px
+    calc(
+      (
+          var(--modal-footer-height) - var(--text-control-height) -
+            var(--footer-overlap)
+        ) /
+        2 - 1px
+    );
+  border-top: 1px solid #544d36;
+  background: transparent;
+}
+.modal-footer-hint {
+  font-size: 12px;
+  line-height: 18px;
+  text-align: center;
+  color: #b4bda1;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+.modal-footer-hint > p {
+  margin: 0;
+  font: inherit;
+}
+.modal-footer-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-width: 0;
+}
+.modal-footer-buttons > button {
+  flex: 1;
+  min-width: 0;
+}
+dialog[class] footer.modal-footer-text-only {
+  grid-template-rows: auto;
+  padding-block: var(--footer-overlap) 0;
+}
+dialog.creation-dialog[class] footer.modal-footer {
+  padding-inline: 38px;
+}
+@media (max-width: 600px) {
+  dialog[class] footer.modal-footer {
+    padding-inline: 16px;
+  }
+  dialog.creation-dialog[class] footer.modal-footer {
+    padding-inline: 20px;
+  }
+  .modal-footer-buttons {
+    gap: 10px;
+  }
+}

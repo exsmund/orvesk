@@ -1,0 +1,175 @@
+.reward-window.modal {
+  box-sizing: border-box;
+  padding: 0;
+  overflow: hidden;
+  text-align: left;
+}
+.reward-window.modal[open] {
+  display: grid;
+  grid-template-rows: 88px minmax(0, 1fr) auto;
+}
+
+.reward-window-scroll {
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  padding: 24px 28px;
+}
+
+.reward-gallery {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-height: 100%;
+  overflow-x: auto;
+  padding: 8px;
+}
+.reward-tile {
+  flex: 0 0 clamp(96px, 17vw, 176px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  padding: 4px;
+  border: 1px solid #938159;
+  background: #10180e;
+  border-radius: 3px;
+  box-shadow:
+    inset 0 0 0 2px #302f22,
+    0 6px 16px #0006;
+}
+.reward-tile:hover,
+.reward-tile:focus-visible {
+  border-color: #f1cb8b;
+  box-shadow:
+    0 0 0 2px #d0ab64,
+    0 6px 20px #0008;
+}
+.reward-tile .item-artwork,
+.reward-tile .skill-artwork {
+  width: 100% !important;
+  height: 100% !important;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border: 0;
+}
+.soul-reward-art {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+}
+.skill-artwork {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 2px;
+}
+.soul-reward-detail {
+  height: 100%;
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  text-align: center;
+}
+.soul-reward-detail > img {
+  width: 90px;
+  height: 90px;
+  color: #d9be88;
+  stroke-width: 1;
+}
+.soul-reward-detail > strong {
+  font: 400 3.5rem var(--serif);
+  color: #eed5a6;
+}
+.soul-reward-detail > strong span {
+  padding: 0 20px;
+  color: #8d967d;
+}
+.soul-reward-detail > p {
+  font-size: 1.15rem;
+}
+.soul-reward-detail > small {
+  color: #acb99b;
+}
+.reward-skill-art {
+  display: block;
+  width: 140px;
+  aspect-ratio: 1;
+  object-fit: cover;
+  margin: 0 auto 20px;
+  border: 1px solid #8d7951;
+}
+.skill-reward-detail > h3 {
+  font-size: 1rem;
+  margin: 24px 0 12px;
+}
+.reward-skill-slots {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.reward-skill-slots > button {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid #5a644b;
+  background: #182015;
+  min-width: 0;
+}
+.reward-skill-slots > button[aria-pressed="true"] {
+  outline: 2px solid #d9b578;
+  background: #353523;
+}
+.reward-skill-slots .slot-art {
+  width: 72px;
+  height: 72px;
+  display: grid;
+  place-items: center;
+  background: #10180e;
+  border: 1px solid #596046;
+}
+.reward-skill-slots small {
+  font-size: 0.75rem;
+}
+@media (max-width: 600px) {
+  .reward-window.modal {
+    margin: 0;
+    border-radius: 0;
+    border-width: 0;
+  }
+  .reward-window.modal[open] {
+    grid-template-rows: 76px minmax(0, 1fr) auto;
+  }
+  .reward-window-scroll {
+    padding: 18px 16px;
+    scrollbar-gutter: auto;
+  }
+
+  .reward-gallery {
+    justify-content: center;
+    gap: 8px;
+  }
+  .reward-tile {
+    flex-basis: calc((100% - 24px) / 4);
+    min-width: 0;
+    max-width: 112px;
+  }
+  .reward-skill-slots {
+    gap: 8px;
+  }
+  .reward-skill-slots > button {
+    padding: 8px 4px;
+  }
+  .reward-skill-slots .slot-art {
+    width: 60px;
+    height: 60px;
+  }
+}

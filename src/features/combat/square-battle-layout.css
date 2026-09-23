@@ -1,0 +1,156 @@
+/* Board geometry is independent from viewport height and the figure tray. */
+.combat-app .reaction-board,
+.combat-app .clash-outcome {
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 0;
+}
+.reaction-board.board-combat .planning-workspace {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+  gap: 16px;
+  min-width: 0;
+}
+.reaction-board.board-combat .board-column {
+  width: 100%;
+  height: auto;
+  flex: none;
+  align-items: center;
+}
+.reaction-board.board-combat .action-board.outcome-field,
+.clash-outcome .outcome-field {
+  width: 100%;
+  max-width: 440px;
+  height: auto;
+  min-height: 0;
+  max-height: none;
+  aspect-ratio: 1;
+  flex: none;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+  gap: 5px;
+  margin: 0 auto;
+  align-self: start;
+}
+.reaction-board.board-combat .action-board .board-cell,
+.clash-outcome .outcome-field > .terrain-cell {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  aspect-ratio: 1;
+  padding: 0;
+  box-sizing: border-box;
+}
+.reaction-board.board-combat .placement-tools {
+  width: 100%;
+  max-width: 440px;
+}
+.reaction-board.board-combat .maneuver-column {
+  width: 100%;
+  height: auto;
+  min-width: 0;
+  overflow: visible;
+  flex: none;
+  border-top: 1px solid #48513a;
+  padding-top: 12px;
+}
+.board-combat .piece-tray {
+  display: block;
+  flex: none;
+  min-width: 0;
+  --piece-cell: 36px;
+  --piece-gap: 4px;
+}
+.board-combat .piece-tray .figure-palette {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 18px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+  padding: 8px 8px 14px;
+  scroll-snap-type: x proximity;
+  overscroll-behavior-x: contain;
+  touch-action: pan-x pan-y;
+  scrollbar-color: #ad9466 #192017;
+  scrollbar-width: thin;
+}
+.board-combat .piece-tray .figure-palette .maneuver-piece {
+  width: 132px;
+  min-width: 132px;
+  flex: 0 0 132px;
+  min-height: 154px;
+  scroll-snap-align: start;
+  gap: 10px;
+}
+.board-combat .piece-tray .piece-caption {
+  height: auto;
+  max-height: none;
+  font-size: 0.65rem;
+  line-height: 1.3;
+}
+.clash-outcome .outcome-layout {
+  flex: none;
+  grid-template-rows: auto;
+  align-items: start;
+}
+@media (max-width: 760px) {
+  .reaction-board.board-combat .planning-footer {
+    flex-wrap: wrap;
+  }
+  .reaction-board.board-combat .planning-footer > div {
+    max-width: 100%;
+  }
+  .board-combat .piece-tray .figure-palette {
+    gap: 12px;
+  }
+}
+.reaction-board .maneuver-piece,
+.reaction-board .board-cell.own-layer {
+  touch-action: none;
+  user-select: none;
+  cursor: grab;
+}
+.reaction-board .maneuver-piece:active,
+.reaction-board .board-cell.own-layer:active {
+  cursor: grabbing;
+}
+.figure-drag-ghost {
+  position: fixed;
+  z-index: 1000;
+  pointer-events: none;
+  --piece-cell: 28px;
+  --piece-gap: 3px;
+  opacity: 0.85;
+  filter: drop-shadow(0 4px 9px #000);
+}
+dialog.modal.cell-info-modal[data-size] {
+  height: auto;
+  max-height: calc(100dvh - 40px);
+}
+.cell-info-content {
+  padding: 20px;
+  overflow: auto;
+  line-height: 1.55;
+  --piece-cell: 32px;
+  --piece-gap: 3px;
+}
+.cell-info-content p {
+  margin: 0 0 16px;
+}
+.cell-info-content h3 {
+  margin-top: 0;
+}
+@media (max-width: 600px) {
+  dialog.modal.cell-info-modal[data-size] {
+    height: 100dvh;
+    max-height: 100dvh;
+  }
+  .cell-info-content {
+    flex: 1;
+    min-height: 0;
+  }
+}

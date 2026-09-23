@@ -1,0 +1,12 @@
+node_modules/
+dist/
+storybook-static/
+coverage/
+# Generated files and player saves
+stories/generated/
+data/sessions/
+package-lock.json
+# Source artwork and reference materials
+public/
+assets/
+refs/

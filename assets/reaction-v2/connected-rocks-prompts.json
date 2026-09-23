@@ -1,0 +1,13 @@
+{
+  "mode": "built-in image_gen",
+  "date": "2026-09-21",
+  "prompts": {
+    "horizontal": "Create one terrain asset for a dark gothic fantasy tactical browser game. Wide landscape 2:1 image, direct top-down overhead view of ONE continuous long horizontal rugged granite rock formation, spanning the width of two adjacent square board cells. The rock must be a SINGLE joined mass across the center with continuous stone, no gap or earth seam in the middle, not two separate boulders. Outer irregular silhouette fills 92 percent of width and 85 percent of height. Narrow rim of brown earth, sparse muted olive grass outside. Desaturated charcoal grey granite, chunky angular planes, weathered cracks, tiny moss traces, sculptural painted realistic material with fine engraving grain, light from upper left, deep contact shadow. Flat top down camera, no horizon, no perspective, no border, no grid, no words, no UI, no characters, no shiny 3D, no neon. Quiet readable texture for small tactical tiles. 1536x768 composition.",
+    "vertical": "Create one terrain asset for a dark gothic fantasy tactical browser game. Tall portrait 1:2 image, direct top-down overhead view of ONE continuous long vertical rugged granite rock formation, spanning the height of two adjacent square board cells. The rock must be a SINGLE joined mass across the center with continuous stone, no gap or earth seam in the middle, not two separate boulders. Outer irregular silhouette fills 85 percent of width and 92 percent of height. Narrow rim of brown earth, sparse muted olive grass outside. Desaturated charcoal grey granite, chunky angular planes, weathered cracks, tiny moss traces, sculptural painted realistic material with fine engraving grain, light from upper left, deep contact shadow. Flat top down camera, no horizon, no perspective, no border, no grid, no words, no UI, no characters, no shiny 3D, no neon. Quiet readable texture for small tactical tiles. 768x1536 composition."
+  },
+  "outputs": {
+    "horizontal": "public/terrain/rock-horizontal.png",
+    "vertical": "public/terrain/rock-vertical.png"
+  },
+  "rules": "Only side-adjacent blocked cells join. Diagonals remain separate. Recompute after either character unlocks a cell. Shared renderer for planning and results."
+}

@@ -1,0 +1,4 @@
+html[data-input-focus="pointer"] body input:focus,
+html[data-input-focus="pointer"] body textarea:focus {
+  outline: none;
+}
