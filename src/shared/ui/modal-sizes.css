@@ -18,7 +18,7 @@ dialog.creation-dialog[data-size] {
   max-height: none;
   min-width: 0;
 }
-@media (max-width: 600px) {
+@media (max-width: 599px) {
   dialog.modal[data-size],
   dialog.creation-dialog[data-size] {
     width: 100%;

@@ -57,7 +57,7 @@
     width: min(100%, 160px);
   }
 }
-@media (max-height: 599px) and (max-width: 600px) {
+@media (max-height: 599px) and (max-width: 599px) {
   html.modal-page-scroll dialog[class][open] {
     inset: 0 0 auto !important;
   }

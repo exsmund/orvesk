@@ -40,7 +40,7 @@ dialog.item-inspection-window.own-item-window {
 .item-inspection-window .inspection-card {
   box-shadow: 0 12px 28px #0007;
 }
-@media (max-width: 600px) {
+@media (max-width: 599px) {
   dialog.item-inspection-window,
   dialog.item-inspection-window.own-item-window {
     width: 100%;

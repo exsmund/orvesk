@@ -1,99 +1,33 @@
 {
   "components": [
     {
-      "name": "Mark",
-      "file": "src/app/App.tsx",
-      "line": 98,
-      "exported": false,
-      "uses": [
-        {
-          "file": "src/app/App.tsx",
-          "line": 690,
-          "owner": "src/app/App.tsx#App"
-        },
-        {
-          "file": "src/app/App.tsx",
-          "line": 697,
-          "owner": "src/app/App.tsx#App"
-        }
-      ],
-      "active": true
-    },
-    {
-      "name": "ItemIcon",
-      "file": "src/app/App.tsx",
-      "line": 108,
-      "exported": false,
-      "uses": [
-        {
-          "file": "src/app/App.tsx",
-          "line": 950,
-          "owner": "src/app/App.tsx#App"
-        },
-        {
-          "file": "src/app/App.tsx",
-          "line": 1285,
-          "owner": "src/app/App.tsx#App"
-        }
-      ],
-      "active": true
-    },
-    {
-      "name": "Figure",
-      "file": "src/app/App.tsx",
-      "line": 123,
-      "exported": false,
-      "uses": [
-        {
-          "file": "src/app/App.tsx",
-          "line": 1051,
-          "owner": "src/app/App.tsx#App"
-        },
-        {
-          "file": "src/app/App.tsx",
-          "line": 1065,
-          "owner": "src/app/App.tsx#App"
-        }
-      ],
-      "active": true
-    },
-    {
-      "name": "ItemDetails",
-      "file": "src/app/App.tsx",
-      "line": 206,
-      "exported": false,
-      "uses": [
-        {
-          "file": "src/app/App.tsx",
-          "line": 1299,
-          "owner": "src/app/App.tsx#App"
-        }
-      ],
-      "active": true
-    },
-    {
-      "name": "Rules",
-      "file": "src/app/App.tsx",
-      "line": 268,
-      "exported": false,
-      "uses": [
-        {
-          "file": "src/app/App.tsx",
-          "line": 1212,
-          "owner": "src/app/App.tsx#App"
-        }
-      ],
-      "active": true
-    },
-    {
       "name": "App",
       "file": "src/app/App.tsx",
-      "line": 387,
+      "line": 28,
       "exported": true,
       "uses": [
         {
           "file": "src/main.tsx",
           "line": 7,
+          "owner": null
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "CharacterCard",
+      "file": "src/features/characters/CharacterCard.tsx",
+      "line": 18,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/combat/GameScreen.tsx",
+          "line": 417,
+          "owner": "src/features/combat/GameScreen.tsx#GameScreen"
+        },
+        {
+          "file": "tests/responsive-preview.tsx",
+          "line": 49,
           "owner": null
         }
       ],
@@ -107,7 +41,7 @@
       "uses": [
         {
           "file": "src/app/App.tsx",
-          "line": 709,
+          "line": 117,
           "owner": "src/app/App.tsx#App"
         },
         {
@@ -126,7 +60,7 @@
       "uses": [
         {
           "file": "src/app/App.tsx",
-          "line": 677,
+          "line": 85,
           "owner": "src/app/App.tsx#App"
         },
         {
@@ -144,8 +78,13 @@
       "exported": true,
       "uses": [
         {
+          "file": "src/features/characters/CharacterCard.tsx",
+          "line": 131,
+          "owner": "src/features/characters/CharacterCard.tsx#CharacterCard"
+        },
+        {
           "file": "src/features/characters/FighterPanel.tsx",
-          "line": 65,
+          "line": 76,
           "owner": "src/features/characters/FighterPanel.tsx#FighterPanel"
         },
         {
@@ -155,7 +94,7 @@
         },
         {
           "file": "tests/reward-map-preview.tsx",
-          "line": 84,
+          "line": 83,
           "owner": null
         }
       ],
@@ -169,7 +108,7 @@
       "uses": [
         {
           "file": "src/features/characters/FighterPanel.tsx",
-          "line": 57,
+          "line": 68,
           "owner": "src/features/characters/FighterPanel.tsx#FighterPanel"
         },
         {
@@ -181,44 +120,68 @@
       "active": true
     },
     {
-      "name": "FighterPanel",
-      "file": "src/features/characters/FighterPanel.tsx",
-      "line": 15,
+      "name": "FighterDialog",
+      "file": "src/features/characters/FighterDialog.tsx",
+      "line": 8,
       "exported": true,
       "uses": [
         {
-          "file": "src/app/App.tsx",
-          "line": 1010,
-          "owner": "src/app/App.tsx#App"
+          "file": "src/features/combat/GameScreen.tsx",
+          "line": 438,
+          "owner": "src/features/combat/GameScreen.tsx#GameScreen"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "FighterPanel",
+      "file": "src/features/characters/FighterPanel.tsx",
+      "line": 16,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/characters/FighterDialog.tsx",
+          "line": 34,
+          "owner": "src/features/characters/FighterDialog.tsx#FighterDialog"
         },
         {
-          "file": "src/app/App.tsx",
-          "line": 1133,
-          "owner": "src/app/App.tsx#App"
+          "file": "src/features/combat/GameScreen.tsx",
+          "line": 282,
+          "owner": "src/features/combat/GameScreen.tsx#GameScreen"
         },
         {
-          "file": "src/app/App.tsx",
-          "line": 1314,
-          "owner": "src/app/App.tsx#App"
+          "file": "src/features/combat/GameScreen.tsx",
+          "line": 302,
+          "owner": "src/features/combat/GameScreen.tsx#GameScreen"
         },
         {
           "file": "tests/interaction-preview.tsx",
-          "line": 44,
+          "line": 43,
           "owner": null
         },
         {
           "file": "tests/interaction-preview.tsx",
-          "line": 58,
+          "line": 57,
           "owner": null
         },
         {
           "file": "tests/portrait-layout-preview.tsx",
-          "line": 32,
+          "line": 31,
           "owner": null
         },
         {
           "file": "tests/portrait-layout-preview.tsx",
-          "line": 46,
+          "line": 45,
+          "owner": null
+        },
+        {
+          "file": "tests/responsive-preview.tsx",
+          "line": 145,
+          "owner": null
+        },
+        {
+          "file": "tests/responsive-preview.tsx",
+          "line": 162,
           "owner": null
         }
       ],
@@ -230,6 +193,11 @@
       "line": 4,
       "exported": true,
       "uses": [
+        {
+          "file": "src/features/characters/CharacterCard.tsx",
+          "line": 125,
+          "owner": "src/features/characters/CharacterCard.tsx#CharacterCard"
+        },
         {
           "file": "src/features/characters/CharacterCreation.tsx",
           "line": 144,
@@ -247,13 +215,18 @@
         },
         {
           "file": "src/features/characters/FighterPanel.tsx",
-          "line": 64,
+          "line": 75,
           "owner": "src/features/characters/FighterPanel.tsx#FighterPanel"
         },
         {
-          "file": "src/features/journey/JourneyScreen.tsx",
-          "line": 130,
-          "owner": "src/features/journey/JourneyScreen.tsx#JourneyScreen"
+          "file": "src/features/combat/BattleHeader.tsx",
+          "line": 79,
+          "owner": "src/features/combat/BattleHeader.tsx#BattleHeader"
+        },
+        {
+          "file": "src/features/journey/JourneyNodeIcon.tsx",
+          "line": 54,
+          "owner": "src/features/journey/JourneyNodeIcon.tsx#JourneyNodeIcon"
         },
         {
           "file": "src/features/rewards/VictoryRewardDialog.tsx",
@@ -277,7 +250,7 @@
         },
         {
           "file": "tests/reward-map-preview.tsx",
-          "line": 83,
+          "line": 82,
           "owner": null
         }
       ],
@@ -286,17 +259,17 @@
     {
       "name": "ActionSource",
       "file": "src/features/combat/ActionFigures.tsx",
-      "line": 29,
+      "line": 30,
       "exported": true,
       "uses": [
         {
           "file": "src/features/combat/ActionFigures.tsx",
-          "line": 104,
+          "line": 105,
           "owner": "src/features/combat/ActionFigures.tsx#ActionFigure"
         },
         {
           "file": "src/features/combat/ReactionBoard.tsx",
-          "line": 48,
+          "line": 50,
           "owner": "src/features/combat/ReactionBoard.tsx#LayerIcon"
         }
       ],
@@ -305,22 +278,22 @@
     {
       "name": "ActionFigure",
       "file": "src/features/combat/ActionFigures.tsx",
-      "line": 68,
+      "line": 69,
       "exported": true,
       "uses": [
         {
           "file": "src/features/combat/ActionFigures.tsx",
-          "line": 207,
+          "line": 211,
           "owner": "src/features/combat/ActionFigures.tsx#ActionPalette"
         },
         {
           "file": "src/features/combat/ReactionBoard.tsx",
-          "line": 653,
+          "line": 646,
           "owner": "src/features/combat/ReactionBoard.tsx#ReactionBoard"
         },
         {
           "file": "src/features/combat/ReactionBoard.tsx",
-          "line": 681,
+          "line": 674,
           "owner": "src/features/combat/ReactionBoard.tsx#ReactionBoard"
         },
         {
@@ -339,12 +312,12 @@
     {
       "name": "ActionPalette",
       "file": "src/features/combat/ActionFigures.tsx",
-      "line": 128,
+      "line": 129,
       "exported": true,
       "uses": [
         {
           "file": "src/features/combat/ReactionBoard.tsx",
-          "line": 545,
+          "line": 410,
           "owner": "src/features/combat/ReactionBoard.tsx#ReactionBoard"
         }
       ],
@@ -357,19 +330,86 @@
       "exported": true,
       "uses": [
         {
-          "file": "src/app/App.tsx",
-          "line": 1053,
-          "owner": "src/app/App.tsx#App"
-        },
-        {
-          "file": "src/app/App.tsx",
-          "line": 1067,
-          "owner": "src/app/App.tsx#App"
-        },
-        {
           "file": "src/features/characters/FighterPanel.tsx",
-          "line": 56,
+          "line": 67,
           "owner": "src/features/characters/FighterPanel.tsx#FighterPanel"
+        },
+        {
+          "file": "src/features/combat/LegacyArena.tsx",
+          "line": 60,
+          "owner": "src/features/combat/LegacyArena.tsx#LegacyArena"
+        },
+        {
+          "file": "src/features/combat/LegacyArena.tsx",
+          "line": 69,
+          "owner": "src/features/combat/LegacyArena.tsx#LegacyArena"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "BattleHeader",
+      "file": "src/features/combat/BattleHeader.tsx",
+      "line": 29,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/combat/GameScreen.tsx",
+          "line": 270,
+          "owner": "src/features/combat/GameScreen.tsx#GameScreen"
+        },
+        {
+          "file": "src/features/journey/JourneyScreen.tsx",
+          "line": 68,
+          "owner": "src/features/journey/JourneyScreen.tsx#JourneyScreen"
+        },
+        {
+          "file": "tests/responsive-preview.tsx",
+          "line": 125,
+          "owner": null
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "BattleJournal",
+      "file": "src/features/combat/BattleJournal.tsx",
+      "line": 7,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/combat/GameScreen.tsx",
+          "line": 392,
+          "owner": "src/features/combat/GameScreen.tsx#GameScreen"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "BattleModeArtwork",
+      "file": "src/features/combat/BattleModeArtwork.tsx",
+      "line": 11,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/combat/BattleHeader.tsx",
+          "line": 59,
+          "owner": "src/features/combat/BattleHeader.tsx#BattleHeader"
+        },
+        {
+          "file": "src/features/combat/BattleHeader.tsx",
+          "line": 91,
+          "owner": "src/features/combat/BattleHeader.tsx#BattleHeader"
+        },
+        {
+          "file": "src/features/combat/BattleModeDialog.tsx",
+          "line": 24,
+          "owner": "src/features/combat/BattleModeDialog.tsx#BattleModeDialog"
+        },
+        {
+          "file": "src/features/journey/AdventureUI.tsx",
+          "line": 47,
+          "owner": "src/features/journey/AdventureUI.tsx#BattleModeInfo"
         }
       ],
       "active": true
@@ -377,17 +417,22 @@
     {
       "name": "BattleModeDialog",
       "file": "src/features/combat/BattleModeDialog.tsx",
-      "line": 7,
+      "line": 8,
       "exported": true,
       "uses": [
         {
-          "file": "src/app/App.tsx",
-          "line": 1167,
-          "owner": "src/app/App.tsx#App"
+          "file": "src/features/combat/GameScreen.tsx",
+          "line": 354,
+          "owner": "src/features/combat/GameScreen.tsx#GameScreen"
         },
         {
           "file": "tests/expendable-preview.tsx",
           "line": 55,
+          "owner": null
+        },
+        {
+          "file": "tests/responsive-preview.tsx",
+          "line": 121,
           "owner": null
         }
       ],
@@ -400,19 +445,33 @@
       "exported": true,
       "uses": [
         {
-          "file": "src/app/App.tsx",
-          "line": 1173,
-          "owner": "src/app/App.tsx#App"
-        },
-        {
           "file": "tests/expendable-preview.tsx",
           "line": 49,
           "owner": null
         },
         {
           "file": "tests/reward-map-preview.tsx",
-          "line": 78,
+          "line": 77,
           "owner": null
+        }
+      ],
+      "active": false
+    },
+    {
+      "name": "BattleWorkspace",
+      "file": "src/features/combat/BattleWorkspace.tsx",
+      "line": 4,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/combat/ReactionBoard.tsx",
+          "line": 407,
+          "owner": "src/features/combat/ReactionBoard.tsx#ReactionBoard"
+        },
+        {
+          "file": "src/features/combat/ReactionBoard.tsx",
+          "line": 740,
+          "owner": "src/features/combat/ReactionBoard.tsx#ClashOutcome"
         }
       ],
       "active": true
@@ -424,9 +483,9 @@
       "exported": true,
       "uses": [
         {
-          "file": "src/app/App.tsx",
-          "line": 999,
-          "owner": "src/app/App.tsx#App"
+          "file": "src/features/combat/GameScreen.tsx",
+          "line": 269,
+          "owner": "src/features/combat/GameScreen.tsx#GameScreen"
         },
         {
           "file": "tests/expendable-preview.tsx",
@@ -444,12 +503,12 @@
       "uses": [
         {
           "file": "src/features/combat/ReactionBoard.tsx",
-          "line": 401,
+          "line": 456,
           "owner": "src/features/combat/ReactionBoard.tsx#ReactionBoard"
         },
         {
           "file": "src/features/combat/ReactionBoard.tsx",
-          "line": 762,
+          "line": 766,
           "owner": "src/features/combat/ReactionBoard.tsx#ClashOutcome"
         }
       ],
@@ -465,28 +524,17 @@
           "file": "src/features/combat/CombatForecast.tsx",
           "line": 142,
           "owner": "src/features/combat/CombatForecast.tsx#CombatForecast"
-        },
-        {
-          "file": "src/features/combat/ReactionBoard.tsx",
-          "line": 830,
-          "owner": "src/features/combat/ReactionBoard.tsx#ClashOutcome"
         }
       ],
-      "active": true
+      "active": false
     },
     {
       "name": "CombatForecast",
       "file": "src/features/combat/CombatForecast.tsx",
       "line": 73,
       "exported": true,
-      "uses": [
-        {
-          "file": "src/features/combat/ReactionBoard.tsx",
-          "line": 536,
-          "owner": "src/features/combat/ReactionBoard.tsx#ReactionBoard"
-        }
-      ],
-      "active": true
+      "uses": [],
+      "active": false
     },
     {
       "name": "CombatMenu",
@@ -494,11 +542,6 @@
       "line": 5,
       "exported": true,
       "uses": [
-        {
-          "file": "src/app/App.tsx",
-          "line": 1000,
-          "owner": "src/app/App.tsx#App"
-        },
         {
           "file": "tests/interaction-preview.tsx",
           "line": 34,
@@ -508,9 +551,14 @@
           "file": "tests/portrait-layout-preview.tsx",
           "line": 22,
           "owner": null
+        },
+        {
+          "file": "tests/responsive-preview.tsx",
+          "line": 135,
+          "owner": null
         }
       ],
-      "active": true
+      "active": false
     },
     {
       "name": "Artwork",
@@ -571,9 +619,80 @@
       "exported": true,
       "uses": [
         {
+          "file": "src/features/combat/GameScreen.tsx",
+          "line": 186,
+          "owner": "src/features/combat/GameScreen.tsx#GameScreen"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "GameScreen",
+      "file": "src/features/combat/GameScreen.tsx",
+      "line": 43,
+      "exported": true,
+      "uses": [
+        {
           "file": "src/app/App.tsx",
-          "line": 824,
+          "line": 126,
           "owner": "src/app/App.tsx#App"
+        },
+        {
+          "file": "tests/battle-ending-preview.tsx",
+          "line": 22,
+          "owner": null
+        },
+        {
+          "file": "tests/game-screen-preview.tsx",
+          "line": 10,
+          "owner": null
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "InitiativeRoll",
+      "file": "src/features/combat/InitiativeRoll.tsx",
+      "line": 17,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/combat/GameScreen.tsx",
+          "line": 341,
+          "owner": "src/features/combat/GameScreen.tsx#GameScreen"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "LegacyArena",
+      "file": "src/features/combat/LegacyArena.tsx",
+      "line": 13,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/combat/GameScreen.tsx",
+          "line": 294,
+          "owner": "src/features/combat/GameScreen.tsx#GameScreen"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "Figure",
+      "file": "src/features/combat/LegacyFigure.tsx",
+      "line": 7,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/combat/LegacyArena.tsx",
+          "line": 58,
+          "owner": "src/features/combat/LegacyArena.tsx#LegacyArena"
+        },
+        {
+          "file": "src/features/combat/LegacyArena.tsx",
+          "line": 67,
+          "owner": "src/features/combat/LegacyArena.tsx#LegacyArena"
         }
       ],
       "active": true
@@ -581,27 +700,27 @@
     {
       "name": "LayerIcon",
       "file": "src/features/combat/ReactionBoard.tsx",
-      "line": 42,
+      "line": 44,
       "exported": false,
       "uses": [
         {
           "file": "src/features/combat/ReactionBoard.tsx",
-          "line": 452,
+          "line": 507,
           "owner": "src/features/combat/ReactionBoard.tsx#ReactionBoard"
         },
         {
           "file": "src/features/combat/ReactionBoard.tsx",
-          "line": 453,
+          "line": 508,
           "owner": "src/features/combat/ReactionBoard.tsx#ReactionBoard"
         },
         {
           "file": "src/features/combat/ReactionBoard.tsx",
-          "line": 783,
+          "line": 787,
           "owner": "src/features/combat/ReactionBoard.tsx#ClashOutcome"
         },
         {
           "file": "src/features/combat/ReactionBoard.tsx",
-          "line": 784,
+          "line": 788,
           "owner": "src/features/combat/ReactionBoard.tsx#ClashOutcome"
         }
       ],
@@ -610,13 +729,13 @@
     {
       "name": "ReactionBoard",
       "file": "src/features/combat/ReactionBoard.tsx",
-      "line": 52,
+      "line": 54,
       "exported": true,
       "uses": [
         {
-          "file": "src/app/App.tsx",
-          "line": 753,
-          "owner": "src/app/App.tsx#App"
+          "file": "src/features/combat/GameScreen.tsx",
+          "line": 104,
+          "owner": "src/features/combat/GameScreen.tsx#GameScreen"
         },
         {
           "file": "tests/adventure-preview.tsx",
@@ -635,7 +754,7 @@
         },
         {
           "file": "tests/interaction-preview.tsx",
-          "line": 50,
+          "line": 49,
           "owner": null
         },
         {
@@ -645,7 +764,12 @@
         },
         {
           "file": "tests/portrait-layout-preview.tsx",
-          "line": 38,
+          "line": 37,
+          "owner": null
+        },
+        {
+          "file": "tests/responsive-preview.tsx",
+          "line": 152,
           "owner": null
         },
         {
@@ -655,7 +779,7 @@
         },
         {
           "file": "tests/terrain-preview.tsx",
-          "line": 64,
+          "line": 66,
           "owner": null
         }
       ],
@@ -664,18 +788,18 @@
     {
       "name": "ClashOutcome",
       "file": "src/features/combat/ReactionBoard.tsx",
-      "line": 726,
+      "line": 719,
       "exported": true,
       "uses": [
         {
-          "file": "src/app/App.tsx",
-          "line": 811,
-          "owner": "src/app/App.tsx#App"
+          "file": "src/features/combat/BattleResultDialog.tsx",
+          "line": 51,
+          "owner": "src/features/combat/BattleResultDialog.tsx#BattleResultDialog"
         },
         {
-          "file": "src/features/combat/BattleResultDialog.tsx",
-          "line": 48,
-          "owner": "src/features/combat/BattleResultDialog.tsx#BattleResultDialog"
+          "file": "src/features/combat/GameScreen.tsx",
+          "line": 166,
+          "owner": "src/features/combat/GameScreen.tsx#GameScreen"
         },
         {
           "file": "tests/adventure-preview.tsx",
@@ -699,7 +823,7 @@
         },
         {
           "file": "tests/terrain-preview.tsx",
-          "line": 58,
+          "line": 60,
           "owner": null
         }
       ],
@@ -713,12 +837,12 @@
       "uses": [
         {
           "file": "src/features/combat/ReactionBoard.tsx",
-          "line": 400,
+          "line": 455,
           "owner": "src/features/combat/ReactionBoard.tsx#ReactionBoard"
         },
         {
           "file": "src/features/combat/ReactionBoard.tsx",
-          "line": 757,
+          "line": 761,
           "owner": "src/features/combat/ReactionBoard.tsx#ClashOutcome"
         }
       ],
@@ -727,13 +851,28 @@
     {
       "name": "Resources",
       "file": "src/features/combat/TacticalHUD.tsx",
-      "line": 5,
+      "line": 6,
       "exported": true,
       "uses": [
         {
+          "file": "src/features/characters/CharacterCard.tsx",
+          "line": 126,
+          "owner": "src/features/characters/CharacterCard.tsx#CharacterCard"
+        },
+        {
           "file": "src/features/characters/FighterPanel.tsx",
-          "line": 55,
+          "line": 66,
           "owner": "src/features/characters/FighterPanel.tsx#FighterPanel"
+        },
+        {
+          "file": "src/features/combat/BattleHeader.tsx",
+          "line": 49,
+          "owner": "src/features/combat/BattleHeader.tsx#BattleHeader"
+        },
+        {
+          "file": "src/features/combat/BattleHeader.tsx",
+          "line": 63,
+          "owner": "src/features/combat/BattleHeader.tsx#BattleHeader"
         }
       ],
       "active": true
@@ -745,13 +884,8 @@
       "exported": true,
       "uses": [
         {
-          "file": "src/app/App.tsx",
-          "line": 116,
-          "owner": "src/app/App.tsx#ItemIcon"
-        },
-        {
           "file": "src/features/combat/ActionFigures.tsx",
-          "line": 61,
+          "line": 62,
           "owner": "src/features/combat/ActionFigures.tsx#ActionSource"
         },
         {
@@ -765,9 +899,24 @@
           "owner": "src/features/equipment/EquipmentDoll.tsx#EquipmentDoll"
         },
         {
+          "file": "src/features/equipment/ItemIcon.tsx",
+          "line": 17,
+          "owner": "src/features/equipment/ItemIcon.tsx#ItemIcon"
+        },
+        {
           "file": "src/features/equipment/ItemInspection.tsx",
           "line": 110,
           "owner": "src/features/equipment/ItemInspection.tsx#ItemCard"
+        },
+        {
+          "file": "src/features/journey/AdventureUI.tsx",
+          "line": 204,
+          "owner": "src/features/journey/AdventureUI.tsx#JourneyStop"
+        },
+        {
+          "file": "src/features/journey/AdventureUI.tsx",
+          "line": 236,
+          "owner": "src/features/journey/AdventureUI.tsx#JourneyStop"
         },
         {
           "file": "src/features/rewards/VictoryRewardDialog.tsx",
@@ -784,9 +933,36 @@
       "exported": true,
       "uses": [
         {
+          "file": "src/features/characters/CharacterCard.tsx",
+          "line": 146,
+          "owner": "src/features/characters/CharacterCard.tsx#CharacterCard"
+        },
+        {
           "file": "src/features/characters/FighterPanel.tsx",
-          "line": 73,
+          "line": 84,
           "owner": "src/features/characters/FighterPanel.tsx#FighterPanel"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "ItemDetails",
+      "file": "src/features/equipment/ItemDetails.tsx",
+      "line": 7,
+      "exported": true,
+      "uses": [],
+      "active": false
+    },
+    {
+      "name": "ItemIcon",
+      "file": "src/features/equipment/ItemIcon.tsx",
+      "line": 9,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/combat/GameScreen.tsx",
+          "line": 221,
+          "owner": "src/features/combat/GameScreen.tsx#GameScreen"
         }
       ],
       "active": true
@@ -831,14 +1007,14 @@
       "exported": true,
       "uses": [
         {
-          "file": "src/app/App.tsx",
-          "line": 960,
-          "owner": "src/app/App.tsx#App"
+          "file": "src/features/combat/GameScreen.tsx",
+          "line": 231,
+          "owner": "src/features/combat/GameScreen.tsx#GameScreen"
         },
         {
-          "file": "src/app/App.tsx",
-          "line": 1214,
-          "owner": "src/app/App.tsx#App"
+          "file": "src/features/combat/GameScreen.tsx",
+          "line": 396,
+          "owner": "src/features/combat/GameScreen.tsx#GameScreen"
         },
         {
           "file": "src/features/equipment/ItemInspectionWindow.tsx",
@@ -857,7 +1033,7 @@
         },
         {
           "file": "tests/map-preview.tsx",
-          "line": 139,
+          "line": 138,
           "owner": null
         }
       ],
@@ -870,9 +1046,9 @@
       "exported": true,
       "uses": [
         {
-          "file": "src/app/App.tsx",
-          "line": 1343,
-          "owner": "src/app/App.tsx#App"
+          "file": "src/features/combat/GameScreen.tsx",
+          "line": 454,
+          "owner": "src/features/combat/GameScreen.tsx#GameScreen"
         },
         {
           "file": "tests/item-window-preview.tsx",
@@ -890,8 +1066,13 @@
       "uses": [
         {
           "file": "src/app/App.tsx",
-          "line": 665,
+          "line": 73,
           "owner": "src/app/App.tsx#App"
+        },
+        {
+          "file": "tests/responsive-preview.tsx",
+          "line": 63,
+          "owner": null
         },
         {
           "file": "tests/start-screen-preview.tsx",
@@ -904,17 +1085,17 @@
     {
       "name": "SpecialMark",
       "file": "src/features/journey/AdventureUI.tsx",
-      "line": 15,
+      "line": 19,
       "exported": true,
       "uses": [
         {
           "file": "src/features/combat/ReactionBoard.tsx",
-          "line": 451,
+          "line": 506,
           "owner": "src/features/combat/ReactionBoard.tsx#ReactionBoard"
         },
         {
           "file": "src/features/combat/ReactionBoard.tsx",
-          "line": 782,
+          "line": 786,
           "owner": "src/features/combat/ReactionBoard.tsx#ClashOutcome"
         }
       ],
@@ -923,18 +1104,13 @@
     {
       "name": "BattleModeInfo",
       "file": "src/features/journey/AdventureUI.tsx",
-      "line": 31,
+      "line": 35,
       "exported": true,
       "uses": [
         {
           "file": "src/features/journey/AdventureUI.tsx",
-          "line": 99,
+          "line": 104,
           "owner": "src/features/journey/AdventureUI.tsx#JourneyChoices"
-        },
-        {
-          "file": "src/features/journey/JourneyScreen.tsx",
-          "line": 194,
-          "owner": "src/features/journey/JourneyScreen.tsx#JourneyScreen"
         },
         {
           "file": "tests/map-preview.tsx",
@@ -947,13 +1123,13 @@
     {
       "name": "JourneyChoices",
       "file": "src/features/journey/AdventureUI.tsx",
-      "line": 60,
+      "line": 65,
       "exported": true,
       "uses": [
         {
-          "file": "src/app/App.tsx",
-          "line": 797,
-          "owner": "src/app/App.tsx#App"
+          "file": "src/features/combat/GameScreen.tsx",
+          "line": 152,
+          "owner": "src/features/combat/GameScreen.tsx#GameScreen"
         },
         {
           "file": "tests/adventure-preview.tsx",
@@ -971,17 +1147,17 @@
     {
       "name": "JourneyStop",
       "file": "src/features/journey/AdventureUI.tsx",
-      "line": 145,
+      "line": 154,
       "exported": true,
       "uses": [
         {
           "file": "src/features/journey/AdventureUI.tsx",
-          "line": 102,
+          "line": 107,
           "owner": "src/features/journey/AdventureUI.tsx#JourneyChoices"
         },
         {
           "file": "src/features/journey/JourneyScreen.tsx",
-          "line": 206,
+          "line": 103,
           "owner": "src/features/journey/JourneyScreen.tsx#JourneyScreen"
         }
       ],
@@ -990,12 +1166,12 @@
     {
       "name": "NodeDialog",
       "file": "src/features/journey/JourneyMap.tsx",
-      "line": 29,
+      "line": 30,
       "exported": false,
       "uses": [
         {
           "file": "src/features/journey/JourneyMap.tsx",
-          "line": 278,
+          "line": 306,
           "owner": "src/features/journey/JourneyMap.tsx#JourneyMap"
         }
       ],
@@ -1004,17 +1180,17 @@
     {
       "name": "JourneyMap",
       "file": "src/features/journey/JourneyMap.tsx",
-      "line": 126,
+      "line": 127,
       "exported": true,
       "uses": [
         {
           "file": "src/features/journey/AdventureUI.tsx",
-          "line": 110,
+          "line": 115,
           "owner": "src/features/journey/AdventureUI.tsx#JourneyChoices"
         },
         {
           "file": "src/features/journey/JourneyScreen.tsx",
-          "line": 144,
+          "line": 76,
           "owner": "src/features/journey/JourneyScreen.tsx#JourneyScreen"
         },
         {
@@ -1026,19 +1202,28 @@
       "active": true
     },
     {
+      "name": "JourneyNodeIcon",
+      "file": "src/features/journey/JourneyNodeIcon.tsx",
+      "line": 7,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/journey/JourneyMap.tsx",
+          "line": 272,
+          "owner": "src/features/journey/JourneyMap.tsx#JourneyMap"
+        }
+      ],
+      "active": true
+    },
+    {
       "name": "MapWindow",
       "file": "src/features/journey/JourneyScreen.tsx",
-      "line": 32,
+      "line": 16,
       "exported": false,
       "uses": [
         {
           "file": "src/features/journey/JourneyScreen.tsx",
-          "line": 190,
-          "owner": "src/features/journey/JourneyScreen.tsx#JourneyScreen"
-        },
-        {
-          "file": "src/features/journey/JourneyScreen.tsx",
-          "line": 202,
+          "line": 99,
           "owner": "src/features/journey/JourneyScreen.tsx#JourneyScreen"
         }
       ],
@@ -1047,13 +1232,13 @@
     {
       "name": "JourneyScreen",
       "file": "src/features/journey/JourneyScreen.tsx",
-      "line": 53,
+      "line": 37,
       "exported": true,
       "uses": [
         {
-          "file": "src/app/App.tsx",
-          "line": 979,
-          "owner": "src/app/App.tsx#App"
+          "file": "src/features/combat/GameScreen.tsx",
+          "line": 250,
+          "owner": "src/features/combat/GameScreen.tsx#GameScreen"
         },
         {
           "file": "tests/map-preview.tsx",
@@ -1063,6 +1248,16 @@
         {
           "file": "tests/map-resume-preview.tsx",
           "line": 20,
+          "owner": null
+        },
+        {
+          "file": "tests/responsive-preview.tsx",
+          "line": 73,
+          "owner": null
+        },
+        {
+          "file": "tests/responsive-preview.tsx",
+          "line": 104,
           "owner": null
         },
         {
@@ -1113,19 +1308,33 @@
       "exported": true,
       "uses": [
         {
-          "file": "src/app/App.tsx",
-          "line": 1176,
-          "owner": "src/app/App.tsx#App"
+          "file": "src/features/combat/GameScreen.tsx",
+          "line": 360,
+          "owner": "src/features/combat/GameScreen.tsx#GameScreen"
         },
         {
           "file": "tests/reward-map-preview.tsx",
-          "line": 95,
+          "line": 94,
           "owner": null
         },
         {
           "file": "tests/skills-preview.tsx",
           "line": 93,
           "owner": null
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "Rules",
+      "file": "src/features/rules/Rules.tsx",
+      "line": 3,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/combat/GameScreen.tsx",
+          "line": 394,
+          "owner": "src/features/combat/GameScreen.tsx#GameScreen"
         }
       ],
       "active": true
@@ -1138,7 +1347,7 @@
       "uses": [
         {
           "file": "src/features/combat/ActionFigures.tsx",
-          "line": 38,
+          "line": 39,
           "owner": "src/features/combat/ActionFigures.tsx#ActionSource"
         },
         {
@@ -1185,8 +1394,13 @@
       "exported": true,
       "uses": [
         {
+          "file": "src/features/characters/CharacterCard.tsx",
+          "line": 150,
+          "owner": "src/features/characters/CharacterCard.tsx#CharacterCard"
+        },
+        {
           "file": "src/features/characters/FighterPanel.tsx",
-          "line": 80,
+          "line": 91,
           "owner": "src/features/characters/FighterPanel.tsx#FighterPanel"
         },
         {
@@ -1203,11 +1417,35 @@
       "active": true
     },
     {
-      "name": "CharacterPortrait",
-      "file": "src/shared/ui/CharacterPortrait.tsx",
-      "line": 12,
+      "name": "Mark",
+      "file": "src/shared/ui/BrandMark.tsx",
+      "line": 5,
       "exported": true,
       "uses": [
+        {
+          "file": "src/app/App.tsx",
+          "line": 98,
+          "owner": "src/app/App.tsx#App"
+        },
+        {
+          "file": "src/app/App.tsx",
+          "line": 105,
+          "owner": "src/app/App.tsx#App"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "CharacterPortrait",
+      "file": "src/shared/ui/CharacterPortrait.tsx",
+      "line": 13,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/characters/CharacterCard.tsx",
+          "line": 120,
+          "owner": "src/features/characters/CharacterCard.tsx#CharacterCard"
+        },
         {
           "file": "src/features/characters/CharacterCreation.tsx",
           "line": 108,
@@ -1220,18 +1458,42 @@
         },
         {
           "file": "src/features/characters/FighterPanel.tsx",
-          "line": 45,
+          "line": 48,
           "owner": "src/features/characters/FighterPanel.tsx#FighterPanel"
         },
         {
-          "file": "src/features/journey/JourneyMap.tsx",
-          "line": 73,
-          "owner": "src/features/journey/JourneyMap.tsx#NodeDialog"
+          "file": "src/features/combat/BattleHeader.tsx",
+          "line": 42,
+          "owner": "src/features/combat/BattleHeader.tsx#BattleHeader"
         },
         {
-          "file": "src/features/journey/JourneyScreen.tsx",
-          "line": 103,
-          "owner": "src/features/journey/JourneyScreen.tsx#JourneyScreen"
+          "file": "src/features/combat/BattleHeader.tsx",
+          "line": 64,
+          "owner": "src/features/combat/BattleHeader.tsx#BattleHeader"
+        },
+        {
+          "file": "src/features/journey/JourneyMap.tsx",
+          "line": 74,
+          "owner": "src/features/journey/JourneyMap.tsx#NodeDialog"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "GameMenuOptions",
+      "file": "src/shared/ui/GameMenu.tsx",
+      "line": 13,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/characters/CharacterCard.tsx",
+          "line": 154,
+          "owner": "src/features/characters/CharacterCard.tsx#CharacterCard"
+        },
+        {
+          "file": "src/shared/ui/GameMenu.tsx",
+          "line": 59,
+          "owner": "src/shared/ui/GameMenu.tsx#GameMenu"
         }
       ],
       "active": true
@@ -1239,21 +1501,16 @@
     {
       "name": "GameMenu",
       "file": "src/shared/ui/GameMenu.tsx",
-      "line": 14,
+      "line": 51,
       "exported": true,
       "uses": [
         {
           "file": "src/features/combat/CombatMenu.tsx",
-          "line": 33,
+          "line": 31,
           "owner": "src/features/combat/CombatMenu.tsx#CombatMenu"
-        },
-        {
-          "file": "src/features/journey/JourneyScreen.tsx",
-          "line": 181,
-          "owner": "src/features/journey/JourneyScreen.tsx#JourneyScreen"
         }
       ],
-      "active": true
+      "active": false
     },
     {
       "name": "GothicIcon",
@@ -1261,6 +1518,11 @@
       "line": 11,
       "exported": true,
       "uses": [
+        {
+          "file": "src/features/characters/CharacterCard.tsx",
+          "line": 106,
+          "owner": "src/features/characters/CharacterCard.tsx#CharacterCard"
+        },
         {
           "file": "src/features/characters/CharacterCreation.tsx",
           "line": 106,
@@ -1293,18 +1555,13 @@
         },
         {
           "file": "src/features/combat/CombatMenu.tsx",
-          "line": 30,
+          "line": 28,
           "owner": "src/features/combat/CombatMenu.tsx#CombatMenu"
         },
         {
           "file": "src/features/equipment/ItemInspectionWindow.tsx",
           "line": 28,
           "owner": "src/features/equipment/ItemInspectionWindow.tsx#ItemInspectionWindow"
-        },
-        {
-          "file": "src/features/journey/JourneyScreen.tsx",
-          "line": 101,
-          "owner": "src/features/journey/JourneyScreen.tsx#JourneyScreen"
         },
         {
           "file": "src/shared/ui/ModalHeader.tsx",
@@ -1327,17 +1584,7 @@
       "uses": [
         {
           "file": "src/app/App.tsx",
-          "line": 651,
-          "owner": "src/app/App.tsx#App"
-        },
-        {
-          "file": "src/app/App.tsx",
-          "line": 1222,
-          "owner": "src/app/App.tsx#App"
-        },
-        {
-          "file": "src/app/App.tsx",
-          "line": 1248,
+          "line": 59,
           "owner": "src/app/App.tsx#App"
         },
         {
@@ -1362,68 +1609,83 @@
         },
         {
           "file": "src/features/combat/BattleModeDialog.tsx",
-          "line": 27,
+          "line": 29,
           "owner": "src/features/combat/BattleModeDialog.tsx#BattleModeDialog"
         },
         {
           "file": "src/features/combat/BattleResultDialog.tsx",
-          "line": 59,
+          "line": 62,
           "owner": "src/features/combat/BattleResultDialog.tsx#BattleResultDialog"
         },
         {
+          "file": "src/features/combat/GameScreen.tsx",
+          "line": 404,
+          "owner": "src/features/combat/GameScreen.tsx#GameScreen"
+        },
+        {
           "file": "src/features/combat/ReactionBoard.tsx",
-          "line": 585,
+          "line": 545,
           "owner": "src/features/combat/ReactionBoard.tsx#ReactionBoard"
         },
         {
           "file": "src/features/combat/ReactionBoard.tsx",
-          "line": 607,
+          "line": 573,
           "owner": "src/features/combat/ReactionBoard.tsx#ReactionBoard"
         },
         {
           "file": "src/features/combat/ReactionBoard.tsx",
-          "line": 610,
+          "line": 605,
           "owner": "src/features/combat/ReactionBoard.tsx#ReactionBoard"
+        },
+        {
+          "file": "src/features/combat/ReactionBoard.tsx",
+          "line": 608,
+          "owner": "src/features/combat/ReactionBoard.tsx#ReactionBoard"
+        },
+        {
+          "file": "src/features/combat/ReactionBoard.tsx",
+          "line": 626,
+          "owner": "src/features/combat/ReactionBoard.tsx#ReactionBoard"
+        },
+        {
+          "file": "src/features/combat/ReactionBoard.tsx",
+          "line": 824,
+          "owner": "src/features/combat/ReactionBoard.tsx#ClashOutcome"
         },
         {
           "file": "src/features/journey/AdventureUI.tsx",
-          "line": 74,
+          "line": 79,
           "owner": "src/features/journey/AdventureUI.tsx#JourneyChoices"
         },
         {
           "file": "src/features/journey/AdventureUI.tsx",
-          "line": 125,
+          "line": 130,
           "owner": "src/features/journey/AdventureUI.tsx#JourneyChoices"
         },
         {
           "file": "src/features/journey/AdventureUI.tsx",
-          "line": 203,
+          "line": 215,
           "owner": "src/features/journey/AdventureUI.tsx#JourneyStop"
         },
         {
           "file": "src/features/journey/AdventureUI.tsx",
-          "line": 219,
+          "line": 255,
           "owner": "src/features/journey/AdventureUI.tsx#JourneyStop"
         },
         {
           "file": "src/features/journey/AdventureUI.tsx",
-          "line": 233,
+          "line": 262,
           "owner": "src/features/journey/AdventureUI.tsx#JourneyStop"
         },
         {
           "file": "src/features/journey/JourneyMap.tsx",
-          "line": 103,
+          "line": 104,
           "owner": "src/features/journey/JourneyMap.tsx#NodeDialog"
         },
         {
           "file": "src/features/journey/JourneyMap.tsx",
-          "line": 112,
+          "line": 113,
           "owner": "src/features/journey/JourneyMap.tsx#NodeDialog"
-        },
-        {
-          "file": "src/features/journey/JourneyScreen.tsx",
-          "line": 214,
-          "owner": "src/features/journey/JourneyScreen.tsx#JourneyScreen"
         },
         {
           "file": "src/features/rewards/VictoryRewardDialog.tsx",
@@ -1437,28 +1699,23 @@
         },
         {
           "file": "src/shared/ui/GameMenu.tsx",
-          "line": 30,
-          "owner": "src/shared/ui/GameMenu.tsx#GameMenu"
+          "line": 27,
+          "owner": "src/shared/ui/GameMenu.tsx#GameMenuOptions"
         },
         {
           "file": "src/shared/ui/GameMenu.tsx",
-          "line": 35,
-          "owner": "src/shared/ui/GameMenu.tsx#GameMenu"
+          "line": 32,
+          "owner": "src/shared/ui/GameMenu.tsx#GameMenuOptions"
         },
         {
           "file": "src/shared/ui/GameMenu.tsx",
-          "line": 41,
-          "owner": "src/shared/ui/GameMenu.tsx#GameMenu"
+          "line": 38,
+          "owner": "src/shared/ui/GameMenu.tsx#GameMenuOptions"
         },
         {
           "file": "src/shared/ui/GameMenu.tsx",
-          "line": 46,
-          "owner": "src/shared/ui/GameMenu.tsx#GameMenu"
-        },
-        {
-          "file": "src/shared/ui/GameMenu.tsx",
-          "line": 50,
-          "owner": "src/shared/ui/GameMenu.tsx#GameMenu"
+          "line": 43,
+          "owner": "src/shared/ui/GameMenu.tsx#GameMenuOptions"
         },
         {
           "file": "tests/text-controls-preview.tsx",
@@ -1481,18 +1738,13 @@
       "uses": [
         {
           "file": "src/app/App.tsx",
-          "line": 641,
+          "line": 49,
           "owner": "src/app/App.tsx#App"
         },
         {
-          "file": "src/app/App.tsx",
-          "line": 1194,
-          "owner": "src/app/App.tsx#App"
-        },
-        {
-          "file": "src/app/App.tsx",
-          "line": 1309,
-          "owner": "src/app/App.tsx#App"
+          "file": "src/features/characters/CharacterCard.tsx",
+          "line": 65,
+          "owner": "src/features/characters/CharacterCard.tsx#CharacterCard"
         },
         {
           "file": "src/features/characters/CharacterCreation.tsx",
@@ -1510,8 +1762,18 @@
           "owner": "src/features/characters/CharacterHome.tsx#CharacterHome"
         },
         {
+          "file": "src/features/characters/FighterDialog.tsx",
+          "line": 28,
+          "owner": "src/features/characters/FighterDialog.tsx#FighterDialog"
+        },
+        {
+          "file": "src/features/combat/BattleHeader.tsx",
+          "line": 85,
+          "owner": "src/features/combat/BattleHeader.tsx#BattleHeader"
+        },
+        {
           "file": "src/features/combat/BattleModeDialog.tsx",
-          "line": 16,
+          "line": 17,
           "owner": "src/features/combat/BattleModeDialog.tsx#BattleModeDialog"
         },
         {
@@ -1520,14 +1782,34 @@
           "owner": "src/features/combat/BattleResultDialog.tsx#BattleResultDialog"
         },
         {
+          "file": "src/features/combat/GameScreen.tsx",
+          "line": 378,
+          "owner": "src/features/combat/GameScreen.tsx#GameScreen"
+        },
+        {
+          "file": "src/features/combat/InitiativeRoll.tsx",
+          "line": 95,
+          "owner": "src/features/combat/InitiativeRoll.tsx#InitiativeRoll"
+        },
+        {
           "file": "src/features/combat/ReactionBoard.tsx",
-          "line": 593,
+          "line": 553,
           "owner": "src/features/combat/ReactionBoard.tsx#ReactionBoard"
         },
         {
           "file": "src/features/combat/ReactionBoard.tsx",
-          "line": 662,
+          "line": 591,
           "owner": "src/features/combat/ReactionBoard.tsx#ReactionBoard"
+        },
+        {
+          "file": "src/features/combat/ReactionBoard.tsx",
+          "line": 655,
+          "owner": "src/features/combat/ReactionBoard.tsx#ReactionBoard"
+        },
+        {
+          "file": "src/features/combat/ReactionBoard.tsx",
+          "line": 801,
+          "owner": "src/features/combat/ReactionBoard.tsx#ClashOutcome"
         },
         {
           "file": "src/features/equipment/ItemInspectionWindow.tsx",
@@ -1536,12 +1818,12 @@
         },
         {
           "file": "src/features/journey/JourneyMap.tsx",
-          "line": 61,
+          "line": 62,
           "owner": "src/features/journey/JourneyMap.tsx#NodeDialog"
         },
         {
           "file": "src/features/journey/JourneyScreen.tsx",
-          "line": 42,
+          "line": 26,
           "owner": "src/features/journey/JourneyScreen.tsx#MapWindow"
         },
         {
@@ -1556,7 +1838,7 @@
         },
         {
           "file": "src/shared/ui/GameMenu.tsx",
-          "line": 28,
+          "line": 53,
           "owner": "src/shared/ui/GameMenu.tsx#GameMenu"
         },
         {
@@ -1575,7 +1857,7 @@
       "uses": [
         {
           "file": "src/app/App.tsx",
-          "line": 650,
+          "line": 58,
           "owner": "src/app/App.tsx#App"
         },
         {
@@ -1595,28 +1877,28 @@
         },
         {
           "file": "src/features/combat/BattleModeDialog.tsx",
-          "line": 26,
+          "line": 28,
           "owner": "src/features/combat/BattleModeDialog.tsx#BattleModeDialog"
         },
         {
           "file": "src/features/combat/BattleResultDialog.tsx",
-          "line": 58,
+          "line": 61,
           "owner": "src/features/combat/BattleResultDialog.tsx#BattleResultDialog"
         },
         {
           "file": "src/features/combat/ReactionBoard.tsx",
-          "line": 606,
+          "line": 604,
           "owner": "src/features/combat/ReactionBoard.tsx#ReactionBoard"
         },
         {
-          "file": "src/features/journey/JourneyMap.tsx",
-          "line": 102,
-          "owner": "src/features/journey/JourneyMap.tsx#NodeDialog"
+          "file": "src/features/journey/AdventureUI.tsx",
+          "line": 254,
+          "owner": "src/features/journey/AdventureUI.tsx#JourneyStop"
         },
         {
-          "file": "src/features/journey/JourneyScreen.tsx",
-          "line": 213,
-          "owner": "src/features/journey/JourneyScreen.tsx#JourneyScreen"
+          "file": "src/features/journey/JourneyMap.tsx",
+          "line": 103,
+          "owner": "src/features/journey/JourneyMap.tsx#NodeDialog"
         },
         {
           "file": "src/features/rewards/VictoryRewardDialog.tsx",
@@ -1643,28 +1925,18 @@
     {
       "name": "ResourceBar",
       "file": "src/shared/ui/ResourceBar.tsx",
-      "line": 18,
+      "line": 19,
       "exported": true,
       "uses": [
-        {
-          "file": "src/features/combat/TacticalHUD.tsx",
-          "line": 8,
-          "owner": "src/features/combat/TacticalHUD.tsx#Resources"
-        },
         {
           "file": "src/features/combat/TacticalHUD.tsx",
           "line": 15,
           "owner": "src/features/combat/TacticalHUD.tsx#Resources"
         },
         {
-          "file": "src/features/journey/JourneyScreen.tsx",
-          "line": 111,
-          "owner": "src/features/journey/JourneyScreen.tsx#JourneyScreen"
-        },
-        {
-          "file": "src/features/journey/JourneyScreen.tsx",
-          "line": 117,
-          "owner": "src/features/journey/JourneyScreen.tsx#JourneyScreen"
+          "file": "src/features/combat/TacticalHUD.tsx",
+          "line": 23,
+          "owner": "src/features/combat/TacticalHUD.tsx#Resources"
         }
       ],
       "active": true
@@ -1679,7 +1951,7 @@
       "uses": [
         {
           "file": "src/features/combat/ActionFigures.tsx",
-          "line": 59
+          "line": 60
         }
       ]
     },
@@ -2494,6 +2766,61 @@
       ]
     },
     {
+      "file": "public/ui/battle-modes/expendable-v1.png",
+      "url": "/ui/battle-modes/expendable-v1.png",
+      "bytes": 1424977,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "src/features/combat/BattleModeArtwork.tsx",
+          "line": 8
+        }
+      ]
+    },
+    {
+      "file": "public/ui/battle-modes/free-v1.png",
+      "url": "/ui/battle-modes/free-v1.png",
+      "bytes": 1133925,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "src/features/combat/BattleModeArtwork.tsx",
+          "line": 7
+        }
+      ]
+    },
+    {
+      "file": "public/ui/battle-modes/limited-v1.png",
+      "url": "/ui/battle-modes/limited-v1.png",
+      "bytes": 2206670,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "src/features/combat/BattleModeArtwork.tsx",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "file": "public/ui/character-card-frame-v1.png",
+      "url": "/ui/character-card-frame-v1.png",
+      "bytes": 1359090,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "public/ui/character-card-tabs-v1.png",
+      "url": "/ui/character-card-tabs-v1.png",
+      "bytes": 1004118,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "src/features/characters/character-card.css",
+          "line": 93
+        }
+      ]
+    },
+    {
       "file": "public/ui/equipment-silhouette-neutral.png",
       "url": "/ui/equipment-silhouette-neutral.png",
       "bytes": 2300396,
@@ -2521,6 +2848,10 @@
         {
           "file": "src/app/styles/ui-textures.css",
           "line": 4
+        },
+        {
+          "file": "src/features/combat/battle-header.css",
+          "line": 27
         }
       ]
     },
@@ -2539,15 +2870,11 @@
       "uses": [
         {
           "file": "src/app/styles/ui-textures.css",
-          "line": 135
+          "line": 103
         },
         {
           "file": "src/app/styles/ui-textures.css",
-          "line": 154
-        },
-        {
-          "file": "src/features/journey/journey-screen.css",
-          "line": 8
+          "line": 122
         }
       ]
     },
@@ -2559,11 +2886,11 @@
       "uses": [
         {
           "file": "src/app/styles/ui-textures.css",
-          "line": 136
+          "line": 104
         },
         {
           "file": "src/app/styles/ui-textures.css",
-          "line": 155
+          "line": 123
         }
       ]
     },
@@ -2575,11 +2902,11 @@
       "uses": [
         {
           "file": "src/app/styles/ui-textures.css",
-          "line": 135
+          "line": 103
         },
         {
           "file": "src/app/styles/ui-textures.css",
-          "line": 154
+          "line": 122
         }
       ]
     },
@@ -2624,9 +2951,9 @@
       ]
     },
     {
-      "file": "public/ui/journey/maps/forest-v1.png",
-      "url": "/ui/journey/maps/forest-v1.png",
-      "bytes": 3279182,
+      "file": "public/ui/journey/maps/forest-v3.png",
+      "url": "/ui/journey/maps/forest-v3.png",
+      "bytes": 11136870,
       "extension": ".png",
       "uses": [
         {
@@ -2643,19 +2970,19 @@
       "uses": [
         {
           "file": "data/journey-maps.json",
-          "line": 225
+          "line": 22
         }
       ]
     },
     {
-      "file": "public/ui/journey/maps/ruins-v1.png",
-      "url": "/ui/journey/maps/ruins-v1.png",
-      "bytes": 3425198,
+      "file": "public/ui/journey/maps/ruins-v3.png",
+      "url": "/ui/journey/maps/ruins-v3.png",
+      "bytes": 11649466,
       "extension": ".png",
       "uses": [
         {
           "file": "data/journey-maps.json",
-          "line": 224
+          "line": 21
         }
       ]
     },
@@ -2667,19 +2994,19 @@
       "uses": [
         {
           "file": "data/journey-maps.json",
-          "line": 120
+          "line": 14
         }
       ]
     },
     {
-      "file": "public/ui/journey/maps/steppe-v1.png",
-      "url": "/ui/journey/maps/steppe-v1.png",
-      "bytes": 3705008,
+      "file": "public/ui/journey/maps/steppe-v3.png",
+      "url": "/ui/journey/maps/steppe-v3.png",
+      "bytes": 11957730,
       "extension": ".png",
       "uses": [
         {
           "file": "data/journey-maps.json",
-          "line": 119
+          "line": 13
         }
       ]
     },
@@ -2689,6 +3016,10 @@
       "bytes": 3185423,
       "extension": ".png",
       "uses": [
+        {
+          "file": "src/features/characters/character-card.css",
+          "line": 108
+        },
         {
           "file": "src/features/skills/skill-slots.css",
           "line": 10
@@ -2712,6 +3043,10 @@
       "bytes": 3025416,
       "extension": ".png",
       "uses": [
+        {
+          "file": "src/features/combat/battle-header.css",
+          "line": 18
+        },
         {
           "file": "src/shared/ui/modal-header.css",
           "line": 11
@@ -2782,6 +3117,18 @@
       "uses": []
     },
     {
+      "file": "public/ui/portrait-frame-round-v1.png",
+      "url": "/ui/portrait-frame-round-v1.png",
+      "bytes": 874116,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "src/shared/ui/portrait-frame.css",
+          "line": 81
+        }
+      ]
+    },
+    {
       "file": "public/ui/portrait-frame-v1.png",
       "url": "/ui/portrait-frame-v1.png",
       "bytes": 1185947,
@@ -2789,7 +3136,7 @@
       "uses": [
         {
           "file": "src/shared/ui/portrait-frame.css",
-          "line": 3
+          "line": 4
         }
       ]
     },
@@ -3400,6 +3747,34 @@
       "url": "/__project_assets/assets/ui/item-card-leather-v1/generation.md",
       "bytes": 1796,
       "extension": ".md",
+      "uses": []
+    },
+    {
+      "file": "assets/ui/journey-maps-v3/README.md",
+      "url": "/__project_assets/assets/ui/journey-maps-v3/README.md",
+      "bytes": 1459,
+      "extension": ".md",
+      "uses": []
+    },
+    {
+      "file": "assets/ui/journey-maps-v3/forest-terrain-prompt.txt",
+      "url": "/__project_assets/assets/ui/journey-maps-v3/forest-terrain-prompt.txt",
+      "bytes": 1554,
+      "extension": ".txt",
+      "uses": []
+    },
+    {
+      "file": "assets/ui/journey-maps-v3/ruins-architecture-prompt.txt",
+      "url": "/__project_assets/assets/ui/journey-maps-v3/ruins-architecture-prompt.txt",
+      "bytes": 1434,
+      "extension": ".txt",
+      "uses": []
+    },
+    {
+      "file": "assets/ui/journey-maps-v3/steppe-terrain-prompt.txt",
+      "url": "/__project_assets/assets/ui/journey-maps-v3/steppe-terrain-prompt.txt",
+      "bytes": 1436,
+      "extension": ".txt",
       "uses": []
     },
     {

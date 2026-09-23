@@ -117,7 +117,6 @@ function Preview() {
         <JourneyScreen
           onHome={() => setError("Главный экран")}
           onHero={() => setError("Карточка героя")}
-          onCatalog={() => setError("Арсенал")}
           onRules={() => setError("Правила")}
           key={`${game.fight}:${game.journey!.path?.join("/")}`}
           game={publicClash(game)}

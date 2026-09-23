@@ -23,7 +23,6 @@ createRoot(document.getElementById("root")!).render(
       busy={false}
       onHome={() => {}}
       onMap={() => {}}
-      onCatalog={() => {}}
       onRules={() => {}}
       onJournal={() => {}}
     />

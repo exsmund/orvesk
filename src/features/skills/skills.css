@@ -81,7 +81,7 @@
   width: 75%;
   height: 75%;
 }
-@media (max-width: 760px) {
+@media (max-width: 599px) {
   .arena-layout > .fighter-panel > .fighter-skills {
     display: none;
   }

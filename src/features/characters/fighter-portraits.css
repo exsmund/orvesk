@@ -68,57 +68,11 @@
 .fighter-details .doll-slot {
   width: 64px;
 }
-.fighter-details .slot-weapon,
-.fighter-details .slot-shield {
-  top: 110px;
-}
-.fighter-details .slot-body {
-  top: 65px;
-}
-.fighter-details .slot-feet {
-  bottom: 8px;
-}
 .fighter-details .doll-item-detail {
   min-height: 0;
   margin-top: 20px;
 }
-@media (max-width: 1020px), (max-height: 760px) {
-  .combat-app .arena-layout > .fighter-panel {
-    padding: 0;
-    overflow: hidden;
-    display: flex;
-    position: relative;
-  }
-  .combat-app
-    .arena-layout
-    > .fighter-panel
-    > :not(.fighter-identity):not(.floating-damage):not(.combat-resources):not(
-      .fighter-debuffs
-    ) {
-    display: none;
-  }
-  .combat-app .arena-layout > .fighter-panel .fighter-identity {
-    margin: 0;
-    flex: 1;
-    min-height: 0;
-    container-type: size;
-    justify-content: center;
-  }
-  .combat-app .arena-layout > .fighter-panel .fighter-identity h2 {
-    display: none;
-  }
-  .combat-app .arena-layout > .fighter-panel .fighter-portrait-button {
-    width: min(100cqw, calc(100cqh * 2 / 3));
-    height: auto;
-    flex-shrink: 0;
-  }
-  .combat-app .arena-layout > .fighter-panel > .combat-resources {
-    display: grid;
-    flex-shrink: 0;
-    margin: 7px 8px 8px;
-  }
-}
-@media (max-width: 760px) {
+@media (max-width: 599px) {
   .combat-app .arena-layout {
     --mobile-portrait-height: clamp(90px, 16dvh, 136px);
     grid-template-rows: calc(var(--mobile-portrait-height) + 12px) minmax(
@@ -252,20 +206,7 @@ button.fighter-debuff:focus-visible {
 .fighter-details .fighter-debuff small {
   font-size: 0.72rem;
 }
-@media (max-width: 1020px), (max-height: 760px) {
-  .combat-app .arena-layout > .fighter-panel > .fighter-debuffs {
-    display: flex;
-    margin: 0 8px 8px;
-  }
-  .combat-app .arena-layout > .fighter-panel .fighter-debuff {
-    padding: 5px;
-    gap: 4px;
-  }
-  .combat-app .arena-layout > .fighter-panel .fighter-debuff small {
-    display: none;
-  }
-}
-@media (max-width: 760px) {
+@media (max-width: 599px) {
   .combat-app .arena-layout:has(> .fighter-panel > .fighter-debuffs) {
     grid-template-rows: calc(var(--mobile-portrait-height) + 50px) minmax(
         0,

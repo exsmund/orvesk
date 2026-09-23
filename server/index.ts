@@ -9,10 +9,10 @@ import {
   prepareClash as prepareRound,
   publicClash as publicGame,
   submitClash,
+  applyClashCharm,
   finishClashActions,
 } from "../src/game/combat/reaction-engine";
 import { upgradeAttribute } from "../src/game/progression/souls";
-import { useHealingCharge } from "../src/game/progression/healing";
 import {
   createJourney,
   claimJourneyReward,
@@ -168,7 +168,11 @@ app.post("/api/sessions/:id/action", async (req, res) => {
     }
     let updated: Game;
     if (type === "finish-actions") updated = finishClashActions(game);
-    else if (type === "clash") {
+    else if (type === "charm") {
+      if (stage !== game.clashPlan?.stage)
+        throw new Error("Этап хода изменился.");
+      updated = applyClashCharm(game, req.body.charm, req.body.target);
+    } else if (type === "clash") {
       if (stage !== game.clashPlan?.stage) {
         res
           .status(409)
@@ -179,8 +183,7 @@ app.post("/api/sessions/:id/action", async (req, res) => {
     } else if (type === "travel" || type === "next") {
       updated = chooseJourneyStep(game, type === "travel" ? req.body : {});
       if (updated.phase === "combat") updated = beginBattle(updated);
-    } else if (type === "heal") updated = useHealingCharge(game);
-    else if (type === "upgrade")
+    } else if (type === "upgrade")
       updated = upgradeAttribute(game, selection, expectedLevel, expectedSouls);
     else if (
       type === "reward" &&
@@ -220,6 +223,7 @@ if (process.env.NODE_ENV === "production") {
   app.use(vite.middlewares);
 }
 const port = Number(process.env.PORT ?? 5173);
-app.listen(port, "127.0.0.1", () =>
+const host = process.env.HOST ?? "0.0.0.0";
+app.listen(port, host, () =>
   console.log(`Герои Орвеска: http://127.0.0.1:${port}`),
 );

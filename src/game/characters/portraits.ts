@@ -57,7 +57,7 @@ export function encounterIdentity(
       stage === 1
         ? "Начинающий странник"
         : stage === 5
-          ? "Чемпион круга"
+          ? "Босс круга"
           : names[(hash >>> 1) % names.length],
     archetype,
   };

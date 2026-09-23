@@ -165,18 +165,7 @@
   flex-direction: column;
   flex: 1;
   min-height: 0;
-  padding: 14px;
-  gap: 10px;
   overflow: hidden;
-}
-.clash-outcome header .eyebrow {
-  font-size: 0.57rem;
-  color: #c3a783;
-}
-.clash-outcome h2 {
-  font-size: 1rem;
-  font-weight: 500;
-  margin: 4px 0 0;
 }
 .outcome-layout {
   display: grid;
@@ -266,7 +255,7 @@
 .clash-outcome .planning-footer {
   flex-shrink: 0;
 }
-@media (max-width: 760px) {
+@media (max-width: 599px) {
   .reaction-board .planning-footer > div {
     font-size: 0.5rem;
     max-width: 60%;
@@ -278,10 +267,6 @@
   .layer-legend {
     font-size: 0.43rem;
     gap: 5px;
-  }
-  .clash-outcome {
-    padding: 8px;
-    gap: 7px;
   }
   .outcome-layout {
     grid-template-columns: 1fr;
@@ -315,50 +300,6 @@
   .item-figure-card {
     min-width: 120px;
     padding: 6px;
-  }
-}
-@media (max-height: 700px) and (max-width: 760px), (max-height: 530px) {
-  .clash-outcome h2 {
-    display: none;
-  }
-  .clash-outcome {
-    gap: 5px;
-    padding: 6px;
-  }
-  .clash-outcome .planning-footer .primary {
-    min-height: 28px;
-    font-size: 0.6rem;
-  }
-  .outcome-layout {
-    grid-template-columns: minmax(0, 1fr) minmax(110px, 0.7fr);
-    grid-template-rows: minmax(0, 1fr);
-    gap: 7px;
-  }
-  .outcome-info {
-    max-height: none;
-  }
-  .outcome-totals {
-    flex-direction: column;
-    gap: 5px;
-  }
-  .outcome-totals p {
-    gap: 2px;
-  }
-  .cell-damage b {
-    font-size: 0.6rem;
-  }
-  .cell-damage {
-    padding: 1px;
-  }
-  .layer-legend {
-    display: none;
-  }
-  .reaction-board .board-column {
-    gap: 4px;
-  }
-  .reaction-board .planning-footer > div {
-    max-height: 3.9em;
-    overflow: auto;
   }
 }
 @keyframes reaction-die {
@@ -467,67 +408,6 @@
 .reaction-board .maneuver-column {
   overflow: hidden;
 }
-@media (max-width: 760px) and (min-height: 701px) {
-  .reaction-board .planning-workspace {
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: minmax(100px, 1fr) 116px;
-    gap: 10px;
-  }
-  .reaction-board .board-column {
-    gap: 5px;
-  }
-  .reaction-board .action-board.outcome-field {
-    max-height: none;
-  }
-  .reaction-board .placement-tools {
-    grid-template-columns: 1fr 1fr auto;
-    align-items: center;
-  }
-  .reaction-board .layer-legend {
-    grid-column: auto;
-    flex-direction: column;
-    gap: 2px;
-    font-size: 0.45rem;
-  }
-  .reaction-board .maneuver-column {
-    border-top: 1px solid #48513a;
-    padding-top: 6px;
-  }
-  .reaction-board .board-tools button,
-  .reaction-board .charm-tools button {
-    font-size: 0.53rem;
-    min-height: 25px;
-  }
-  .reaction-board .cell-actions > span {
-    font-size: 0.5rem;
-  }
-}
-@media (max-width: 760px) and (max-height: 700px), (max-height: 530px) {
-  .reaction-board .planning-workspace {
-    grid-template-columns: minmax(0, 1fr) minmax(110px, 0.7fr);
-    gap: 7px;
-  }
-  .reaction-board .placement-tools {
-    grid-template-columns: 1fr;
-    gap: 3px;
-  }
-  .reaction-board .board-column {
-    gap: 4px;
-  }
-  .reaction-board .action-board.outcome-field {
-    gap: 4px;
-  }
-  .reaction-board .cell-actions {
-    bottom: 1px;
-    padding: 1px;
-  }
-  .reaction-board .cell-actions > span {
-    font-size: 0.4rem;
-  }
-  .reaction-board .layer-legend {
-    display: none;
-  }
-}
 
 .reaction-board .cell-damage {
   pointer-events: none;
@@ -541,13 +421,4 @@
 }
 .reaction-board .damage-forecast {
   font-variant-numeric: tabular-nums;
-}
-@media (max-width: 760px) and (max-height: 700px), (max-height: 530px) {
-  .reaction-board .cell-damage b {
-    font-size: 0.58rem;
-  }
-  .reaction-board .cell-damage {
-    bottom: 1px;
-    padding: 1px;
-  }
 }

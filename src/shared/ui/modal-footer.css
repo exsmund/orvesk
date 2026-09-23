@@ -60,7 +60,7 @@ dialog[class] footer.modal-footer-text-only {
 dialog.creation-dialog[class] footer.modal-footer {
   padding-inline: 38px;
 }
-@media (max-width: 600px) {
+@media (max-width: 599px) {
   dialog[class] footer.modal-footer {
     padding-inline: 16px;
   }

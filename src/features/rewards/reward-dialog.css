@@ -139,7 +139,7 @@
 .reward-skill-slots small {
   font-size: 0.75rem;
 }
-@media (max-width: 600px) {
+@media (max-width: 599px) {
   .reward-window.modal {
     margin: 0;
     border-radius: 0;

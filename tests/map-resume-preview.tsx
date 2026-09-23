@@ -24,7 +24,6 @@ function Preview() {
       onInspect={() => {}}
       onHome={() => {}}
       onHero={() => {}}
-      onCatalog={() => {}}
       onRules={() => {}}
     />
   );

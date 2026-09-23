@@ -1,7 +1,21 @@
+import { JourneyNodeIcon } from "../src/features/journey/JourneyNodeIcon";
+import { CharacterCard } from "../src/features/characters/CharacterCard";
+import { BattleHeader } from "../src/features/combat/BattleHeader";
+import { BattleModeArtwork } from "../src/features/combat/BattleModeArtwork";
+import { Mark } from "../src/shared/ui/BrandMark";
+import { Figure } from "../src/features/combat/LegacyFigure";
+import { LegacyArena } from "../src/features/combat/LegacyArena";
+import { Rules } from "../src/features/rules/Rules";
+import { ItemDetails } from "../src/features/equipment/ItemDetails";
+import { ItemIcon } from "../src/features/equipment/ItemIcon";
+import { BattleJournal } from "../src/features/combat/BattleJournal";
+import { FighterDialog } from "../src/features/characters/FighterDialog";
+import { GameScreen } from "../src/features/combat/GameScreen";
+import { InitiativeRoll } from "../src/features/combat/InitiativeRoll";
 import { ResourceBarDemo } from "./ResourceBarDemo";
 import { portrait } from "../src/game/characters/portraits";
 import { CharacterPortrait } from "../src/shared/ui/CharacterPortrait";
-import { GameMenu } from "../src/shared/ui/GameMenu";
+import { GameMenu, GameMenuOptions } from "../src/shared/ui/GameMenu";
 import { CombatBackdrop } from "../src/features/combat/CombatBackdrop";
 import { BattleModeDialog } from "../src/features/combat/BattleModeDialog";
 import { BattleResultDialog } from "../src/features/combat/BattleResultDialog";
@@ -225,7 +239,6 @@ function JourneyDemo({ screen = false }: { screen?: boolean }) {
           onInspect={noop}
           onHome={() => tell("Главный экран")}
           onHero={() => tell("Карточка героя")}
-          onCatalog={() => tell("Арсенал")}
           onRules={() => tell("Правила")}
         />
       ) : (
@@ -255,6 +268,123 @@ function ReplayDemo() {
 }
 export function Example({ name }: { name: string }) {
   switch (name) {
+    case "BattleModeArtwork":
+      return (
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 24 }}>
+          {(["limited", "free", "expendable"] as const).map((mode) => (
+            <BattleModeArtwork key={mode} mode={mode} />
+          ))}
+        </div>
+      );
+    case "Mark":
+      return <Mark />;
+    case "Figure":
+      return <Figure fighter={fighter} />;
+    case "LegacyArena":
+      return (
+        <LegacyArena
+          game={pub}
+          choice={{ action: "attack", step: 1 }}
+          feedback={null}
+        />
+      );
+    case "Rules":
+      return <Rules />;
+    case "ItemDetails":
+      return <ItemDetails equipment={item("dagger")} fighter={fighter} />;
+    case "ItemIcon":
+      return <ItemIcon equipment={item("dagger")} />;
+    case "BattleJournal":
+      return <BattleJournal game={{ ...pub, log: [outcome] }} />;
+    case "JourneyNodeIcon":
+      return (
+        <div style={{ position: "relative", height: 160 }}>
+          <JourneyNodeIcon
+            node={{
+              id: "fight-1",
+              kind: "fight",
+              stage: 1,
+              name: "Бой",
+              x: 50,
+              y: 50,
+            }}
+            status="Можно идти"
+            available
+          />
+        </div>
+      );
+    case "CharacterCard":
+      return (
+        <Launch>
+          {(close) => (
+            <CharacterCard
+              fighter={fighter}
+              souls={12}
+              busy={false}
+              canUpgrade
+              onUpgrade={noop}
+              onInspect={noop}
+              close={close}
+              onHome={noop}
+              onRules={noop}
+            />
+          )}
+        </Launch>
+      );
+    case "GameMenuOptions":
+      return (
+        <GameMenuOptions
+          busy={false}
+          onClose={noop}
+          onHome={noop}
+          onRules={noop}
+        />
+      );
+    case "FighterDialog":
+      return (
+        <Launch>
+          {(close) => (
+            <FighterDialog
+              side="own"
+              fighter={fighter}
+              game={pub}
+              busy={false}
+              close={close}
+              onInspect={noop}
+              onUpgrade={noop}
+            />
+          )}
+        </Launch>
+      );
+    case "GameScreen":
+      return (
+        <GameScreen
+          game={mapGame}
+          session="storybook"
+          busy={false}
+          error=""
+          setError={noop}
+          sendAction={async () => undefined}
+          goHome={noop}
+        />
+      );
+    case "InitiativeRoll":
+      return (
+        <Launch>
+          {(close) => (
+            <InitiativeRoll
+              playerDie={5}
+              enemyDie={2}
+              playerReaction={1}
+              enemyReaction={1}
+              playerName="Вереск"
+              enemyName="Странник"
+              preparer="enemy"
+              onComplete={close}
+            />
+          )}
+        </Launch>
+      );
     case "CombatBackdrop":
       return (
         <div
@@ -269,12 +399,31 @@ export function Example({ name }: { name: string }) {
           <CombatBackdrop journey={{ mapPreset: "forest" }} />
         </div>
       );
+    case "BattleHeader":
+      return (
+        <BattleHeader
+          screen="battle"
+          player={pub.player}
+          enemy={pub.enemy}
+          mode="limited"
+          onPlayer={noop}
+          onEnemy={noop}
+        />
+      );
     case "CharacterPortrait":
       return (
-        <div style={{ width: 160 }}>
+        <div className="sb-row" style={{ alignItems: "center" }}>
+          <div style={{ width: 160 }}>
+            <CharacterPortrait
+              src={portrait(fighter.portraitId).src}
+              alt={`Портрет: ${fighter.name}`}
+              size="large"
+            />
+          </div>
           <CharacterPortrait
             src={portrait(fighter.portraitId).src}
             alt={`Портрет: ${fighter.name}`}
+            size="small"
           />
         </div>
       );
@@ -455,6 +604,7 @@ export function Example({ name }: { name: string }) {
       );
     case "ActionPalette":
       return <PaletteDemo />;
+    case "BattleWorkspace":
     case "ReactionBoard":
       return <BoardDemo />;
     case "BattleModeDialog":
@@ -527,7 +677,6 @@ export function Example({ name }: { name: string }) {
               busy={false}
               onClose={close}
               onHome={close}
-              onCatalog={close}
               onRules={close}
               onMap={close}
               onJournal={close}
@@ -542,7 +691,6 @@ export function Example({ name }: { name: string }) {
             busy={false}
             onHome={noop}
             onMap={noop}
-            onCatalog={noop}
             onRules={noop}
             onJournal={noop}
           />

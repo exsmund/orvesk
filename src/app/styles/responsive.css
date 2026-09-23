@@ -1,0 +1,148 @@
+/* Shared viewport modes: sm <600, md 600–899, lg >=900.
+   Only modal-page-scroll.css retains a viewport-height breakpoint. */
+html,
+body,
+#root {
+  min-width: 320px;
+}
+
+/* Home and map keep the same composition, scaling continuously. */
+.start-screen {
+  padding: clamp(20px, 5dvh, 60px) clamp(16px, 3vw, 24px);
+  gap: clamp(12px, 3dvh, 30px);
+}
+.start-content {
+  width: min(100%, 880px);
+}
+.start-content h1 {
+  font-size: clamp(2.5rem, 8.8vw, 6rem);
+  letter-spacing: 0.055em;
+}
+.start-kicker {
+  font-size: clamp(0.5rem, 1.5vw, 0.65rem);
+}
+.start-footer {
+  position: static;
+  font-size: clamp(0.5rem, 1.5vw, 0.65rem);
+}
+.journey-screen .journey-controls {
+  gap: clamp(6px, 1.5vw, 20px);
+  padding: 10px clamp(8px, 2vw, 24px) 22px;
+}
+.journey-controls .map-player-portrait {
+  width: clamp(28px, 4vw, 44px);
+  height: auto;
+  aspect-ratio: 2 / 3;
+}
+.journey-controls .map-round-button,
+.journey-controls .map-menu-button {
+  width: clamp(36px, 5vw, 54px);
+  height: auto;
+  aspect-ratio: 1;
+  flex-shrink: 0;
+}
+.journey-controls .map-soul-balance {
+  padding: 0;
+}
+.journey-controls .soul-balance {
+  gap: 3px;
+}
+.journey-controls .soul-balance img {
+  width: clamp(20px, 3vw, 30px);
+  height: auto;
+}
+.journey-screen .journey-node {
+  width: var(--journey-node-size);
+  height: auto;
+  aspect-ratio: 1;
+}
+
+/* Desktop battle in both md and lg: portraits flank the field. */
+@media (min-width: 600px) {
+  .app.combat-app .arena-layout > .combat-menu-button {
+    top: -52px;
+    left: 0;
+  }
+  .app.combat-app {
+    padding-inline: clamp(6px, 1vw, 18px);
+  }
+  .app.combat-app .arena-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2.5fr) minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+  }
+  .app.combat-app .arena-layout > .fighter-panel {
+    grid-column: 1;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: clamp(6px, 1vw, 14px);
+  }
+  .app.combat-app .arena-layout > .fighter-panel.opponent-panel {
+    grid-column: 3;
+  }
+  .app.combat-app .arena-layout > .battle-center {
+    grid-column: 2;
+    grid-row: 1;
+    min-width: 0;
+  }
+  .app.combat-app .arena-layout > .fighter-panel .fighter-identity {
+    display: flex;
+    flex-direction: column;
+    flex: none;
+    container-type: normal;
+    min-width: 0;
+    margin: 8px 0;
+    gap: 8px;
+  }
+  .app.combat-app .arena-layout > .fighter-panel .fighter-identity h2 {
+    display: block;
+    font-size: clamp(12px, 1.6vw, 20px);
+    overflow-wrap: anywhere;
+  }
+  .app.combat-app .arena-layout > .fighter-panel .character-portrait {
+    width: min(100%, 180px);
+    height: auto;
+    flex-shrink: 0;
+  }
+  .app.combat-app .arena-layout > .fighter-panel > .combat-resources {
+    width: 100%;
+    margin-inline: 0;
+  }
+  .app.combat-app .reaction-board,
+  .app.combat-app .clash-outcome {
+    padding: clamp(6px, 1vw, 20px);
+    min-width: 0;
+  }
+  .app.combat-app .placement-tools {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .app.combat-app .placement-tools > button {
+    flex: 1 1 40%;
+    min-width: 0;
+  }
+}
+@media (min-width: 600px) and (max-width: 899px) {
+  .app.combat-app .fighter-panel .stats {
+    font-size: 12px;
+    gap: 8px;
+  }
+  .app.combat-app .fighter-panel > .eyebrow {
+    font-size: 9px;
+    flex-wrap: wrap;
+  }
+  .app.combat-app .fighter-panel .resource-bar__numbers {
+    font-size: 12px;
+  }
+  .app.combat-app .fighter-panel .section-caption {
+    font-size: 10px;
+  }
+}
+@media (min-width: 900px) {
+  .app.combat-app .arena-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) minmax(0, 1fr);
+  }
+}

@@ -1,3 +1,5 @@
+import { BattleWorkspace } from "./BattleWorkspace";
+import type { CombatResourcePreview } from "./resource-preview";
 import { isCombatActionEnabled } from "../../game/config/features";
 import "./battle-result-dialog.css";
 import { ModalFooter } from "../../shared/ui/ModalFooter";
@@ -7,12 +9,12 @@ import { Modal } from "../../shared/ui/Modal";
 import { useFigureDrag } from "./useFigureDrag";
 import "./square-battle-layout.css";
 import { battleMode as journeyBattleMode } from "../../game/combat/battle-modes";
-import { CombatForecast, ComboLinks, ComboNotes } from "./CombatForecast";
+import { ComboLinks } from "./CombatForecast";
 import { comboCandidates, groupCombos } from "../../game/combat/figure-combos";
-import { useState, type CSSProperties } from "react";
-import { RotateCw, Undo2, ArrowRight } from "lucide-react";
+import { useEffect, useState, type CSSProperties } from "react";
+import { ArrowRight } from "lucide-react";
 import { item } from "../../game/equipment/catalog";
-import { canUse, maxHp } from "../../game/combat/engine";
+import { canUse } from "../../game/combat/engine";
 import { canPlace, placementCells } from "../../game/combat/board";
 import {
   reactionManeuvers,
@@ -55,28 +57,69 @@ export function ReactionBoard({
   session,
   onSubmit,
   onInspect,
-  onHeal,
   onFinish,
+  forecastKey = "",
+  onForecast,
+  onCharm,
 }: {
   game: PublicGame;
   busy: boolean;
   session: string;
   onSubmit: (payload: object) => Promise<void>;
   onInspect: (id: string) => void;
-  onHeal?: () => void;
   onFinish?: () => void;
+  onCharm?: (
+    charm: "ring" | "amulet",
+    target: number | string,
+  ) => Promise<boolean>;
+  forecastKey?: string;
+  onForecast?: (preview: CombatResourcePreview | null) => void;
 }) {
   const mode = journeyBattleMode(game.journey),
     limited = mode === "limited",
     canPass = mode === "expendable" && !game.player.prone;
   const plan = game.clash!,
-    tokens = reactionManeuvers(game.player),
+    combatTokens = reactionManeuvers(game.player),
+    charmTokens: Maneuver[] = onCharm
+      ? [
+          ...(game.player.gear.ring === "unlock-ring" &&
+          !game.player.charmsUsed?.ring
+            ? [
+                {
+                  id: "charm-ring",
+                  name: "Кольцо размыкания",
+                  weaponId: "unlock-ring",
+                  action: "rest" as const,
+                  shape: [[0, 0]] as [number, number][],
+                  description:
+                    "Перетащите на скалу, чтобы уничтожить её. Действие необратимо.",
+                },
+              ]
+            : []),
+          ...(game.player.gear.amulet === "fold-amulet" &&
+          !game.player.charmsUsed?.amulet
+            ? [
+                {
+                  id: "charm-amulet",
+                  name: "Амулет сжатия",
+                  weaponId: "fold-amulet",
+                  action: "rest" as const,
+                  shape: [[0, 0]] as [number, number][],
+                  description:
+                    "Перетащите на поле и выберите фигуру для сжатия. Применение необратимо.",
+                },
+              ]
+            : []),
+        ]
+      : [],
+    tokens = [...combatTokens, ...charmTokens],
     enemyTokens = reactionManeuvers(game.enemy),
     key = `duelyant.clash4.${session}.${game.fight}.${game.round}`;
   const [initial] = useState(() => {
     try {
       const draft = JSON.parse(sessionStorage.getItem(key) ?? "null");
       if (draft && Array.isArray(draft.placed)) {
+        draft.mod = plan.committedPlayerModifiers ?? {};
         const blocked = plan.blocked.filter(
           (n) => n !== plan.enemyModifiers?.unlocked,
         );
@@ -108,19 +151,24 @@ export function ReactionBoard({
     } catch {
       /* Ignore malformed local drafts. */
     }
-    return { placed: [] as Placement[], mod: {} as BoardModifiers };
+    return {
+      placed: [] as Placement[],
+      mod: plan.committedPlayerModifiers ?? ({} as BoardModifiers),
+    };
   });
   const [placed, setPlaced] = useState<Placement[]>(initial.placed),
-    [mod, setMod] = useState<BoardModifiers>(initial.mod),
+    [draftMod, setMod] = useState<BoardModifiers>(initial.mod),
     [selected, setSelected] = useState(
       tokens.find((m) => !m.spent && !m.cooldown)?.id ?? tokens[0].id,
     ),
     [rotation, setRotation] = useState(0),
     [cellSize, setCellSize] = useState(36),
     [hover, setHover] = useState<number | null>(null),
-    [ringMode, setRingMode] = useState(false),
     [message, setMessage] = useState(""),
     [equip, setEquip] = useState("");
+  const mod = { ...draftMod, ...plan.committedPlayerModifiers };
+  const [compressOpen, setCompressOpen] = useState(false);
+  const [charmPending, setCharmPending] = useState(false);
   const [finishConfirm, setFinishConfirm] = useState(false);
   const [rotations, setRotations] = useState<Record<string, number>>({}),
     [cellInfo, setCellInfo] = useState<number | null>(null);
@@ -133,7 +181,7 @@ export function ReactionBoard({
       setSelected(id);
       const existing = placed.find((p) => p.id === id);
       setRotation(existing?.rotation ?? rotations[id] ?? 0);
-      setRingMode(false);
+
       setMessage("");
     },
     onHover: setHover,
@@ -141,14 +189,13 @@ export function ReactionBoard({
   });
   const moving = drag.ghost?.id;
   const fixedPlaced = moving ? placed.filter((p) => p.id !== moving) : placed;
-  const count = usedCells(game.player, placed, mod),
-    occupied = fixedPlaced.flatMap((p) =>
-      placementCells(
-        tokens.find((m) => m.id === p.id)!,
-        p,
-        mod,
-      ),
-    );
+  const occupied = fixedPlaced.flatMap((p) =>
+    placementCells(
+      tokens.find((m) => m.id === p.id)!,
+      p,
+      mod,
+    ),
+  );
   const candidate =
     hover === null
       ? null
@@ -158,7 +205,7 @@ export function ReactionBoard({
       : [],
     validPreview =
       !busy &&
-      !ringMode &&
+      !selected.startsWith("charm-") &&
       !selectedToken.cooldown &&
       !selectedToken.spent &&
       (!selectedToken.choiceGroup ||
@@ -179,6 +226,36 @@ export function ReactionBoard({
   const previewPlaced =
       validPreview && candidate ? [...fixedPlaced, candidate] : placed,
     forecast = previewClashDamage(game, previewPlaced, mod);
+  const playerHealth = forecast
+    ? forecast.sides.player.hpAfter - forecast.sides.player.hpBefore
+    : undefined;
+  const playerPoise = forecast
+    ? forecast.sides.player.poiseAfter - forecast.sides.player.poiseBefore
+    : undefined;
+  const enemyHealth = forecast
+    ? forecast.sides.enemy.hpAfter - forecast.sides.enemy.hpBefore
+    : undefined;
+  const enemyPoise = forecast
+    ? forecast.sides.enemy.poiseAfter - forecast.sides.enemy.poiseBefore
+    : undefined;
+  useEffect(() => {
+    onForecast?.(
+      playerHealth === undefined
+        ? null
+        : {
+            key: forecastKey,
+            player: { health: playerHealth, poise: playerPoise! },
+            enemy: { health: enemyHealth!, poise: enemyPoise! },
+          },
+    );
+  }, [
+    forecastKey,
+    onForecast,
+    playerHealth,
+    playerPoise,
+    enemyHealth,
+    enemyPoise,
+  ]);
   const pending = groupCombos(comboCandidates(game.player, previewPlaced, mod));
   const potential = forecast
     ? null
@@ -191,11 +268,7 @@ export function ReactionBoard({
     player: linked.player.flatMap((c) => c.cells),
     enemy: linked.enemy.flatMap((c) => c.cells),
   };
-  const baseline = validPreview
-    ? previewClashDamage(game, placed, mod)
-    : placed.length
-      ? previewClashDamage(game, placed.slice(0, -1), mod)
-      : null;
+
   function change(next: Placement[], mods = mod) {
     setPlaced(next);
     setMod(mods);
@@ -205,31 +278,17 @@ export function ReactionBoard({
   function place(n: number) {
     if (busy) return;
     setHover(null);
-    if (ringMode) {
-      if (!plan.blocked.includes(n)) {
-        setMessage("Выберите скалу.");
+    if (charmPending) return;
+    if (selected === "charm-ring") {
+      if (!blocked.includes(n) || mod.unlocked === n) {
+        setMessage("Перетащите кольцо на скалу.");
         return;
       }
-      const next = { ...mod };
-      if (next.unlocked === n) delete next.unlocked;
-      else next.unlocked = n;
-      if (
-        placed.some(
-          (p) =>
-            !canPlace(
-              tokens.find((m) => m.id === p.id)!,
-              p,
-              blocked,
-              [],
-              next,
-            ),
-        )
-      ) {
-        setMessage("Сначала уберите свою фигуру со скалы.");
-        return;
-      }
-      change(placed, next);
-      setRingMode(false);
+      void applyCharm("ring", n);
+      return;
+    }
+    if (selected === "charm-amulet") {
+      setCompressOpen(true);
       return;
     }
     if (selectedToken.spent) {
@@ -287,10 +346,6 @@ export function ReactionBoard({
   }
   function clickCell(n: number) {
     if (drag.consumeClick()) return;
-    if (ringMode) {
-      place(n);
-      return;
-    }
     const own = placed.find((p) =>
       placementCells(
         tokens.find((m) => m.id === p.id)!,
@@ -311,7 +366,6 @@ export function ReactionBoard({
     setSelected(id);
     setRotation(next);
     setMessage("");
-    setRingMode(false);
   }
   const infoPlacement =
     cellInfo === null
@@ -326,261 +380,167 @@ export function ReactionBoard({
   const infoFigure = infoPlacement
     ? enemyTokens.find((m) => m.id === infoPlacement.id)
     : undefined;
-  function compress() {
-    const next = { ...mod };
-    if (next.compressed === selected) delete next.compressed;
-    else next.compressed = selected;
-    const used: number[] = [];
-    for (const p of placed) {
-      const m = tokens.find((m) => m.id === p.id)!;
-      if (!canPlace(m, p, blocked, used, next)) {
-        setMessage("Сначала освободите место для полной фигуры.");
-        return;
+  async function applyCharm(charm: "ring" | "amulet", target: number | string) {
+    if (!onCharm || busy || charmPending) return;
+    setCharmPending(true);
+    try {
+      if (await onCharm(charm, target)) {
+        change(placed, {
+          ...mod,
+          ...(charm === "ring"
+            ? { unlocked: target as number }
+            : { compressed: target as string }),
+        });
+        setCompressOpen(false);
+        setSelected(combatTokens[0].id);
       }
-      used.push(...placementCells(m, p, next));
+    } finally {
+      setCharmPending(false);
     }
-    if (limited && used.length > plan.playerBudget) {
-      setMessage("Отмена сжатия превышает лимит клеток.");
-      return;
-    }
-    change(placed, next);
   }
-  const damage = isStrike(selectedToken)
-    ? maneuverDamage(game.player, selectedToken)
-    : null;
   return (
     <section
       className="board-combat reaction-board"
       style={{ "--piece-cell": `${cellSize}px` } as CSSProperties}
       aria-label="Подготовка и реакция"
     >
-      <div className="expedition-tools">
-        {onHeal && (
-          <button
-            className="secondary"
-            disabled={
-              busy ||
-              !!game.journey?.healUsed ||
-              placed.length > 0 ||
-              game.player.hp >= maxHp(game.player)
-            }
-            onClick={onHeal}
-            title="Один заряд на путешествие. Восстанавливает 50% максимального здоровья. Применяется до размещения фигур, не занимает клетки."
-          >
-            {game.journey?.healUsed
-              ? "Лечение: 0/1"
-              : `Лечение: 1/1 · +${maxHp(game.player) * 0.5} HP`}
-          </button>
-        )}
-      </div>
-      <header className="planning-header">
-        <div>
-          <span className="eyebrow">
-            {plan.preparer === "player" ? "01 · ПОДГОТОВКА" : "02 · РЕАКЦИЯ"}
-          </span>
-          <h2>
-            {plan.preparer === "player"
-              ? "Подготовьте действия"
-              : "Ответьте поверх фигур врага"}
-          </h2>
-        </div>
-        <span>
-          {limited
-            ? `${count}/${plan.playerBudget} клеток`
-            : `${count} кл. · без лимита`}
-        </span>
-      </header>
-      <div className="planning-workspace">
-        <div className="board-column">
-          <div
-            className="action-board outcome-field terrain-board"
-            role="group"
-            aria-label="Общее поле 3 на 3"
-          >
-            <RockTerrain blocked={blocked} unlocked={[mod.unlocked]} />
-            <ComboLinks combos={linked} />
-            {Array.from({ length: 9 }, (_, n) => {
-              const own = previewPlaced.find((p) =>
-                  placementCells(
-                    tokens.find((m) => m.id === p.id)!,
-                    p,
-                    mod,
-                  ).includes(n),
-                ),
-                opposing = enemy.find((p) =>
-                  placementCells(
-                    enemyTokens.find((m) => m.id === p.id)!,
-                    p,
-                    enemyMod,
-                  ).includes(n),
-                );
-              const a = own ? tokens.find((m) => m.id === own.id) : undefined,
-                b = opposing
-                  ? enemyTokens.find((m) => m.id === opposing.id)
-                  : undefined,
-                rock = blocked.includes(n) && mod.unlocked !== n,
-                prediction = forecast?.cells[n];
-              return (
-                <button
-                  key={n}
-                  disabled={busy}
-                  className={`board-cell terrain-cell ${rock ? "rock" : "grass"} ${a ? "own-layer" : ""} ${b ? "enemy-layer" : ""} ${comboCells.player.includes(n) ? "combo-player" : ""} ${comboCells.enemy.includes(n) ? "combo-enemy" : ""} ${preview.includes(n) ? (validPreview ? "valid-preview" : "invalid-preview") : ""}`}
-                  data-board-cell={n}
-                  onClick={() => clickCell(n)}
-                  onPointerDown={(e) => {
-                    const p = placed.find((p) =>
-                      placementCells(
-                        tokens.find((m) => m.id === p.id)!,
-                        p,
-                        mod,
-                      ).includes(n),
-                    );
-                    if (p && !ringMode) drag.start(e, p.id);
-                  }}
-                  onPointerMove={drag.move}
-                  onPointerUp={drag.end}
-                  onPointerCancel={drag.cancel}
-                  onDragStart={(e) => e.preventDefault()}
-                  aria-label={`Клетка ${Math.floor(n / 3) + 1}, ${(n % 3) + 1}: ${a ? "вы — " + a.name + "; " : ""}${b ? "противник — " + b.name + "; " : ""}${rock ? "скала" : "земля"}${plan.special?.index === n ? "; " + specialHint(plan.special) : ""}${prediction ? `; прогноз: вы −${formatDamage(prediction.playerDamage)}, противник −${formatDamage(prediction.enemyDamage)} здоровья` : a && isStrike(a) && potential ? `; урон клетки до блока и брони: ${formatDamage(potential.potential[n])}${potential.conditional[n] > 0 ? `, ещё ${formatDamage(potential.conditional[n])} при блоке щитом` : ""}` : ""}`}
-                  title={
-                    prediction
-                      ? `${plan.special?.index === n ? specialHint(plan.special) + " " : ""}Прогноз после брони: вы −${formatDamage(prediction.playerDamage)}, противник −${formatDamage(prediction.enemyDamage)} здоровья`
-                      : undefined
-                  }
-                >
-                  <SpecialMark special={plan.special} index={n} />
-                  <LayerIcon m={a} side="player" />
-                  <LayerIcon m={b} side="enemy" />
-                  {rock && <small className="rock-mark">×</small>}
-                  {(a || b) && prediction ? (
-                    <span className="cell-damage">
-                      <b className="damage-player">
-                        −{formatDamage(prediction.playerDamage)}
-                      </b>
-                      <b className="damage-enemy">
-                        −{formatDamage(prediction.enemyDamage)}
-                      </b>
-                    </span>
-                  ) : (
-                    a &&
-                    isStrike(a) &&
-                    potential && (
-                      <span
-                        className="cell-attack-power"
-                        title="Урон этой клетки до блока и брони, с эффектами поля. Бонус контратаки сработает, только если связанный щит перекроет атаку."
-                      >
-                        <b>
-                          {formatDamage(potential.potential[n])}{" "}
-                          <small>ур.</small>
-                        </b>
-                        {potential.conditional[n] > 0 && (
-                          <small>
-                            +{formatDamage(potential.conditional[n])} при блоке
-                          </small>
-                        )}
-                      </span>
-                    )
-                  )}
-                </button>
-              );
-            })}
-          </div>
-          <div className="placement-tools">
-            <div className="board-tools">
-              <button disabled={busy} onClick={() => rotateFigure(selected)}>
-                <RotateCw size={14} />
-                Поворот
-              </button>
-              <button
-                disabled={busy || !placed.length}
-                onClick={() => change(placed.slice(0, -1))}
-              >
-                <Undo2 size={14} />
-                Убрать
-              </button>
-            </div>
-            <div className="charm-tools">
-              <button
-                disabled={
-                  busy ||
-                  game.player.gear.ring !== "unlock-ring" ||
-                  game.player.charmsUsed?.ring
-                }
-                aria-pressed={ringMode}
-                onClick={() => setRingMode(!ringMode)}
-              >
-                ◇ Кольцо{" "}
-                {game.player.charmsUsed?.ring
-                  ? "0/1"
-                  : game.player.gear.ring
-                    ? "1/1"
-                    : "—"}
-              </button>
-              <button
-                disabled={
-                  busy ||
-                  game.player.gear.amulet !== "fold-amulet" ||
-                  game.player.charmsUsed?.amulet
-                }
-                aria-pressed={mod.compressed === selected}
-                onClick={compress}
-              >
-                ◈ Амулет{" "}
-                {game.player.charmsUsed?.amulet
-                  ? "0/1"
-                  : game.player.gear.amulet
-                    ? "1/1"
-                    : "—"}
-              </button>
-            </div>
-            <CombatForecast
-              forecast={forecast}
-              baseline={baseline}
-              hovering={!!validPreview}
-              pending={pending}
+      <BattleWorkspace
+        below={
+          <>
+            <ActionPalette
+              fighter={game.player}
+              tokens={tokens}
+              selected={selected}
+              rotation={rotation}
+              mod={mod}
+              placed={placed}
+              busy={busy || charmPending}
+              onScale={setCellSize}
+              rotations={rotations}
+              onFigurePointerDown={drag.start}
+              onFigurePointerMove={drag.move}
+              onFigurePointerUp={drag.end}
+              onFigurePointerCancel={drag.cancel}
+              onSelect={rotateFigure}
             />
-          </div>
-        </div>
-        <div className="maneuver-column">
-          <ActionPalette
-            fighter={game.player}
-            tokens={tokens}
-            selected={selected}
-            rotation={rotation}
-            mod={mod}
-            placed={placed}
-            busy={busy}
-            onScale={setCellSize}
-            rotations={rotations}
-            onFigurePointerDown={drag.start}
-            onFigurePointerMove={drag.move}
-            onFigurePointerUp={drag.end}
-            onFigurePointerCancel={drag.cancel}
-            onSelect={rotateFigure}
-          />
-          {selectedToken.action === "equip" && (
-            <div className="board-pickup">
-              <select
-                aria-label="Предмет для подбора"
-                value={equip}
-                onChange={(e) => setEquip(e.target.value)}
+            {selectedToken.action === "equip" && (
+              <div className="board-pickup">
+                <select
+                  aria-label="Предмет для подбора"
+                  value={equip}
+                  onChange={(e) => setEquip(e.target.value)}
+                >
+                  <option value="">Выберите предмет</option>
+                  {[...new Set(game.ground)]
+                    .filter((id) => canUse(game.player, item(id)))
+                    .map((id) => (
+                      <option key={id} value={id}>
+                        {item(id).name}
+                      </option>
+                    ))}
+                </select>
+                {equip && (
+                  <button onClick={() => onInspect(equip)}>Свойства</button>
+                )}
+              </div>
+            )}
+          </>
+        }
+      >
+        <div
+          className="action-board outcome-field terrain-board"
+          role="group"
+          aria-label="Общее поле 3 на 3"
+        >
+          <RockTerrain blocked={blocked} unlocked={[mod.unlocked]} />
+          <ComboLinks combos={linked} />
+          {Array.from({ length: 9 }, (_, n) => {
+            const own = previewPlaced.find((p) =>
+                placementCells(
+                  tokens.find((m) => m.id === p.id)!,
+                  p,
+                  mod,
+                ).includes(n),
+              ),
+              opposing = enemy.find((p) =>
+                placementCells(
+                  enemyTokens.find((m) => m.id === p.id)!,
+                  p,
+                  enemyMod,
+                ).includes(n),
+              );
+            const a = own ? tokens.find((m) => m.id === own.id) : undefined,
+              b = opposing
+                ? enemyTokens.find((m) => m.id === opposing.id)
+                : undefined,
+              rock = blocked.includes(n) && mod.unlocked !== n,
+              prediction = forecast?.cells[n];
+            return (
+              <button
+                key={n}
+                disabled={busy}
+                className={`board-cell terrain-cell ${rock ? "rock" : "grass"} ${a ? "own-layer" : ""} ${b ? "enemy-layer" : ""} ${comboCells.player.includes(n) ? "combo-player" : ""} ${comboCells.enemy.includes(n) ? "combo-enemy" : ""} ${preview.includes(n) ? (validPreview ? "valid-preview" : "invalid-preview") : ""}`}
+                data-board-cell={n}
+                onClick={() => clickCell(n)}
+                onPointerDown={(e) => {
+                  const p = placed.find((p) =>
+                    placementCells(
+                      tokens.find((m) => m.id === p.id)!,
+                      p,
+                      mod,
+                    ).includes(n),
+                  );
+                  if (p) drag.start(e, p.id);
+                }}
+                onPointerMove={drag.move}
+                onPointerUp={drag.end}
+                onPointerCancel={drag.cancel}
+                onDragStart={(e) => e.preventDefault()}
+                aria-label={`Клетка ${Math.floor(n / 3) + 1}, ${(n % 3) + 1}: ${a ? "вы — " + a.name + "; " : ""}${b ? "противник — " + b.name + "; " : ""}${rock ? "скала" : "земля"}${plan.special?.index === n ? "; " + specialHint(plan.special) : ""}${prediction ? `; прогноз: вы −${formatDamage(prediction.playerDamage)}, противник −${formatDamage(prediction.enemyDamage)} здоровья` : a && isStrike(a) && potential ? `; урон клетки до блока и брони: ${formatDamage(potential.potential[n])}${potential.conditional[n] > 0 ? `, ещё ${formatDamage(potential.conditional[n])} при блоке щитом` : ""}` : ""}`}
+                title={
+                  prediction
+                    ? `${plan.special?.index === n ? specialHint(plan.special) + " " : ""}Прогноз после брони: вы −${formatDamage(prediction.playerDamage)}, противник −${formatDamage(prediction.enemyDamage)} здоровья`
+                    : undefined
+                }
               >
-                <option value="">Выберите предмет</option>
-                {[...new Set(game.ground)]
-                  .filter((id) => canUse(game.player, item(id)))
-                  .map((id) => (
-                    <option key={id} value={id}>
-                      {item(id).name}
-                    </option>
-                  ))}
-              </select>
-              {equip && (
-                <button onClick={() => onInspect(equip)}>Свойства</button>
-              )}
-            </div>
-          )}
+                <SpecialMark special={plan.special} index={n} />
+                <LayerIcon m={a} side="player" />
+                <LayerIcon m={b} side="enemy" />
+                {rock && <small className="rock-mark">×</small>}
+                {(a || b) && prediction ? (
+                  <span className="cell-damage">
+                    <b className="damage-player">
+                      −{formatDamage(prediction.playerDamage)}
+                    </b>
+                    <b className="damage-enemy">
+                      −{formatDamage(prediction.enemyDamage)}
+                    </b>
+                  </span>
+                ) : (
+                  a &&
+                  isStrike(a) &&
+                  potential && (
+                    <span
+                      className="cell-attack-power"
+                      title="Урон этой клетки до блока и брони, с эффектами поля. Бонус контратаки сработает, только если связанный щит перекроет атаку."
+                    >
+                      <b>
+                        {formatDamage(potential.potential[n])}{" "}
+                        <small>ур.</small>
+                      </b>
+                      {potential.conditional[n] > 0 && (
+                        <small>
+                          +{formatDamage(potential.conditional[n])} при блоке
+                        </small>
+                      )}
+                    </span>
+                  )
+                )}
+              </button>
+            );
+          })}
         </div>
-      </div>
+      </BattleWorkspace>
       {mode === "expendable" && onFinish && (
         <GothicTextButton
           disabled={busy}
@@ -588,6 +548,44 @@ export function ReactionBoard({
         >
           Завершить действия
         </GothicTextButton>
+      )}
+      {compressOpen && (
+        <Modal
+          title="Сжать фигуру"
+          close={() => {
+            if (!charmPending) setCompressOpen(false);
+          }}
+          size="small"
+        >
+          <p>
+            Выберите фигуру. После применения амулет будет израсходован,
+            отменить сжатие нельзя.
+          </p>
+          {combatTokens
+            .filter(
+              (m) =>
+                isCombatActionEnabled(m.action) &&
+                !m.spent &&
+                !m.cooldown &&
+                m.shape.length > 1,
+            )
+            .map((m) => (
+              <GothicTextButton
+                key={m.id}
+                disabled={busy || charmPending}
+                onClick={() => void applyCharm("amulet", m.id)}
+              >
+                {m.name}
+              </GothicTextButton>
+            ))}
+          {!combatTokens.some(
+            (m) =>
+              isCombatActionEnabled(m.action) &&
+              !m.spent &&
+              !m.cooldown &&
+              m.shape.length > 1,
+          ) && <p>Нет доступных фигур для сжатия.</p>}
+        </Modal>
       )}
       {finishConfirm && (
         <Modal
@@ -619,18 +617,13 @@ export function ReactionBoard({
           </ModalFooter>
         </Modal>
       )}
-      <footer className="planning-footer">
-        <div aria-live="polite">
-          {message ||
-            (ringMode
-              ? "Нажмите скалу. Кольцо открывает её для обеих сторон."
-              : `${forecast ? "Прогноз потерь здоровья: зелёное — ваши, медное — противника. " : ""}${damage !== null ? `${damage} урона на всю фигуру. ` : ""}${selectedToken.description}`)}
-          {limited && game.player.offBalance && (
-            <b> Потеря равновесия: лимит уменьшен на 1.</b>
-          )}
-        </div>
-        <button
-          className="primary"
+      {message && (
+        <p className="planning-message" role="status">
+          {message}
+        </p>
+      )}
+      <footer className="planning-footer planning-submit">
+        <GothicTextButton
           disabled={busy || (!placed.length && !canPass)}
           onClick={() => onSubmit({ placements: placed, modifiers: mod })}
         >
@@ -642,7 +635,7 @@ export function ReactionBoard({
                 ? "Передать реакцию"
                 : "Подсчитать"}
           <ArrowRight size={16} />
-        </button>
+        </GothicTextButton>
       </footer>
       {drag.ghost &&
         createPortal(
@@ -728,29 +721,40 @@ export function ClashOutcome({
   onDone,
   ending,
   showContinue = true,
+  result,
 }: {
   turn: TurnRecord;
   onDone: () => void;
   ending: string;
   showContinue?: boolean;
+  result?: "victory" | "defeat" | "draw";
 }) {
   const r = turn.clash!,
     [selected, setSelected] = useState<number | null>(null),
     cell = selected === null ? null : r.cells[selected];
   return (
     <section
-      className="clash-outcome"
+      className="board-combat reaction-board clash-outcome"
       aria-label={`Итог поля, ход ${turn.round}`}
     >
-      <header>
-        <span className="eyebrow">
-          ХОД {turn.round} · ОДНОВРЕМЕННЫЙ ПОДСЧЁТ
-        </span>
-        <h2>Каждая клетка — столкновение</h2>
-      </header>
-      <div className="outcome-layout">
+      <BattleWorkspace
+        below={
+          result && (
+            <div className="battle-outcome-message" role="status">
+              <strong>
+                {result === "victory"
+                  ? "Вы победили"
+                  : result === "defeat"
+                    ? "Вы погибли"
+                    : "Ничья"}
+              </strong>
+              {result === "defeat" && <p>Ваши души останутся у противника</p>}
+            </div>
+          )
+        }
+      >
         <div
-          className="outcome-field terrain-board"
+          className="action-board outcome-field terrain-board"
           role="group"
           aria-label="Урон по клеткам"
         >
@@ -775,7 +779,7 @@ export function ClashOutcome({
               <button
                 key={c.index}
                 onClick={() => setSelected(c.index)}
-                className={`terrain-cell ${rock ? "rock" : "grass"} ${c.player ? "own-layer" : ""} ${c.enemy ? "enemy-layer" : ""}`}
+                className={`board-cell terrain-cell ${rock ? "rock" : "grass"} ${c.player ? "own-layer" : ""} ${c.enemy ? "enemy-layer" : ""}`}
                 aria-pressed={selected === c.index}
                 aria-label={`Клетка ${Math.floor(c.index / 3) + 1}, ${(c.index % 3) + 1}. Вы: −${formatDamage(c.playerDamage)}, противник: −${formatDamage(c.enemyDamage)}. ${interactionText[c.interaction]}`}
               >
@@ -792,68 +796,35 @@ export function ClashOutcome({
             );
           })}
         </div>
-        <div className="outcome-info">
-          <div className="outcome-totals">
+      </BattleWorkspace>
+      {cell && (
+        <Modal
+          title={`Клетка ${Math.floor(cell.index / 3) + 1}, ${(cell.index % 3) + 1}`}
+          size="small"
+          className="cell-info-modal"
+          close={() => setSelected(null)}
+        >
+          <div className="cell-info-content">
             <p>
-              <span>ВЫ</span>
-              <strong>
-                −{formatDamage(r.playerDamage)} <small>здоровья</small>
-              </strong>
-              <small>
-                {r.summary
-                  ? `Стойка: ${formatDamage(r.summary.player.poiseBefore)} → ${formatDamage(r.summary.player.poiseAfter)}`
-                  : `−${r.playerPoiseLoss} стойки`}
-              </small>
-              {!!r.summary?.player.healed && (
-                <small>
-                  Лечение: +{formatDamage(r.summary.player.healed)} здоровья
-                </small>
-              )}
+              {cell.player?.name ?? "Пусто"} / {cell.enemy?.name ?? "Пусто"}
             </p>
             <p>
-              <span>ПРОТИВНИК</span>
-              <strong>
-                −{formatDamage(r.enemyDamage)} <small>здоровья</small>
-              </strong>
-              <small>
-                {r.summary
-                  ? `Стойка: ${formatDamage(r.summary.enemy.poiseBefore)} → ${formatDamage(r.summary.enemy.poiseAfter)}`
-                  : `−${r.enemyPoiseLoss} стойки`}
-              </small>
-              {!!r.summary?.enemy.healed && (
-                <small>
-                  Лечение: +{formatDamage(r.summary.enemy.healed)} здоровья
-                </small>
-              )}
+              {interactionText[cell.interaction]}. Урон после брони и с учётом
+              оставшегося здоровья.
+            </p>
+            <p>
+              Вы: −{formatDamage(cell.playerDamage)} здоровья. Противник: −
+              {formatDamage(cell.enemyDamage)} здоровья.
             </p>
           </div>
-          {r.summary && <ComboNotes sides={r.summary} />}
-          <p className="cell-explanation" aria-live="polite">
-            {cell ? (
-              <>
-                <b>
-                  Клетка {Math.floor(cell.index / 3) + 1},{" "}
-                  {(cell.index % 3) + 1}
-                </b>
-                <span>
-                  {cell.player?.name ?? "Пусто"} / {cell.enemy?.name ?? "Пусто"}
-                </span>
-                {interactionText[cell.interaction]}. Урон после брони и с учётом
-                оставшегося здоровья.
-              </>
-            ) : (
-              "Выберите клетку для объяснения. Зелёное число — потеряли вы, медное — противник. Броня вычитается один раз из каждого действия."
-            )}
-          </p>
-        </div>
-      </div>
+        </Modal>
+      )}
       {showContinue && (
-        <footer className="planning-footer">
-          <div>Оба слоя применены одновременно.</div>
-          <button className="primary" onClick={onDone}>
+        <footer className="planning-footer planning-submit">
+          <GothicTextButton onClick={onDone}>
             {ending}
             <ArrowRight size={16} />
-          </button>
+          </GothicTextButton>
         </footer>
       )}
     </section>

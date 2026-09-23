@@ -1,3 +1,4 @@
+import { useFittingFigureRows } from "./useFittingFigureRows";
 import { isCombatActionEnabled } from "../../game/config/features";
 import type { PointerEventHandler } from "react";
 import { SkillIcon } from "../skills/SkillIcon";
@@ -164,8 +165,11 @@ export function ActionPalette({
   const available = tokens.filter(
     (m) => !placedIds.has(m.id) && isCombatActionEnabled(m.action),
   );
+  const trayRef = useFittingFigureRows(
+    `${available.map((m) => m.id).join(",")}:${rotation}:${JSON.stringify(rotations)}:${mod.compressed}`,
+  );
   return (
-    <div className="piece-tray">
+    <div className="piece-tray" ref={trayRef}>
       <div
         className="maneuver-palette figure-palette"
         role="group"
@@ -206,7 +210,11 @@ export function ActionPalette({
           >
             <ActionFigure
               m={m}
-              damage={fighter ? maneuverDamage(fighter, m) : undefined}
+              damage={
+                fighter && !m.id.startsWith("charm-")
+                  ? maneuverDamage(fighter, m)
+                  : undefined
+              }
               rotation={rotations?.[m.id] ?? (m.id === selected ? rotation : 0)}
               compressed={mod.compressed === m.id}
             />

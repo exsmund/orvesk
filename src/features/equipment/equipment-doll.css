@@ -82,24 +82,6 @@
   background: var(--accent);
   transform: rotate(45deg);
 }
-.slot-weapon {
-  left: 0;
-  top: 86px;
-}
-.slot-shield {
-  right: 0;
-  top: 86px;
-}
-.slot-body {
-  left: 50%;
-  top: 52px;
-  translate: -50% 0;
-}
-.slot-feet {
-  left: 50%;
-  bottom: 4px;
-  translate: -50% 0;
-}
 .hands-badge {
   position: absolute;
   right: 3px;
@@ -152,16 +134,6 @@
   color: #8d9b7d;
   line-height: 1.6;
 }
-.catalog-item-header .gear-icon {
-  width: 76px;
-  height: 76px;
-  overflow: hidden;
-  background: #101410;
-}
-.catalog-item-header .item-artwork {
-  width: 72px;
-  height: 72px;
-}
 .ground-items .item-artwork {
   width: 42px;
   height: 42px;
@@ -173,18 +145,14 @@
   border: 1px solid #716044;
   margin: 16px 0;
 }
-@media (max-width: 930px) {
+@media (max-width: 899px) {
   .doll-stage {
-  }
-  .slot-weapon,
-  .slot-shield {
-    top: 82px;
   }
   .doll-slot-label {
     font-size: 0.5rem;
   }
 }
-@media (max-width: 720px) {
+@media (max-width: 599px) {
   .equipment-doll {
     margin-left: -5px;
     margin-right: -5px;
@@ -194,15 +162,11 @@
   .doll-slot {
     width: min(56px, 31%);
   }
-  .slot-weapon,
-  .slot-shield {
-    top: 86px;
-  }
   .doll-item-detail {
     min-height: 105px;
   }
 }
-@media (max-width: 380px) {
+@media (max-width: 599px) {
   .doll-slot-label {
     font-size: 0.46rem;
     letter-spacing: 0;
@@ -210,4 +174,36 @@
   .doll-slot {
     padding: 2px;
   }
+}
+
+/* Coordinates belong to the mannequin, independently of screen or import order. */
+.equipment-doll .doll-stage > .doll-slot.slot-ring {
+  left: 4%;
+  top: 20%;
+  transform: none;
+}
+.equipment-doll .doll-stage > .doll-slot.slot-amulet {
+  right: 4%;
+  top: 20%;
+  transform: none;
+}
+.equipment-doll .doll-stage > .doll-slot.slot-body {
+  left: 50%;
+  top: 35%;
+  translate: -50% 0;
+}
+.equipment-doll .doll-stage > .doll-slot.slot-weapon,
+.equipment-doll .doll-stage > .doll-slot.slot-shield {
+  top: 57%;
+}
+.equipment-doll .doll-stage > .doll-slot.slot-weapon {
+  left: 4%;
+}
+.equipment-doll .doll-stage > .doll-slot.slot-shield {
+  right: 4%;
+}
+.equipment-doll .doll-stage > .doll-slot.slot-feet {
+  left: 50%;
+  bottom: 4%;
+  translate: -50% 0;
 }

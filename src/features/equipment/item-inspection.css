@@ -119,17 +119,6 @@
   color: #e8c399;
   margin-top: 16px;
 }
-.catalog-inspect {
-  width: 100%;
-  text-align: left;
-  border: 0;
-  background: transparent;
-  padding: 0;
-  border-radius: 3px;
-}
-.catalog-inspect:hover h3 {
-  color: var(--accent);
-}
 .swap-preview > .item-inspection {
   padding: 0;
 }
@@ -146,7 +135,7 @@
   float: none;
   margin: 0;
 }
-@media (max-width: 600px) {
+@media (max-width: 599px) {
   .item-inspection {
     padding: 16px;
   }
@@ -361,7 +350,7 @@
 .inspection-columns.single-card .inspection-card-heading {
   min-height: 194px;
 }
-@media (max-width: 600px) {
+@media (max-width: 599px) {
   .item-inspection {
     padding: 10px;
   }
@@ -503,7 +492,7 @@
   font-size: 0.7rem;
   color: #eed09b;
 }
-@media (max-width: 600px) {
+@media (max-width: 599px) {
   .figure-formula {
     font-size: 0.6rem;
     padding: 7px 0;
@@ -532,7 +521,7 @@
 .inspection-card .figure-effects small {
   line-height: 1.5;
 }
-@media (max-width: 760px) {
+@media (max-width: 599px) {
   .inspection-card .figure-stance {
     font-size: 0.66rem;
   }
@@ -567,7 +556,7 @@
   color: #d5c29d;
   font-size: 0.78rem;
 }
-@media (max-width: 600px) {
+@media (max-width: 599px) {
   .item-requirements {
     margin-top: 12px;
     padding-top: 10px;
@@ -602,7 +591,7 @@
 .item-combos .item-combo-rule p {
   margin: 0;
 }
-@media (max-width: 600px) {
+@media (max-width: 599px) {
   .item-combos {
     margin-top: 12px;
     padding-top: 10px;
@@ -621,7 +610,7 @@
   container-type: inline-size;
   container-name: equipment-card;
 }
-@container equipment-card (max-width:380px) {
+@container equipment-card (max-width: 599px) {
   .inspection-card-heading,
   .inspection-columns.single-card .inspection-card-heading {
     display: flex;

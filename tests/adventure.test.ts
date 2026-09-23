@@ -309,8 +309,8 @@ test("journey preserves wounds, validates forge offers, advances five fights and
     journeyVictory(g, random);
     g = claimJourneyReward(g, "souls");
   }
-  assert.equal(g.journey!.finished, true);
-  g = nextJourneyBattle(g, undefined, undefined, random);
+  assert.equal(g.phase, "ready");
+  assert.equal(g.journey!.awaitingFirstBattle, true);
   assert.equal(g.journey!.stage, 1);
   assert.equal(g.journey!.expedition, 2);
   assert.equal(g.player.hp, maxHp(g.player));

@@ -27,16 +27,19 @@ export function BattleResultDialog({
       className="battle-result-dialog"
     >
       <div className="battle-result-scroll">
-        {game.journey?.battleMode === "expendable" && (
-          <p>
-            Оставшееся здоровье: вы — {game.player.hp}, противник —{" "}
-            {game.enemy.hp}.
-          </p>
-        )}
+        {game.journey?.battleMode === "expendable" &&
+          game.phase !== "defeat" && (
+            <p>
+              Оставшееся здоровье: вы — {game.player.hp}, противник —{" "}
+              {game.enemy.hp}.
+            </p>
+          )}
         {game.phase === "defeat" && (
           <p>
-            Все непотраченные души потеряны. Характеристики, навыки и снаряжение
-            сохранены.
+            Души остались у противника. Победите его, чтобы вернуть их. Новое
+            поражение уничтожит предыдущий запас. Вы возвращаетесь в начало
+            карты с полным здоровьем и стойкой; характеристики, навыки и
+            снаряжение сохранены.
           </p>
         )}
         {game.phase === "draw" && (

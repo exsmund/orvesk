@@ -1,6 +1,7 @@
 import "./portrait-frame.css";
 interface CharacterPortraitProps {
   src: string;
+  size?: "large" | "small";
   alt?: string;
   className?: string;
   label?: string;
@@ -11,6 +12,7 @@ interface CharacterPortraitProps {
 /** Shared portrait artwork, frame, aspect ratio and shadow for every fighter. */
 export function CharacterPortrait({
   src,
+  size = "large",
   alt = "",
   className = "",
   label,
@@ -29,7 +31,7 @@ export function CharacterPortrait({
       draggable={false}
     />
   );
-  const classes = `character-portrait ${className}`;
+  const classes = `character-portrait character-portrait--${size} ${className}`;
   return onClick ? (
     <button
       type="button"

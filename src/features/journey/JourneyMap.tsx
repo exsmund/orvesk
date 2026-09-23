@@ -12,9 +12,10 @@ import {
   encounterIdentity,
 } from "../../game/characters/portraits";
 import { journeyEnemyLevel } from "../../game/progression/souls";
-import { Check } from "lucide-react";
+import { JourneyNodeIcon } from "./JourneyNodeIcon";
 import {
   journeyMapPreset,
+  journeyMapLayout,
   availableJourneyNodes,
   currentJourneyNode,
   journeyPath,
@@ -53,9 +54,9 @@ function NodeDialog({
 }) {
   const description =
     node.kind === "camp"
-      ? "Отдых у костра полностью восстановит здоровье. После отдыха можно продолжить путь к следующему противнику."
+      ? "Отдых у костра полностью восстановит здоровье и стойку. После отдыха можно продолжить путь к следующему противнику."
       : node.kind === "forge"
-        ? "Кузница восстановит 50% максимального здоровья. Здесь можно заменить один предмет предложенным: прежняя вещь будет потеряна. Замену можно пропустить."
+        ? "Здесь можно заменить один предмет предложенным: прежняя вещь будет потеряна. Замену можно пропустить."
         : null;
   return (
     <Modal
@@ -128,11 +129,15 @@ export function JourneyMap({
   busy = false,
   onVisit,
   fullScreen = false,
+  onResumeForge,
+  onReward,
 }: {
   game: PublicGame;
   busy?: boolean;
   onVisit?: (id: string) => void;
   fullScreen?: boolean;
+  onResumeForge?: () => void;
+  onReward?: () => void;
 }) {
   const [selected, setSelected] = useState<string | null>(null);
   const confirming = useRef(false),
@@ -147,6 +152,7 @@ export function JourneyMap({
   const j = game.journey;
   if (!j) return null;
   const preset = journeyMapPreset(j);
+  const layout = journeyMapLayout(j);
   const current = currentJourneyNode(j),
     path = journeyPath(j),
     available = availableJourneyNodes(game),
@@ -162,19 +168,20 @@ export function JourneyMap({
       ? "Можно идти"
       : node.id === current
         ? "Вы здесь"
-        : path.includes(node.id) ||
-            (node.kind === "fight" && node.stage <= j.cleared)
+        : path.includes(node.id)
           ? "Пройдено"
           : available.includes(node.id)
             ? "Можно идти"
             : "Недоступно";
   const chosen = selected ? journeyNode(selected, j) : undefined;
+  const storedEnemy = chosen ? j.enemies?.[chosen.id] : undefined;
   const identity =
-    chosen?.stage === j.stage && game.phase !== "defeat"
+    storedEnemy ??
+    (chosen?.stage === j.stage && game.phase !== "defeat"
       ? game.enemy
       : chosen
         ? encounterIdentity(game.player, j.expedition, chosen.stage)
-        : undefined;
+        : undefined);
   const typeName = identity?.archetype
     ? (
         {
@@ -191,88 +198,109 @@ export function JourneyMap({
       ].name;
 
   return (
-    <div className="journey-graph-wrap">
-      <div
-        ref={graph}
-        className="journey-graph"
-        style={{
-          backgroundImage: `linear-gradient(#0b100b22,#0b100b22),url("${preset.background}")`,
-          aspectRatio: `${preset.width}/${preset.height}`,
-        }}
-        data-preset={preset.id}
-        role="group"
-        aria-label={`Карта путешествия: ${preset.name}`}
-      >
-        <svg
-          viewBox="0 0 100 100"
-          preserveAspectRatio="none"
-          aria-hidden="true"
-          className="journey-edges"
+    <div
+      className={`journey-graph-wrap${fullScreen ? " journey-graph-wrap--fullscreen" : ""}`}
+    >
+      <img
+        className="journey-map-art"
+        src={preset.background}
+        width={preset.width}
+        height={preset.height}
+        alt=""
+        draggable={false}
+      />
+      <div className="journey-map-canvas">
+        <div
+          ref={graph}
+          className="journey-graph"
+          data-preset={preset.id}
+          role="group"
+          aria-label={`Карта путешествия: ${preset.name}`}
         >
-          {preset.edges.map(([from, to]) => {
-            const a = journeyNode(from, j)!,
-              b = journeyNode(to, j)!,
-              walked = path.some((id, i) => id === from && path[i + 1] === to),
-              open = from === current && available.includes(to);
+          <svg
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+            className="journey-edges"
+          >
+            {layout.edges.map(([from, to]) => {
+              const a = journeyNode(from, j)!,
+                b = journeyNode(to, j)!,
+                walked = path.some(
+                  (id, i) => id === from && path[i + 1] === to,
+                ),
+                open = from === current && available.includes(to);
+              return (
+                <path
+                  key={`${from}:${to}`}
+                  d={`M ${a.x} ${a.y} L ${b.x} ${b.y}`}
+                  fill="none"
+                  className={
+                    walked
+                      ? "walked"
+                      : open
+                        ? "available"
+                        : b.y >= (currentNode?.y ?? 100)
+                          ? "expired"
+                          : ""
+                  }
+                />
+              );
+            })}
+          </svg>
+          {layout.nodes.map((node) => {
+            const here = node.id === current,
+              visited = path.includes(node.id),
+              resumeForge =
+                here &&
+                node.kind === "forge" &&
+                !j.forgeResolved &&
+                !!onResumeForge,
+              claimReward =
+                here &&
+                node.kind === "fight" &&
+                game.phase === "victory" &&
+                !!onReward,
+              open = available.includes(node.id) || resumeForge || claimReward,
+              status = claimReward
+                ? "Выбрать награду"
+                : resumeForge
+                  ? "Можно выбрать предмет"
+                  : statusFor(node),
+              past = !here && (visited || node.y >= (currentNode?.y ?? 100));
             return (
-              <line
-                key={`${from}:${to}`}
-                x1={a.x}
-                y1={a.y}
-                x2={b.x}
-                y2={b.y}
-                className={
-                  walked
-                    ? "walked"
-                    : open
-                      ? "available"
-                      : b.y >= (currentNode?.y ?? 100)
-                        ? "expired"
-                        : ""
+              <JourneyNodeIcon
+                key={node.id}
+                node={node}
+                current={here}
+                visited={visited}
+                past={past}
+                available={open}
+                busy={busy}
+                status={status}
+                lostSouls={
+                  j.lostSouls?.nodeId === node.id
+                    ? j.lostSouls.amount
+                    : undefined
                 }
+                label={here ? battleLabel : undefined}
+                onClick={() => {
+                  if (!open) return;
+                  if (claimReward) {
+                    onReward?.();
+                    return;
+                  }
+                  if (resumeForge) {
+                    onResumeForge?.();
+                    return;
+                  }
+                  confirming.current = false;
+                  setSelected(node.id);
+                }}
               />
             );
           })}
-        </svg>
-        {preset.nodes.map((node) => {
-          const here = node.id === current,
-            visited =
-              path.includes(node.id) ||
-              (node.kind === "fight" && node.stage <= j.cleared),
-            open = available.includes(node.id),
-            status = statusFor(node),
-            past = !here && (visited || node.y >= (currentNode?.y ?? 100));
-          return (
-            <button
-              type="button"
-              key={node.id}
-              className={`journey-node ${node.kind} ${here ? "current" : ""} ${visited ? "visited" : ""} ${past ? "past" : ""} ${open ? "available" : ""}`}
-              style={{ left: `${node.x}%`, top: `${node.y}%` }}
-              disabled={busy || !open}
-              aria-current={here ? "location" : undefined}
-              aria-haspopup="dialog"
-              aria-label={`${node.name} · этап ${node.stage} · ${status}`}
-              title={`${node.name} · ${status}`}
-              onClick={() => {
-                if (!open) return;
-                confirming.current = false;
-                setSelected(node.id);
-              }}
-            >
-              {here && battleLabel && (
-                <span className="journey-battle-label">{battleLabel}</span>
-              )}
-              <img src={nodeImage(node)} alt="" draggable={false} />
-              {visited && !here && (
-                <Check
-                  className="journey-node-check"
-                  size={12}
-                  aria-hidden="true"
-                />
-              )}
-            </button>
-          );
-        })}
+        </div>
       </div>
       {chosen && (
         <NodeDialog
@@ -281,9 +309,11 @@ export function JourneyMap({
           enemyType={typeName}
           actionLabel={chosen.id === current ? battleLabel : undefined}
           enemyPortrait={
-            chosen.stage === j.stage && game.phase !== "defeat"
-              ? portrait(game.enemy.portraitId).src
-              : encounterPortrait(game.player, j.expedition, chosen.stage).src
+            storedEnemy
+              ? portrait(storedEnemy.portraitId).src
+              : chosen.stage === j.stage && game.phase !== "defeat"
+                ? portrait(game.enemy.portraitId).src
+                : encounterPortrait(game.player, j.expedition, chosen.stage).src
           }
           enemyLevel={
             chosen.kind === "fight"

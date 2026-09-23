@@ -146,7 +146,7 @@
 .creation-dialog .error {
   font-size: 0.8rem;
 }
-@media (max-width: 600px) {
+@media (max-width: 599px) {
   .creation-dialog {
   }
   .creation-dialog-body {
@@ -176,17 +176,5 @@
   }
   .allocation-row small {
     font-size: 0.6rem;
-  }
-}
-@media (max-height: 660px) {
-  .creation-dialog-body {
-    justify-content: flex-start;
-    gap: 14px;
-  }
-  .creation-carousel > .creation-portrait-frame {
-    width: min(100%, calc(33dvh * 2 / 3));
-  }
-  .allocation-row {
-    padding: 8px 0;
   }
 }

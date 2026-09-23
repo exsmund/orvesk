@@ -38,11 +38,7 @@
 .fight-tab-content:has(.result-panel) .arena-reach {
   margin: auto;
 }
-@media (max-height: 760px) {
-  .combat-app .doll-stage {
-  }
-}
-@media (max-width: 760px) {
+@media (max-width: 599px) {
   .combat-app .action-card {
     padding-right: 10px;
   }
@@ -64,63 +60,5 @@
   }
   .combat-app .result-content > .eyebrow {
     display: none;
-  }
-}
-@media (max-width: 760px) and (max-height: 700px) {
-  .combat-app .arena {
-    min-height: 30px;
-  }
-  .combat-app .combatants {
-    display: none;
-  }
-  .combat-app .arena-reach {
-    margin: auto;
-  }
-  .combat-app .action-card {
-    min-height: 36px;
-  }
-  .combat-app .attack-info > .chosen-cost {
-    display: none;
-  }
-}
-@media (min-width: 761px) and (max-height: 590px) {
-  .combat-app .doll-stage {
-  }
-}
-@media (max-width: 760px) and (max-height: 700px), (max-height: 450px) {
-  .fight-tab-content:has(.result-panel) .arena {
-    display: none;
-  }
-  .combat-app .result-panel {
-    max-height: 100%;
-    padding: 8px;
-  }
-  .combat-app .result-content > .item-image-button {
-    display: none;
-  }
-  .combat-app .result-content h2 {
-    font-size: 0.8rem;
-    margin: 4px 0;
-  }
-  .combat-app .result-content > p {
-    font-size: 0.61rem;
-    line-height: 1.4;
-  }
-  .combat-app .result-content > .eyebrow {
-    display: none;
-  }
-  .combat-app .reward-details {
-    min-height: 26px;
-    margin-top: 3px;
-  }
-  .combat-app .reward-buttons {
-    flex-direction: row;
-    gap: 5px;
-    margin-top: 7px;
-  }
-  .combat-app .reward-buttons button {
-    min-height: 30px;
-    padding: 0 8px;
-    font-size: 0.6rem;
   }
 }

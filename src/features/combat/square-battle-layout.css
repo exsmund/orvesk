@@ -79,10 +79,10 @@
   scrollbar-width: thin;
 }
 .board-combat .piece-tray .figure-palette .maneuver-piece {
-  width: 132px;
-  min-width: 132px;
-  flex: 0 0 132px;
-  min-height: 154px;
+  width: 172px;
+  min-width: 172px;
+  flex: 0 0 172px;
+  min-height: 200px;
   scroll-snap-align: start;
   gap: 10px;
 }
@@ -97,7 +97,7 @@
   grid-template-rows: auto;
   align-items: start;
 }
-@media (max-width: 760px) {
+@media (max-width: 599px) {
   .reaction-board.board-combat .planning-footer {
     flex-wrap: wrap;
   }
@@ -144,7 +144,7 @@ dialog.modal.cell-info-modal[data-size] {
 .cell-info-content h3 {
   margin-top: 0;
 }
-@media (max-width: 600px) {
+@media (max-width: 599px) {
   dialog.modal.cell-info-modal[data-size] {
     height: 100dvh;
     max-height: 100dvh;
@@ -152,5 +152,109 @@ dialog.modal.cell-info-modal[data-size] {
   .cell-info-content {
     flex: 1;
     min-height: 0;
+  }
+}
+
+.reaction-board .planning-footer.planning-submit {
+  justify-content: flex-end;
+}
+.planning-submit > .gothic-text-button {
+  width: min(100%, 240px);
+}
+.planning-message {
+  color: #d9ad8e;
+  font-size: 0.8rem;
+}
+
+/* On phones the field yields height to the tray and the action button. */
+@media (max-width: 599px) {
+  .app.combat-app:has(> .battle-header) {
+    height: 100dvh;
+    min-height: 0;
+    padding-bottom: max(4px, env(safe-area-inset-bottom));
+  }
+  .app.combat-app > main {
+    padding-top: 4px;
+  }
+  .combat-app .reaction-board.board-combat {
+    overflow: visible;
+    padding: 4px;
+    gap: 6px;
+  }
+  .combat-app .reaction-board.board-combat .planning-workspace {
+    flex: 1 1 0;
+    min-height: 0;
+    gap: 6px;
+  }
+  .combat-app .reaction-board.board-combat .board-column {
+    flex: 1 1 0;
+    min-height: 0;
+    height: auto;
+    padding: 0;
+    container-type: size;
+  }
+  .combat-app .reaction-board.board-combat .action-board.outcome-field {
+    width: min(100%, 100cqh);
+    height: auto;
+    max-height: 100%;
+    aspect-ratio: 1;
+    margin: auto;
+    align-self: center;
+  }
+  .combat-app .reaction-board.board-combat .maneuver-column {
+    padding-top: 4px;
+  }
+  .combat-app .piece-tray {
+    --piece-cell: clamp(20px, 5dvh, 36px);
+  }
+  .combat-app .piece-tray .figure-palette {
+    padding-block: 4px 8px;
+  }
+  .combat-app .piece-tray .figure-palette .maneuver-piece {
+    min-height: clamp(100px, 24dvh, 154px);
+  }
+  .combat-app .reaction-board .planning-footer {
+    flex: none;
+    margin-top: 0;
+    padding-top: 4px;
+  }
+  .combat-app .planning-message {
+    flex: none;
+    margin: 0;
+  }
+}
+
+/* Wrapping is enabled only after measuring the complete battle panel. */
+@media (min-width: 600px) {
+  .board-combat .piece-tray[data-wrap="true"] .figure-palette {
+    flex-wrap: wrap;
+    overflow-x: visible;
+    gap: 12px;
+  }
+}
+
+/* Keep the same field space when the arsenal is replaced by a result. */
+.battle-workspace__below:empty {
+  border-color: transparent;
+}
+.battle-outcome-message {
+  text-align: center;
+  padding: 12px 4px;
+}
+.battle-outcome-message strong {
+  font-family: "Prata", serif;
+  font-size: clamp(20px, 3vw, 28px);
+  font-weight: 400;
+}
+.battle-outcome-message p {
+  margin: 10px 0 0;
+  font-size: 14px;
+  color: var(--muted, #b3bea0);
+}
+@media (max-width: 599px) {
+  .combat-app .reaction-board.board-combat .battle-workspace__below {
+    height: calc(clamp(100px, 24dvh, 154px) + 20px);
+    flex: none;
+    box-sizing: border-box;
   }
 }

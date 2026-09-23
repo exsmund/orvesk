@@ -19,7 +19,7 @@ dialog.modal[class] .fighter-details .fighter-panel {
   background: transparent;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 599px) {
   dialog.modal[class],
   dialog.creation-dialog[class] {
     --modal-footer-height: 92px;

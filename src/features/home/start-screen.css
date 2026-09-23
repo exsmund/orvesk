@@ -290,29 +290,7 @@
 .hero-profile .error {
   margin: 0 24px 20px;
 }
-@media (max-width: 600px) {
-  .start-screen {
-    padding: 42px 20px 64px;
-  }
-  .start-content h1 {
-    font-size: clamp(2.9rem, 13vw, 4rem);
-    letter-spacing: 0.055em;
-  }
-  .start-kicker {
-    font-size: 0.53rem;
-    letter-spacing: 0.25em;
-  }
-  .start-menu button {
-    font-size: 1.45rem;
-    min-height: 58px;
-  }
-  .start-content {
-    max-width: 350px;
-  }
-  .start-footer {
-    font-size: 0.55rem;
-    bottom: 24px;
-  }
+@media (max-width: 599px) {
   .heroes-header {
     padding: 16px;
   }
@@ -352,32 +330,6 @@
   }
   .hero-profile > footer {
     padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
-  }
-}
-@media (max-height: 560px) and (min-width: 601px) {
-  .start-screen {
-    padding: 24px 20px 45px;
-  }
-  .start-content h1 {
-    font-size: 3rem;
-    margin: 8px 0 12px;
-  }
-  .start-divider {
-    margin-bottom: 10px;
-  }
-  .start-menu {
-    gap: 0;
-  }
-  .start-menu button {
-    min-height: 44px;
-    font-size: 1.3rem;
-  }
-  .start-status {
-    margin-top: 8px;
-    min-height: 20px;
-  }
-  .start-footer {
-    bottom: 12px;
   }
 }
 

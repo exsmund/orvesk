@@ -5,7 +5,11 @@ import { isEvade, skill } from "../skills/skills";
 import { maxHp } from "./engine";
 import { comboCandidates } from "./figure-combos";
 import { level, loseSoulsOnDefeat } from "../progression/souls";
-import { journeyVictory, journeyEnemy } from "../journey/journey";
+import {
+  journeyVictory,
+  journeyEnemy,
+  ensureJourneyEnemies,
+} from "../journey/journey";
 import { item, ITEMS } from "../equipment/catalog";
 import {
   layer,
@@ -84,8 +88,8 @@ export function prepareClash(saved: Game, random: Random = Math.random): Game {
     expedition: 1,
     stage: 1,
     cleared: 0,
-    healUsed: false,
   };
+  ensureJourneyEnemies(g);
   g.journey.battleMode ??= "limited";
   g.journey.path ??= journeyPath(g.journey);
   for (const f of [g.player, g.enemy]) {
@@ -126,11 +130,14 @@ export function prepareClash(saved: Game, random: Random = Math.random): Game {
     return prepareClash(g, random);
   }
   if (g.phase === "defeat") {
+    g.player.hp = maxHp(g.player);
+    g.player.poise = maxPoise(g.player);
+    g.player.prone = false;
+    g.player.offBalance = false;
     g.journey.path = ["fight-1"];
     g.journey.stage = 1;
     g.journey.cleared = 0;
     g.journey.finished = false;
-    g.journey.healUsed = false;
     g.journey.offers = [];
     delete g.journey.route;
     delete g.journey.forgeResolved;
@@ -203,7 +210,6 @@ export function beginClash(saved: Game, random: Random = Math.random): Game {
       expedition: 1,
       stage: 1,
       cleared: 0,
-      healUsed: false,
     };
     g.enemy = journeyEnemy(g, random);
   }
@@ -259,22 +265,42 @@ export function validateClash(
   if (!mod || typeof mod !== "object" || Array.isArray(mod))
     throw new Error("Некорректные эффекты украшений.");
   const f = g[side];
-  if (f.actionsFinished && (placed.length || Object.keys(mod).length))
+  if (
+    f.actionsFinished &&
+    (placed.length ||
+      (Object.keys(mod) as (keyof BoardModifiers)[]).some(
+        (key) =>
+          side !== "player" ||
+          mod[key] !== plan.committedPlayerModifiers?.[key],
+      ))
+  )
     throw new Error("Вы уже завершили действия в этом бою.");
   if (
     mod.unlocked !== undefined &&
     (!Number.isInteger(mod.unlocked) ||
       !plan.blocked.includes(mod.unlocked) ||
       f.gear.ring !== "unlock-ring" ||
-      f.charmsUsed?.ring)
+      (f.charmsUsed?.ring &&
+        !(
+          side === "player" &&
+          plan.committedPlayerModifiers?.unlocked === mod.unlocked
+        )))
   )
     throw new Error("Кольцо недоступно или выбрана не скала.");
   if (
     mod.compressed !== undefined &&
     (typeof mod.compressed !== "string" ||
       f.gear.amulet !== "fold-amulet" ||
-      f.charmsUsed?.amulet ||
-      !placed.some((p) => p.id === mod.compressed))
+      (f.charmsUsed?.amulet &&
+        !(
+          side === "player" &&
+          plan.committedPlayerModifiers?.compressed === mod.compressed
+        )) ||
+      (!placed.some((p) => p.id === mod.compressed) &&
+        !(
+          side === "player" &&
+          plan.committedPlayerModifiers?.compressed === mod.compressed
+        )))
   )
     throw new Error("Амулет недоступен или фигура не размещена.");
   const tokens = reactionManeuvers(f),
@@ -677,9 +703,7 @@ export function resolveClash(saved: Game, random: Random = Math.random): Game {
     finishByHealth(g, events, random, false);
   if (g.phase === "defeat") {
     const lost = loseSoulsOnDefeat(g);
-    events.push(
-      `Потеряно душ: ${lost}. Непотраченные души исчезают при поражении.`,
-    );
+    events.push(`Потеряно душ: ${lost}. Души остались у противника.`);
   }
   const result: ClashResult = {
     battleMode: battleMode(g.journey),
@@ -755,6 +779,54 @@ function hasAttacksRemaining(g: Game, side: Side): boolean {
     return reactionManeuvers(candidate).some((m) => isStrike(m) && !m.spent);
   });
 }
+/** Commit a charm immediately, without advancing the turn or exposing the enemy. */
+export function applyClashCharm(
+  saved: Game,
+  charm: unknown,
+  target: unknown,
+): Game {
+  if (
+    saved.phase !== "combat" ||
+    !saved.clashPlan ||
+    saved.player.actionsFinished
+  )
+    throw new Error("Украшение сейчас недоступно.");
+  const g = structuredClone(saved),
+    plan = g.clashPlan!,
+    f = g.player;
+  const committed = { ...plan.committedPlayerModifiers };
+  if (charm === "ring") {
+    if (
+      f.gear.ring !== "unlock-ring" ||
+      f.charmsUsed?.ring ||
+      typeof target !== "number" ||
+      !Number.isInteger(target) ||
+      !plan.blocked.includes(target) ||
+      plan.enemyModifiers.unlocked === target
+    )
+      throw new Error("Кольцо недоступно или выбрана не скала.");
+    committed.unlocked = target;
+  } else if (charm === "amulet") {
+    const figure = reactionManeuvers(f).find((m) => m.id === target);
+    if (
+      f.gear.amulet !== "fold-amulet" ||
+      f.charmsUsed?.amulet ||
+      !figure ||
+      !isCombatActionEnabled(figure.action) ||
+      figure.spent ||
+      figure.cooldown ||
+      figure.shape.length <= 1
+    )
+      throw new Error("Амулет недоступен или фигуру нельзя сжать.");
+    committed.compressed = figure.id;
+  } else throw new Error("Неизвестное украшение.");
+  f.charmsUsed ??= { ring: false, amulet: false };
+  f.charmsUsed[charm] = true;
+  plan.committedPlayerModifiers = committed;
+  plan.playerModifiers = { ...plan.playerModifiers, ...committed };
+  return g;
+}
+
 export function submitClash(
   saved: Game,
   placed: Placement[],
@@ -763,6 +835,7 @@ export function submitClash(
 ): Game {
   if (saved.phase !== "combat" || !saved.clashPlan)
     throw new Error("Поле недоступно.");
+  mod = { ...mod, ...saved.clashPlan.committedPlayerModifiers };
   validateClash(saved, "player", placed, mod);
   const g = structuredClone(saved),
     plan = g.clashPlan!;

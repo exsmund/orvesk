@@ -8,6 +8,7 @@ import "../src/features/combat/combat-layout.css";
 import "../src/features/combat/tactics.css";
 import "../src/app/styles/ui-textures.css";
 import "../stories/catalog.css";
+import "../src/app/styles/responsive.css";
 function InputFocusProvider({ children }: { children: ReactNode }) {
   useKeyboardInputFocus();
   return <>{children}</>;

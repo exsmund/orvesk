@@ -1,7 +1,10 @@
 import { encounterPortrait, encounterIdentity } from "../characters/portraits";
+import { maxPoise } from "../combat/tactics";
 import { STARTING_SOULS } from "../progression/creation-rules";
 import {
   chooseJourneyMap,
+  generateJourneyMap,
+  ensureJourneyMap,
   availableJourneyNodes,
   currentJourneyNode,
   journeyNode,
@@ -26,12 +29,12 @@ import type { Game, RewardSelection } from "../types";
 export const ROUTES = {
   camp: {
     name: "У костра",
-    description: "Полностью восстановить здоровье перед следующим боем.",
+    description:
+      "Полностью восстановить здоровье и стойку перед следующим боем.",
   },
   forge: {
     name: "Кузница",
-    description:
-      "Восстановить 50% максимального здоровья и заменить один предмет предложенным. Старый предмет теряется.",
+    description: "Заменить один предмет предложенным. Старый предмет теряется.",
   },
   risk: {
     name: "Опасный путь",
@@ -52,12 +55,48 @@ export function createJourney(...args: Parameters<typeof createGame>): Game {
     expedition: 1,
     stage: 1,
     cleared: 0,
-    healUsed: false,
     path: ["fight-1"],
     awaitingFirstBattle: true,
   };
-  g.enemy = journeyEnemy(g, random);
+  g.journey.map ??= generateJourneyMap(random);
+  ensureJourneyEnemies(g, random, false);
+  g.enemy = structuredClone(g.journey.enemies!["fight-1"]);
   return g;
+}
+
+/** Immutable encounter templates survive retries, upgrades and map resets. */
+export function ensureJourneyEnemies(
+  g: Game,
+  random: Random | undefined = undefined,
+  preserveCurrent = true,
+) {
+  const j = g.journey;
+  if (!j) return;
+  ensureJourneyMap(j);
+  for (const enemy of [g.enemy, ...Object.values(j.enemies ?? {})])
+    if (enemy.name === "Чемпион круга") enemy.name = "Босс круга";
+  if (j.enemies) return;
+  // Legacy saves get a stable roster without consuming a committed round's RNG.
+  let seed = [...g.player.name].reduce(
+    (n, c) => (n * 31 + c.charCodeAt(0)) >>> 0,
+    j.expedition,
+  );
+  random ??= () => {
+    seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
+    return seed / 4294967296;
+  };
+  j.enemies = {};
+  for (let stage = 1; stage <= 5; stage++) {
+    const enemy =
+      preserveCurrent && stage === j.stage
+        ? structuredClone(g.enemy)
+        : journeyEnemy({ ...g, journey: { ...j, stage } }, random);
+    enemy.hp = maxHp(enemy);
+    enemy.poise = maxPoise(enemy);
+    enemy.prone = false;
+    enemy.offBalance = false;
+    j.enemies[`fight-${stage}`] = enemy;
+  }
 }
 
 export function journeyEnemy(g: Game, random: Random) {
@@ -127,6 +166,11 @@ export function journeyEnemy(g: Game, random: Random) {
 }
 export function journeyVictory(g: Game, random: Random) {
   if (!g.journey) return;
+  const cache = g.journey.lostSouls;
+  if (cache?.nodeId === `fight-${g.journey.stage}`) {
+    g.souls += cache.amount;
+    delete g.journey.lostSouls;
+  }
   g.journey.cleared = g.journey.stage;
   g.journey.finished = g.journey.stage === 5;
   const pool = ITEMS.filter(
@@ -159,9 +203,18 @@ export function claimJourneyReward(
   index = 0,
   replaceSkillId?: string,
   skillSlot?: number,
+  random: Random = Math.random,
 ) {
   const hp = g.player.hp,
     next = claimReward(g, selection, index, replaceSkillId, skillSlot);
+  if (next.journey?.finished) {
+    const fresh = nextJourneyBattle(next, undefined, undefined, random);
+    fresh.phase = "ready";
+    fresh.journey!.awaitingFirstBattle = true;
+    delete fresh.clashPlan;
+    delete fresh.roundPlan;
+    return fresh;
+  }
   if (next.journey) next.player.hp = Math.min(hp, maxHp(next.player));
   return next;
 }
@@ -170,6 +223,7 @@ export function nextJourneyBattle(
   route?: string,
   itemId?: string,
   random: Random = Math.random,
+  targetStage?: number,
 ): Game {
   if (!saved.journey) return nextBattle(saved, random);
   if (!["ready", "defeat", "draw"].includes(saved.phase))
@@ -185,6 +239,7 @@ export function nextJourneyBattle(
   )
     throw new Error("Выберите путь к следующему бою.");
   const base = structuredClone(saved);
+  ensureJourneyEnemies(base, random);
   if (!restart && saved.phase === "ready" && route === "forge") {
     if (
       !itemId ||
@@ -196,6 +251,9 @@ export function nextJourneyBattle(
   }
   const g = nextBattle(base, random);
   g.journey = {
+    map: newJourney ? undefined : base.journey!.map,
+    enemies: newJourney ? undefined : base.journey!.enemies,
+    lostSouls: newJourney ? undefined : old.lostSouls,
     mapPreset: newJourney
       ? chooseJourneyMap(random, old.mapPreset)
       : old.mapPreset,
@@ -203,35 +261,43 @@ export function nextJourneyBattle(
       ? ["fight-1"]
       : saved.phase === "draw"
         ? [...journeyPath(old)]
-        : [...journeyPath(old), `fight-${Math.min(5, old.stage + 1)}`],
+        : [
+            ...journeyPath(old),
+            `fight-${targetStage ?? Math.min(5, old.stage + 1)}`,
+          ],
     battleMode: newJourney
       ? chooseBattleMode(random, battleMode(old))
       : battleMode(old),
     startLevel: newJourney ? level(g.player) : old.startLevel,
-    healUsed: restart ? false : (old.healUsed ?? false),
     expedition: old.expedition + (newJourney ? 1 : 0),
     stage: restart
       ? 1
       : saved.phase === "draw"
         ? old.stage
-        : Math.min(5, old.stage + 1),
+        : (targetStage ?? Math.min(5, old.stage + 1)),
     cleared: restart ? 0 : old.cleared,
     route:
       restart || saved.phase === "draw" || route === "direct"
         ? undefined
         : (route as "camp" | "forge" | "risk"),
   };
-  if (!restart && saved.phase !== "draw")
+  if (!restart && saved.phase !== "draw") {
+    g.player.poise = route === "camp" ? maxPoise(g.player) : saved.player.poise;
+    g.player.prone = route === "camp" ? false : saved.player.prone;
     g.player.hp = Math.min(
       maxHp(g.player),
       Math.round(
         (saved.player.hp +
           maxHp(g.player) *
-            (route === "camp" ? 1 : route === "direct" ? 0 : 0.5)) *
+            (route === "camp" ? 1 : route === "risk" ? 0.5 : 0)) *
           10,
       ) / 10,
     );
-  g.enemy = journeyEnemy(g, random);
+  }
+  g.journey.map ??= generateJourneyMap(random);
+  ensureJourneyEnemies(g, random, false);
+  g.enemy = structuredClone(g.journey.enemies![`fight-${g.journey.stage}`]);
+  if (g.journey.route === "risk") g.enemy.elite = true;
   return g;
 }
 
@@ -267,20 +333,17 @@ export function visitJourneyNode(
       delete g.journey!.awaitingFirstBattle;
       return g;
     }
-    if (node.stage !== old.stage + 1)
-      throw new Error("Нельзя пропускать противников.");
-    return nextJourneyBattle(saved, "direct", undefined, random);
+    return nextJourneyBattle(saved, "direct", undefined, random, node.stage);
   }
   const g = structuredClone(saved),
     j = g.journey!;
   j.path = [...journeyPath(old), nodeId];
   j.forgeResolved = node.kind !== "forge";
-  g.player.hp = Math.min(
-    maxHp(g.player),
-    Math.round(
-      (g.player.hp + maxHp(g.player) * (node.kind === "camp" ? 1 : 0.5)) * 10,
-    ) / 10,
-  );
+  if (node.kind === "camp") {
+    g.player.hp = maxHp(g.player);
+    g.player.poise = maxPoise(g.player);
+    g.player.prone = false;
+  }
   return g;
 }
 export function resolveJourneyForge(

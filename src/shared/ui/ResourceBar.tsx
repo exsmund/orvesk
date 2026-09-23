@@ -4,6 +4,7 @@ import "./resource-bar.css";
 
 export interface ResourceBarProps {
   value: number;
+  change?: number;
   max: number;
   kind: "health" | "poise";
   className?: string;
@@ -17,6 +18,7 @@ const finite = (n: number) => (Number.isFinite(n) ? n : 0);
 /** Shared animated health and poise meter. */
 export function ResourceBar({
   value,
+  change,
   max,
   kind,
   className = "",
@@ -26,6 +28,9 @@ export function ResourceBar({
 }: ResourceBarProps) {
   const limit = Math.max(0, finite(max)),
     current = Math.max(0, Math.min(limit, finite(value)));
+  const delta = Math.round(finite(change ?? 0) * 10) / 10;
+  const deltaText =
+    delta < 0 ? `−${displayValue(-delta)}` : `+${displayValue(delta)}`;
   const target = useRef({ current, limit, kind, effect, compact });
   useEffect(() => {
     target.current = { current, limit, kind, effect, compact };
@@ -171,12 +176,19 @@ export function ResourceBar({
       aria-valuenow={current}
       aria-valuemin={0}
       aria-valuemax={limit || 1}
-      aria-valuetext={`${current} / ${limit}`}
+      aria-valuetext={`${current} / ${limit}${delta ? `, прогноз изменения ${deltaText}` : ""}`}
     >
       <div className="resource-bar__numbers" aria-hidden="true">
         <span ref={number}>
           {displayValue(current)} / {displayValue(limit)}
         </span>
+        {delta !== 0 && (
+          <span
+            className={`resource-bar__change resource-bar__change--${delta < 0 ? "loss" : "gain"}`}
+          >
+            {deltaText}
+          </span>
+        )}
       </div>
       <div className="resource-bar__canvas" ref={host} aria-hidden="true">
         <div className="resource-bar__fallback">

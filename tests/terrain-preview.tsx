@@ -4,6 +4,7 @@ import { createRoot } from "react-dom/client";
 import { createGame } from "../src/game/combat/engine";
 import {
   beginClash,
+  applyClashCharm,
   publicClash,
   submitClash,
 } from "../src/game/combat/reaction-engine";
@@ -16,6 +17,7 @@ import "../src/app/styles/style.css";
 function fixture(blocked: number[]) {
   const game = beginClash(createGame("Проверка скал"));
   game.player.gear.ring = "unlock-ring";
+  game.player.gear.amulet = "fold-amulet";
   Object.assign(game.clashPlan!, {
     blocked,
     preparer: "player",
@@ -67,6 +69,10 @@ function Preview() {
           session={`terrain-visual-${version}`}
           busy={false}
           onInspect={() => {}}
+          onCharm={async (charm, target) => {
+            setGame((current) => applyClashCharm(current, charm, target));
+            return true;
+          }}
           onSubmit={async (payload) => {
             const p = payload as {
               placements: Placement[];

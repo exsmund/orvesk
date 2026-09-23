@@ -21,7 +21,7 @@ dialog.heroes-dialog[open] {
 .heroes-dialog .heroes-empty {
   padding: 32px 0;
 }
-@media (max-width: 600px) {
+@media (max-width: 599px) {
   .heroes-dialog-body {
     padding: 16px;
   }
@@ -63,7 +63,7 @@ dialog.heroes-dialog[open] {
 .heroes-dialog .hero-select:hover h2 {
   color: #e5c799;
 }
-@media (max-width: 600px) {
+@media (max-width: 599px) {
   .heroes-dialog .hero-select {
     grid-template-columns: 96px minmax(0, 1fr);
     gap: 16px;
@@ -82,7 +82,7 @@ dialog.heroes-dialog[open] {
 .hero-roster-entry .hero-delete {
   margin: 0;
 }
-@media (max-width: 600px) {
+@media (max-width: 599px) {
   .heroes-dialog .hero-roster-entry {
     gap: 10px;
   }
@@ -102,7 +102,7 @@ dialog.hero-confirm-dialog[data-size] {
   overflow: auto;
   min-height: 0;
 }
-@media (max-width: 600px) {
+@media (max-width: 599px) {
   dialog.hero-confirm-dialog[data-size] {
     height: 100dvh;
   }

@@ -87,36 +87,6 @@
   padding: 1px 3px;
   border-radius: 2px;
 }
-.equipment-doll .slot-ring {
-  left: 4%;
-  top: 20%;
-  transform: none;
-}
-.equipment-doll .slot-amulet {
-  right: 4%;
-  top: 20%;
-  transform: none;
-}
-.equipment-doll .slot-body {
-  left: 50%;
-  top: 35%;
-  translate: -50% 0;
-}
-.equipment-doll .slot-weapon,
-.equipment-doll .slot-shield {
-  top: 57%;
-}
-.equipment-doll .slot-weapon {
-  left: 4%;
-}
-.equipment-doll .slot-shield {
-  right: 4%;
-}
-.equipment-doll .slot-feet {
-  left: 50%;
-  bottom: 4%;
-  translate: -50% 0;
-}
 .inspection-card {
   position: relative;
   isolation: isolate;
@@ -126,9 +96,7 @@
   border-image-width: 14px;
 }
 /* Cicada layers: coprime periods; stitched noise and wrapped marks have no tile edges. */
-.inspection-card,
-.catalog-item,
-.catalog-item.locked {
+.inspection-card {
   --card-tone: linear-gradient(145deg, #293022, #181f18 75%);
   background-color: #192018;
   background-image:
@@ -179,7 +147,7 @@ dialog.creation-dialog[class] {
 .fighter-details .doll-slot {
   width: 60px;
 }
-@media (max-width: 760px) {
+@media (max-width: 599px) {
   .inspection-card::after {
     border-width: 10px;
     border-image-width: 10px;
@@ -193,7 +161,7 @@ dialog.creation-dialog[class] {
 }
 
 /* One mobile viewport contract for every dialog, including nested reward views. */
-@media (max-width: 600px) {
+@media (max-width: 599px) {
   dialog.modal[class],
   dialog.creation-dialog[class] {
     --modal-frame-inset: 20px;

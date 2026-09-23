@@ -1,3 +1,4 @@
+@import "./portrait-sizes.css";
 /* All source portraits are 1024 × 1536. Frame and image keep their 2:3 ratio. */
 :root {
   --portrait-frame: url("/ui/portrait-frame-v1.png");
@@ -46,7 +47,7 @@
 .roster-portrait-frame {
   width: 100%;
 }
-@media (max-width: 760px) {
+@media (max-width: 599px) {
   .fighter-portrait-button,
   .portrait-frame {
     --portrait-edge: 18px;
@@ -55,4 +56,27 @@
   .roster-portrait-frame {
     --portrait-edge: 24px;
   }
+}
+
+/* Small portraits use a full-image circular rim, never a stretched border-image. */
+.character-portrait.character-portrait--small {
+  width: var(--journey-node-size);
+  height: var(--journey-node-size);
+  aspect-ratio: 1;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  filter: drop-shadow(0 2px 5px #0009);
+}
+.character-portrait--small > img.identity-portrait {
+  inset: 5%;
+  width: 90%;
+  height: 90%;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 25%;
+}
+.character-portrait--small::after {
+  border: 0;
+  border-image: none;
+  background: url("/ui/portrait-frame-round-v1.png") center / contain no-repeat;
 }

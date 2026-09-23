@@ -41,5 +41,7 @@ export function loseSoulsOnDefeat(g: Game): number {
   if (g.phase !== "defeat") return 0;
   const lost = g.souls;
   g.souls = 0;
+  if (g.journey)
+    g.journey.lostSouls = { nodeId: `fight-${g.journey.stage}`, amount: lost };
   return lost;
 }

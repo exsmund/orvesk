@@ -53,7 +53,7 @@ dialog[class] > header.modal-header .modal-header-close {
   grid-column: 3;
   grid-row: 1;
 }
-@media (max-width: 600px) {
+@media (max-width: 599px) {
   dialog.modal[class],
   dialog.creation-dialog[class] {
     --modal-header-height: 92px;

@@ -1,0 +1,97 @@
+button.fighter-name-button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+}
+@media (max-width: 599px) {
+  .app.combat-app {
+    padding-top: 0;
+  }
+  .app.combat-app .arena-layout,
+  .app.combat-app .arena-layout:has(> .fighter-panel > .fighter-debuffs) {
+    grid-template-columns: 44px minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+    gap: 0 10px;
+    background: none;
+    border: 0;
+    border-radius: 0;
+  }
+  .app.combat-app .arena-layout > .combat-menu-button {
+    position: static;
+    grid-column: 1;
+    grid-row: 1;
+    align-self: center;
+    width: 44px;
+    height: 44px;
+  }
+  .app.combat-app .arena-layout > .fighter-panel,
+  .app.combat-app
+    .arena-layout:has(> .fighter-panel > .fighter-debuffs)
+    > .fighter-panel {
+    grid-column: 2;
+    grid-row: 1;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    align-content: start;
+    height: auto;
+    gap: 4px;
+    padding: 8px 0;
+    background: none;
+    border: 0;
+    box-shadow: none;
+  }
+  .app.combat-app
+    .arena-layout
+    > .fighter-panel
+    > :not(.fighter-identity):not(.combat-resources):not(.fighter-debuffs):not(
+      .floating-damage
+    ) {
+    display: none;
+  }
+  .app.combat-app .arena-layout > .fighter-panel .fighter-debuff small {
+    display: none;
+  }
+  .app.combat-app .arena-layout > .fighter-panel.opponent-panel {
+    grid-column: 3;
+  }
+  .app.combat-app .arena-layout > .fighter-panel .fighter-identity,
+  .app.combat-app
+    .arena-layout:has(> .fighter-panel > .fighter-debuffs)
+    > .fighter-panel
+    .fighter-identity {
+    grid-column: 1;
+    grid-row: 1;
+    margin: 0;
+    display: block;
+    container-type: normal;
+  }
+  .app.combat-app .arena-layout > .fighter-panel .fighter-identity > :not(h2) {
+    display: none;
+  }
+  .app.combat-app .arena-layout > .fighter-panel .fighter-identity h2 {
+    display: block;
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.25;
+    text-align: left;
+    overflow-wrap: anywhere;
+  }
+  .app.combat-app .arena-layout > .fighter-panel > .combat-resources {
+    grid-column: 1;
+    grid-row: 2;
+    width: 100%;
+    margin: 0;
+  }
+  .app.combat-app .arena-layout > .fighter-panel > .fighter-debuffs {
+    grid-column: 1;
+    grid-row: 3;
+  }
+  .app.combat-app .arena-layout > .battle-center {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    border: 0;
+  }
+}

@@ -1,3 +1,4 @@
+import type { ResourceChange } from "../combat/resource-preview";
 import { CharacterPortrait } from "../../shared/ui/CharacterPortrait";
 import type { Fighter, Item, Stat } from "../../game/types";
 import { level } from "../../game/progression/souls";
@@ -14,6 +15,7 @@ import { FighterSkills } from "../skills/SkillUI";
 import { knownSkills } from "../../game/skills/skills";
 export function FighterPanel({
   fighter,
+  preview,
   enemy = false,
   onInspect,
   damage = 0,
@@ -28,6 +30,7 @@ export function FighterPanel({
   onUpgrade?: (stat: Stat) => void;
   onOpen?: () => void;
   fighter: Fighter;
+  preview?: ResourceChange;
   enemy?: boolean;
   damage?: number;
   damageId?: string;
@@ -50,9 +53,17 @@ export function FighterPanel({
           label={`${enemy ? "Противник" : "Ваш персонаж"}: ${fighter.name}`}
           title={`${fighter.name} · Здоровье ${fighter.hp}/${maxHp(fighter)}. Характеристики и экипировка`}
         />
-        <h2>{fighter.name}</h2>
+        <h2>
+          {onOpen ? (
+            <button className="fighter-name-button" onClick={onOpen}>
+              {fighter.name}
+            </button>
+          ) : (
+            fighter.name
+          )}
+        </h2>
       </div>
-      <Resources fighter={fighter} />
+      <Resources fighter={fighter} preview={preview} />
       {damage > 0 && <FloatingDamage key={damageId} amount={damage} />}
       <FighterDebuffs fighter={fighter} onOpen={onOpen} />
       {((!fighter.offBalance && !fighter.prone) || fighter.hp <= 0) && (

@@ -6,14 +6,12 @@ export function CombatMenu({
   busy,
   onHome,
   onMap,
-  onCatalog,
   onRules,
   onJournal,
 }: {
   busy: boolean;
   onHome: () => void;
   onMap: () => void;
-  onCatalog: () => void;
   onRules: () => void;
   onJournal: () => void;
 }) {
@@ -35,7 +33,6 @@ export function CombatMenu({
           onClose={() => setOpen(false)}
           onHome={onHome}
           onMap={onMap}
-          onCatalog={onCatalog}
           onRules={onRules}
           onJournal={onJournal}
         />

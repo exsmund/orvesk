@@ -1,4 +1,4 @@
-export const CHARACTERS_KEY = "duelyant.characters.v2";
+export const CHARACTERS_KEY = "duelyant.characters.v4";
 export interface CharacterReference {
   id: string;
   name?: string;

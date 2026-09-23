@@ -70,7 +70,6 @@ function Preview() {
         onInspect={() => {}}
         onHome={() => {}}
         onHero={() => setHero(true)}
-        onCatalog={() => {}}
         onRules={() => {}}
         onReward={() => setOpen(true)}
       />

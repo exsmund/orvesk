@@ -95,3 +95,18 @@
   height: 48px;
   top: -12px;
 }
+
+.resource-bar__numbers {
+  gap: 0.4em;
+  flex-wrap: wrap;
+}
+.resource-bar__change {
+  font-weight: 700;
+  white-space: nowrap;
+}
+.resource-bar__change--loss {
+  color: #ef8271;
+}
+.resource-bar__change--gain {
+  color: #b6cf8e;
+}

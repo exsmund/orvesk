@@ -1,3 +1,7 @@
+import { ModalFooter } from "../../shared/ui/ModalFooter";
+import { ItemArtwork } from "../equipment/EquipmentDoll";
+import "../rewards/reward-dialog.css";
+import { BattleModeArtwork } from "../combat/BattleModeArtwork";
 import { GothicTextButton } from "../../shared/ui/GothicTextButton";
 import { BATTLE_MODES, battleMode } from "../../game/combat/battle-modes";
 import { useState } from "react";
@@ -40,6 +44,7 @@ export function BattleModeInfo({
   return (
     <details className="battle-mode" open={!compact}>
       <summary>Режим путешествия: {info.name}</summary>
+      <BattleModeArtwork mode={mode} decorative />
       <p>{info.description} Правила одинаковы для обеих сторон.</p>
       {mode !== "limited" && (
         <p>
@@ -84,12 +89,12 @@ export function JourneyChoices({
     current = currentJourneyNode(j),
     node = journeyNode(current, j);
   return (
-    <section className="journey-choices" aria-label="Путь к чемпиону">
+    <section className="journey-choices" aria-label="Путь к боссу">
       <h3>
         {j.finished
-          ? "Чемпион повержен!"
+          ? "Босс повержен!"
           : restart
-            ? "Путешествие окончено"
+            ? "Возвращение к началу карты"
             : retry
               ? "Повторить поединок"
               : node?.kind === "fight"
@@ -119,7 +124,7 @@ export function JourneyChoices({
               ? "Пять побед за путешествие. Персонаж и снаряжение остаются с вами."
               : retry
                 ? "Ничья не сбрасывает пройденный путь."
-                : "Персонаж и снаряжение сохраняются. Новое путешествие начнётся с первого противника."}{" "}
+                : "Персонаж и снаряжение сохраняются. Путь по этой карте начнётся с первого противника."}{" "}
             Новый бой начнётся с полным здоровьем.
           </p>
           <GothicTextButton
@@ -127,7 +132,11 @@ export function JourneyChoices({
             disabled={busy}
             onClick={() => onNext({})}
           >
-            {retry ? "Повторить бой" : "Новое путешествие"}
+            {retry
+              ? "Повторить бой"
+              : j.finished
+                ? "Новое путешествие"
+                : "Начать сначала"}
           </GothicTextButton>
         </>
       ) : (
@@ -158,7 +167,8 @@ export function JourneyStop({
   if (!j) return null;
   const current = currentJourneyNode(j),
     node = journeyNode(current, j),
-    atForge = node?.kind === "forge" && !j.forgeResolved;
+    atForge = node?.kind === "forge" && !j.forgeResolved,
+    removed = forge ? displaced(game.player, item(forge)) : [];
   return (
     <>
       {" "}
@@ -172,79 +182,100 @@ export function JourneyStop({
         </div>
       )}
       {node?.kind === "forge" && (
-        <div className="journey-stop">
-          <h4>Кузница</h4>
-          <p>
-            Вы восстановили до 50% максимального здоровья. Сейчас:{" "}
-            {game.player.hp}/{maxHp(game.player)}.
-          </p>
-          {atForge ? (
-            <>
-              <p>Можно заменить одну вещь. Старый предмет теряется.</p>
-              <select
-                aria-label="Предмет кузницы"
-                value={forge}
+        <>
+          <div className="forge-content journey-node-details">
+            {atForge ? (
+              <>
+                <div
+                  className="reward-gallery"
+                  role="group"
+                  aria-label="Предметы кузницы"
+                >
+                  {j.offers?.map((id) => (
+                    <button
+                      type="button"
+                      className="reward-tile"
+                      key={id}
+                      aria-label={item(id).name}
+                      aria-pressed={forge === id}
+                      disabled={busy}
+                      onClick={() => setForge(id)}
+                    >
+                      <ItemArtwork equipment={item(id)} size={160} />
+                    </button>
+                  ))}
+                </div>
+                {forge && (
+                  <>
+                    {!canUse(game.player, item(forge)) && (
+                      <p className="accent">
+                        Не выполнены требования предмета.
+                      </p>
+                    )}
+                    <GothicTextButton
+                      className="secondary"
+                      onClick={() => onInspect(forge)}
+                    >
+                      Свойства предмета
+                    </GothicTextButton>
+                    {removed.length > 0 && (
+                      <div
+                        className="forge-removed"
+                        role="group"
+                        aria-label="Предметы, которые будут потеряны"
+                      >
+                        <p className="forge-removed-label">Вы теряете:</p>
+                        {removed.map((equipment) => (
+                          <div
+                            className="forge-removed-item"
+                            key={equipment.id}
+                            role="img"
+                            aria-label={`Будет потерян: ${equipment.name}`}
+                            title={`Будет потерян: ${equipment.name}`}
+                          >
+                            <ItemArtwork equipment={equipment} size={96} />
+                            <svg viewBox="0 0 100 100" aria-hidden="true">
+                              <path d="M8 8 92 92 M92 8 8 92" />
+                            </svg>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </>
+                )}
+              </>
+            ) : (
+              <p role="status">
+                Кузница пройдена. Выберите следующего противника на карте.
+              </p>
+            )}
+          </div>
+          {atForge && (
+            <ModalFooter hint="Вы можете взять один предмет или не брать ничего">
+              <GothicTextButton
+                className="secondary"
                 disabled={busy}
-                onChange={(e) => setForge(e.target.value)}
+                onClick={() => onNext({ forge: true, fromNode: current })}
               >
-                <option value="">Выберите предмет</option>
-                {j.offers?.map((id) => (
-                  <option
-                    key={id}
-                    value={id}
-                    disabled={!canUse(game.player, item(id))}
-                  >
-                    {item(id).name}
-                  </option>
-                ))}
-              </select>
-              {forge && (
-                <>
-                  <GothicTextButton
-                    className="secondary"
-                    onClick={() => onInspect(forge)}
-                  >
-                    Свойства предмета
-                  </GothicTextButton>
-                  <small>
-                    Снимется:{" "}
-                    {displaced(game.player, item(forge))
-                      .map((i) => i.name)
-                      .join(", ") || "ничего"}
-                    .
-                  </small>
-                </>
-              )}
-              <div className="journey-stop-actions">
-                <GothicTextButton
-                  className="primary"
-                  disabled={
-                    busy ||
-                    !forge ||
-                    !j.offers?.includes(forge) ||
-                    !canUse(game.player, item(forge))
-                  }
-                  onClick={() =>
-                    onNext({ forge: true, fromNode: current, itemId: forge })
-                  }
-                >
-                  Заменить предмет
-                </GothicTextButton>
-                <GothicTextButton
-                  className="secondary"
-                  disabled={busy}
-                  onClick={() => onNext({ forge: true, fromNode: current })}
-                >
-                  Оставить своё снаряжение
-                </GothicTextButton>
-              </div>
-            </>
-          ) : (
-            <p role="status">
-              Кузница пройдена. Выберите следующего противника на карте.
-            </p>
+                Ничего не брать
+              </GothicTextButton>
+              <GothicTextButton
+                className="primary"
+                disabled={
+                  busy ||
+                  !forge ||
+                  !j.offers?.includes(forge) ||
+                  !canUse(game.player, item(forge))
+                }
+                onClick={() =>
+                  onNext({ forge: true, fromNode: current, itemId: forge })
+                }
+              >
+                {removed.length ? "Заменить предмет" : "Взять предмет"}
+              </GothicTextButton>
+            </ModalFooter>
           )}
-        </div>
+        </>
       )}
     </>
   );

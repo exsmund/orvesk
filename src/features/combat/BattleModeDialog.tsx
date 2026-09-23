@@ -1,3 +1,4 @@
+import { BattleModeArtwork } from "./BattleModeArtwork";
 import type { BattleMode } from "../../game/types";
 import { BATTLE_MODES } from "../../game/combat/battle-modes";
 import { Modal } from "../../shared/ui/Modal";
@@ -20,6 +21,7 @@ export function BattleModeDialog({
       className="battle-result-dialog"
     >
       <div className="battle-result-scroll">
+        <BattleModeArtwork mode={mode} decorative />
         <p>{rules.description}</p>
         <p>Правила одинаковы для вас и противника.</p>
       </div>

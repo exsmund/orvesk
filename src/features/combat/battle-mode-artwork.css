@@ -1,0 +1,24 @@
+.battle-mode-artwork {
+  display: block;
+  aspect-ratio: 1;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+.battle-mode-artwork--icon {
+  width: 100%;
+  height: 100%;
+}
+.battle-mode-artwork--dialog {
+  width: min(160px, 100%);
+  height: auto;
+  margin: 12px auto 20px;
+}
+.map-round-button.map-mode-button {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.map-mode-button:hover .battle-mode-artwork {
+  filter: brightness(1.2);
+}

@@ -1,0 +1,94 @@
+dialog.initiative-roll[open] {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 12px;
+  box-sizing: border-box;
+  min-height: 0;
+  border: 0;
+  color: #e6ddc5;
+  background: transparent;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  outline: none;
+}
+.initiative-roll::backdrop {
+  background: #080b08e8;
+  backdrop-filter: blur(5px);
+}
+.initiative-roll-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(calc(100% - 24px), 680px);
+  transform: translate(-50%, -50%) scale(var(--roll-scale, 1));
+  transform-origin: center;
+  text-align: center;
+}
+.initiative-roll-scene {
+  height: clamp(100px, 34dvh, 330px);
+  width: 100%;
+}
+.initiative-roll-scene canvas {
+  display: block;
+}
+.initiative-roll-results {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.initiative-roll-results > div {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.initiative-roll-number {
+  padding-top: 8px;
+}
+.initiative-roll-number strong {
+  font: 44px var(--serif);
+  color: #e6c687;
+}
+.initiative-roll-number small {
+  display: block;
+  color: #b3b29e;
+}
+.initiative-roll-order {
+  min-height: 110px;
+  padding-top: 22px;
+}
+.initiative-roll-order h2 {
+  font: 28px var(--serif);
+  margin: 0 0 8px;
+}
+.initiative-roll-order p {
+  color: #b3b29e;
+  margin: 0;
+}
+.initiative-roll-leaving .initiative-roll-content {
+  opacity: 0;
+  transition: opacity 300ms;
+}
+@media (prefers-reduced-motion: reduce) {
+  .initiative-roll-content {
+    transition: none;
+  }
+}
+.initiative-roll-content > .eyebrow {
+  text-align: center;
+}
+
+/* Unlike content dialogs, this transient overlay must never become a tall page. */
+html.modal-page-scroll dialog.initiative-roll[open] {
+  position: fixed !important;
+  inset: 0 !important;
+  margin: 0 !important;
+  height: 100dvh !important;
+  min-height: 0 !important;
+  max-height: 100dvh !important;
+  overflow: hidden !important;
+}

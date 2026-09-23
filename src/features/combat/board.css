@@ -270,16 +270,6 @@
   left: 50%;
   z-index: 5;
 }
-.doll-slot.slot-ring {
-  left: 2%;
-  top: 75%;
-  transform: none;
-}
-.doll-slot.slot-amulet {
-  right: 2%;
-  top: 75%;
-  transform: none;
-}
 .jewel-art {
   display: block;
   background: radial-gradient(ellipse, #433927, #161c17);
@@ -295,7 +285,7 @@
   font-size: 0.6rem;
   color: #bca185;
 }
-@media (max-width: 1100px) {
+@media (max-width: 899px) {
   .planning-workspace {
     gap: 10px;
     grid-template-columns: minmax(100px, 0.8fr) minmax(165px, 1.4fr);
@@ -312,7 +302,7 @@
     font-size: 0.6rem;
   }
 }
-@media (max-width: 760px) {
+@media (max-width: 599px) {
   .planning-header h2 {
     font-size: 0.78rem;
   }
@@ -390,162 +380,14 @@
   .action-board {
     gap: 3px;
   }
-  .combat-app .doll-stage {
-    grid-template-columns: repeat(6, 1fr);
-  }
-  .combat-app .doll-slot {
-    min-width: 0;
-  }
   .combat-app .stats {
     gap: 3px;
   }
 }
-@media (max-height: 700px) and (max-width: 760px), (max-height: 530px) {
-  .board-combat {
-    gap: 5px;
-    padding: 6px;
-  }
-  .planning-header h2 {
-    display: none;
-  }
-  .planning-workspace {
-    gap: 6px;
-  }
-  .maneuver-palette button {
-    min-height: 25px;
-    font-size: 0.52rem;
-    padding: 2px;
-  }
-  .shape-preview {
-    grid-template-columns: repeat(3, 4px);
-    grid-template-rows: repeat(3, 4px);
-    gap: 1px;
-  }
-  .maneuver-description {
-    font-size: 0.51rem;
-    line-height: 1.2;
-  }
-  .maneuver-column,
-  .ordering-column {
-    gap: 4px;
-  }
-  .board-column {
-    gap: 4px;
-  }
-  .action-board {
-    max-width: 125px;
-  }
-  .board-tools button,
-  .charm-tools button {
-    font-size: 0.48rem;
-    padding: 3px 0;
-  }
-  .planning-footer {
-    padding-top: 4px;
-  }
-  .planning-footer > div {
-    font-size: 0.48rem;
-  }
-  .planning-footer .primary {
-    min-height: 28px;
-  }
-  .board-help {
-    font-size: 0.5rem;
-  }
-  .action-order {
-    gap: 3px;
-  }
-  .action-order li {
-    padding: 2px;
-    font-size: 0.55rem;
-  }
-  .action-order button {
-    height: 22px;
-    width: 22px;
-  }
-  .revealed-actions b {
-    font-size: 0.5rem;
-  }
-  .combat-app .fighter-panel .stats {
-    gap: 2px;
-  }
-}
 
-@media (max-width: 760px) {
-  .combat-app .doll-slot {
-    width: calc((100% - 15px) / 6);
-    flex-shrink: 1;
-  }
-  .combat-app .doll-stage {
-    gap: 3px;
-  }
-  .combat-app .doll-slot > svg {
-    width: 13px;
-  }
+@media (max-width: 599px) {
   .combat-app .stats {
     grid-template-columns: repeat(5, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 760px) {
-  .combat-app .doll-slot.slot-ring,
-  .combat-app .doll-slot.slot-amulet {
-    inset: auto;
-    transform: none;
-  }
-}
-@media (max-width: 760px) and (max-height: 700px), (max-height: 530px) {
-  .ordering-column > .board-help,
-  .board-column > .board-help {
-    display: none;
-  }
-  .maneuver-description strong {
-    font-weight: 500;
-    color: #d0b38b;
-  }
-}
-
-@media (max-width: 760px) and (max-height: 700px) {
-  .combat-app .doll-stage {
-  }
-  .combat-app .doll-item-detail {
-    margin-top: 3px;
-  }
-  .maneuver-description {
-    display: none;
-  }
-  .planning-footer > div {
-    font-size: 0.52rem;
-  }
-}
-@media (max-width: 760px) and (max-height: 430px) {
-  .combat-app .stats {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-  .combat-app .stats > div {
-    justify-content: start;
-    gap: 2px;
-  }
-  .combat-app .doll-stage {
-  }
-  .combat-app .doll-item-detail strong {
-    max-width: 100px;
-  }
-}
-@media (max-width: 760px) and (max-height: 700px) {
-  .action-board {
-    max-width: 100px;
-  }
-  .maneuver-palette button {
-    min-height: 23px;
-  }
-  .board-tools button,
-  .charm-tools button {
-    padding: 2px 0;
-  }
-  .planning-header {
-    min-height: 10px;
   }
 }
 
@@ -564,61 +406,4 @@
   border: 1px solid #64714f;
   border-radius: 3px;
   padding: 3px;
-}
-@media (max-height: 530px) {
-  .maneuver-description {
-    display: none;
-  }
-}
-@media (min-width: 761px) {
-  .combat-app .doll-stage {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    grid-template-rows: repeat(2, minmax(0, 1fr));
-    grid-template-areas: "ring body amulet" "weapon feet shield";
-    gap: 15px 5px;
-    padding: 13px 0 3px;
-  }
-  .combat-app .doll-slot {
-    position: relative;
-    inset: auto;
-    translate: none;
-    transform: none;
-    width: min(42px, 100%);
-    align-self: center;
-    justify-self: center;
-  }
-  .combat-app .slot-ring {
-    grid-area: ring;
-  }
-  .combat-app .slot-amulet {
-    grid-area: amulet;
-  }
-  .combat-app .slot-body {
-    grid-area: body;
-  }
-  .combat-app .slot-feet {
-    grid-area: feet;
-  }
-  .combat-app .slot-weapon {
-    grid-area: weapon;
-  }
-  .combat-app .slot-shield {
-    grid-area: shield;
-  }
-  .combat-app .doll-slot-label {
-    font-size: 0.45rem;
-  }
-}
-@media (min-width: 761px) and (max-height: 590px) {
-  .combat-app .doll-stage {
-    gap: 10px 4px;
-    padding-top: 10px;
-  }
-  .combat-app .doll-slot {
-    width: 29px;
-  }
-  .combat-app .doll-slot-label {
-    font-size: 0.38rem;
-  }
 }

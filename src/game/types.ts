@@ -141,13 +141,16 @@ export interface Maneuver {
 }
 export type SpecialCell = { index: number; kind: "pierce" | "rally" | "surge" };
 export interface Journey {
+  /** Persisted event placement; absent only in pre-generator saves. */
+  map?: import("./journey/journey-map").JourneyMapLayout;
+  enemies?: Record<string, Fighter>;
+  lostSouls?: { nodeId: string; amount: number };
   mapPreset?: string;
   awaitingFirstBattle?: boolean;
   path?: string[];
   forgeResolved?: boolean;
   battleMode?: BattleMode;
   startLevel: number;
-  healUsed?: boolean;
   expedition: number;
   stage: number;
   cleared: number;
@@ -223,6 +226,7 @@ export interface CombatReplay {
 }
 
 export interface ClashPlan {
+  committedPlayerModifiers?: BoardModifiers;
   battleMode?: BattleMode;
   special?: SpecialCell;
   stage: "preparation" | "reaction";

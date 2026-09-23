@@ -285,7 +285,7 @@
     transform: none;
   }
 }
-@media (max-width: 1100px) {
+@media (max-width: 899px) {
   .combat-replay {
     padding: 10px;
     gap: 8px;
@@ -308,7 +308,7 @@
     font-size: 0.52rem;
   }
 }
-@media (max-width: 760px) {
+@media (max-width: 599px) {
   .combat-replay {
     padding: 8px;
     gap: 7px;
@@ -379,33 +379,6 @@
   }
   .replay-details summary {
     font-size: 0.48rem;
-  }
-}
-@media (max-height: 700px) and (max-width: 760px), (max-height: 530px) {
-  .replay-header h2 {
-    display: none;
-  }
-  .combat-replay {
-    gap: 5px;
-    padding: 6px;
-  }
-  .replay-controls {
-    padding-top: 5px;
-  }
-  .replay-controls button {
-    min-height: 27px;
-  }
-  .replay-row {
-    padding-top: 5px;
-  }
-  .replay-column-heads {
-    padding-bottom: 4px;
-  }
-  .replay-initiative {
-    padding: 6px;
-  }
-  .initiative-label {
-    margin-bottom: 6px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

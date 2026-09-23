@@ -8,7 +8,7 @@ button.combat-menu-button {
   left: 18px;
   z-index: 20;
 }
-@media (max-width: 600px) {
+@media (max-width: 599px) {
   .app.combat-app {
     padding-top: 56px;
   }
