@@ -5,10 +5,14 @@
     "kind": "armor",
     "slot": "body",
     "tier": 0,
-    "requirements": { "intelligence": 1 },
-    "defense": {},
-    "resistance": { "magic": 0.3 },
-    "description": "Простая ткань с древними знаками. Снижает магический урон на 30%."
+    "requirements": {
+      "intelligence": 1
+    },
+    "defense": {
+      "magic": 4
+    },
+    "description": "Простая ткань с древними знаками. Снижает магический урон на 30%.",
+    "figures": []
   },
   {
     "id": "rags",
@@ -16,9 +20,14 @@
     "kind": "armor",
     "slot": "body",
     "tier": 0,
-    "requirements": { "endurance": 1 },
-    "defense": { "slash": 1 },
-    "description": "Плотная ткань смягчает режущие удары."
+    "requirements": {
+      "strength": 1
+    },
+    "defense": {
+      "slash": 1
+    },
+    "description": "Плотная ткань смягчает режущие удары.",
+    "figures": []
   },
   {
     "id": "leather",
@@ -26,9 +35,15 @@
     "kind": "armor",
     "slot": "body",
     "tier": 1,
-    "requirements": { "agility": 2 },
-    "defense": { "pierce": 1, "slash": 1 },
-    "description": "Выделанная кожа для лёгкого бойца."
+    "requirements": {
+      "agility": 1
+    },
+    "defense": {
+      "pierce": 1,
+      "slash": 1
+    },
+    "description": "Выделанная кожа для лёгкого бойца.",
+    "figures": []
   },
   {
     "id": "chainmail",
@@ -36,9 +51,16 @@
     "kind": "armor",
     "slot": "body",
     "tier": 2,
-    "requirements": { "strength": 2, "endurance": 2 },
-    "defense": { "pierce": 1, "slash": 2, "blunt": 1 },
-    "description": "Потемневшие кольца помнят сотню ударов."
+    "requirements": {
+      "strength": 1
+    },
+    "defense": {
+      "pierce": 1,
+      "slash": 2,
+      "blunt": 1
+    },
+    "description": "Потемневшие кольца помнят сотню ударов.",
+    "figures": []
   },
   {
     "id": "plate",
@@ -46,9 +68,16 @@
     "kind": "armor",
     "slot": "body",
     "tier": 3,
-    "requirements": { "strength": 3, "endurance": 3 },
-    "defense": { "pierce": 3, "slash": 3, "blunt": 2 },
-    "description": "Тяжёлая сталь. Защищает тело, но не душу."
+    "requirements": {
+      "strength": 1
+    },
+    "defense": {
+      "pierce": 3,
+      "slash": 3,
+      "blunt": 2
+    },
+    "description": "Тяжёлая сталь. Защищает тело, но не душу.",
+    "figures": []
   },
   {
     "id": "ash-mantle",
@@ -56,10 +85,17 @@
     "kind": "armor",
     "slot": "body",
     "tier": 2,
-    "requirements": { "intelligence": 3 },
-    "defense": { "fire": 2, "frost": 1 },
-    "resistance": { "magic": 0.3, "wind": 0.2 },
-    "description": "Пропитана пеплом и обрывками заклинаний."
+    "requirements": {
+      "intelligence": 1
+    },
+    "defense": {
+      "fire": 2,
+      "frost": 1,
+      "magic": 4,
+      "wind": 2
+    },
+    "description": "Пропитана пеплом и обрывками заклинаний.",
+    "figures": []
   },
   {
     "id": "iron-boots",
@@ -67,10 +103,43 @@
     "kind": "armor",
     "slot": "feet",
     "tier": 0,
-    "requirements": { "strength": 1 },
+    "requirements": {
+      "strength": 1
+    },
     "defense": {},
-    "kickBonus": 0.05,
-    "description": "Шанс сбить с равновесия пинком: 10% вместо 5%."
+    "description": "Шанс сбить с равновесия пинком: 10% вместо 5%.",
+    "figures": [
+      {
+        "id": "kick",
+        "name": "Пинок",
+        "shape": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 1,
+          "stats": [
+            "strength"
+          ],
+          "types": {
+            "blunt": 1
+          }
+        },
+        "description": "Урон указан за клетку. При столкновении атак обе наносят половину урона.",
+        "art": "/items/iron-boots-transparent-v2.png"
+      }
+    ]
   },
   {
     "id": "wanderer-boots",
@@ -78,9 +147,45 @@
     "kind": "armor",
     "slot": "feet",
     "tier": 1,
-    "requirements": { "agility": 2 },
-    "defense": { "frost": 1 },
-    "description": "Защищают от холода забытой земли."
+    "requirements": {
+      "agility": 1
+    },
+    "defense": {
+      "frost": 1
+    },
+    "description": "Защищают от холода забытой земли.",
+    "figures": [
+      {
+        "id": "kick",
+        "name": "Пинок",
+        "shape": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 1,
+          "stats": [
+            "agility"
+          ],
+          "types": {
+            "blunt": 1
+          }
+        },
+        "description": "Урон указан за клетку. При столкновении атак обе наносят половину урона.",
+        "art": "/items/wanderer-boots-transparent-v2.png"
+      }
+    ]
   },
   {
     "id": "greaves",
@@ -88,9 +193,45 @@
     "kind": "armor",
     "slot": "feet",
     "tier": 2,
-    "requirements": { "strength": 2, "endurance": 2 },
-    "defense": { "slash": 1, "blunt": 1 },
-    "kickBonus": 0.05,
-    "description": "Сталь на голени и носке. +5% к потере равновесия от пинка."
+    "requirements": {
+      "strength": 1
+    },
+    "defense": {
+      "slash": 1,
+      "blunt": 1
+    },
+    "description": "Сталь на голени и носке. +5% к потере равновесия от пинка.",
+    "figures": [
+      {
+        "id": "kick",
+        "name": "Пинок",
+        "shape": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 1,
+          "stats": [
+            "strength"
+          ],
+          "types": {
+            "blunt": 1
+          }
+        },
+        "description": "Урон указан за клетку. При столкновении атак обе наносят половину урона.",
+        "art": "/items/greaves-transparent-v2.png"
+      }
+    ]
   }
 ]

@@ -1,0 +1,29 @@
+dialog.battle-mode-dialog > .battle-mode-dialog__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  justify-content: safe center;
+  padding: 20px;
+  gap: 12px;
+}
+.battle-mode-dialog__body > * {
+  flex-shrink: 0;
+}
+.battle-mode-dialog__body > p {
+  margin: 0;
+}
+@media (max-width: 599px) {
+  dialog.battle-mode-dialog > .battle-mode-dialog__body {
+    padding: 16px 8px;
+  }
+}
+@media (max-height: 599px) {
+  html.modal-page-scroll dialog.battle-mode-dialog > .battle-mode-dialog__body {
+    flex: 0 0 auto;
+    overflow: visible;
+    min-height: auto;
+  }
+}

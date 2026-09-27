@@ -1,0 +1,93 @@
+.upgrade-price {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 12px 0 8px;
+  font-size: 0.8rem;
+  flex-wrap: wrap;
+  color: var(--color-text-muted);
+}
+.upgrade-price__cost,
+.upgrade-price__balance {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.upgrade-price__balance {
+  margin-left: auto;
+}
+.upgrade-price img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+.upgrade-price b {
+  color: var(--color-text-highlight);
+}
+.character-attributes .stats > div {
+  gap: 10px;
+}
+.character-attributes .stats > div > span {
+  flex: 1;
+}
+.character-attributes .stats small {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.7rem;
+}
+.character-attributes .stats .unmet {
+  color: var(--color-text-danger);
+}
+.stat-upgrade {
+  min-width: 42px;
+  min-height: 38px;
+  border: 1px solid var(--color-border-souls-2);
+  background: var(--color-background-style-27);
+  color: var(--color-text-highlight);
+  border-radius: 3px;
+  font-weight: 700;
+}
+button:where(:not(.gothic-text-button)).stat-upgrade.gothic-button {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: var(--color-base-transparent);
+}
+
+.stats {
+  display: grid;
+  gap: 10px;
+  margin: 14px 0 23px;
+}
+.stats > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.875rem;
+}
+.stats span {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-text-muted);
+}
+.stats i {
+  font-style: normal;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  width: 22px;
+}
+.stats strong {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+@media (max-width: 599px) {
+  .stats {
+    margin-top: 8px;
+    margin-bottom: 20px;
+  }
+}

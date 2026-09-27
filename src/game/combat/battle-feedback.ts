@@ -1,4 +1,4 @@
-import type { PublicGame } from "../types";
+import type { PublicGame } from "@/game/types";
 
 export function turnFeedback(before: PublicGame, after: PublicGame) {
   const turn = after.log[0];
@@ -8,7 +8,7 @@ export function turnFeedback(before: PublicGame, after: PublicGame) {
     turn?.round !== before.round
   )
     return null;
-  // Display health actually lost, including armor, ripostes and lethal overkill.
+  // Display health actually lost, including armor and lethal overkill.
   const lost = (oldHp: number, hp: number) =>
     Math.max(0, Math.round((oldHp - Math.max(0, hp)) * 10) / 10);
   return {

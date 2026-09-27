@@ -1,48 +1,45 @@
-import { DAMAGE, STATS, item } from "./catalog";
-import { damageParts } from "../combat/engine";
-import { isStrike } from "../combat/reaction-rules";
-import type { Damage, Fighter, Maneuver } from "../types";
+import BALANCE from "../../../data/combat-balance.json";
+import { DAMAGE, STATS } from "@/game/equipment/catalog";
+import { figureCellParts, figureCellDamage } from "@/game/combat/figure-power";
+import type { Fighter, Maneuver } from "@/game/types";
+const number = (value: number) => value.toLocaleString("ru-RU");
 
-const number = (value: number) =>
-  value.toLocaleString("ru-RU", { maximumFractionDigits: 4 });
-
-/** Describe the same source and rounding order as combat, for this figure's owner. */
-export function explainDamage(fighter: Fighter, maneuver: Maneuver) {
-  if (!isStrike(maneuver)) return [];
-  const actor = {
-    ...fighter,
-    gear: { ...fighter.gear, weapon: maneuver.weaponId ?? fighter.gear.weapon },
-  };
-  const parts = damageParts(actor, {
-    action: maneuver.action as "attack" | "heavy" | "kick" | "shield",
-    step: 0,
-  });
-  const sources: Damage[] =
-    maneuver.action === "kick" || maneuver.action === "shield"
-      ? [
-          {
-            type: "blunt",
-            stat: "strength",
-            scale: 1,
-            base: maneuver.action === "shield" ? 1 : 0,
-          },
-        ]
-      : item(actor.gear.weapon).damage!;
-  const multiplier = maneuver.action === "heavy" ? 1.5 : 1;
-  return sources.map((source, index) => {
-    const stat = fighter.stats[source.stat];
-    const base = source.base ? `${number(source.base)} + ` : "";
-    const scale = source.scale === 1 ? "" : `${number(source.scale)} × `;
-    const expression = `${base}${scale}${STATS[source.stat]} (${number(stat)})`;
-    const raw = (source.base + source.scale * stat) * multiplier;
-    const value = parts[index].value;
-    const rounded = raw !== value;
-    return {
-      type: source.type,
-      label: DAMAGE[source.type],
-      value: value * (maneuver.powerScale ?? 1),
-      rounded,
-      formula: `${multiplier === 1 ? expression : `(${expression}) × ${number(multiplier)}`} = ${number(raw)}${rounded ? ` → ${number(value)}` : ""}${maneuver.powerScale ? ` × ${maneuver.powerScale} (молот) = ${number(value * maneuver.powerScale)}` : ""}`,
-    };
-  });
+export function explainDamage(f: Pick<Fighter, "stats">, m: Maneuver) {
+  const profile = m.healthDamage;
+  if (!profile) return [];
+  const stats = profile.stats
+    .map((s) => {
+      const term = `(${STATS[s]} ${number(f.stats[s])} − 1)`;
+      return BALANCE.damage.perStatPoint === 1
+        ? term
+        : `${number(BALANCE.damage.perStatPoint)} × ${term}`;
+    })
+    .join(" + ");
+  const levels =
+    profile.stats.length *
+    Math.max(0, (m.sourceLevel ?? 1) - 1) *
+    BALANCE.damage.levelPerRequiredStat;
+  const total = figureCellDamage(f, m);
+  const base = number(profile.base + levels);
+  const budget = `${base}${stats ? " + " + stats : ""}`;
+  const weight = Object.values(profile.types).reduce((sum, n) => sum + n, 0);
+  return figureCellParts(f, m)
+    .filter((p) => p.value > 0)
+    .map((p) => {
+      const share = profile.types[p.type]!;
+      let expression = budget;
+      if (share !== weight) {
+        expression = `(${budget}) × ${number(share)}/${number(weight)}`;
+        const exact = (total * share) / weight;
+        if (!Number.isInteger(exact)) {
+          expression = p.value > exact ? `⌈${expression}⌉` : `⌊${expression}⌋`;
+        }
+      }
+      return {
+        type: p.type,
+        label: DAMAGE[p.type],
+        value: p.value,
+        formula: `${expression} = ${number(p.value)}×${m.shape.length}`,
+      };
+    });
 }

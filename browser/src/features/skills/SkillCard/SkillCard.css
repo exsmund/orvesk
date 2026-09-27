@@ -1,0 +1,84 @@
+.fighter-skills {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-border-skills);
+}
+.fighter-skills h3 {
+  font: 400 1rem var(--serif);
+  color: var(--color-text-highlight);
+  margin: 0 0 10px;
+}
+.fighter-skills > p,
+.skill-reward > p {
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+.skill-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  background: var(--color-background-panel);
+  border: 1px solid var(--color-border-style-18);
+  margin: 8px 0;
+  --piece-cell: 24px;
+  --piece-gap: 4px;
+  min-width: 0;
+}
+.skill-card .action-figure {
+  flex-shrink: 0;
+}
+.skill-card > div {
+  min-width: 0;
+}
+.skill-card h4 {
+  margin: 0 0 6px;
+  color: var(--color-text-highlight);
+  font-size: 0.9rem;
+}
+.skill-card p {
+  font-size: 0.75rem;
+  line-height: 1.5;
+  margin: 0 0 7px;
+  color: var(--color-text-muted);
+}
+.skill-card small {
+  font-size: 0.68rem;
+  color: var(--color-text-muted);
+}
+.skill-replacements {
+  display: grid;
+  gap: 8px;
+}
+.skill-replacements > button:where(:not(.gothic-text-button)) {
+  font: inherit;
+  color: var(--color-text-primary);
+  background: var(--color-background-style-12);
+  text-align: left;
+  padding: 10px;
+  border: 1px solid var(--color-border-style-18);
+}
+.skill-replacements
+  > button:where(:not(.gothic-text-button))[aria-pressed="true"] {
+  border-color: var(--color-border-reaction-board-3-2);
+  background: var(--color-background-style-27);
+}
+.skill-replacements .skill-card {
+  margin-bottom: 0;
+}
+.skill-reward .reward-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+@media (max-width: 599px) {
+  .skill-card {
+    padding: 8px;
+    gap: 8px;
+    --piece-cell: 20px;
+  }
+  .skill-card p {
+    font-size: 0.68rem;
+  }
+}

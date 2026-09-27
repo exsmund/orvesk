@@ -1,0 +1,45 @@
+.board-combat .board-cell .action-source {
+  width: calc(var(--piece-cell, 26px) - 8px);
+  height: calc(var(--piece-cell, 26px) - 8px);
+}
+.action-source {
+  display: inline-grid;
+  box-sizing: border-box;
+  place-items: center;
+  width: calc(var(--piece-cell, 26px) - 6px);
+  height: calc(var(--piece-cell, 26px) - 6px);
+  overflow: hidden;
+  border-radius: 2px;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+.action-source > .equipment-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: var(--color-base-transparent);
+  border: 0;
+}
+.action-order .action-source,
+.revealed-actions .action-source {
+  width: 22px;
+  height: 22px;
+}
+@media (max-width: 599px) {
+  .action-order .action-source,
+  .revealed-actions .action-source {
+    width: 16px;
+    height: 16px;
+  }
+}
+.action-order li > .action-source {
+  flex: none;
+}
+.action-source > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.action-source.skill-source {
+  color: var(--color-text-highlight);
+}

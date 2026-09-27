@@ -1,6 +1,10 @@
-import { encounterPortrait, encounterIdentity } from "../characters/portraits";
-import { maxPoise } from "../combat/tactics";
-import { STARTING_SOULS } from "../progression/creation-rules";
+import { creature, sampleCreature } from "@/game/creatures/catalog";
+import encounterRules from "../../../data/journey-encounters.json";
+import { maxStamina } from "@/game/combat/tactics";
+import {
+  BASE_STAT_TOTAL,
+  STARTING_SOULS,
+} from "@/game/progression/creation-rules";
 import {
   chooseJourneyMap,
   generateJourneyMap,
@@ -9,10 +13,9 @@ import {
   currentJourneyNode,
   journeyNode,
   journeyPath,
-} from "./journey-map";
-import { battleMode, chooseBattleMode } from "../combat/battle-modes";
-import { SKILLS } from "../skills/skills";
-import { ITEMS, item } from "../equipment/catalog";
+} from "@/game/journey/journey-map";
+import { battleMode, chooseBattleMode } from "@/game/combat/battle-modes";
+import { ITEMS, item, rollItemLevel } from "@/game/equipment/catalog";
 import {
   canUse,
   claimReward,
@@ -23,23 +26,22 @@ import {
   statTotal,
   wear,
   type Random,
-} from "../combat/engine";
-import { level, journeyEnemyLevel } from "../progression/souls";
-import type { Game, RewardSelection } from "../types";
+} from "@/game/combat/engine";
+import { level, journeyEnemyLevel } from "@/game/progression/souls";
+import type { Game, RewardSelection } from "@/game/types";
+const encounterVariant = (expedition: number, stage: number) =>
+  encounterRules.find(
+    (rule) => rule.expedition === expedition && rule.stages.includes(stage),
+  )?.creatureVariant;
 export const ROUTES = {
   camp: {
     name: "У костра",
     description:
-      "Полностью восстановить здоровье и стойку перед следующим боем.",
+      "Полностью восстановить здоровье и выносливость перед следующим боем.",
   },
   forge: {
     name: "Кузница",
     description: "Заменить один предмет предложенным. Старый предмет теряется.",
-  },
-  risk: {
-    name: "Опасный путь",
-    description:
-      "Восстановить 50% максимального здоровья. Враг получает +1 клетку; за победу — дополнительный редкий предмет на выбор.",
   },
 } as const;
 
@@ -50,7 +52,7 @@ export function createJourney(...args: Parameters<typeof createGame>): Game {
   g.phase = "ready";
   g.journey = {
     mapPreset: chooseJourneyMap(random),
-    battleMode: chooseBattleMode(random),
+    battleMode: "free",
     startLevel: level(g.player),
     expedition: 1,
     stage: 1,
@@ -64,7 +66,7 @@ export function createJourney(...args: Parameters<typeof createGame>): Game {
   return g;
 }
 
-/** Immutable encounter templates survive retries, upgrades and map resets. */
+/** Rosters survive retries and upgrades; balance profiles update before a fight starts. */
 export function ensureJourneyEnemies(
   g: Game,
   random: Random | undefined = undefined,
@@ -73,8 +75,31 @@ export function ensureJourneyEnemies(
   const j = g.journey;
   if (!j) return;
   ensureJourneyMap(j);
+  if (j.stage === 5) g.enemy.elite = false;
+  if (j.enemies?.["fight-5"]) j.enemies["fight-5"].elite = false;
   for (const enemy of [g.enemy, ...Object.values(j.enemies ?? {})])
     if (enemy.name === "Чемпион круга") enemy.name = "Босс круга";
+  for (let stage = 1; stage <= 5; stage++) {
+    const variant = encounterVariant(j.expedition, stage);
+    const template = j.enemies?.[`fight-${stage}`];
+    if (
+      variant &&
+      template &&
+      creature(template.creatureId)?.variants?.[variant] &&
+      template.creatureVariant !== variant
+    ) {
+      template.creatureVariant = variant;
+      delete template.deck;
+    }
+    // Never replace a hand or a committed plan in an already started battle.
+    if (
+      variant &&
+      stage === j.stage &&
+      !g.enemy.deck &&
+      creature(g.enemy.creatureId)?.variants?.[variant]
+    )
+      g.enemy.creatureVariant = variant;
+  }
   if (j.enemies) return;
   // Legacy saves get a stable roster without consuming a committed round's RNG.
   let seed = [...g.player.name].reduce(
@@ -92,50 +117,35 @@ export function ensureJourneyEnemies(
         ? structuredClone(g.enemy)
         : journeyEnemy({ ...g, journey: { ...j, stage } }, random);
     enemy.hp = maxHp(enemy);
-    enemy.poise = maxPoise(enemy);
-    enemy.prone = false;
-    enemy.offBalance = false;
+    enemy.stamina = maxStamina();
+
     j.enemies[`fight-${stage}`] = enemy;
   }
 }
 
 export function journeyEnemy(g: Game, random: Random) {
   const stage = Math.max(1, Math.min(5, g.journey?.stage ?? 1));
-  const identity = encounterIdentity(g.player, g.journey!.expedition, stage),
-    archetype = identity.archetype;
+  const variant = encounterVariant(g.journey!.expedition, stage);
+  const species = sampleCreature(g.journey!.expedition, random, variant);
   const template = {
     ...g.player,
     stats: {
       strength:
-        journeyEnemyLevel(g.journey!.startLevel, stage) + STARTING_SOULS,
+        g.journey!.expedition === 1 && stage < 5
+          ? 1
+          : journeyEnemyLevel(
+              g.journey!.startLevel,
+              stage,
+              g.journey!.expedition,
+            ) + STARTING_SOULS,
       agility: 1,
-      endurance: 1,
+      vitality: 1,
       intelligence: 1,
-      reaction: 1,
     },
   };
-  const enemy = generateEnemy(
-    template,
-    random,
-    archetype === "warden"
-      ? "warden"
-      : archetype === "duelist"
-        ? "duelist"
-        : "berserker",
-  );
-  enemy.portraitId = encounterPortrait(
-    g.player,
-    g.journey!.expedition,
-    stage,
-  ).id;
-  enemy.archetype = archetype;
-  const skillPool = [...SKILLS];
-  enemy.skills = [];
-  for (let i = 0; i < Math.max(0, stage - 2); i++)
-    enemy.skills.push(
-      skillPool.splice(Math.floor(random() * skillPool.length), 1)[0].id,
-    );
-  if (stage === 1 && level(enemy) === 1)
+  const enemy = generateEnemy(template, random, undefined, species.id);
+  if (variant) enemy.creatureVariant = variant;
+  if (g.journey!.expedition === 1 && stage < 5)
     enemy.gear = {
       weapon: null,
       shield: null,
@@ -144,24 +154,7 @@ export function journeyEnemy(g: Game, random: Random) {
       ring: null,
       amulet: null,
     };
-  if (stage === 2 && level(enemy) === 1)
-    enemy.gear = {
-      weapon: archetype === "duelist" ? "dagger" : "club",
-      shield: archetype === "warden" ? "buckler" : null,
-      body: null,
-      feet: null,
-      ring: null,
-      amulet: null,
-    };
-  if (stage === 3 && level(enemy) <= 2)
-    for (const slot of Object.keys(enemy.gear) as Array<
-      keyof typeof enemy.gear
-    >) {
-      const id = enemy.gear[slot];
-      if (id && item(id).tier > 1) enemy.gear[slot] = null;
-    }
-  enemy.elite = stage === 5 || (stage > 1 && g.journey?.route === "risk");
-  enemy.name = identity.name;
+  enemy.elite = false;
   return enemy;
 }
 export function journeyVictory(g: Game, random: Random) {
@@ -173,12 +166,17 @@ export function journeyVictory(g: Game, random: Random) {
   }
   g.journey.cleared = g.journey.stage;
   g.journey.finished = g.journey.stage === 5;
-  const pool = ITEMS.filter(
+  const pool = ITEMS.map((i) =>
+    rollItemLevel(
+      i,
+      Math.floor(Math.max(0, statTotal(g.enemy) - BASE_STAT_TOTAL) / 2),
+      random,
+    ),
+  ).filter(
     (i) =>
-      i.id !== "fist" &&
-      canUse(g.player, i) &&
+      !i.unarmed &&
       !Object.values(g.player.gear).includes(i.id) &&
-      i.tier <= Math.max(1, statTotal(g.player) - 4),
+      i.tier <= Math.max(1, statTotal(g.player) - BASE_STAT_TOTAL + 1),
   );
   const extra = pool.filter(
     (i) =>
@@ -212,7 +210,6 @@ export function claimJourneyReward(
     fresh.phase = "ready";
     fresh.journey!.awaitingFirstBattle = true;
     delete fresh.clashPlan;
-    delete fresh.roundPlan;
     return fresh;
   }
   if (next.journey) next.player.hp = Math.min(hp, maxHp(next.player));
@@ -279,25 +276,21 @@ export function nextJourneyBattle(
     route:
       restart || saved.phase === "draw" || route === "direct"
         ? undefined
-        : (route as "camp" | "forge" | "risk"),
+        : (route as "camp" | "forge"),
   };
   if (!restart && saved.phase !== "draw") {
-    g.player.poise = route === "camp" ? maxPoise(g.player) : saved.player.poise;
-    g.player.prone = route === "camp" ? false : saved.player.prone;
+    g.player.stamina = route === "camp" ? maxStamina() : saved.player.stamina;
+
     g.player.hp = Math.min(
       maxHp(g.player),
       Math.round(
-        (saved.player.hp +
-          maxHp(g.player) *
-            (route === "camp" ? 1 : route === "risk" ? 0.5 : 0)) *
-          10,
+        (saved.player.hp + maxHp(g.player) * (route === "camp" ? 1 : 0)) * 10,
       ) / 10,
     );
   }
   g.journey.map ??= generateJourneyMap(random);
   ensureJourneyEnemies(g, random, false);
   g.enemy = structuredClone(g.journey.enemies![`fight-${g.journey.stage}`]);
-  if (g.journey.route === "risk") g.enemy.elite = true;
   return g;
 }
 
@@ -317,7 +310,9 @@ export function visitJourneyNode(
     throw new Error(
       "Этот переход недоступен. Выберите соседний узел на карте.",
     );
-  if (saved.phase === "draw" || saved.phase === "defeat")
+  if (saved.phase === "defeat")
+    throw new Error("Сначала подтвердите начало заново на экране поражения.");
+  if (saved.phase === "draw")
     return nextJourneyBattle(saved, undefined, undefined, random);
   if (saved.phase === "combat") throw new Error("Продолжите текущий бой.");
   const node = journeyNode(nodeId, old)!;
@@ -341,8 +336,7 @@ export function visitJourneyNode(
   j.forgeResolved = node.kind !== "forge";
   if (node.kind === "camp") {
     g.player.hp = maxHp(g.player);
-    g.player.poise = maxPoise(g.player);
-    g.player.prone = false;
+    g.player.stamina = maxStamina();
   }
   return g;
 }
@@ -381,10 +375,23 @@ export function chooseJourneyStep(
     nodeId?: unknown;
     fromNode?: unknown;
     forge?: unknown;
+    restart?: unknown;
     itemId?: unknown;
   },
   random: Random = Math.random,
 ): Game {
+  if (payload.restart === true) {
+    if (
+      saved.phase !== "defeat" ||
+      payload.nodeId !== undefined ||
+      payload.forge !== undefined
+    )
+      throw new Error("Начать заново можно только после поражения.");
+    const g = nextJourneyBattle(saved, undefined, undefined, random);
+    g.phase = "ready";
+    if (g.journey) g.journey.awaitingFirstBattle = true;
+    return g;
+  }
   if (payload.forge === true) {
     if (
       typeof payload.fromNode !== "string" ||
@@ -408,7 +415,6 @@ export function chooseJourneyStep(
     return visitJourneyNode(saved, payload.nodeId, payload.fromNode, random);
   }
   if (
-    saved.phase === "defeat" ||
     saved.phase === "draw" ||
     (saved.phase === "ready" && saved.journey?.finished)
   )

@@ -1,0 +1,48 @@
+.dw-stats-editor {
+  margin: 16px 0;
+  padding: 16px;
+  border: 1px solid var(--color-border-journey-map);
+}
+.dw-stats-editor summary {
+  cursor: pointer;
+}
+.dw-stats-editor__fighters {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin: 16px 0;
+}
+.dw-stats-editor fieldset {
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid var(--color-border-journey-map);
+}
+.dw-stats-editor__stat {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 8px 0;
+}
+.dw-stats-editor input {
+  min-width: 0;
+  width: 5rem;
+  padding: 6px;
+  color: var(--color-text-primary);
+  background: var(--color-background-panel);
+  border: 1px solid var(--color-border-journey-map);
+}
+.dw-stats-editor__apply {
+  margin-top: 12px;
+}
+.dw-stats-editor__presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0;
+}
+@media (max-width: 700px) {
+  .dw-stats-editor__fighters {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

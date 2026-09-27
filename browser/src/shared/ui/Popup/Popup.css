@@ -1,0 +1,13 @@
+.popup {
+  position: fixed;
+  z-index: 45;
+  width: min(420px, calc(100vw - 16px));
+  box-sizing: border-box;
+  padding: 22px;
+  border: 10px solid var(--color-base-transparent);
+  border-image: var(--gothic-frame) 22% / 28px / 0 stretch;
+  background: var(--color-background-panel);
+  box-shadow: 0 6px 24px var(--color-shadow-character-card);
+  overflow: auto;
+  cursor: pointer;
+}

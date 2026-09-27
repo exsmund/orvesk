@@ -1,0 +1,228 @@
+.soul-requirements {
+  border: 1px solid var(--color-border-souls-3);
+  background: var(--color-background-style-12);
+  padding: 16px;
+  margin-bottom: 20px;
+}
+.soul-requirements > header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+.soul-requirements h3 {
+  font-size: 0.95rem;
+}
+.soul-reward-detail > img {
+  width: 96px;
+  height: 96px;
+  object-fit: contain;
+}
+@media (max-width: 599px) {
+  .soul-requirements {
+    padding: 12px;
+  }
+  .soul-requirements > header {
+    flex-wrap: wrap;
+  }
+}
+
+.soul-reward-change {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  font-family: var(--serif);
+}
+.soul-reward-change .soul-balance b {
+  font-size: 2rem;
+}
+.soul-reward-change .soul-balance img {
+  width: 36px;
+  height: 36px;
+}
+.soul-reward-detail > p {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.soul-reward-amount {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 2em;
+  max-width: calc(100% - 16px);
+  padding: 3px 10px;
+  text-align: center;
+  color: var(--color-text-highlight);
+  background: var(--color-background-souls-4);
+  border: 1px solid var(--color-border-souls-4);
+  border-radius: 4px;
+  font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+  font-weight: 800;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 1px 2px var(--color-base-black);
+  box-shadow: 0 2px 8px var(--color-shadow-souls-2);
+  pointer-events: none;
+}
+
+.reward-gallery {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-height: 100%;
+  overflow-x: auto;
+  padding: 8px;
+}
+.reward-tile {
+  flex: 0 0 clamp(96px, 17vw, 176px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: var(--color-background-character-creation-6);
+  border-radius: 3px;
+  box-shadow: 0 6px 16px var(--color-shadow-souls);
+}
+.reward-tile:hover,
+.reward-tile:focus-visible {
+  border-color: var(--color-border-reward-dialog);
+  box-shadow:
+    0 0 0 2px var(--color-shadow-reward-dialog),
+    0 6px 20px var(--color-shadow-style-4);
+}
+.reward-tile > .item-icon {
+  width: 100% !important;
+  height: 100% !important;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border: 0;
+}
+
+.soul-reward-detail {
+  height: 100%;
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  text-align: center;
+}
+.soul-reward-detail > img {
+  width: 90px;
+  height: 90px;
+  color: var(--color-text-highlight);
+  stroke-width: 1;
+}
+.soul-reward-detail > strong {
+  font: 400 3.5rem var(--serif);
+  color: var(--color-text-highlight);
+}
+.soul-reward-detail > strong span {
+  padding: 0 20px;
+  color: var(--color-text-muted);
+}
+.soul-reward-detail > p {
+  font-size: 1.15rem;
+}
+.soul-reward-detail > small {
+  color: var(--color-text-muted);
+}
+.reward-skill-art {
+  display: block;
+  width: 140px;
+  aspect-ratio: 1;
+  object-fit: cover;
+  margin: 0 auto 20px;
+  border: 0;
+}
+.skill-reward-detail > h3 {
+  font-size: 1rem;
+  margin: 24px 0 12px;
+}
+.reward-skill-slots {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.reward-skill-slots > button:where(:not(.gothic-text-button)) {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid var(--color-border-souls-3);
+  background: var(--color-background-panel);
+  min-width: 0;
+}
+.reward-skill-slots
+  > button:where(:not(.gothic-text-button))[aria-pressed="true"] {
+  outline: 2px solid var(--color-border-start-screen);
+  background: var(--color-background-style-20);
+}
+.reward-skill-slots .slot-art {
+  width: 72px;
+  height: 72px;
+  display: grid;
+  place-items: center;
+  background: var(--color-background-character-creation-6);
+  border: 0;
+}
+.reward-skill-slots small {
+  font-size: 0.75rem;
+}
+@media (max-width: 599px) {
+  .reward-gallery {
+    justify-content: center;
+    gap: 8px;
+  }
+  .reward-tile {
+    flex-basis: calc((100% - 24px) / 4);
+    min-width: 0;
+    max-width: 112px;
+  }
+  .reward-skill-slots {
+    gap: 8px;
+  }
+  .reward-skill-slots > button:where(:not(.gothic-text-button)) {
+    padding: 8px 4px;
+  }
+  .reward-skill-slots .slot-art {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+.result-symbol {
+  height: 65px;
+  width: 65px;
+  border: 1px solid var(--color-border-style-16);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+.reward-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 22px;
+}
+@media (max-width: 599px) {
+  .result-symbol {
+    width: 40px;
+    height: 40px;
+  }
+  .result-symbol svg {
+    width: 22px;
+  }
+  .reward-buttons {
+    flex-direction: column;
+  }
+}

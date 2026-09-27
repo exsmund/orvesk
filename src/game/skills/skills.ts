@@ -1,85 +1,33 @@
-import type { Cell, Fighter, Maneuver } from "../types";
+import definitions from "../../../data/skills.json";
+import type { Cell, Fighter, Maneuver } from "@/game/types";
 export const MAX_SKILLS = 3;
-export type SkillId = "dodge" | "sidestep" | "composure" | "bandage";
+export type SkillId = string;
 export interface Skill {
   id: SkillId;
+  figure?: Maneuver;
+  art: string;
+  deckMultiplier?: { category: "attack" | "defense"; factor: number };
   name: string;
   shape: Cell[];
-  effect: "evade" | "poise" | "heal";
+  effect: "evade" | "heal" | "passive";
   amount: number;
   description: string;
 }
-export const SKILLS: Skill[] = [
-  {
-    id: "dodge",
-    name: "Уворот",
-    shape: [
-      [0, 0],
-      [1, 0],
-      [0, 1],
-      [1, 1],
-    ],
-    effect: "evade",
-    amount: 0,
-    description:
-      "Избежать всего урона здоровью и стойке в четырёх перекрытых клетках. Не считается блоком щита, не давит на противника и не активирует комбинации щита.",
-  },
-  {
-    id: "sidestep",
-    name: "Шаг в сторону",
-    shape: [
-      [0, 0],
-      [1, 1],
-    ],
-    effect: "evade",
-    amount: 0,
-    description:
-      "Избежать всего урона здоровью и стойке в двух клетках по диагонали. Не считается блоком щита и не активирует его комбинации.",
-  },
-  {
-    id: "composure",
-    name: "Собраться",
-    shape: [
-      [0, 0],
-      [1, 0],
-    ],
-    effect: "poise",
-    amount: 3,
-    description:
-      "Восстановить до 3 стойки перед входящим уроном, не выше максимума. Не защищает от атак.",
-  },
-  {
-    id: "bandage",
-    name: "Перевязка",
-    shape: [
-      [0, 0],
-      [1, 0],
-      [1, 1],
-    ],
-    effect: "heal",
-    amount: 2,
-    description:
-      "Восстановить до 2 здоровья после подсчёта урона, если вы выжили. Не выше максимума; не защищает от атак и не воскрешает.",
-  },
-];
+export const SKILLS = definitions.map((s) => ({
+  ...s,
+  shape: s.figure?.shape ?? [],
+})) as Skill[];
 export const skill = (id: string) => SKILLS.find((s) => s.id === id);
 export const knownSkills = (f: Pick<Fighter, "skills">) =>
   SKILLS.filter((s) => f.skills?.includes(s.id));
-export function skillManeuver(s: Skill, f?: Fighter): Maneuver {
-  const id = `skill:${s.id}`;
+export function skillManeuver(s: Skill): Maneuver {
   return {
-    id,
+    ...structuredClone(s.figure!),
     skillId: s.id,
-    name: s.name,
-    action: "skill",
-    shape: s.shape.map(([x, y]) => [x, y]),
-    description: s.description + " После использования недоступен один раунд.",
-    cooldownKey: id,
-    cooldown: f?.cooldowns?.[id] ?? 0,
   };
 }
 export const isEvade = (m?: Maneuver) =>
-  !!m?.skillId && skill(m.skillId)?.effect === "evade";
+  !!m?.evades || (!!m?.skillId && skill(m.skillId)?.effect === "evade");
 /** Only a reward selected by the authoritative server may add a skill. */
 export function learnSkill(
   f: Fighter,
@@ -108,8 +56,6 @@ export function learnSkill(
         "Можно иметь не больше трёх навыков. Выберите навык для замены.",
       );
   }
-  const removed = current[index];
-  if (removed && f.cooldowns) delete f.cooldowns[`skill:${removed}`];
   while (current.length <= index) current.push(null);
   current[index] = id;
   f.skills = current;

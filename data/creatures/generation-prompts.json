@@ -1,0 +1,593 @@
+{
+  "method": "built-in image_gen",
+  "date": "2026-09-25",
+  "references": ["refs/image1.png", "refs/image2.png", "refs/image3.png"],
+  "portraits": [
+    {
+      "id": "demon",
+      "subject": "Deceptively ordinary adult traveler, unsettling attentive eyes, worn dark cloak; embodied boundary demon without horns, wings or monster mask"
+    },
+    {
+      "id": "light-spirit",
+      "subject": "Barely visible pale translucent peaceful human-shaped spirit, gentle faint face emerging from darkness, no armor"
+    },
+    {
+      "id": "vanishing",
+      "subject": "Absolutely flat pitch-black silhouette of a long humanoid head in three-quarter view facing left; no volumetric facial shading, faint grey ambient background separates silhouette; dense shadow entity"
+    },
+    {
+      "id": "swamp-hag",
+      "subject": "Hunched ancient crone, deeply wrinkled skin, green-grey stringy hair, hooked hands, swamp reeds in ragged wool"
+    },
+    {
+      "id": "battle-mage",
+      "subject": "Weathered adult military mage, severe angular face, worn travel cloak and small mineral spell components, no neon"
+    },
+    {
+      "id": "wild-mage",
+      "subject": "Elderly hermit mage, wild grey hair, rough bark-dyed cloth, bone and herb spell components"
+    },
+    {
+      "id": "elf",
+      "subject": "Calm ageless adult elf, pale angular face, fine long ears, long dark hair, worn forest clothing; wise and alert"
+    },
+    {
+      "id": "faerie",
+      "subject": "Nature spirit with a small humanoid face of seed husks and living plant fibers, subtle eyes; no insect wings required, not cute"
+    },
+    {
+      "id": "dark-faerie",
+      "subject": "Underground nature being, rootlike face and mineral flecks, dark soil skin, attentive pale eyes, not evil caricature"
+    },
+    {
+      "id": "vampire",
+      "subject": "Pale fragile-looking adult inn traveler, tired composed face, plain dark clothing; quietly deceptive, no visible blood"
+    },
+    {
+      "id": "harpy",
+      "subject": "Human adult face with hooked cheek planes and bird plumage, folded dark wings at shoulders, natural predatory bird anatomy"
+    },
+    {
+      "id": "leshy",
+      "subject": "Stooped tall forest humanoid beast, coarse dark fur, elongated face and limbs, moss tangled in hair, organic flesh not wooden body"
+    },
+    {
+      "id": "faun",
+      "subject": "Adult forest faun, human face, weathered curved horns, rough fur shoulders, watchful eyes"
+    },
+    {
+      "id": "living-armor",
+      "subject": "Empty walking gothic iron armor, worn closed helmet turned left, dark empty visor, heavy aged steel, no human inside"
+    },
+    {
+      "id": "dog",
+      "subject": "Lean feral mastiff dog, realistic broad muzzle, short brindled worn fur, alert ears, no collar or equipment"
+    },
+    {
+      "id": "wolf",
+      "subject": "Wild forest wolf, alert amber eyes, thick grey-brown fur and powerful realistic muzzle, no collar or equipment"
+    },
+    {
+      "id": "huge-wolf",
+      "subject": "Massive ancient wolf with extremely broad skull, thick grizzled fur, heavy neck and scarred nose, no equipment"
+    },
+    {
+      "id": "werewolf",
+      "subject": "Independent wolf-like beast, NOT a transformed human: long wolf muzzle and grasping furred forelimbs, intelligent predatory posture"
+    },
+    {
+      "id": "cat",
+      "subject": "Wild lean lynx-like feline predator, tufted ears, spotted coarse fur, sharp amber eyes"
+    },
+    {
+      "id": "huge-cat",
+      "subject": "Huge powerful tawny mountain feline, heavy jaws and neck, scarred fur, broad rounded ears"
+    },
+    {
+      "id": "small-bird",
+      "subject": "Small fierce sparrowhawk, narrow hooked beak, brown mottled feathers and bright watchful eye"
+    },
+    {
+      "id": "large-bird",
+      "subject": "Enormous dark eagle-like bird of prey, heavy hooked beak, layered weathered feathers, powerful shoulders"
+    },
+    {
+      "id": "giant-snake",
+      "subject": "Giant constrictor snake, heavy scaled head and upper coils, dull olive bronze scales, alert eye; not venomous by default"
+    },
+    {
+      "id": "lake-snake",
+      "subject": "Giant aquatic serpent, long narrow scaled head, wet charcoal scales, pale throat, upper coil, no background lake"
+    },
+    {
+      "id": "flying-snake",
+      "subject": "Giant flying serpent with broad leathery membrane fins along neck, elongated snake skull and dark scales"
+    },
+    {
+      "id": "flying-lizard",
+      "subject": "Winged reptilian beast, long toothy jaws, leathery folded wing membranes behind neck, rough grey scales"
+    },
+    {
+      "id": "dragon",
+      "subject": "Massive ancient dragon, heavy scaled head and folded wing root, dark stone-grey scales, deeply intelligent eye, no fire or treasure"
+    },
+    {
+      "id": "octopus",
+      "subject": "Large aquatic octopus, textured wet mantle, intelligent horizontal eye and curling tentacle bases directed left, no humanoid face"
+    },
+    {
+      "id": "bone-collector",
+      "subject": "Low six-legged scavenging beast, split lower jaw and bony growths, collected dry animal bones embedded on back, no gore"
+    },
+    {
+      "id": "rust-eater",
+      "subject": "Long flat insect creature, copper-brown chitin, stiff antennae, corrosive glistening saliva on mandibles, no human face"
+    },
+    {
+      "id": "bog-bell",
+      "subject": "Swollen translucent fungus-animal sac on rootlike legs, dark fluid inside, side opening directed left, subtle spore dust, no eyes needed"
+    },
+    {
+      "id": "ash-hound",
+      "subject": "Thin quadrupedal hound, grey crust skin, restrained dull red glow within cracks, ash breath, NOT demon"
+    },
+    {
+      "id": "root-shepherd",
+      "subject": "Heavy organic tree-animal creature, root beard, moist eyes beneath bark, four knotted limbs suggested by shoulders, carries no equipment"
+    },
+    {
+      "id": "mirror-being",
+      "subject": "Slender boundary parasite formed from smoky aged glass, delayed distorted human facial reflection, subtle cracks, no neon"
+    },
+    {
+      "id": "stitchling",
+      "subject": "Asymmetric artificial animal assembled from mismatched furred limbs, extra joints and sensory organs, dry sinew sutures and iron staples, non-graphic no gore"
+    },
+    {
+      "id": "whisperess",
+      "subject": "Narrow boundary entity draped in folds like wet burial cloth, several faint small mouths instead of face directed left, no eyes"
+    },
+    {
+      "id": "stone-yawn",
+      "subject": "Ambush creature like dark irregular boulders opening a moist toothless mouth between mineral plates, opening faces left, no humanoid anatomy"
+    },
+    {
+      "id": "meldling",
+      "subject": "Unstable fused boundary creature, incompatible animal and human silhouettes partly emerging from shared dark organic form, several incomplete faces turn left, no gore"
+    }
+  ],
+  "actions": [
+    {
+      "id": "bite",
+      "subject": "Animal jaws with ivory fangs snapping toward left, wolf-like natural muzzle, no blood"
+    },
+    {
+      "id": "claw",
+      "subject": "Powerful furred beast forepaw with three curved claws slashing diagonally left, no blood"
+    },
+    {
+      "id": "talon",
+      "subject": "Predatory bird scaled talons curling in a diving strike, dark feathers at ankle"
+    },
+    {
+      "id": "horn",
+      "subject": "Two weathered curved ram horns and brow lowered in a charging strike toward left"
+    },
+    {
+      "id": "slam",
+      "subject": "Massive rough stone and iron-like fist striking down, sculptural impact, no text"
+    },
+    {
+      "id": "constrict",
+      "subject": "Coiled thick scaled serpent body tightening into a knot, no victim"
+    },
+    {
+      "id": "tentacle",
+      "subject": "Thick curling octopus tentacle with detailed suckers, wet charcoal skin"
+    },
+    {
+      "id": "root",
+      "subject": "Thick living knotted roots curling into a grasping hand with dirt and bark"
+    },
+    {
+      "id": "mind",
+      "subject": "Pale ghostly hand drawing a thin thread of light from darkness, subtle not neon"
+    },
+    {
+      "id": "magic",
+      "subject": "Weathered hand holding a small hovering fractured mineral with faint arcane pale light"
+    },
+    {
+      "id": "poison",
+      "subject": "Dark chitin mandible releasing a small viscous olive-green droplet and narrow toxic vapor"
+    },
+    {
+      "id": "spores",
+      "subject": "Pale swollen fungus cap releasing a concentrated cloud of dull olive spores"
+    },
+    {
+      "id": "ash",
+      "subject": "Cracked grey hound muzzle exhaling a narrow plume of warm ash, subtle embers"
+    },
+    {
+      "id": "mirror",
+      "subject": "Distorted dim face reflected in a floating shard of smoky ancient glass"
+    },
+    {
+      "id": "whisper",
+      "subject": "Several barely visible pale lips emerging from folded black burial cloth, subtle breath"
+    },
+    {
+      "id": "evade",
+      "subject": "Lean furred beast silhouette springing backward, dynamic folded legs, clear single animal"
+    },
+    {
+      "id": "veil",
+      "subject": "Dim translucent humanoid silhouette dissolving sideways into a fold of shadow"
+    },
+    {
+      "id": "ward",
+      "subject": "Layered worn dark iron and bark plates raised together as a protective shield-like barrier"
+    },
+    {
+      "id": "recover",
+      "subject": "Beast forepaw planted firmly on a small dark stone, sense of regaining balance"
+    },
+    {
+      "id": "rest",
+      "subject": "Quiet beast muzzle and curled forepaw at rest, pale subtle breath in dark air"
+    }
+  ],
+  "portraitPrompt": "Use case: stylized-concept. ONE original creature portrait for a gothic fantasy game, 1024x1536 vertical 2:3. Head, shoulders/upper body appropriate to species. Three-quarter view, face/muzzle/front side UNMISTAKABLY turned LEFT toward left edge; the creature will stand on the right of a dialogue. Nearly black charcoal background; NO landscape. Sculptural volume, richly textured old dark fantasy illustration, muted graphite/bone/ochre, upper FRONT LEFT light, deep chiaroscuro; readable silhouette at 120px. STYLE references only: ref1 heavy aged materials and warm edges, ref2 main gothic modelling/cold steel, ref3 cloth/bone restrained highlights. Do not copy their identities or frames. No text, frame, logos, cartoon, plastic, neon, gore or gratuitous equipment. Subject: ",
+  "actionPrompt": "Use case: stylized-concept. Single square 1024x1024 illustrated action icon for dark gothic fantasy tactics game. Large central motif occupying 80 percent of image, readable at 64px. Charcoal nearly black background, sculptural organic realism, worn detailed textures, restrained ivory, graphite, muted ochre highlights from upper left. Reference images are STYLE ONLY, not subjects: heavy material detail, chiaroscuro, gothic modelling; do not copy frames or characters. No frame, text, symbols, UI, neon, cartoon, gore. Subject: ",
+  "generated": [
+    {
+      "id": "wolf",
+      "kind": "portraits",
+      "prompt": "Use case: stylized-concept. Create ONE original portrait asset for gothic fantasy game: wild forest wolf, alert intelligent amber eyes, thick weathered grey-brown fur, powerful realistic muzzle. Head and upper chest, three-quarter view looking unmistakably LEFT (nose toward left edge), slightly right of center, 1024x1536 portrait. Nearly black charcoal background. Sculptural volume, richly textured old dark fantasy illustration, muted bone/graphite/ochre palette, dramatic light from upper FRONT LEFT of the image, deep shadows. Reference 1 is for material weight/warm highlights, reference 2 main gothic chiaroscuro, reference 3 soft fabric-like texture and restricted highlights. References are STYLE ONLY, do not copy people, armor, frames. Wolf has NO equipment, no clothing, no collar, no human anatomy. No scene, text, frame, logo, glow outline, cartoon, glossy plastic.",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-bfd8a76e-fc7d-4dae-b7dc-9e686622e990.png"
+    },
+    {
+      "id": "demon",
+      "kind": "portraits",
+      "prompt": "Use case: stylized-concept. ONE original creature portrait for a gothic fantasy game, 1024x1536 vertical 2:3. Head, shoulders/upper body appropriate to species. Three-quarter view, face/muzzle/front side UNMISTAKABLY turned LEFT toward left edge; the creature will stand on the right of a dialogue. Nearly black charcoal background; NO landscape. Sculptural volume, richly textured old dark fantasy illustration, muted graphite/bone/ochre, upper FRONT LEFT light, deep chiaroscuro; readable silhouette at 120px. STYLE references only: ref1 heavy aged materials and warm edges, ref2 main gothic modelling/cold steel, ref3 cloth/bone restrained highlights. Do not copy their identities or frames. No text, frame, logos, cartoon, plastic, neon, gore or gratuitous equipment. Subject: Deceptively ordinary adult traveler, unsettling attentive eyes, worn dark cloak; embodied boundary demon without horns, wings or monster mask",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-3dfb1e4e-f995-4722-bc99-b705c357ef4c.png"
+    },
+    {
+      "id": "light-spirit",
+      "kind": "portraits",
+      "prompt": "Use case: stylized-concept. ONE original creature portrait for a gothic fantasy game, 1024x1536 vertical 2:3. Head, shoulders/upper body appropriate to species. Three-quarter view, face/muzzle/front side UNMISTAKABLY turned LEFT toward left edge; the creature will stand on the right of a dialogue. Nearly black charcoal background; NO landscape. Sculptural volume, richly textured old dark fantasy illustration, muted graphite/bone/ochre, upper FRONT LEFT light, deep chiaroscuro; readable silhouette at 120px. STYLE references only: ref1 heavy aged materials and warm edges, ref2 main gothic modelling/cold steel, ref3 cloth/bone restrained highlights. Do not copy their identities or frames. No text, frame, logos, cartoon, plastic, neon, gore or gratuitous equipment. Subject: Barely visible pale translucent peaceful human-shaped spirit, gentle faint face emerging from darkness, no armor",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-647dc288-4666-4c62-9e4e-e1331ad7e9ea.png"
+    },
+    {
+      "id": "vanishing",
+      "kind": "portraits",
+      "prompt": "Use case: stylized-concept. ONE original creature portrait for a gothic fantasy game, 1024x1536 vertical 2:3. Head, shoulders/upper body appropriate to species. Three-quarter view, face/muzzle/front side UNMISTAKABLY turned LEFT toward left edge; the creature will stand on the right of a dialogue. Nearly black charcoal background; NO landscape. Sculptural volume, richly textured old dark fantasy illustration, muted graphite/bone/ochre, upper FRONT LEFT light, deep chiaroscuro; readable silhouette at 120px. STYLE references only: ref1 heavy aged materials and warm edges, ref2 main gothic modelling/cold steel, ref3 cloth/bone restrained highlights. Do not copy their identities or frames. No text, frame, logos, cartoon, plastic, neon, gore or gratuitous equipment. Subject: Absolutely flat pitch-black silhouette of a long humanoid head in three-quarter view facing left; no volumetric facial shading, faint grey ambient background separates silhouette; dense shadow entity",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-1a58ab94-be95-429b-a9ab-1e783d59ad9e.png"
+    },
+    {
+      "id": "swamp-hag",
+      "kind": "portraits",
+      "prompt": "Use case: stylized-concept. ONE original creature portrait for a gothic fantasy game, 1024x1536 vertical 2:3. Head, shoulders/upper body appropriate to species. Three-quarter view, face/muzzle/front side UNMISTAKABLY turned LEFT toward left edge; the creature will stand on the right of a dialogue. Nearly black charcoal background; NO landscape. Sculptural volume, richly textured old dark fantasy illustration, muted graphite/bone/ochre, upper FRONT LEFT light, deep chiaroscuro; readable silhouette at 120px. STYLE references only: ref1 heavy aged materials and warm edges, ref2 main gothic modelling/cold steel, ref3 cloth/bone restrained highlights. Do not copy their identities or frames. No text, frame, logos, cartoon, plastic, neon, gore or gratuitous equipment. Subject: Hunched ancient crone, deeply wrinkled skin, green-grey stringy hair, hooked hands, swamp reeds in ragged wool",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-d6554c17-5843-41af-a1ea-ed367171705c.png"
+    },
+    {
+      "id": "battle-mage",
+      "kind": "portraits",
+      "prompt": "Use case: stylized-concept. ONE original creature portrait for a gothic fantasy game, 1024x1536 vertical 2:3. Head, shoulders/upper body appropriate to species. Three-quarter view, face/muzzle/front side UNMISTAKABLY turned LEFT toward left edge; the creature will stand on the right of a dialogue. Nearly black charcoal background; NO landscape. Sculptural volume, richly textured old dark fantasy illustration, muted graphite/bone/ochre, upper FRONT LEFT light, deep chiaroscuro; readable silhouette at 120px. STYLE references only: ref1 heavy aged materials and warm edges, ref2 main gothic modelling/cold steel, ref3 cloth/bone restrained highlights. Do not copy their identities or frames. No text, frame, logos, cartoon, plastic, neon, gore or gratuitous equipment. Subject: An adult scholarly traveler mage in a plain weathered cloak, thoughtful calm face, holding a small mineral component. Peaceful bust portrait, no weapons or conflict.",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-eea61651-2f12-490c-b710-c4f56800ec69.png"
+    },
+    {
+      "id": "wild-mage",
+      "kind": "portraits",
+      "prompt": "Use case: stylized-concept. ONE original creature portrait for a gothic fantasy game, 1024x1536 vertical 2:3. Head, shoulders/upper body appropriate to species. Three-quarter view, face/muzzle/front side UNMISTAKABLY turned LEFT toward left edge; the creature will stand on the right of a dialogue. Nearly black charcoal background; NO landscape. Sculptural volume, richly textured old dark fantasy illustration, muted graphite/bone/ochre, upper FRONT LEFT light, deep chiaroscuro; readable silhouette at 120px. STYLE references only: ref1 heavy aged materials and warm edges, ref2 main gothic modelling/cold steel, ref3 cloth/bone restrained highlights. Do not copy their identities or frames. No text, frame, logos, cartoon, plastic, neon, gore or gratuitous equipment. Subject: Elderly hermit mage, wild grey hair, rough bark-dyed cloth, bone and herb spell components",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-042fe26f-0c6f-438c-bf8c-b9fff7761029.png"
+    },
+    {
+      "id": "elf",
+      "kind": "portraits",
+      "prompt": "Use case: stylized-concept. ONE original creature portrait for a gothic fantasy game, 1024x1536 vertical 2:3. Head, shoulders/upper body appropriate to species. Three-quarter view, face/muzzle/front side UNMISTAKABLY turned LEFT toward left edge; the creature will stand on the right of a dialogue. Nearly black charcoal background; NO landscape. Sculptural volume, richly textured old dark fantasy illustration, muted graphite/bone/ochre, upper FRONT LEFT light, deep chiaroscuro; readable silhouette at 120px. STYLE references only: ref1 heavy aged materials and warm edges, ref2 main gothic modelling/cold steel, ref3 cloth/bone restrained highlights. Do not copy their identities or frames. No text, frame, logos, cartoon, plastic, neon, gore or gratuitous equipment. Subject: Calm ageless adult elf, pale angular face, fine long ears, long dark hair, worn forest clothing; wise and alert",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-c39de61d-d64d-40bc-b5be-9669d27d9dac.png"
+    },
+    {
+      "id": "faerie",
+      "kind": "portraits",
+      "prompt": "Use case: stylized-concept. ONE original creature portrait for a gothic fantasy game, 1024x1536 vertical 2:3. Head, shoulders/upper body appropriate to species. Three-quarter view, face/muzzle/front side UNMISTAKABLY turned LEFT toward left edge; the creature will stand on the right of a dialogue. Nearly black charcoal background; NO landscape. Sculptural volume, richly textured old dark fantasy illustration, muted graphite/bone/ochre, upper FRONT LEFT light, deep chiaroscuro; readable silhouette at 120px. STYLE references only: ref1 heavy aged materials and warm edges, ref2 main gothic modelling/cold steel, ref3 cloth/bone restrained highlights. Do not copy their identities or frames. No text, frame, logos, cartoon, plastic, neon, gore or gratuitous equipment. Subject: Nature spirit with a small humanoid face of seed husks and living plant fibers, subtle eyes; no insect wings required, not cute",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-d01fdf0a-f9f7-4343-9108-d7b2dc5f84ab.png"
+    },
+    {
+      "id": "dark-faerie",
+      "kind": "portraits",
+      "prompt": "Use case: stylized-concept. ONE original creature portrait for a gothic fantasy game, 1024x1536 vertical 2:3. Head, shoulders/upper body appropriate to species. Three-quarter view, face/muzzle/front side UNMISTAKABLY turned LEFT toward left edge; the creature will stand on the right of a dialogue. Nearly black charcoal background; NO landscape. Sculptural volume, richly textured old dark fantasy illustration, muted graphite/bone/ochre, upper FRONT LEFT light, deep chiaroscuro; readable silhouette at 120px. STYLE references only: ref1 heavy aged materials and warm edges, ref2 main gothic modelling/cold steel, ref3 cloth/bone restrained highlights. Do not copy their identities or frames. No text, frame, logos, cartoon, plastic, neon, gore or gratuitous equipment. Subject: Underground nature being, rootlike face and mineral flecks, dark soil skin, attentive pale eyes, not evil caricature",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-8fb08d86-7455-424a-a143-f3eb0efd2d26.png"
+    },
+    {
+      "id": "vampire",
+      "kind": "portraits",
+      "prompt": "Use case: stylized-concept. ONE original creature portrait for a gothic fantasy game, 1024x1536 vertical 2:3. Head, shoulders/upper body appropriate to species. Three-quarter view, face/muzzle/front side UNMISTAKABLY turned LEFT toward left edge; the creature will stand on the right of a dialogue. Nearly black charcoal background; NO landscape. Sculptural volume, richly textured old dark fantasy illustration, muted graphite/bone/ochre, upper FRONT LEFT light, deep chiaroscuro; readable silhouette at 120px. STYLE references only: ref1 heavy aged materials and warm edges, ref2 main gothic modelling/cold steel, ref3 cloth/bone restrained highlights. Do not copy their identities or frames. No text, frame, logos, cartoon, plastic, neon, gore or gratuitous equipment. Subject: Pale fragile-looking adult inn traveler, tired composed face, plain dark clothing; quietly deceptive, no visible blood",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-bc7f895a-a4e6-43b6-8cc6-eebfdd5ecd5b.png"
+    },
+    {
+      "id": "harpy",
+      "kind": "portraits",
+      "prompt": "Use case: stylized-concept. ONE original creature portrait for a gothic fantasy game, 1024x1536 vertical 2:3. Head, shoulders/upper body appropriate to species. Three-quarter view, face/muzzle/front side UNMISTAKABLY turned LEFT toward left edge; the creature will stand on the right of a dialogue. Nearly black charcoal background; NO landscape. Sculptural volume, richly textured old dark fantasy illustration, muted graphite/bone/ochre, upper FRONT LEFT light, deep chiaroscuro; readable silhouette at 120px. STYLE references only: ref1 heavy aged materials and warm edges, ref2 main gothic modelling/cold steel, ref3 cloth/bone restrained highlights. Do not copy their identities or frames. No text, frame, logos, cartoon, plastic, neon, gore or gratuitous equipment. Subject: Human adult face with hooked cheek planes and bird plumage, folded dark wings at shoulders, natural predatory bird anatomy",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-6a639ab8-2650-438b-a248-4f0c5b6b9bac.png"
+    },
+    {
+      "id": "leshy",
+      "kind": "portraits",
+      "prompt": "Use case: stylized-concept. ONE original creature portrait for a gothic fantasy game, 1024x1536 vertical 2:3. Head, shoulders/upper body appropriate to species. Three-quarter view, face/muzzle/front side UNMISTAKABLY turned LEFT toward left edge; the creature will stand on the right of a dialogue. Nearly black charcoal background; NO landscape. Sculptural volume, richly textured old dark fantasy illustration, muted graphite/bone/ochre, upper FRONT LEFT light, deep chiaroscuro; readable silhouette at 120px. STYLE references only: ref1 heavy aged materials and warm edges, ref2 main gothic modelling/cold steel, ref3 cloth/bone restrained highlights. Do not copy their identities or frames. No text, frame, logos, cartoon, plastic, neon, gore or gratuitous equipment. Subject: Stooped tall forest humanoid beast, coarse dark fur, elongated face and limbs, moss tangled in hair, organic flesh not wooden body",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-b7cd41ee-79da-4816-b739-547e44ece163.png"
+    },
+    {
+      "id": "faun",
+      "kind": "portraits",
+      "prompt": "Use case: stylized-concept. ONE original creature portrait for a gothic fantasy game, 1024x1536 vertical 2:3. Head, shoulders/upper body appropriate to species. Three-quarter view, face/muzzle/front side UNMISTAKABLY turned LEFT toward left edge; the creature will stand on the right of a dialogue. Nearly black charcoal background; NO landscape. Sculptural volume, richly textured old dark fantasy illustration, muted graphite/bone/ochre, upper FRONT LEFT light, deep chiaroscuro; readable silhouette at 120px. STYLE references only: ref1 heavy aged materials and warm edges, ref2 main gothic modelling/cold steel, ref3 cloth/bone restrained highlights. Do not copy their identities or frames. No text, frame, logos, cartoon, plastic, neon, gore or gratuitous equipment. Subject: Adult forest faun, human face, weathered curved horns, rough fur shoulders, watchful eyes",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-d0dc6406-888d-4302-b11a-ed0af68e7212.png"
+    },
+    {
+      "id": "living-armor",
+      "kind": "portraits",
+      "prompt": "Use case: stylized-concept. ONE original creature portrait for a gothic fantasy game, 1024x1536 vertical 2:3. Head, shoulders/upper body appropriate to species. Three-quarter view, face/muzzle/front side UNMISTAKABLY turned LEFT toward left edge; the creature will stand on the right of a dialogue. Nearly black charcoal background; NO landscape. Sculptural volume, richly textured old dark fantasy illustration, muted graphite/bone/ochre, upper FRONT LEFT light, deep chiaroscuro; readable silhouette at 120px. STYLE references only: ref1 heavy aged materials and warm edges, ref2 main gothic modelling/cold steel, ref3 cloth/bone restrained highlights. Do not copy their identities or frames. No text, frame, logos, cartoon, plastic, neon, gore or gratuitous equipment. Subject: Empty walking gothic iron armor, worn closed helmet turned left, dark empty visor, heavy aged steel, no human inside",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-8cff8132-1071-4d96-a873-5d19331b4b95.png"
+    },
+    {
+      "id": "dog",
+      "kind": "portraits",
+      "prompt": "Use case: stylized-concept. ONE original creature portrait for a gothic fantasy game, 1024x1536 vertical 2:3. Head, shoulders/upper body appropriate to species. Three-quarter view, face/muzzle/front side UNMISTAKABLY turned LEFT toward left edge; the creature will stand on the right of a dialogue. Nearly black charcoal background; NO landscape. Sculptural volume, richly textured old dark fantasy illustration, muted graphite/bone/ochre, upper FRONT LEFT light, deep chiaroscuro; readable silhouette at 120px. STYLE references only: ref1 heavy aged materials and warm edges, ref2 main gothic modelling/cold steel, ref3 cloth/bone restrained highlights. Do not copy their identities or frames. No text, frame, logos, cartoon, plastic, neon, gore or gratuitous equipment. Subject: Lean feral mastiff dog, realistic broad muzzle, short brindled worn fur, alert ears, no collar or equipment",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-19b87531-2c24-453a-ad08-b07366bdcf1b.png"
+    },
+    {
+      "id": "huge-wolf",
+      "kind": "portraits",
+      "prompt": "Use case: stylized-concept. ONE original creature portrait for a gothic fantasy game, 1024x1536 vertical 2:3. Head, shoulders/upper body appropriate to species. Three-quarter view, face/muzzle/front side UNMISTAKABLY turned LEFT toward left edge; the creature will stand on the right of a dialogue. Nearly black charcoal background; NO landscape. Sculptural volume, richly textured old dark fantasy illustration, muted graphite/bone/ochre, upper FRONT LEFT light, deep chiaroscuro; readable silhouette at 120px. STYLE references only: ref1 heavy aged materials and warm edges, ref2 main gothic modelling/cold steel, ref3 cloth/bone restrained highlights. Do not copy their identities or frames. No text, frame, logos, cartoon, plastic, neon, gore or gratuitous equipment. Subject: Massive ancient wolf with extremely broad skull, thick grizzled fur, heavy neck and scarred nose, no equipment",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-8212afd7-530f-44da-88d0-0af6e310a717.png"
+    },
+    {
+      "id": "cat",
+      "kind": "portraits",
+      "prompt": "Use case: stylized-concept. ONE original creature portrait for a gothic fantasy game, 1024x1536 vertical 2:3. Head, shoulders/upper body appropriate to species. Three-quarter view, face/muzzle/front side UNMISTAKABLY turned LEFT toward left edge; the creature will stand on the right of a dialogue. Nearly black charcoal background; NO landscape. Sculptural volume, richly textured old dark fantasy illustration, muted graphite/bone/ochre, upper FRONT LEFT light, deep chiaroscuro; readable silhouette at 120px. STYLE references only: ref1 heavy aged materials and warm edges, ref2 main gothic modelling/cold steel, ref3 cloth/bone restrained highlights. Do not copy their identities or frames. No text, frame, logos, cartoon, plastic, neon, gore or gratuitous equipment. Subject: Wild lean lynx-like feline predator, tufted ears, spotted coarse fur, sharp amber eyes. This is an ANIMAL, not humanoid: absolutely NO cloth, cloak, brooch, armor, jewelry or anthropomorphic shoulders; natural fur/scales/feathers only. Anatomically correct animal portrait.",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-533f4d03-a593-4012-bd19-7a86009c38e5.png"
+    },
+    {
+      "id": "huge-cat",
+      "kind": "portraits",
+      "prompt": "Use case: stylized-concept. ONE original creature portrait for a gothic fantasy game, 1024x1536 vertical 2:3. Head, shoulders/upper body appropriate to species. Three-quarter view, face/muzzle/front side UNMISTAKABLY turned LEFT toward left edge; the creature will stand on the right of a dialogue. Nearly black charcoal background; NO landscape. Sculptural volume, richly textured old dark fantasy illustration, muted graphite/bone/ochre, upper FRONT LEFT light, deep chiaroscuro; readable silhouette at 120px. STYLE references only: ref1 heavy aged materials and warm edges, ref2 main gothic modelling/cold steel, ref3 cloth/bone restrained highlights. Do not copy their identities or frames. No text, frame, logos, cartoon, plastic, neon, gore or gratuitous equipment. Subject: Huge powerful tawny mountain feline, heavy jaws and neck, scarred fur, broad rounded ears. This is an ANIMAL, not humanoid: absolutely NO cloth, cloak, brooch, armor, jewelry or anthropomorphic shoulders; natural fur/scales/feathers only. Anatomically correct animal portrait.",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-35fe046a-0e14-415b-bfea-535f88d1788d.png"
+    },
+    {
+      "id": "small-bird",
+      "kind": "portraits",
+      "prompt": "Use case: stylized-concept. ONE original creature portrait for a gothic fantasy game, 1024x1536 vertical 2:3. Head, shoulders/upper body appropriate to species. Three-quarter view, face/muzzle/front side UNMISTAKABLY turned LEFT toward left edge; the creature will stand on the right of a dialogue. Nearly black charcoal background; NO landscape. Sculptural volume, richly textured old dark fantasy illustration, muted graphite/bone/ochre, upper FRONT LEFT light, deep chiaroscuro; readable silhouette at 120px. STYLE references only: ref1 heavy aged materials and warm edges, ref2 main gothic modelling/cold steel, ref3 cloth/bone restrained highlights. Do not copy their identities or frames. No text, frame, logos, cartoon, plastic, neon, gore or gratuitous equipment. Subject: Small fierce sparrowhawk, narrow hooked beak, brown mottled feathers and bright watchful eye. This is an ANIMAL, not humanoid: absolutely NO cloth, cloak, brooch, armor, jewelry or anthropomorphic shoulders; natural fur/scales/feathers only. Anatomically correct animal portrait.",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-107590bd-27b6-49d9-99f0-141c51e1fe99.png"
+    },
+    {
+      "id": "large-bird",
+      "kind": "portraits",
+      "prompt": "Use case: stylized-concept. ONE original creature portrait for a gothic fantasy game, 1024x1536 vertical 2:3. Head, shoulders/upper body appropriate to species. Three-quarter view, face/muzzle/front side UNMISTAKABLY turned LEFT toward left edge; the creature will stand on the right of a dialogue. Nearly black charcoal background; NO landscape. Sculptural volume, richly textured old dark fantasy illustration, muted graphite/bone/ochre, upper FRONT LEFT light, deep chiaroscuro; readable silhouette at 120px. STYLE references only: ref1 heavy aged materials and warm edges, ref2 main gothic modelling/cold steel, ref3 cloth/bone restrained highlights. Do not copy their identities or frames. No text, frame, logos, cartoon, plastic, neon, gore or gratuitous equipment. Subject: Enormous dark eagle-like bird of prey, heavy hooked beak, layered weathered feathers, powerful shoulders. This is an ANIMAL, not humanoid: absolutely NO cloth, cloak, brooch, armor, jewelry or anthropomorphic shoulders; natural fur/scales/feathers only. Anatomically correct animal portrait.",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-b738ab13-a63a-4a23-a27b-d57403795631.png"
+    },
+    {
+      "id": "giant-snake",
+      "kind": "portraits",
+      "prompt": "Use case: stylized-concept. ONE original creature portrait for a gothic fantasy game, 1024x1536 vertical 2:3. Head, shoulders/upper body appropriate to species. Three-quarter view, face/muzzle/front side UNMISTAKABLY turned LEFT toward left edge; the creature will stand on the right of a dialogue. Nearly black charcoal background; NO landscape. Sculptural volume, richly textured old dark fantasy illustration, muted graphite/bone/ochre, upper FRONT LEFT light, deep chiaroscuro; readable silhouette at 120px. STYLE references only: ref1 heavy aged materials and warm edges, ref2 main gothic modelling/cold steel, ref3 cloth/bone restrained highlights. Do not copy their identities or frames. No text, frame, logos, cartoon, plastic, neon, gore or gratuitous equipment. Subject: Giant constrictor snake, heavy scaled head and upper coils, dull olive bronze scales, alert eye; not venomous by default. This is an ANIMAL, not humanoid: absolutely NO cloth, cloak, brooch, armor, jewelry or anthropomorphic shoulders; natural fur/scales/feathers only. Anatomically correct animal portrait.",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-301022d0-226f-49e4-afa9-d266cea75652.png"
+    },
+    {
+      "id": "lake-snake",
+      "kind": "portraits",
+      "prompt": "Use case: stylized-concept. ONE original creature portrait for a gothic fantasy game, 1024x1536 vertical 2:3. Head, shoulders/upper body appropriate to species. Three-quarter view, face/muzzle/front side UNMISTAKABLY turned LEFT toward left edge; the creature will stand on the right of a dialogue. Nearly black charcoal background; NO landscape. Sculptural volume, richly textured old dark fantasy illustration, muted graphite/bone/ochre, upper FRONT LEFT light, deep chiaroscuro; readable silhouette at 120px. STYLE references only: ref1 heavy aged materials and warm edges, ref2 main gothic modelling/cold steel, ref3 cloth/bone restrained highlights. Do not copy their identities or frames. No text, frame, logos, cartoon, plastic, neon, gore or gratuitous equipment. Subject: Giant aquatic serpent, long narrow scaled head, wet charcoal scales, pale throat, upper coil, no background lake. This is an ANIMAL, not humanoid: absolutely NO cloth, cloak, brooch, armor, jewelry or anthropomorphic shoulders; natural fur/scales/feathers only. Anatomically correct animal portrait.",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-a9237476-8ff5-4af6-a58b-b34b40549860.png"
+    },
+    {
+      "id": "flying-snake",
+      "kind": "portraits",
+      "prompt": "Use case: stylized-concept. ONE original creature portrait for a gothic fantasy game, 1024x1536 vertical 2:3. Head, shoulders/upper body appropriate to species. Three-quarter view, face/muzzle/front side UNMISTAKABLY turned LEFT toward left edge; the creature will stand on the right of a dialogue. Nearly black charcoal background; NO landscape. Sculptural volume, richly textured old dark fantasy illustration, muted graphite/bone/ochre, upper FRONT LEFT light, deep chiaroscuro; readable silhouette at 120px. STYLE references only: ref1 heavy aged materials and warm edges, ref2 main gothic modelling/cold steel, ref3 cloth/bone restrained highlights. Do not copy their identities or frames. No text, frame, logos, cartoon, plastic, neon, gore or gratuitous equipment. Subject: Giant flying serpent with broad leathery membrane fins along neck, elongated snake skull and dark scales. This is an ANIMAL, not humanoid: absolutely NO cloth, cloak, brooch, armor, jewelry or anthropomorphic shoulders; natural fur/scales/feathers only. Anatomically correct animal portrait.",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-1af285bc-3d92-4abc-b6be-3353aa958e23.png"
+    },
+    {
+      "id": "flying-lizard",
+      "kind": "portraits",
+      "prompt": "Use case: stylized-concept. ONE original creature portrait for a gothic fantasy game, 1024x1536 vertical 2:3. Head, shoulders/upper body appropriate to species. Three-quarter view, face/muzzle/front side UNMISTAKABLY turned LEFT toward left edge; the creature will stand on the right of a dialogue. Nearly black charcoal background; NO landscape. Sculptural volume, richly textured old dark fantasy illustration, muted graphite/bone/ochre, upper FRONT LEFT light, deep chiaroscuro; readable silhouette at 120px. STYLE references only: ref1 heavy aged materials and warm edges, ref2 main gothic modelling/cold steel, ref3 cloth/bone restrained highlights. Do not copy their identities or frames. No text, frame, logos, cartoon, plastic, neon, gore or gratuitous equipment. Subject: Winged reptilian beast, long toothy jaws, leathery folded wing membranes behind neck, rough grey scales. This is an ANIMAL, not humanoid: absolutely NO cloth, cloak, brooch, armor, jewelry or anthropomorphic shoulders; natural fur/scales/feathers only. Anatomically correct animal portrait.",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-07e7871a-8273-4cfe-bc7d-ffb5e3e902ef.png"
+    },
+    {
+      "id": "dragon",
+      "kind": "portraits",
+      "prompt": "Use case: stylized-concept. ONE original creature portrait for a gothic fantasy game, 1024x1536 vertical 2:3. Head, shoulders/upper body appropriate to species. Three-quarter view, face/muzzle/front side UNMISTAKABLY turned LEFT toward left edge; the creature will stand on the right of a dialogue. Nearly black charcoal background; NO landscape. Sculptural volume, richly textured old dark fantasy illustration, muted graphite/bone/ochre, upper FRONT LEFT light, deep chiaroscuro; readable silhouette at 120px. STYLE references only: ref1 heavy aged materials and warm edges, ref2 main gothic modelling/cold steel, ref3 cloth/bone restrained highlights. Do not copy their identities or frames. No text, frame, logos, cartoon, plastic, neon, gore or gratuitous equipment. Subject: Massive ancient dragon, heavy scaled head and folded wing root, dark stone-grey scales, deeply intelligent eye, no fire or treasure. For nonhuman anatomy NO cloak, brooch, cloth, human armor or jewelry. Depict natural body surface only, unless armor IS the creature. No generic human head imposed on insects or fungi.",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-3d4bc2b8-0d05-48d3-b23c-2548b0c0733f.png"
+    },
+    {
+      "id": "octopus",
+      "kind": "portraits",
+      "prompt": "Use case: stylized-concept. ONE original creature portrait for a gothic fantasy game, 1024x1536 vertical 2:3. Head, shoulders/upper body appropriate to species. Three-quarter view, face/muzzle/front side UNMISTAKABLY turned LEFT toward left edge; the creature will stand on the right of a dialogue. Nearly black charcoal background; NO landscape. Sculptural volume, richly textured old dark fantasy illustration, muted graphite/bone/ochre, upper FRONT LEFT light, deep chiaroscuro; readable silhouette at 120px. STYLE references only: ref1 heavy aged materials and warm edges, ref2 main gothic modelling/cold steel, ref3 cloth/bone restrained highlights. Do not copy their identities or frames. No text, frame, logos, cartoon, plastic, neon, gore or gratuitous equipment. Subject: Large aquatic octopus, textured wet mantle, intelligent horizontal eye and curling tentacle bases directed left, no humanoid face. For nonhuman anatomy NO cloak, brooch, cloth, human armor or jewelry. Depict natural body surface only, unless armor IS the creature. No generic human head imposed on insects or fungi.",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-b9bc05ff-6ecd-446d-bed5-d8d5482fca4a.png"
+    },
+    {
+      "id": "bone-collector",
+      "kind": "portraits",
+      "prompt": "Use case: stylized-concept. ONE original creature portrait for a gothic fantasy game, 1024x1536 vertical 2:3. Head, shoulders/upper body appropriate to species. Three-quarter view, face/muzzle/front side UNMISTAKABLY turned LEFT toward left edge; the creature will stand on the right of a dialogue. Nearly black charcoal background; NO landscape. Sculptural volume, richly textured old dark fantasy illustration, muted graphite/bone/ochre, upper FRONT LEFT light, deep chiaroscuro; readable silhouette at 120px. STYLE references only: ref1 heavy aged materials and warm edges, ref2 main gothic modelling/cold steel, ref3 cloth/bone restrained highlights. Do not copy their identities or frames. No text, frame, logos, cartoon, plastic, neon, gore or gratuitous equipment. Subject: Low six-legged scavenging beast, split lower jaw and bony growths, collected dry animal bones embedded on back, no gore. For nonhuman anatomy NO cloak, brooch, cloth, human armor or jewelry. Depict natural body surface only, unless armor IS the creature. No generic human head imposed on insects or fungi.",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-2ef2ac24-e534-4052-94f8-3547fbb002a3.png"
+    },
+    {
+      "id": "rust-eater",
+      "kind": "portraits",
+      "prompt": "Use case: stylized-concept. ONE original creature portrait for a gothic fantasy game, 1024x1536 vertical 2:3. Head, shoulders/upper body appropriate to species. Three-quarter view, face/muzzle/front side UNMISTAKABLY turned LEFT toward left edge; the creature will stand on the right of a dialogue. Nearly black charcoal background; NO landscape. Sculptural volume, richly textured old dark fantasy illustration, muted graphite/bone/ochre, upper FRONT LEFT light, deep chiaroscuro; readable silhouette at 120px. STYLE references only: ref1 heavy aged materials and warm edges, ref2 main gothic modelling/cold steel, ref3 cloth/bone restrained highlights. Do not copy their identities or frames. No text, frame, logos, cartoon, plastic, neon, gore or gratuitous equipment. Subject: Long flat insect creature, copper-brown chitin, stiff antennae, corrosive glistening saliva on mandibles, no human face. For nonhuman anatomy NO cloak, brooch, cloth, human armor or jewelry. Depict natural body surface only, unless armor IS the creature. No generic human head imposed on insects or fungi.",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-986f2942-bdf6-46fb-99e1-8f881949bc83.png"
+    },
+    {
+      "id": "bog-bell",
+      "kind": "portraits",
+      "prompt": "Use case: stylized-concept. ONE original creature portrait for a gothic fantasy game, 1024x1536 vertical 2:3. Head, shoulders/upper body appropriate to species. Three-quarter view, face/muzzle/front side UNMISTAKABLY turned LEFT toward left edge; the creature will stand on the right of a dialogue. Nearly black charcoal background; NO landscape. Sculptural volume, richly textured old dark fantasy illustration, muted graphite/bone/ochre, upper FRONT LEFT light, deep chiaroscuro; readable silhouette at 120px. STYLE references only: ref1 heavy aged materials and warm edges, ref2 main gothic modelling/cold steel, ref3 cloth/bone restrained highlights. Do not copy their identities or frames. No text, frame, logos, cartoon, plastic, neon, gore or gratuitous equipment. Subject: Swollen translucent fungus-animal sac on rootlike legs, dark fluid inside, side opening directed left, subtle spore dust, no eyes needed. For nonhuman anatomy NO cloak, brooch, cloth, human armor or jewelry. Depict natural body surface only, unless armor IS the creature. No generic human head imposed on insects or fungi.",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-b2626af6-91d5-4925-9e6f-8aa6f40d6b3c.png"
+    },
+    {
+      "id": "ash-hound",
+      "kind": "portraits",
+      "prompt": "Use case: stylized-concept. ONE original creature portrait for a gothic fantasy game, 1024x1536 vertical 2:3. Head, shoulders/upper body appropriate to species. Three-quarter view, face/muzzle/front side UNMISTAKABLY turned LEFT toward left edge; the creature will stand on the right of a dialogue. Nearly black charcoal background; NO landscape. Sculptural volume, richly textured old dark fantasy illustration, muted graphite/bone/ochre, upper FRONT LEFT light, deep chiaroscuro; readable silhouette at 120px. STYLE references only: ref1 heavy aged materials and warm edges, ref2 main gothic modelling/cold steel, ref3 cloth/bone restrained highlights. Do not copy their identities or frames. No text, frame, logos, cartoon, plastic, neon, gore or gratuitous equipment. Subject: Thin quadrupedal hound, grey crust skin, restrained dull red glow within cracks, ash breath, NOT demon. For nonhuman anatomy NO cloak, brooch, cloth, human armor or jewelry. Depict natural body surface only, unless armor IS the creature. No generic human head imposed on insects or fungi.",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-5ebd23c1-6116-44c5-aa69-a78135cfb105.png"
+    },
+    {
+      "id": "root-shepherd",
+      "kind": "portraits",
+      "prompt": "Use case: stylized-concept. ONE original creature portrait for a gothic fantasy game, 1024x1536 vertical 2:3. Head, shoulders/upper body appropriate to species. Three-quarter view, face/muzzle/front side UNMISTAKABLY turned LEFT toward left edge; the creature will stand on the right of a dialogue. Nearly black charcoal background; NO landscape. Sculptural volume, richly textured old dark fantasy illustration, muted graphite/bone/ochre, upper FRONT LEFT light, deep chiaroscuro; readable silhouette at 120px. STYLE references only: ref1 heavy aged materials and warm edges, ref2 main gothic modelling/cold steel, ref3 cloth/bone restrained highlights. Do not copy their identities or frames. No text, frame, logos, cartoon, plastic, neon, gore or gratuitous equipment. Subject: Heavy organic tree-animal creature, root beard, moist eyes beneath bark, four knotted limbs suggested by shoulders, carries no equipment. No borrowed human costume or brooch from references. Anatomy as described, front of body directed left; quiet portrait, no scene of violence.",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-c5f89025-9863-4e53-8fde-a9d765066735.png"
+    },
+    {
+      "id": "mirror-being",
+      "kind": "portraits",
+      "prompt": "Use case: stylized-concept. ONE original creature portrait for a gothic fantasy game, 1024x1536 vertical 2:3. Head, shoulders/upper body appropriate to species. Three-quarter view, face/muzzle/front side UNMISTAKABLY turned LEFT toward left edge; the creature will stand on the right of a dialogue. Nearly black charcoal background; NO landscape. Sculptural volume, richly textured old dark fantasy illustration, muted graphite/bone/ochre, upper FRONT LEFT light, deep chiaroscuro; readable silhouette at 120px. STYLE references only: ref1 heavy aged materials and warm edges, ref2 main gothic modelling/cold steel, ref3 cloth/bone restrained highlights. Do not copy their identities or frames. No text, frame, logos, cartoon, plastic, neon, gore or gratuitous equipment. Subject: Slender boundary parasite formed from smoky aged glass, delayed distorted human facial reflection, subtle cracks, no neon. No borrowed human costume or brooch from references. Anatomy as described, front of body directed left; quiet portrait, no scene of violence.",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-c82d30c4-6238-4e37-aac6-8e57952749ea.png"
+    },
+    {
+      "id": "stitchling",
+      "kind": "portraits",
+      "prompt": "Use case: stylized-concept. ONE original creature portrait for a gothic fantasy game, 1024x1536 vertical 2:3. Head, shoulders/upper body appropriate to species. Three-quarter view, face/muzzle/front side UNMISTAKABLY turned LEFT toward left edge; the creature will stand on the right of a dialogue. Nearly black charcoal background; NO landscape. Sculptural volume, richly textured old dark fantasy illustration, muted graphite/bone/ochre, upper FRONT LEFT light, deep chiaroscuro; readable silhouette at 120px. STYLE references only: ref1 heavy aged materials and warm edges, ref2 main gothic modelling/cold steel, ref3 cloth/bone restrained highlights. Do not copy their identities or frames. No text, frame, logos, cartoon, plastic, neon, gore or gratuitous equipment. Subject: Asymmetric artificial animal assembled from mismatched furred limbs, extra joints and sensory organs, dry sinew sutures and iron staples, non-graphic no gore. No borrowed human costume or brooch from references. Anatomy as described, front of body directed left; quiet portrait, no scene of violence.",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-d19fa54d-39be-4d11-8e97-95cc5f261a5a.png"
+    },
+    {
+      "id": "whisperess",
+      "kind": "portraits",
+      "prompt": "Use case: stylized-concept. ONE original creature portrait for a gothic fantasy game, 1024x1536 vertical 2:3. Head, shoulders/upper body appropriate to species. Three-quarter view, face/muzzle/front side UNMISTAKABLY turned LEFT toward left edge; the creature will stand on the right of a dialogue. Nearly black charcoal background; NO landscape. Sculptural volume, richly textured old dark fantasy illustration, muted graphite/bone/ochre, upper FRONT LEFT light, deep chiaroscuro; readable silhouette at 120px. STYLE references only: ref1 heavy aged materials and warm edges, ref2 main gothic modelling/cold steel, ref3 cloth/bone restrained highlights. Do not copy their identities or frames. No text, frame, logos, cartoon, plastic, neon, gore or gratuitous equipment. Subject: Narrow boundary entity draped in folds like wet burial cloth, several faint small mouths instead of face directed left, no eyes. No borrowed human costume or brooch from references. Anatomy as described, front of body directed left; quiet portrait, no scene of violence.",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-df0518f8-43cc-4261-a07e-0575e2f635a2.png"
+    },
+    {
+      "id": "stone-yawn",
+      "kind": "portraits",
+      "prompt": "Use case: stylized-concept. ONE original creature portrait for a gothic fantasy game, 1024x1536 vertical 2:3. Head, shoulders/upper body appropriate to species. Three-quarter view, face/muzzle/front side UNMISTAKABLY turned LEFT toward left edge; the creature will stand on the right of a dialogue. Nearly black charcoal background; NO landscape. Sculptural volume, richly textured old dark fantasy illustration, muted graphite/bone/ochre, upper FRONT LEFT light, deep chiaroscuro; readable silhouette at 120px. STYLE references only: ref1 heavy aged materials and warm edges, ref2 main gothic modelling/cold steel, ref3 cloth/bone restrained highlights. Do not copy their identities or frames. No text, frame, logos, cartoon, plastic, neon, gore or gratuitous equipment. Subject: Ambush creature like dark irregular boulders opening a moist toothless mouth between mineral plates, opening faces left, no humanoid anatomy. No borrowed human costume or brooch from references. Anatomy as described, front of body directed left; quiet portrait, no scene of violence.",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-bc5c0e75-175a-468b-a00f-13ae5b2eaf77.png"
+    },
+    {
+      "id": "meldling",
+      "kind": "portraits",
+      "prompt": "Use case: stylized-concept. ONE original creature portrait for a gothic fantasy game, 1024x1536 vertical 2:3. Head, shoulders/upper body appropriate to species. Three-quarter view, face/muzzle/front side UNMISTAKABLY turned LEFT toward left edge; the creature will stand on the right of a dialogue. Nearly black charcoal background; NO landscape. Sculptural volume, richly textured old dark fantasy illustration, muted graphite/bone/ochre, upper FRONT LEFT light, deep chiaroscuro; readable silhouette at 120px. STYLE references only: ref1 heavy aged materials and warm edges, ref2 main gothic modelling/cold steel, ref3 cloth/bone restrained highlights. Do not copy their identities or frames. No text, frame, logos, cartoon, plastic, neon, gore or gratuitous equipment. Subject: Unstable fused boundary creature, incompatible animal and human silhouettes partly emerging from shared dark organic form, several incomplete faces turn left, no gore. No borrowed human costume or brooch from references. Anatomy as described, front of body directed left; quiet portrait, no scene of violence.",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-3e229eba-2379-4b35-b2bb-72ac465b87a6.png"
+    },
+    {
+      "id": "bite",
+      "kind": "actions",
+      "prompt": "Use case: stylized-concept. Single square 1024x1024 illustrated action icon for dark gothic fantasy tactics game. Large central motif occupying 80 percent of image, readable at 64px. Charcoal nearly black background, sculptural organic realism, worn detailed textures, restrained ivory, graphite, muted ochre highlights from upper left. Reference images are STYLE ONLY, not subjects: heavy material detail, chiaroscuro, gothic modelling; do not copy frames or characters. No frame, text, symbols, UI, neon, cartoon, gore. Subject: Animal jaws with ivory fangs snapping toward left, wolf-like natural muzzle, no blood",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-877e202b-59e9-4b55-9e3d-bb76a8caa2c5.png"
+    },
+    {
+      "id": "claw",
+      "kind": "actions",
+      "prompt": "Use case: stylized-concept. Single square 1024x1024 illustrated action icon for dark gothic fantasy tactics game. Large central motif occupying 80 percent of image, readable at 64px. Charcoal nearly black background, sculptural organic realism, worn detailed textures, restrained ivory, graphite, muted ochre highlights from upper left. Reference images are STYLE ONLY, not subjects: heavy material detail, chiaroscuro, gothic modelling; do not copy frames or characters. No frame, text, symbols, UI, neon, cartoon, gore. Subject: Powerful furred beast forepaw with three curved claws slashing diagonally left, no blood",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-fecf491a-a720-40f8-9fbc-ecdf5c80af05.png"
+    },
+    {
+      "id": "talon",
+      "kind": "actions",
+      "prompt": "Use case: stylized-concept. Single square 1024x1024 illustrated action icon for dark gothic fantasy tactics game. Large central motif occupying 80 percent of image, readable at 64px. Charcoal nearly black background, sculptural organic realism, worn detailed textures, restrained ivory, graphite, muted ochre highlights from upper left. Reference images are STYLE ONLY, not subjects: heavy material detail, chiaroscuro, gothic modelling; do not copy frames or characters. No frame, text, symbols, UI, neon, cartoon, gore. Subject: Predatory bird scaled talons curling in a diving strike, dark feathers at ankle",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-a9011e47-719e-4afb-87c1-0985ca8f4ed1.png"
+    },
+    {
+      "id": "horn",
+      "kind": "actions",
+      "prompt": "Use case: stylized-concept. Single square 1024x1024 illustrated action icon for dark gothic fantasy tactics game. Large central motif occupying 80 percent of image, readable at 64px. Charcoal nearly black background, sculptural organic realism, worn detailed textures, restrained ivory, graphite, muted ochre highlights from upper left. Reference images are STYLE ONLY, not subjects: heavy material detail, chiaroscuro, gothic modelling; do not copy frames or characters. No frame, text, symbols, UI, neon, cartoon, gore. Subject: Two weathered curved ram horns and brow lowered in a charging strike toward left",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-1ccae4c8-6fb4-4f38-98cb-79fa942e7757.png"
+    },
+    {
+      "id": "slam",
+      "kind": "actions",
+      "prompt": "Use case: stylized-concept. Single square 1024x1024 illustrated action icon for dark gothic fantasy tactics game. Large central motif occupying 80 percent of image, readable at 64px. Charcoal nearly black background, sculptural organic realism, worn detailed textures, restrained ivory, graphite, muted ochre highlights from upper left. Reference images are STYLE ONLY, not subjects: heavy material detail, chiaroscuro, gothic modelling; do not copy frames or characters. No frame, text, symbols, UI, neon, cartoon, gore. Subject: Massive rough stone and iron-like fist striking down, sculptural impact, no text",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-51a9b78a-c3c6-44b4-b35b-f5da49944906.png"
+    },
+    {
+      "id": "constrict",
+      "kind": "actions",
+      "prompt": "Use case: stylized-concept. Single square 1024x1024 illustrated action icon for dark gothic fantasy tactics game. Large central motif occupying 80 percent of image, readable at 64px. Charcoal nearly black background, sculptural organic realism, worn detailed textures, restrained ivory, graphite, muted ochre highlights from upper left. Reference images are STYLE ONLY, not subjects: heavy material detail, chiaroscuro, gothic modelling; do not copy frames or characters. No frame, text, symbols, UI, neon, cartoon, gore. Subject: Coiled thick scaled serpent body tightening into a knot, no victim",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-fd3040a7-2930-429a-9f0a-b821e3ac48a0.png"
+    },
+    {
+      "id": "tentacle",
+      "kind": "actions",
+      "prompt": "Use case: stylized-concept. Single square 1024x1024 illustrated action icon for dark gothic fantasy tactics game. Large central motif occupying 80 percent of image, readable at 64px. Charcoal nearly black background, sculptural organic realism, worn detailed textures, restrained ivory, graphite, muted ochre highlights from upper left. Reference images are STYLE ONLY, not subjects: heavy material detail, chiaroscuro, gothic modelling; do not copy frames or characters. No frame, text, symbols, UI, neon, cartoon, gore. Subject: Thick curling octopus tentacle with detailed suckers, wet charcoal skin",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-7727a195-b089-4331-9d08-273b8a7bbc42.png"
+    },
+    {
+      "id": "root",
+      "kind": "actions",
+      "prompt": "Use case: stylized-concept. Single square 1024x1024 illustrated action icon for dark gothic fantasy tactics game. Large central motif occupying 80 percent of image, readable at 64px. Charcoal nearly black background, sculptural organic realism, worn detailed textures, restrained ivory, graphite, muted ochre highlights from upper left. Reference images are STYLE ONLY, not subjects: heavy material detail, chiaroscuro, gothic modelling; do not copy frames or characters. No frame, text, symbols, UI, neon, cartoon, gore. Subject: Thick living knotted roots curling into a grasping hand with dirt and bark",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-e17a6ad6-0684-434e-81e8-a281445bfcfb.png"
+    },
+    {
+      "id": "mind",
+      "kind": "actions",
+      "prompt": "Use case: stylized-concept. Single square 1024x1024 illustrated action icon for dark gothic fantasy tactics game. Large central motif occupying 80 percent of image, readable at 64px. Charcoal nearly black background, sculptural organic realism, worn detailed textures, restrained ivory, graphite, muted ochre highlights from upper left. Reference images are STYLE ONLY, not subjects: heavy material detail, chiaroscuro, gothic modelling; do not copy frames or characters. No frame, text, symbols, UI, neon, cartoon, gore. Subject: Pale ghostly hand drawing a thin thread of light from darkness, subtle not neon",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-0e2c7b85-b787-4409-8d3b-d323973d96ea.png"
+    },
+    {
+      "id": "magic",
+      "kind": "actions",
+      "prompt": "Use case: stylized-concept. Single square 1024x1024 illustrated action icon for dark gothic fantasy tactics game. Large central motif occupying 80 percent of image, readable at 64px. Charcoal nearly black background, sculptural organic realism, worn detailed textures, restrained ivory, graphite, muted ochre highlights from upper left. Reference images are STYLE ONLY, not subjects: heavy material detail, chiaroscuro, gothic modelling; do not copy frames or characters. No frame, text, symbols, UI, neon, cartoon, gore. Subject: Weathered hand holding a small hovering fractured mineral with faint arcane pale light",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-8a4e7c62-1895-468d-b1cf-814d733bf447.png"
+    },
+    {
+      "id": "poison",
+      "kind": "actions",
+      "prompt": "Use case: stylized-concept. Single square 1024x1024 illustrated action icon for dark gothic fantasy tactics game. Large central motif occupying 80 percent of image, readable at 64px. Charcoal nearly black background, sculptural organic realism, worn detailed textures, restrained ivory, graphite, muted ochre highlights from upper left. Reference images are STYLE ONLY, not subjects: heavy material detail, chiaroscuro, gothic modelling; do not copy frames or characters. No frame, text, symbols, UI, neon, cartoon, gore. Subject: Dark chitin mandible releasing a small viscous olive-green droplet and narrow toxic vapor",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-2ab84f5e-6593-4a49-9613-a964b6d23916.png"
+    },
+    {
+      "id": "spores",
+      "kind": "actions",
+      "prompt": "Use case: stylized-concept. Single square 1024x1024 illustrated action icon for dark gothic fantasy tactics game. Large central motif occupying 80 percent of image, readable at 64px. Charcoal nearly black background, sculptural organic realism, worn detailed textures, restrained ivory, graphite, muted ochre highlights from upper left. Reference images are STYLE ONLY, not subjects: heavy material detail, chiaroscuro, gothic modelling; do not copy frames or characters. No frame, text, symbols, UI, neon, cartoon, gore. Subject: Pale swollen fungus cap releasing a concentrated cloud of dull olive spores",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-b9246b77-9806-4cfe-a078-22f3a4e006c8.png"
+    },
+    {
+      "id": "ash",
+      "kind": "actions",
+      "prompt": "Use case: stylized-concept. Single square 1024x1024 illustrated action icon for dark gothic fantasy tactics game. Large central motif occupying 80 percent of image, readable at 64px. Charcoal nearly black background, sculptural organic realism, worn detailed textures, restrained ivory, graphite, muted ochre highlights from upper left. Reference images are STYLE ONLY, not subjects: heavy material detail, chiaroscuro, gothic modelling; do not copy frames or characters. No frame, text, symbols, UI, neon, cartoon, gore. Subject: Cracked grey hound muzzle exhaling a narrow plume of warm ash, subtle embers",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-ed6dbb3b-a028-4b20-9ad5-04231b703dad.png"
+    },
+    {
+      "id": "mirror",
+      "kind": "actions",
+      "prompt": "Use case: stylized-concept. Single square 1024x1024 illustrated action icon for dark gothic fantasy tactics game. Large central motif occupying 80 percent of image, readable at 64px. Charcoal nearly black background, sculptural organic realism, worn detailed textures, restrained ivory, graphite, muted ochre highlights from upper left. Reference images are STYLE ONLY, not subjects: heavy material detail, chiaroscuro, gothic modelling; do not copy frames or characters. No frame, text, symbols, UI, neon, cartoon, gore. Subject: Distorted dim face reflected in a floating shard of smoky ancient glass",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-42090611-833e-4e0a-97cf-961998e288ce.png"
+    },
+    {
+      "id": "whisper",
+      "kind": "actions",
+      "prompt": "Use case: stylized-concept. Single square 1024x1024 illustrated action icon for dark gothic fantasy tactics game. Large central motif occupying 80 percent of image, readable at 64px. Charcoal nearly black background, sculptural organic realism, worn detailed textures, restrained ivory, graphite, muted ochre highlights from upper left. Reference images are STYLE ONLY, not subjects: heavy material detail, chiaroscuro, gothic modelling; do not copy frames or characters. No frame, text, symbols, UI, neon, cartoon, gore. Subject: Several barely visible pale lips emerging from folded black burial cloth, subtle breath",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-c63ccf44-97b5-40dd-b848-94455069f83d.png"
+    },
+    {
+      "id": "evade",
+      "kind": "actions",
+      "prompt": "Use case: stylized-concept. Single square 1024x1024 illustrated action icon for dark gothic fantasy tactics game. Large central motif occupying 80 percent of image, readable at 64px. Charcoal nearly black background, sculptural organic realism, worn detailed textures, restrained ivory, graphite, muted ochre highlights from upper left. Reference images are STYLE ONLY, not subjects: heavy material detail, chiaroscuro, gothic modelling; do not copy frames or characters. No frame, text, symbols, UI, neon, cartoon, gore. Subject: Lean furred beast silhouette springing backward, dynamic folded legs, clear single animal",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-78456602-a53c-4980-beb0-8a8e3cfdbaaa.png"
+    },
+    {
+      "id": "veil",
+      "kind": "actions",
+      "prompt": "Use case: stylized-concept. Single square 1024x1024 illustrated action icon for dark gothic fantasy tactics game. Large central motif occupying 80 percent of image, readable at 64px. Charcoal nearly black background, sculptural organic realism, worn detailed textures, restrained ivory, graphite, muted ochre highlights from upper left. Reference images are STYLE ONLY, not subjects: heavy material detail, chiaroscuro, gothic modelling; do not copy frames or characters. No frame, text, symbols, UI, neon, cartoon, gore. Subject: Dim translucent humanoid silhouette dissolving sideways into a fold of shadow",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-f50f4fad-2ca2-4049-bc8f-ecec805de1ed.png"
+    },
+    {
+      "id": "ward",
+      "kind": "actions",
+      "prompt": "Use case: stylized-concept. Single square 1024x1024 illustrated action icon for dark gothic fantasy tactics game. Large central motif occupying 80 percent of image, readable at 64px. Charcoal nearly black background, sculptural organic realism, worn detailed textures, restrained ivory, graphite, muted ochre highlights from upper left. Reference images are STYLE ONLY, not subjects: heavy material detail, chiaroscuro, gothic modelling; do not copy frames or characters. No frame, text, symbols, UI, neon, cartoon, gore. Subject: Layered worn dark iron and bark plates raised together as a protective shield-like barrier",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-236293eb-b694-40be-8ed9-dc870b25b8f7.png"
+    },
+    {
+      "id": "recover",
+      "kind": "actions",
+      "prompt": "Use case: stylized-concept. Single square 1024x1024 illustrated action icon for dark gothic fantasy tactics game. Large central motif occupying 80 percent of image, readable at 64px. Charcoal nearly black background, sculptural organic realism, worn detailed textures, restrained ivory, graphite, muted ochre highlights from upper left. Reference images are STYLE ONLY, not subjects: heavy material detail, chiaroscuro, gothic modelling; do not copy frames or characters. No frame, text, symbols, UI, neon, cartoon, gore. Subject: Beast forepaw planted firmly on a small dark stone, sense of regaining balance",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-e3d0de25-a5f0-406d-ade1-faeacd5f0b43.png"
+    },
+    {
+      "id": "rest",
+      "kind": "actions",
+      "prompt": "Use case: stylized-concept. Single square 1024x1024 illustrated action icon for dark gothic fantasy tactics game. Large central motif occupying 80 percent of image, readable at 64px. Charcoal nearly black background, sculptural organic realism, worn detailed textures, restrained ivory, graphite, muted ochre highlights from upper left. Reference images are STYLE ONLY, not subjects: heavy material detail, chiaroscuro, gothic modelling; do not copy frames or characters. No frame, text, symbols, UI, neon, cartoon, gore. Subject: Quiet beast muzzle and curled forepaw at rest, pale subtle breath in dark air",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-7e62877e-d3ba-4a6c-a8f2-f78a6bc09449.png"
+    },
+    {
+      "id": "werewolf",
+      "kind": "portraits",
+      "prompt": "Use case: stylized-concept. ONE original creature portrait for a gothic fantasy game, 1024x1536 vertical 2:3. Head, shoulders/upper body appropriate to species. Three-quarter view, face/muzzle/front side UNMISTAKABLY turned LEFT toward left edge; the creature will stand on the right of a dialogue. Nearly black charcoal background; NO landscape. Sculptural volume, richly textured old dark fantasy illustration, muted graphite/bone/ochre, upper FRONT LEFT light, deep chiaroscuro; readable silhouette at 120px. STYLE references only: ref1 heavy aged materials and warm edges, ref2 main gothic modelling/cold steel, ref3 cloth/bone restrained highlights. Do not copy their identities or frames. No text, frame, logos, cartoon, plastic, neon, gore or gratuitous equipment. Subject: A WEREWOLF that is a natural animal species, not a transformed human. Long wolf muzzle facing LEFT, erect ears, broad furred shoulders, one unusually long gripping forepaw visible near chest. Entire body covered only in charcoal fur. Absolutely NO cloak, cape, cloth, straps, armor, jewelry, brooch or human equipment. Portrait 2:3 vertical, close head and shoulders, black background.",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-ed8d2373-e79b-4906-ac28-fae68a9e11d3.png"
+    }
+  ]
+}

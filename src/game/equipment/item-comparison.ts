@@ -1,12 +1,12 @@
-import { DAMAGE, item, STATS } from "./catalog";
-import { displaced, canUse } from "../combat/engine";
+import { DAMAGE, item, STATS } from "@/game/equipment/catalog";
+import { displaced, canUse } from "@/game/combat/engine";
 import {
   STAT_KEYS,
   type DamageType,
   type Fighter,
   type Item,
   type Stat,
-} from "../types";
+} from "@/game/types";
 
 export interface ComparisonRow {
   key: string;
@@ -19,34 +19,14 @@ export interface ComparisonRow {
   neutral?: boolean;
 }
 
-function damage(
-  equipment: Item | null,
-  fighter: Fighter,
-): Partial<Record<DamageType, number>> {
-  if (equipment?.kind === "shield")
-    return { blunt: fighter.stats.strength + 1 };
-  const values: Partial<Record<DamageType, number>> = {};
-  for (const part of equipment?.damage ?? [])
-    values[part.type] =
-      (values[part.type] ?? 0) +
-      Math.ceil(part.base + part.scale * fighter.stats[part.stat]);
-  return values;
-}
-
-/** Rewards use the player; opponent inspection may supply the actual attacker. */
-export function compareItem(
-  candidate: Item,
-  player: Fighter,
-  candidateFighter: Fighter = player,
-) {
+/** Compare equipment properties; damage belongs to each figure. */
+export function compareItem(candidate: Item, player: Fighter) {
   const current =
     candidate.slot === "weapon"
       ? item(player.gear.weapon)
       : player.gear[candidate.slot]
         ? item(player.gear[candidate.slot])
         : null;
-  const before = damage(current, player),
-    after = damage(candidate, candidateFighter);
   const rows: ComparisonRow[] = [];
   const add = (
     key: string,
@@ -66,23 +46,10 @@ export function compareItem(
   };
   if (candidate.kind === "weapon" || candidate.kind === "shield") {
     add(
-      "damage",
-      candidate.kind === "shield" ? "Урон ударом щита" : "Урон обычной атаки",
-      Object.values(before).reduce((a, b) => a + b, 0),
-      Object.values(after).reduce((a, b) => a + b, 0),
-    );
-    for (const type of Object.keys(DAMAGE) as DamageType[])
-      add(
-        `damage-${type}`,
-        `Урон · ${DAMAGE[type].toLowerCase()}`,
-        before[type],
-        after[type],
-      );
-    add(
       "hands",
       "Занимает рук",
-      current?.id === "fist" ? 0 : current?.hands,
-      candidate.id === "fist" ? 0 : candidate.hands,
+      current?.unarmed ? 0 : current?.hands,
+      candidate.unarmed ? 0 : candidate.hands,
       { neutral: true },
     );
   }
@@ -95,21 +62,8 @@ export function compareItem(
         current?.defense?.[type],
         candidate.defense?.[type],
       );
-      add(
-        `resist-${type}`,
-        `Сопротивление · ${DAMAGE[type].toLowerCase()}`,
-        Math.round((current?.resistance?.[type] ?? 0) * 100),
-        Math.round((candidate.resistance?.[type] ?? 0) * 100),
-        { unit: "%" },
-      );
     }
-  add(
-    "kick",
-    "Бонус к потере равновесия от пинка",
-    Math.round((current?.kickBonus ?? 0) * 100),
-    Math.round((candidate.kickBonus ?? 0) * 100),
-    { unit: "п.п." },
-  );
+  add("level", "Уровень предмета", current?.level ?? 1, candidate.level ?? 1);
   for (const stat of STAT_KEYS)
     add(
       `require-${stat}`,

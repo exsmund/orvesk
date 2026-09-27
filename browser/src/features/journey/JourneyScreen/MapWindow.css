@@ -1,0 +1,23 @@
+dialog.journey-window[open]:has(> .forge-content) {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+dialog.journey-window[open] > .forge-content {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+.journey-window.modal {
+  width: min(480px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  padding: 24px;
+  text-align: left;
+}
+.journey-window h2 {
+  font-size: 1.5rem;
+}
+@media (max-width: 599px) {
+  .journey-window.modal {
+    padding: 18px;
+  }
+}

@@ -1,0 +1,52 @@
+.soul-balance {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 2px;
+  color: var(--color-text-highlight);
+  white-space: nowrap;
+}
+.soul-balance img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  flex-shrink: 0;
+  /* Compensate for the transparent lower margin of the soul artwork. */
+  transform: translateY(10%);
+}
+.soul-balance b {
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  font-size: 1.1rem;
+}
+.soul-balance > span {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+.map-soul-balance {
+  pointer-events: auto;
+  border: 1px solid var(--color-border-souls);
+  border-radius: 24px;
+  padding: 6px 16px;
+  background: var(--color-background-souls);
+  box-shadow: 0 3px 16px var(--color-shadow-souls);
+}
+.upgrade-note {
+  display: block;
+  font-size: 0.7rem;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+  margin-top: 10px;
+}
+@media (max-width: 599px) {
+  .map-soul-balance {
+    padding: 4px 12px;
+  }
+  .map-soul-balance img {
+    width: 26px;
+    height: 26px;
+  }
+}
+.journey-controls .soul-balance img {
+  width: clamp(20px, 3vw, 30px);
+  height: auto;
+}

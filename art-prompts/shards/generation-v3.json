@@ -1,0 +1,11 @@
+{
+  "date": "2026-09-27",
+  "method": "built-in image_gen",
+  "transparent_background": true,
+  "prompt": "Use case: precise-object-edit.\nInput image: edit target, an existing transparent currency icon consisting of three ivory-and-gold shards.\nMake ONE change only: shrink EACH of the three shards individually to approximately 82% of its current width and height, scaling around that shard's own center. Keep the centers of all three pieces at their original canvas positions. The goal is noticeably WIDER EMPTY GAPS BETWEEN the shards, including the central triangular opening. Do not scale the entire cluster as one object and do not move the fragments closer to each other.\nPreserve the three exact irregular silhouettes and their original orientations, relative size hierarchy, ivory faces, antique-gold edges, sage-gray facets, painterly stone texture, light direction, thin outline and subtle narrow glow. Preserve the square canvas and upright asymmetric arrangement: largest upper-left piece, narrow right piece, lower-left downward-pointing piece.\nKeep the genuine transparent alpha background, including inside the widened gaps. PNG with transparency, no solid backdrop or checkerboard. No new fragments, decorations, text, frame, shadows on a surface, or changes to the style. Return a single finished icon.",
+  "references": [
+    "/Users/exsmund/Projects/duelyant-v2/public/ui/logos-shards-v2.png"
+  ],
+  "output": "public/ui/logos-shards-v3.png",
+  "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-7b150442-579b-47a0-9313-b8cd3417536c.png"
+}

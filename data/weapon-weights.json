@@ -1,0 +1,17 @@
+{
+  "light": {
+    "name": "Лёгкое оружие",
+    "cells": { "min": 1, "max": 2 },
+    "staminaCost": { "min": 1, "max": 2 }
+  },
+  "medium": {
+    "name": "Среднее оружие",
+    "cells": { "min": 2, "max": 3 },
+    "staminaCost": { "min": 2, "max": 4 }
+  },
+  "heavy": {
+    "name": "Тяжёлое оружие",
+    "cells": { "min": 3, "max": 4 },
+    "staminaCost": { "min": 4, "max": 6 }
+  }
+}

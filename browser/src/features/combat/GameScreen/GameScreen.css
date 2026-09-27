@@ -1,0 +1,1150 @@
+.combat-app .fight-tab-content:has(.board-combat) {
+  overflow: hidden;
+}
+@media (max-width: 599px) {
+  .app.combat-app .arena-layout,
+  .app.combat-app .arena-layout:has(> .fighter-panel > .fighter-debuffs) {
+    grid-template-columns: 44px minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+    gap: 0 10px;
+    background: none;
+    border: 0;
+    border-radius: 0;
+  }
+  .app.combat-app .arena-layout > .combat-menu-button {
+    position: static;
+    grid-column: 1;
+    grid-row: 1;
+    align-self: center;
+    width: 44px;
+    height: 44px;
+  }
+  .app.combat-app .arena-layout > .fighter-panel,
+  .app.combat-app
+    .arena-layout:has(> .fighter-panel > .fighter-debuffs)
+    > .fighter-panel {
+    grid-column: 2;
+    grid-row: 1;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    align-content: start;
+    height: auto;
+    gap: 4px;
+    padding: 8px 0;
+    background: none;
+    border: 0;
+    box-shadow: none;
+  }
+  .app.combat-app
+    .arena-layout
+    > .fighter-panel
+    > :not(.fighter-identity):not(.combat-resources):not(.fighter-debuffs):not(
+      .floating-damage
+    ) {
+    display: none;
+  }
+  .app.combat-app .arena-layout > .fighter-panel .fighter-debuff small {
+    display: none;
+  }
+  .app.combat-app .arena-layout > .fighter-panel.opponent-panel {
+    grid-column: 3;
+  }
+  .app.combat-app .arena-layout > .fighter-panel .fighter-identity,
+  .app.combat-app
+    .arena-layout:has(> .fighter-panel > .fighter-debuffs)
+    > .fighter-panel
+    .fighter-identity {
+    grid-column: 1;
+    grid-row: 1;
+    margin: 0;
+    display: block;
+    container-type: normal;
+  }
+  .app.combat-app .arena-layout > .fighter-panel .fighter-identity > :not(h2) {
+    display: none;
+  }
+  .app.combat-app .arena-layout > .fighter-panel .fighter-identity h2 {
+    display: block;
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.25;
+    text-align: left;
+    overflow-wrap: anywhere;
+  }
+  .app.combat-app .arena-layout > .fighter-panel > .combat-resources {
+    grid-column: 1;
+    grid-row: 2;
+    width: 100%;
+    margin: 0;
+  }
+  .app.combat-app .arena-layout > .fighter-panel > .fighter-debuffs {
+    grid-column: 1;
+    grid-row: 3;
+  }
+  .app.combat-app .arena-layout > .battle-center {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    border: 0;
+  }
+}
+.combat-app .fight-tab-content:has(.journey-choices) {
+  overflow: auto;
+}
+.combat-app .result-panel:has(.journey-choices) {
+  padding: 14px;
+}
+.result-panel:has(.journey-choices) .result-content {
+  width: 100%;
+  min-width: 0;
+}
+.combat-app .result-panel:has(.journey-choices) {
+  max-height: none;
+  overflow: visible;
+  flex: 1;
+  align-items: flex-start;
+}
+.result-panel:has(.journey-choices) > .result-symbol {
+  display: none;
+}
+.journey-shell > .error.banner {
+  position: fixed;
+  bottom: 20px;
+  left: 16px;
+  right: 16px;
+  z-index: 10;
+}
+@media (max-width: 599px) {
+  .arena-layout > .fighter-panel > .fighter-skills {
+    display: none;
+  }
+}
+.arena-layout {
+  display: grid;
+  grid-template-columns: 235px minmax(0, 1fr) 235px;
+  min-height: 485px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  overflow: hidden;
+}
+.result-panel {
+  border: 1px solid var(--color-border-style-15);
+  background: linear-gradient(
+    110deg,
+    var(--color-background-style-12),
+    var(--color-background-style-30)
+  );
+  border-radius: 4px;
+  padding: 32px;
+  display: flex;
+  align-items: flex-start;
+  gap: 25px;
+  margin-top: 24px;
+}
+.result-content {
+  flex: 1;
+}
+.result-content h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 1.45rem;
+  margin: 12px 0 13px;
+  line-height: 1.6;
+}
+.result-content > p {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+.result-content > .primary {
+  margin-top: 20px;
+}
+.error.banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid var(--color-border-style-17);
+  background: var(--color-background-style-31);
+  padding: 14px;
+  margin-top: 20px;
+}
+@media (min-width: 900px) {
+  .arena-layout {
+    min-height: 515px;
+  }
+}
+@media (max-width: 899px) {
+  .arena-layout {
+    grid-template-columns: 210px minmax(0, 1fr) 210px;
+  }
+}
+@media (max-width: 899px) {
+  .arena-layout {
+    grid-template-columns: 190px minmax(0, 1fr) 190px;
+    min-height: 470px;
+  }
+}
+@media (max-width: 599px) {
+  .arena-layout {
+    grid-template-columns: 1fr 1fr;
+    min-height: 0;
+  }
+  .result-panel {
+    padding: 22px 18px;
+    gap: 14px;
+  }
+  .result-content h2 {
+    font-size: 1.2rem;
+  }
+}
+.combat-app .site-header {
+  height: 62px;
+  flex: 0 0 62px;
+  gap: 20px;
+  flex-wrap: nowrap;
+}
+.battle-title {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+.battle-title h1 {
+  font: 400 1.05rem var(--serif);
+}
+.battle-title > span {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+.battle-title > strong {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--bright);
+}
+.utility-menu {
+  position: relative;
+  z-index: 15;
+}
+.utility-menu summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+.utility-menu summary::-webkit-details-marker {
+  display: none;
+}
+.utility-menu[open] summary {
+  background: var(--color-background-style-2);
+  border-color: var(--color-border-style-13);
+}
+.utility-menu > div {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 240px;
+  padding: 10px;
+  background: var(--color-background-style-12);
+  border: 1px solid var(--color-border-style-18);
+  box-shadow: 0 12px 36px var(--color-shadow-style-4);
+  border-radius: 5px;
+}
+.menu-session {
+  display: block;
+  padding: 8px 10px 14px;
+  color: var(--color-text-highlight);
+  font-size: 0.8rem;
+  overflow-wrap: anywhere;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 6px;
+}
+.menu-session small {
+  display: block;
+  margin-top: 7px;
+  font-size: 0.65rem;
+  color: var(--muted);
+}
+.utility-menu button:where(:not(.gothic-text-button)) {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 0;
+  background: var(--color-base-transparent);
+  padding: 12px 10px;
+  text-align: left;
+  border-radius: 3px;
+  font-size: 0.8rem;
+}
+.utility-menu button:where(:not(.gothic-text-button)):hover {
+  background: var(--color-background-style-3);
+}
+.combat-app main {
+  flex: 1;
+  min-height: 0;
+  padding-top: 12px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.combat-app .arena-layout {
+  flex: 1;
+  min-height: 0;
+  grid-template-columns: clamp(175px, 19vw, 230px) minmax(0, 1fr) clamp(
+      175px,
+      19vw,
+      230px
+    );
+}
+.combat-app .stats {
+  margin: 12px 0 18px;
+  gap: 9px;
+}
+.combat-app .stats > div,
+.combat-app .stats strong {
+  font-size: 0.77rem;
+}
+.combat-app .stats i {
+  font-size: 0.63rem;
+}
+.combat-app .doll-item-detail {
+  flex: 0 0 auto;
+  min-height: 65px;
+  margin-top: 12px;
+  padding-top: 9px;
+}
+.combat-app .doll-item-detail p {
+  font-size: 0.63rem;
+  line-height: 1.5;
+}
+.combat-app .doll-item-detail strong {
+  font-size: 0.7rem;
+}
+.battle-center {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  background: var(--color-background-style-12);
+  border-inline: 1px solid var(--line);
+}
+.battle-tabs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 14px;
+  min-height: 42px;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--line);
+}
+.battle-tabs > button:where(:not(.gothic-text-button)) {
+  align-self: stretch;
+  background: var(--color-base-transparent);
+  border: 0;
+  border-bottom: 2px solid var(--color-base-transparent);
+  padding: 8px 14px;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+.battle-tabs > button:where(:not(.gothic-text-button))[aria-selected="true"] {
+  color: var(--bright);
+  border-bottom-color: var(--accent);
+}
+.battle-tabs button:where(:not(.gothic-text-button)) > span {
+  font-size: 0.6rem;
+  background: var(--color-background-character-creation-5);
+  padding: 2px 5px;
+  border-radius: 3px;
+  margin-left: 5px;
+}
+.battle-tabs > .hidden-intent {
+  margin-left: auto;
+  font-size: 0.62rem;
+}
+.fight-tab-content {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  flex: 1;
+}
+.fight-tab-content[hidden] {
+  display: none;
+}
+.combat-app .turn-panel {
+  flex-shrink: 0;
+  margin: 0;
+  border: 0;
+  border-top: 1px solid var(--color-border-style-8);
+  border-radius: 0;
+  padding: 12px 14px;
+}
+.combat-app .turn-panel .hidden-intent {
+  display: none;
+}
+.combat-app .action-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 5px;
+}
+.combat-app .action-number,
+.combat-app .action-check {
+  display: none;
+}
+.combat-app .action-settings {
+  grid-template-columns: minmax(150px, 1fr) 125px;
+  gap: 9px 12px;
+  padding-top: 10px;
+  margin-top: 10px;
+}
+.combat-app .action-settings label:not(.checkbox-label) {
+  margin-bottom: 5px;
+  font-size: 0.57rem;
+}
+.combat-app .step-setting {
+  grid-column: 1;
+  grid-row: 1;
+}
+.combat-app .segmented button:where(:not(.gothic-text-button)) {
+  padding: 8px 5px;
+  font-size: 0.68rem;
+}
+.combat-app .turn-button {
+  grid-column: 2;
+  grid-row: 1;
+  min-height: 43px;
+  height: 43px;
+  align-self: end;
+  padding: 0 12px;
+  font-size: 0.8rem;
+  gap: 8px;
+  justify-content: center;
+}
+.combat-app .turn-button > svg:last-child {
+  display: none;
+}
+.combat-app .attack-info {
+  grid-column: 1/-1;
+  min-height: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.combat-app .attack-info > label:not(.checkbox-label) {
+  display: none;
+}
+.combat-app .attack-info > p {
+  font-size: 0.66rem;
+  line-height: 1.4;
+}
+.combat-app .damage-line {
+  margin: 0;
+  gap: 7px;
+  font-size: 0.65rem;
+}
+.combat-app .checkbox-label {
+  margin: 0;
+  font-size: 0.65rem;
+}
+.combat-app .step-setting > small {
+  font-size: 0.6rem;
+  margin-top: 4px;
+}
+.combat-app .error.banner {
+  position: absolute;
+  z-index: 10;
+  bottom: 8px;
+  left: 25%;
+  right: 25%;
+  margin: 0;
+  padding: 10px;
+  box-shadow: 0 4px 20px var(--color-shadow-style-4);
+}
+.combat-app .result-panel {
+  margin: 0;
+  padding: 16px;
+  gap: 12px;
+  min-height: 0;
+  max-height: 65%;
+  overflow: auto;
+  flex-shrink: 0;
+  border-radius: 0;
+}
+.combat-app .result-symbol {
+  width: 36px;
+  height: 36px;
+}
+.combat-app .result-symbol svg {
+  width: 21px;
+}
+.combat-app .result-content h2 {
+  font-size: 1rem;
+  margin: 7px 0;
+}
+.combat-app .result-content > .eyebrow {
+  font-size: 0.6rem;
+}
+.combat-app .result-content > p {
+  font-size: 0.72rem;
+}
+.combat-app .reward-artwork {
+  float: left;
+  width: 75px;
+  height: 75px;
+  margin: 5px 12px 8px 0;
+}
+.combat-app .reward-buttons {
+  clear: both;
+  flex-direction: row;
+  margin-top: 12px;
+}
+.combat-app .reward-buttons button:where(:not(.gothic-text-button)) {
+  min-height: 37px;
+  font-size: 0.75rem;
+  padding: 0 12px;
+}
+@media (max-width: 899px) and (min-width: 600px) {
+  .combat-app {
+    padding-inline: 10px;
+  }
+  .combat-app .arena-layout {
+    grid-template-columns: 165px minmax(0, 1fr) 165px;
+  }
+  .battle-tabs > .hidden-intent {
+    font-size: 0;
+  }
+  .combat-app .attack-info > p {
+    display: none;
+  }
+}
+@media (max-width: 599px) {
+  .combat-app {
+    padding: 0 8px 8px;
+  }
+  .combat-app .site-header {
+    height: 45px;
+    flex-basis: 45px;
+    gap: 8px;
+  }
+  .battle-title {
+    gap: 8px;
+  }
+  .battle-title h1 {
+    font-size: 0.7rem;
+  }
+  .battle-title > span {
+    display: none;
+  }
+  .battle-title > strong {
+    font-size: 0.59rem;
+  }
+  .utility-menu summary {
+    padding: 7px 8px;
+    font-size: 0.7rem;
+    gap: 5px;
+  }
+  .combat-app main {
+    padding-top: 7px;
+  }
+  .combat-app .arena-layout {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+  .combat-app .stats {
+    display: flex;
+    justify-content: space-between;
+    gap: 4px;
+    margin: 3px 0 6px;
+  }
+  .combat-app .stats > div {
+    gap: 4px;
+  }
+  .combat-app .stats span {
+    font-size: 0;
+    gap: 0;
+  }
+  .combat-app .stats i {
+    display: inline;
+    font-size: 0.48rem;
+    width: auto;
+  }
+  .combat-app .stats strong {
+    font-size: 0.62rem;
+  }
+  .combat-app .doll-item-detail {
+    margin-top: 6px;
+    padding: 0;
+    min-height: 13px;
+    border: 0;
+  }
+  .combat-app .doll-item-detail small,
+  .combat-app .doll-item-detail p {
+    display: none;
+  }
+  .combat-app .doll-item-detail strong {
+    font-size: 0.52rem;
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .battle-center {
+    grid-column: 1/-1;
+    grid-row: 2;
+    border: 0;
+    border-top: 1px solid var(--line);
+  }
+  .battle-tabs {
+    padding: 0 9px;
+    min-height: 34px;
+  }
+  .battle-tabs > button:where(:not(.gothic-text-button)) {
+    padding: 7px 11px;
+    font-size: 0.7rem;
+  }
+  .battle-tabs > .hidden-intent {
+    font-size: 0.5rem;
+    gap: 4px;
+  }
+  .combat-app .turn-panel {
+    padding: 8px 9px;
+  }
+  .combat-app .action-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 4px;
+  }
+  .combat-app .action-settings {
+    margin-top: 7px;
+    padding-top: 7px;
+    gap: 6px 10px;
+    grid-template-columns: minmax(0, 1fr) 95px;
+  }
+  .combat-app .turn-button {
+    font-size: 0.73rem;
+    min-height: 38px;
+    height: 38px;
+  }
+  .combat-app .turn-button > svg {
+    width: 17px;
+  }
+  .combat-app .attack-info {
+    min-height: 17px;
+    gap: 5px;
+  }
+  .combat-app .attack-info > p {
+    display: none;
+  }
+  .combat-app .attack-info .checkbox-label {
+    font-size: 0.56rem;
+  }
+  .combat-app .damage-line {
+    font-size: 0.57rem;
+    gap: 5px;
+  }
+  .combat-app .error.banner {
+    left: 5px;
+    right: 5px;
+  }
+  .combat-app .result-panel {
+    max-height: 75%;
+    padding: 10px;
+  }
+  .combat-app .result-symbol {
+    display: none;
+  }
+}
+@media (max-width: 599px) {
+  .battle-tabs > .hidden-intent {
+    font-size: 0;
+  }
+}
+.combat-app .reward-details {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 34px;
+  padding: 0 10px;
+  font-size: 0.72rem;
+  margin-top: 10px;
+}
+.reward-modal {
+  padding: 24px;
+}
+.reward-modal h3 {
+  font-weight: 500;
+  font-size: 1rem;
+}
+.combat-app .reward-modal .reward-artwork {
+  float: none;
+  width: 132px;
+  height: 132px;
+  margin: 16px 0;
+}
+@media (max-width: 599px) {
+  .fight-tab-content:has(.result-panel) .combatants {
+    display: none;
+  }
+  .combat-app .result-panel {
+    max-height: calc(100% - 42px);
+  }
+  .combat-app .result-content > .primary {
+    min-height: 36px;
+    margin-top: 10px;
+  }
+}
+@media (max-width: 599px) {
+  .combat-app .result-content h2 {
+    font-size: 0.9rem;
+  }
+  .combat-app .reward-artwork {
+    width: 55px;
+    height: 55px;
+  }
+  .combat-app .reward-details {
+    margin-top: 12px;
+    font-size: 0.65rem;
+  }
+  .combat-app .result-content > .accent {
+    font-size: 0.62rem;
+    clear: both;
+  }
+}
+.combat-app .result-panel {
+  max-height: calc(100% - 42px);
+}
+.fight-tab-content:has(.result-panel) .combatants {
+  display: none;
+}
+@media (max-width: 599px) {
+  .combat-app .result-content > .eyebrow {
+    display: none;
+  }
+}
+.combat-app .arena-layout > .fighter-panel .fighter-identity {
+  flex-direction: column;
+  align-items: stretch;
+  height: auto;
+  min-height: 0;
+  margin: 10px 0;
+  flex-shrink: 0;
+}
+.combat-app .arena-layout > .fighter-panel .fighter-portrait-button {
+  width: min(100%, calc(clamp(140px, 20vh, 210px) * 2 / 3));
+  height: auto;
+  align-self: center;
+}
+.combat-app .arena-layout > .fighter-panel .fighter-identity h2 {
+  text-align: center;
+  white-space: normal;
+}
+@media (max-width: 599px) {
+  .combat-app .arena-layout {
+    --mobile-portrait-height: clamp(90px, 16dvh, 136px);
+    grid-template-rows: calc(var(--mobile-portrait-height) + 12px) minmax(
+        0,
+        1fr
+      );
+  }
+  .combat-app .arena-layout > .fighter-panel {
+    height: 100%;
+    min-height: 0;
+    padding: 6px;
+    display: grid;
+    grid-template-columns: calc(var(--mobile-portrait-height) * 2 / 3) minmax(
+        0,
+        1fr
+      );
+    grid-template-rows: 1fr;
+    gap: 5px 8px;
+    align-content: stretch;
+  }
+  .combat-app .arena-layout > .fighter-panel .fighter-identity {
+    grid-column: 1;
+    grid-row: 1 / -1;
+    min-width: 0;
+    min-height: 0;
+    display: block;
+    container-type: normal;
+  }
+  .combat-app .arena-layout > .fighter-panel .fighter-portrait-button {
+    width: 100%;
+    height: auto;
+  }
+  .combat-app .arena-layout > .fighter-panel > .combat-resources {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: center;
+    margin: 0;
+    width: 100%;
+  }
+}
+@media (max-width: 599px) {
+  .combat-app .arena-layout:has(> .fighter-panel > .fighter-debuffs) {
+    grid-template-rows: calc(var(--mobile-portrait-height) + 50px) minmax(
+        0,
+        1fr
+      );
+  }
+  .combat-app
+    .arena-layout:has(> .fighter-panel > .fighter-debuffs)
+    > .fighter-panel {
+    grid-template-rows: 1fr 33px;
+  }
+  .combat-app
+    .arena-layout:has(> .fighter-panel > .fighter-debuffs)
+    > .fighter-panel
+    .fighter-identity {
+    grid-row: 1 / 4;
+  }
+  .combat-app .arena-layout > .fighter-panel > .fighter-debuffs {
+    grid-column: 1 / -1;
+    grid-row: 4;
+    margin: 0;
+    gap: 2px;
+    justify-content: center;
+  }
+  .combat-app .arena-layout > .fighter-panel .fighter-debuff {
+    padding: 2px 4px;
+    gap: 3px;
+    align-items: center;
+  }
+  .combat-app .arena-layout > .fighter-panel .fighter-debuff > svg {
+    width: 11px;
+    height: 11px;
+    margin: 0;
+  }
+  .combat-app .arena-layout > .fighter-panel .debuff-heading {
+    font-size: 0.5rem;
+    gap: 2px 4px;
+  }
+}
+@media (min-width: 600px) {
+  .app.combat-app .arena-layout > .combat-menu-button {
+    top: -52px;
+    left: 0;
+  }
+  .app.combat-app .arena-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2.5fr) minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+  }
+  .app.combat-app .arena-layout > .fighter-panel {
+    grid-column: 1;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: clamp(6px, 1vw, 14px);
+  }
+  .app.combat-app .arena-layout > .fighter-panel.opponent-panel {
+    grid-column: 3;
+  }
+  .app.combat-app .arena-layout > .battle-center {
+    grid-column: 2;
+    grid-row: 1;
+    min-width: 0;
+  }
+  .app.combat-app .arena-layout > .fighter-panel .fighter-identity {
+    display: flex;
+    flex-direction: column;
+    flex: none;
+    container-type: normal;
+    min-width: 0;
+    margin: 8px 0;
+    gap: 8px;
+  }
+  .app.combat-app .arena-layout > .fighter-panel .fighter-identity h2 {
+    display: block;
+    font-size: clamp(12px, 1.6vw, 20px);
+    overflow-wrap: anywhere;
+  }
+  .app.combat-app .arena-layout > .fighter-panel .character-portrait {
+    width: min(100%, 180px);
+    height: auto;
+    flex-shrink: 0;
+  }
+  .app.combat-app .arena-layout > .fighter-panel > .combat-resources {
+    width: 100%;
+    margin-inline: 0;
+  }
+}
+@media (min-width: 900px) {
+  .app.combat-app .arena-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) minmax(0, 1fr);
+  }
+}
+
+.arena-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 27px;
+  gap: 20px;
+}
+.arena-heading .eyebrow {
+  color: var(--muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.17em;
+  margin-bottom: 12px;
+}
+.arena-heading h1 {
+  font-family: var(--serif);
+  font-size: 1.7rem;
+  font-weight: 400;
+  line-height: 1.45;
+}
+.arena-heading h1 span {
+  color: var(--color-text-muted);
+  font-family: "Golos Text", sans-serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  padding-left: 10px;
+}
+.fight-meta {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  font-size: 0.875rem;
+}
+.fight-meta > span {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.fight-meta svg {
+  color: var(--color-text-muted);
+}
+.fight-meta small {
+  color: var(--muted);
+}
+.fight-meta .round-badge {
+  border: 1px solid var(--color-border-style-2);
+  border-radius: 3px;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  padding: 12px 16px;
+}
+.turn-panel {
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  margin-top: 24px;
+  padding: 23px 25px;
+  background: var(--color-background-panel);
+}
+.hidden-intent {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+.action-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 9px;
+}
+.action-number {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+}
+.action-settings {
+  border-top: 1px solid var(--color-border-default);
+  margin-top: 20px;
+  padding-top: 21px;
+  display: grid;
+  grid-template-columns: 258px minmax(0, 1fr) 171px;
+  gap: 25px;
+  align-items: center;
+}
+.action-settings label:not(.checkbox-label) {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
+  display: block;
+  margin-bottom: 10px;
+}
+.segmented {
+  border: 1px solid var(--color-border-style-10);
+  border-radius: 3px;
+  padding: 3px;
+  display: flex;
+  background: var(--color-background-page);
+  gap: 2px;
+}
+.segmented button:where(:not(.gothic-text-button)) {
+  background: var(--color-base-transparent);
+  border: 0;
+  border-radius: 2px;
+  padding: 9px 12px;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  flex: 1;
+}
+.segmented button:where(:not(.gothic-text-button)).active {
+  background: var(--color-background-style-3);
+  color: var(--color-text-success);
+}
+.segmented button:where(:not(.gothic-text-button)):hover:not(:disabled) {
+  color: var(--color-text-highlight);
+  background: var(--color-background-style-2);
+}
+.step-setting > small {
+  display: block;
+  font-size: 0.75rem;
+  margin-top: 8px;
+}
+.attack-info {
+  align-self: start;
+}
+.attack-info p {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+.damage-line {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 7px;
+}
+.damage-line b {
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+.damage-line span {
+  color: var(--color-text-muted);
+}
+.turn-button {
+  height: 55px;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  padding: 0 16px;
+}
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  margin-top: 9px;
+}
+.checkbox-label input {
+  accent-color: var(--accent);
+  width: 15px;
+  height: 15px;
+  margin: 0;
+}
+.turn-flash {
+  animation: clash 0.6s ease-out;
+}
+@media (max-width: 899px) {
+  .action-settings {
+    grid-template-columns: 235px minmax(0, 1fr) 140px;
+    gap: 20px;
+  }
+  .segmented button:where(:not(.gothic-text-button)) {
+    padding: 9px;
+  }
+}
+@media (max-width: 899px) {
+  .action-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .action-settings {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .turn-button {
+    grid-column: 1/-1;
+    justify-content: center;
+    height: 48px;
+  }
+  .turn-panel {
+    padding: 22px;
+  }
+}
+@media (max-width: 599px) {
+  .arena-heading {
+    align-items: flex-end;
+    margin-bottom: 20px;
+  }
+  .arena-heading .eyebrow {
+    font-size: 0.75rem;
+    margin-bottom: 8px;
+  }
+  .arena-heading h1 {
+    font-size: 1.25rem;
+  }
+  .arena-heading h1 span {
+    font-size: 0.875rem;
+    padding-left: 3px;
+  }
+  .fight-meta {
+    gap: 10px;
+    flex-direction: column;
+    align-items: flex-end;
+    font-size: 0.75rem;
+  }
+  .fight-meta svg {
+    width: 12px;
+  }
+  .fight-meta .round-badge {
+    font-size: 0.75rem;
+    padding: 6px 9px;
+  }
+  .fight-meta small {
+    font-size: 0.75rem;
+  }
+  .turn-panel {
+    padding: 19px 16px;
+    margin-top: 20px;
+  }
+  .hidden-intent {
+    font-size: 0.75rem;
+  }
+  .action-grid {
+    gap: 7px;
+  }
+  .action-number {
+    font-size: 0.75rem;
+  }
+  .action-settings {
+    gap: 17px;
+    grid-template-columns: 1fr;
+  }
+  .step-setting .segmented {
+    max-width: none;
+  }
+  .segmented button:where(:not(.gothic-text-button)) {
+    font-size: 0.875rem;
+    padding: 10px;
+  }
+  .turn-button {
+    grid-column: auto;
+  }
+  .attack-info p {
+    font-size: 0.875rem;
+  }
+  .damage-line {
+    font-size: 0.75rem;
+  }
+}
+@media (max-width: 599px) {
+  .action-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

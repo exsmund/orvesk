@@ -1,0 +1,15 @@
+{
+  "date": "2026-09-24",
+  "mode": "built-in image_gen",
+  "model": "Exact model version and seed not exposed",
+  "items": [
+    {
+      "id": "unlock-ring",
+      "prompt": "Create one square 1024x1024 inventory equipment illustration for dark gothic fantasy. Subject: Unlock Ring, a single worn old gold and tarnished iron ring with a pale muted jade diamond-shaped stone in a simple substantial setting. Entire ring centered, sculptural three-quarter view, occupies 80% of canvas. Painterly engraved realistic material, scratches, patina, narrow highlights, deep shadows. Light from upper front left. Restrained charcoal, antique gold, muted ivory palette. Solid nearly black charcoal #101410 background. No frame, no text, no UI, no other objects, no wearer, no floor, no neon. Strong readable silhouette at 40px. Match a grim antique equipment inventory artwork."
+    },
+    {
+      "id": "fold-amulet",
+      "prompt": "Square inventory artwork 1024x1024: one Fold Amulet for dark gothic fantasy, a substantial diamond shaped muted blue-gray stone pendant in worn antique gold iron setting, on short curved aged chain. Fully visible centered with 8% margins. Sculptural realistic painterly engraved textures, patina, restrained charcoal ochre metal ivory palette, key light upper front left, deep shadows. Near black solid #101410 background. No frame, text, wearer, scene, floor, neon or UI. Clearly recognizable at 40px. Old grim equipment illustration, same series as an antique ring and worn iron shield. IMPORTANT composition: pendant AND ENTIRE short oval loop of chain fully inside the canvas, with 10 percent empty margin above the highest link and below the pendant. Chain forms closed small loop above pendant, never enters image borders."
+    }
+  ]
+}

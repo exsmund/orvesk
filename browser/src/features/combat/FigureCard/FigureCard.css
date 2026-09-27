@@ -1,0 +1,29 @@
+.figure-card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 16px;
+  min-width: 0;
+  padding: 12px;
+  background: var(--color-background-item-inspection-6);
+  border: 1px solid var(--color-border-style-18);
+  --piece-cell: 26px;
+  --piece-gap: 3px;
+}
+
+.figure-card__details {
+  display: grid;
+  gap: 4px;
+  flex: 1 1 210px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-variant-numeric: tabular-nums;
+}
+
+.figure-card__details > .text {
+  margin: 0;
+}
+
+.figure-card__details > h4 {
+  margin-bottom: 6px;
+}

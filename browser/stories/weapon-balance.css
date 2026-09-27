@@ -1,0 +1,32 @@
+.sb-weapon-balance {
+  max-width: 1200px;
+  margin: auto;
+}
+.sb-weapon-balance-group {
+  margin-top: 40px;
+}
+.sb-weapon-balance-scroll {
+  overflow-x: auto;
+}
+.sb-weapon-balance-table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+  background: var(--color-background-panel);
+}
+.sb-weapon-balance-table > thead > tr > th,
+.sb-weapon-balance-cell {
+  padding: 20px;
+  border: 1px solid var(--color-border-default);
+  text-align: left;
+  vertical-align: middle;
+}
+.sb-weapon-balance-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.sb-weapon-balance-figures {
+  display: grid;
+  gap: 12px;
+}

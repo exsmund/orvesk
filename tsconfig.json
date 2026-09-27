@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ES2022"
+    ],
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "allowImportingTsExtensions": true,
@@ -10,17 +12,17 @@
     "isolatedModules": true,
     "strict": true,
     "noEmit": true,
-    "jsx": "react-jsx",
     "skipLibCheck": true,
-    "types": ["node"]
+    "types": [
+      "node"
+    ],
+    "paths": {
+      "@/game/*": [
+        "./src/game/*"
+      ]
+    }
   },
   "include": [
-    "src",
-    "server",
-    "tests",
-    "vite.config.ts",
-    ".storybook",
-    "stories",
-    "scripts/storybook-catalog.ts"
+    "src/game"
   ]
 }

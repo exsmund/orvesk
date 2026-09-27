@@ -6,17 +6,54 @@
     "slot": "weapon",
     "hands": 1,
     "tier": 0,
-    "range": 80,
     "requirements": {},
-    "damage": [
+    "description": "Всегда с вами. Не занимает руку, если выбран для удара.",
+    "figures": [
       {
-        "type": "blunt",
-        "stat": "strength",
-        "scale": 1,
-        "base": 0
+        "id": "strike-1",
+        "order": 0,
+        "name": "Удар кулаком",
+        "shape": [[0, 0]],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 3,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength"],
+          "types": {
+            "blunt": 1
+          }
+        },
+        "description": "Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "fist-heavy",
+        "order": 1,
+        "name": "Сильный удар кулаком",
+        "shape": [
+          [0, 0],
+          [1, 0]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 3,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength"],
+          "types": {
+            "blunt": 1
+          }
+        },
+        "description": "Урон указан за клетку. При столкновении атак обе наносят половину урона."
       }
     ],
-    "description": "Всегда с вами. Не занимает руку, если выбран для удара."
+    "unarmed": true
   },
   {
     "id": "dagger",
@@ -25,19 +62,57 @@
     "slot": "weapon",
     "hands": 1,
     "tier": 0,
-    "range": 95,
     "requirements": {
       "agility": 1
     },
-    "damage": [
+    "description": "Короткое, лёгкое лезвие. Надёжное начало пути.",
+    "figures": [
       {
-        "type": "pierce",
-        "stat": "agility",
-        "scale": 1,
-        "base": 1
+        "id": "strike-1",
+        "order": 0,
+        "name": "Быстрый укол",
+        "shape": [[0, 0]],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 6,
+        "staminaCost": 1,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["agility"],
+          "types": {
+            "pierce": 1
+          }
+        },
+        "description": "1 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 1,
+        "name": "Короткий разворот",
+        "shape": [
+          [0, 0],
+          [1, 0]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 3,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["agility"],
+          "types": {
+            "pierce": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
       }
     ],
-    "description": "Короткое, лёгкое лезвие. Надёжное начало пути."
+    "family": "dagger",
+    "weightClass": "light"
   },
   {
     "id": "club",
@@ -46,19 +121,61 @@
     "slot": "weapon",
     "hands": 1,
     "tier": 0,
-    "range": 105,
     "requirements": {
       "strength": 1
     },
-    "damage": [
+    "description": "Грубое дерево, верный удар.",
+    "figures": [
       {
-        "type": "blunt",
-        "stat": "strength",
-        "scale": 1,
-        "base": 1
+        "id": "strike-1",
+        "order": 0,
+        "name": "Удар дубиной",
+        "shape": [
+          [0, 0],
+          [1, 0]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 3,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength"],
+          "types": {
+            "blunt": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 1,
+        "name": "Обратный замах",
+        "shape": [
+          [0, 0],
+          [1, 1],
+          [0, 2]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 4,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength"],
+          "types": {
+            "blunt": 1
+          }
+        },
+        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
       }
     ],
-    "description": "Грубое дерево, верный удар."
+    "family": "club",
+    "weightClass": "medium"
   },
   {
     "id": "shortsword",
@@ -67,19 +184,84 @@
     "slot": "weapon",
     "hands": 1,
     "tier": 1,
-    "range": 130,
     "requirements": {
-      "strength": 2
+      "strength": 1
     },
-    "damage": [
+    "description": "Сбалансированный меч забытого караула.",
+    "figures": [
       {
-        "type": "slash",
-        "stat": "strength",
-        "scale": 1,
-        "base": 2
+        "id": "point",
+        "order": 0,
+        "name": "Укол остриём",
+        "shape": [
+          [0, 0],
+          [1, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 1,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength"],
+          "types": {
+            "slash": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "strike-1",
+        "order": 1,
+        "name": "Рубящий проход",
+        "shape": [
+          [0, 0],
+          [1, 0]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength"],
+          "types": {
+            "slash": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 2,
+        "name": "Разворот клинка",
+        "shape": [
+          [0, 0],
+          [1, 0],
+          [0, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 4,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength"],
+          "types": {
+            "slash": 1
+          }
+        },
+        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
       }
     ],
-    "description": "Сбалансированный меч забытого караула."
+    "family": "sword",
+    "weightClass": "medium"
   },
   {
     "id": "rapier",
@@ -88,19 +270,80 @@
     "slot": "weapon",
     "hands": 1,
     "tier": 1,
-    "range": 145,
     "requirements": {
-      "agility": 2
+      "agility": 1
     },
-    "damage": [
+    "description": "Тонкое острие для выверенных выпадов.",
+    "figures": [
       {
-        "type": "pierce",
-        "stat": "agility",
-        "scale": 1,
-        "base": 2
+        "id": "point",
+        "order": 0,
+        "name": "Быстрый выпад",
+        "shape": [[0, 0]],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 6,
+        "staminaCost": 1,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["agility"],
+          "types": {
+            "pierce": 1
+          }
+        },
+        "description": "1 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "strike-1",
+        "order": 1,
+        "name": "Дальний выпад",
+        "shape": [
+          [0, 0],
+          [2, 0]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 1,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["agility"],
+          "types": {
+            "pierce": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 2,
+        "name": "Перекрёстный выпад",
+        "shape": [
+          [0, 0],
+          [1, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["agility"],
+          "types": {
+            "pierce": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
       }
     ],
-    "description": "Тонкое острие для выверенных выпадов."
+    "family": "rapier",
+    "weightClass": "light"
   },
   {
     "id": "axe",
@@ -109,19 +352,61 @@
     "slot": "weapon",
     "hands": 1,
     "tier": 2,
-    "range": 115,
     "requirements": {
-      "strength": 3
+      "strength": 1
     },
-    "damage": [
+    "description": "Тяжёлое лезвие, выкованное в остывшей кузнице.",
+    "figures": [
       {
-        "type": "slash",
-        "stat": "strength",
-        "scale": 1.5,
-        "base": 1
+        "id": "strike-1",
+        "order": 0,
+        "name": "Удар топором",
+        "shape": [
+          [0, 0],
+          [1, 0]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 3,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength"],
+          "types": {
+            "slash": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 1,
+        "name": "Зацеп кромкой",
+        "shape": [
+          [0, 0],
+          [2, 0],
+          [2, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 4,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength"],
+          "types": {
+            "slash": 1
+          }
+        },
+        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
       }
     ],
-    "description": "Тяжёлое лезвие, выкованное в остывшей кузнице."
+    "family": "axe",
+    "weightClass": "medium"
   },
   {
     "id": "spear",
@@ -130,19 +415,84 @@
     "slot": "weapon",
     "hands": 2,
     "tier": 1,
-    "range": 195,
     "requirements": {
-      "agility": 2
+      "agility": 1
     },
-    "damage": [
+    "description": "Дистанция — лучшая защита. Требует обе руки.",
+    "figures": [
       {
-        "type": "pierce",
-        "stat": "agility",
-        "scale": 1,
-        "base": 2
+        "id": "point",
+        "order": 0,
+        "name": "Точный укол",
+        "shape": [
+          [0, 0],
+          [1, 0]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 1,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["agility"],
+          "types": {
+            "pierce": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "strike-1",
+        "order": 1,
+        "name": "Уколы древком",
+        "shape": [
+          [0, 0],
+          [2, 0]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["agility"],
+          "types": {
+            "pierce": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 2,
+        "name": "Прямой натиск",
+        "shape": [
+          [0, 0],
+          [1, 0],
+          [2, 0]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 4,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["agility"],
+          "types": {
+            "pierce": 1
+          }
+        },
+        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
       }
     ],
-    "description": "Дистанция — лучшая защита. Требует обе руки."
+    "family": "spear",
+    "weightClass": "medium"
   },
   {
     "id": "greatsword",
@@ -151,20 +501,63 @@
     "slot": "weapon",
     "hands": 2,
     "tier": 2,
-    "range": 165,
     "requirements": {
-      "strength": 3,
-      "endurance": 2
+      "strength": 1
     },
-    "damage": [
+    "description": "Две руки. Один веский довод.",
+    "figures": [
       {
-        "type": "slash",
-        "stat": "strength",
-        "scale": 1.5,
-        "base": 3
+        "id": "strike-1",
+        "order": 0,
+        "name": "Широкий взмах",
+        "shape": [
+          [0, 0],
+          [1, 0],
+          [2, 0]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 4,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength"],
+          "types": {
+            "slash": 1
+          }
+        },
+        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 1,
+        "name": "Двуручный разворот",
+        "shape": [
+          [0, 0],
+          [1, 0],
+          [1, 1],
+          [2, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 5,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength"],
+          "types": {
+            "slash": 1
+          }
+        },
+        "description": "4 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
       }
     ],
-    "description": "Две руки. Один веский довод."
+    "family": "greatsword",
+    "weightClass": "heavy"
   },
   {
     "id": "hammer",
@@ -173,20 +566,63 @@
     "slot": "weapon",
     "hands": 2,
     "tier": 3,
-    "range": 140,
     "requirements": {
-      "strength": 4,
-      "endurance": 2
+      "strength": 1
     },
-    "damage": [
+    "description": "Дробит камень и сталь.",
+    "figures": [
       {
-        "type": "blunt",
-        "stat": "strength",
-        "scale": 2,
-        "base": 2
+        "id": "strike-1",
+        "order": 0,
+        "name": "Удар бойком",
+        "shape": [
+          [0, 0],
+          [1, 1],
+          [2, 0]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 4,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength"],
+          "types": {
+            "blunt": 1
+          }
+        },
+        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 1,
+        "name": "Сотрясающий удар",
+        "shape": [
+          [0, 0],
+          [1, 0],
+          [0, 1],
+          [1, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 6,
+        "blockCost": 0,
+        "staminaDamagePerCell": 2,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength"],
+          "types": {
+            "blunt": 1
+          }
+        },
+        "description": "4 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
       }
     ],
-    "description": "Дробит камень и сталь."
+    "family": "war-hammer",
+    "weightClass": "heavy"
   },
   {
     "id": "frost-dagger",
@@ -195,26 +631,60 @@
     "slot": "weapon",
     "hands": 1,
     "tier": 2,
-    "range": 100,
     "requirements": {
-      "agility": 2,
-      "intelligence": 2
+      "agility": 1,
+      "intelligence": 1
     },
-    "damage": [
+    "description": "Холод остаётся в ране дольше клинка.",
+    "figures": [
       {
-        "type": "pierce",
-        "stat": "agility",
-        "scale": 1,
-        "base": 0
+        "id": "strike-1",
+        "order": 0,
+        "name": "Укол инея",
+        "shape": [[0, 0]],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 6,
+        "staminaCost": 1,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["agility", "intelligence"],
+          "types": {
+            "pierce": 1,
+            "frost": 1
+          }
+        },
+        "description": "1 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
       },
       {
-        "type": "frost",
-        "stat": "intelligence",
-        "scale": 0.5,
-        "base": 1
+        "id": "heavy",
+        "order": 1,
+        "name": "Холодный разворот",
+        "shape": [
+          [0, 0],
+          [1, 0]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 3,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["agility", "intelligence"],
+          "types": {
+            "pierce": 1,
+            "frost": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
       }
     ],
-    "description": "Холод остаётся в ране дольше клинка."
+    "family": "dagger",
+    "weightClass": "light"
   },
   {
     "id": "ember-sword",
@@ -223,26 +693,88 @@
     "slot": "weapon",
     "hands": 1,
     "tier": 2,
-    "range": 135,
     "requirements": {
-      "strength": 2,
-      "intelligence": 2
+      "strength": 1,
+      "intelligence": 1
     },
-    "damage": [
+    "description": "Последнее пламя погасшего ордена.",
+    "figures": [
       {
-        "type": "slash",
-        "stat": "strength",
-        "scale": 1,
-        "base": 0
+        "id": "point",
+        "order": 0,
+        "name": "Угольный укол",
+        "shape": [
+          [0, 0],
+          [1, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 1,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength", "intelligence"],
+          "types": {
+            "slash": 1,
+            "fire": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
       },
       {
-        "type": "fire",
-        "stat": "intelligence",
-        "scale": 0.5,
-        "base": 1
+        "id": "strike-1",
+        "order": 1,
+        "name": "Угольный проход",
+        "shape": [
+          [0, 0],
+          [1, 0]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength", "intelligence"],
+          "types": {
+            "slash": 1,
+            "fire": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 2,
+        "name": "Огненный разворот",
+        "shape": [
+          [0, 0],
+          [1, 0],
+          [0, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 4,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength", "intelligence"],
+          "types": {
+            "slash": 1,
+            "fire": 1
+          }
+        },
+        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
       }
     ],
-    "description": "Последнее пламя погасшего ордена."
+    "family": "sword",
+    "weightClass": "medium"
   },
   {
     "id": "wind-sickle",
@@ -251,20 +783,62 @@
     "slot": "weapon",
     "hands": 1,
     "tier": 2,
-    "range": 150,
     "requirements": {
-      "agility": 2,
-      "intelligence": 2
+      "agility": 1,
+      "intelligence": 1
     },
-    "damage": [
+    "description": "Его кромка рассекает сам воздух.",
+    "figures": [
       {
-        "type": "wind",
-        "stat": "agility",
-        "scale": 1,
-        "base": 2
+        "id": "strike-1",
+        "order": 0,
+        "name": "Кромка ветра",
+        "shape": [
+          [0, 0],
+          [1, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 3,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["agility", "intelligence"],
+          "types": {
+            "wind": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 1,
+        "name": "Воздушный зацеп",
+        "shape": [
+          [0, 0],
+          [1, 0],
+          [2, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 4,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["agility", "intelligence"],
+          "types": {
+            "wind": 1
+          }
+        },
+        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
       }
     ],
-    "description": "Его кромка рассекает сам воздух."
+    "family": "sickle",
+    "weightClass": "medium"
   },
   {
     "id": "staff",
@@ -273,19 +847,63 @@
     "slot": "weapon",
     "hands": 2,
     "tier": 1,
-    "range": 210,
     "requirements": {
-      "intelligence": 2
+      "intelligence": 1
     },
-    "damage": [
+    "description": "Магический импульс. Занимает обе руки.",
+    "figures": [
       {
-        "type": "magic",
-        "stat": "intelligence",
-        "scale": 1,
-        "base": 2
+        "id": "strike-1",
+        "order": 0,
+        "name": "Разнесённый импульс",
+        "shape": [
+          [0, 0],
+          [1, 0],
+          [0, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 4,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["intelligence"],
+          "types": {
+            "magic": 1
+          }
+        },
+        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 1,
+        "name": "Узор отшельника",
+        "shape": [
+          [0, 0],
+          [2, 0],
+          [1, 1],
+          [2, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 5,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["intelligence"],
+          "types": {
+            "magic": 1
+          }
+        },
+        "description": "4 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
       }
     ],
-    "description": "Магический импульс. Занимает обе руки."
+    "family": "arcane-staff",
+    "weightClass": "heavy"
   },
   {
     "id": "buckler",
@@ -294,16 +912,57 @@
     "slot": "shield",
     "hands": 1,
     "tier": 0,
-    "range": 70,
     "requirements": {
-      "endurance": 1
+      "strength": 1
     },
-    "defense": {
-      "pierce": 1,
-      "slash": 1,
-      "blunt": 1
-    },
-    "description": "Маленький щит. Позволяет бить щитом: сила + 1."
+    "description": "Маленький щит. Позволяет бить щитом: сила + 1.",
+    "figures": [
+      {
+        "id": "guard",
+        "order": 6,
+        "name": "Блок щитом",
+        "shape": [
+          [0, 0],
+          [1, 0]
+        ],
+        "ignoreBlocked": false,
+        "category": "defense",
+        "copies": 3,
+        "staminaCost": 0,
+        "blockCost": 1,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 0,
+          "stats": [],
+          "types": {}
+        },
+        "description": "Блокирует урон здоровью и выносливости. За каждую перекрытую клетку атаки расходует 1 выносливости.",
+        "blocks": true
+      },
+      {
+        "id": "shield",
+        "order": 9,
+        "name": "Толчок щитом",
+        "shape": [
+          [0, 0],
+          [1, 0]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 1,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength"],
+          "types": {
+            "blunt": 1
+          }
+        },
+        "description": "Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      }
+    ]
   },
   {
     "id": "kite-shield",
@@ -312,20 +971,59 @@
     "slot": "shield",
     "hands": 1,
     "tier": 2,
-    "range": 70,
     "requirements": {
-      "strength": 2,
-      "endurance": 2
+      "strength": 1
     },
-    "defense": {
-      "pierce": 3,
-      "slash": 3,
-      "blunt": 2,
-      "fire": 1,
-      "frost": 1
-    },
-    "fullBlockPoiseRecovery": 1,
-    "description": "За каждую полностью перекрытую блоками этого щита фигуру атаки восстанавливает 1 стойки. Без ограничения срабатываний за раунд, до максимальной стойки."
+    "description": "За каждую полностью перекрытую блоками этого щита фигуру атаки восстанавливает 1 выносливости. Без ограничения срабатываний за раунд, до максимальной выносливости.",
+    "figures": [
+      {
+        "id": "guard",
+        "order": 6,
+        "name": "Блок щитом",
+        "shape": [
+          [0, 0],
+          [1, 0],
+          [0, 1],
+          [1, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "defense",
+        "copies": 3,
+        "staminaCost": 0,
+        "blockCost": 1,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 0,
+          "stats": [],
+          "types": {}
+        },
+        "description": "Блокирует урон здоровью и выносливости. За каждую перекрытую клетку атаки расходует 1 выносливости.",
+        "blocks": true
+      },
+      {
+        "id": "shield",
+        "order": 9,
+        "name": "Толчок щитом",
+        "shape": [
+          [0, 0],
+          [1, 0]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 1,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength"],
+          "types": {
+            "blunt": 1
+          }
+        },
+        "description": "Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      }
+    ]
   },
   {
     "id": "mirror-shield",
@@ -334,19 +1032,59 @@
     "slot": "shield",
     "hands": 1,
     "tier": 3,
-    "range": 70,
     "requirements": {
-      "endurance": 2,
-      "intelligence": 3
+      "strength": 1
     },
-    "defense": {
-      "pierce": 2,
-      "slash": 2,
-      "blunt": 1,
-      "magic": 4,
-      "wind": 2
-    },
-    "description": "Отражает отголоски чужого колдовства."
+    "description": "Отражает отголоски чужого колдовства.",
+    "figures": [
+      {
+        "id": "guard",
+        "order": 6,
+        "name": "Блок щитом",
+        "shape": [
+          [0, 0],
+          [1, 0],
+          [0, 1],
+          [1, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "defense",
+        "copies": 3,
+        "staminaCost": 0,
+        "blockCost": 1,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 0,
+          "stats": [],
+          "types": {}
+        },
+        "description": "Блокирует урон здоровью и выносливости. За каждую перекрытую клетку атаки расходует 1 выносливости.",
+        "blocks": true
+      },
+      {
+        "id": "shield",
+        "order": 9,
+        "name": "Толчок щитом",
+        "shape": [
+          [0, 0],
+          [1, 0]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 1,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength"],
+          "types": {
+            "blunt": 1
+          }
+        },
+        "description": "Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      }
+    ]
   },
   {
     "id": "ephemeral-sword",
@@ -355,19 +1093,2408 @@
     "slot": "weapon",
     "hands": 1,
     "tier": 1,
-    "range": 110,
     "requirements": {
-      "intelligence": 2
+      "intelligence": 1
     },
-    "damage": [
+    "ignoreBlocked": true,
+    "description": "Призрачный клинок проходит сквозь скалы: его фигуры можно размещать на заблокированных клетках. Границы поля и занятые своими фигурами клетки по-прежнему ограничивают размещение.",
+    "figures": [
       {
-        "type": "magic",
-        "stat": "intelligence",
-        "scale": 1,
-        "base": 1
+        "id": "point",
+        "order": 0,
+        "name": "Призрачный укол",
+        "shape": [
+          [0, 0],
+          [1, 1]
+        ],
+        "ignoreBlocked": true,
+        "category": "attack",
+        "copies": 1,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["intelligence"],
+          "types": {
+            "magic": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "strike-1",
+        "order": 1,
+        "name": "Призрачный проход",
+        "shape": [
+          [0, 0],
+          [1, 0]
+        ],
+        "ignoreBlocked": true,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["intelligence"],
+          "types": {
+            "magic": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 2,
+        "name": "Эфемерный разворот",
+        "shape": [
+          [0, 0],
+          [1, 0],
+          [0, 1]
+        ],
+        "ignoreBlocked": true,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 4,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["intelligence"],
+          "types": {
+            "magic": 1
+          }
+        },
+        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
       }
     ],
-    "ignoreBlocked": true,
-    "description": "Призрачный клинок проходит сквозь скалы: его фигуры можно размещать на заблокированных клетках. Границы поля, свой слой и лимит клеток сохраняются."
+    "family": "sword",
+    "weightClass": "medium"
+  },
+  {
+    "id": "road-sword",
+    "name": "Дорожный меч",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 1,
+    "tier": 1,
+    "requirements": {
+      "strength": 1
+    },
+    "family": "sword",
+    "description": "Одноручный прямой меч с простой крестовиной, потёртой кожаной рукоятью и узким долом. На клинке остаются следы многократной заточки. Распространён среди наёмников, караванной охраны и разорившихся воинов. В смутные времена один меч может сменить нескольких хозяев за одну войну. Подходит герою без магической подготовки.\n\n«Имена владельцев стёрлись с ножен. Зарубки на гарде остались».",
+    "figures": [
+      {
+        "id": "point",
+        "order": 0,
+        "name": "Укол остриём",
+        "shape": [
+          [0, 0],
+          [1, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 1,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength"],
+          "types": {
+            "slash": 1,
+            "pierce": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "strike-1",
+        "order": 1,
+        "name": "Рубящий проход",
+        "shape": [
+          [0, 0],
+          [1, 0]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength"],
+          "types": {
+            "slash": 1,
+            "pierce": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 2,
+        "name": "Разворот клинка",
+        "shape": [
+          [0, 0],
+          [1, 0],
+          [0, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 4,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength"],
+          "types": {
+            "slash": 1,
+            "pierce": 1
+          }
+        },
+        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      }
+    ],
+    "lore": {
+      "source": "docs/EQUIPMENT.md",
+      "section": "13.1"
+    },
+    "weightClass": "medium"
+  },
+  {
+    "id": "soldier-spear",
+    "name": "Солдатское копьё",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 2,
+    "tier": 0,
+    "requirements": {
+      "agility": 1
+    },
+    "family": "spear",
+    "description": "Длинное ясеневое древко с листовидным железным наконечником и грубой обмоткой в месте хвата. Оружие пехоты и деревенского ополчения. После разгрома войска такие копья остаются у крестьян, разбойников и дорожных стражей. Герой может пользоваться им как обычным оружием.\n\n«Наконечник выковал кузнец. Древко хозяин вырезал сам, когда к деревне подошла война».",
+    "figures": [
+      {
+        "id": "point",
+        "order": 0,
+        "name": "Точный укол",
+        "shape": [
+          [0, 0],
+          [1, 0]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 1,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["agility"],
+          "types": {
+            "pierce": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "strike-1",
+        "order": 1,
+        "name": "Уколы древком",
+        "shape": [
+          [0, 0],
+          [2, 0]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["agility"],
+          "types": {
+            "pierce": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 2,
+        "name": "Прямой натиск",
+        "shape": [
+          [0, 0],
+          [1, 0],
+          [2, 0]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 4,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["agility"],
+          "types": {
+            "pierce": 1
+          }
+        },
+        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      }
+    ],
+    "lore": {
+      "source": "docs/EQUIPMENT.md",
+      "section": "13.2"
+    },
+    "weightClass": "medium"
+  },
+  {
+    "id": "bandit-cleaver",
+    "name": "Сеча разбойника",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 1,
+    "tier": 0,
+    "requirements": {
+      "strength": 1
+    },
+    "family": "cleaver",
+    "description": "Короткий тяжёлый тесак с широким односторонним лезвием. Рукоять часто обмотана полосой чужого ремня. Переделанный хозяйственный инструмент лесных разбойников и мародёров. Его происхождение не требует особой школы или редкого металла.\n\n«Им рубили хворост, вскрывали сундуки и добивали тех, кто не успел убежать».",
+    "figures": [
+      {
+        "id": "strike-1",
+        "order": 0,
+        "name": "Рубка тесаком",
+        "shape": [
+          [0, 0],
+          [1, 0]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 3,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength"],
+          "types": {
+            "slash": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 1,
+        "name": "Рваный разворот",
+        "shape": [
+          [0, 0],
+          [1, 0],
+          [2, 0]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 1,
+        "staminaCost": 4,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength"],
+          "types": {
+            "slash": 1
+          }
+        },
+        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "sweep",
+        "order": 2,
+        "name": "Широкая сеча",
+        "shape": [
+          [0, 0],
+          [1, 0],
+          [0, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 1,
+        "staminaCost": 4,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength"],
+          "types": {
+            "slash": 1
+          }
+        },
+        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      }
+    ],
+    "lore": {
+      "source": "docs/EQUIPMENT.md",
+      "section": "13.3"
+    },
+    "weightClass": "medium"
+  },
+  {
+    "id": "beaked-hammer",
+    "name": "Клювастый молот",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 1,
+    "tier": 2,
+    "requirements": {
+      "strength": 1
+    },
+    "family": "war-pick",
+    "description": "Короткая прочная рукоять, небольшой ударный боёк и длинный загнутый клюв на обратной стороне головки. Оружие воинов, сражающихся с бронированными противниками. Искатели добычи в руинах ценят его при столкновениях с живыми доспехами.\n\n«Железному часовому нечего ломать под бронёй. Приходится ломать саму броню».",
+    "figures": [
+      {
+        "id": "strike-1",
+        "order": 0,
+        "name": "Точный удар бойком",
+        "shape": [[0, 0]],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 6,
+        "staminaCost": 1,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength"],
+          "types": {
+            "blunt": 1,
+            "pierce": 1
+          }
+        },
+        "description": "1 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 1,
+        "name": "Зацеп клювом",
+        "shape": [
+          [0, 0],
+          [1, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 3,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength"],
+          "types": {
+            "blunt": 1,
+            "pierce": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      }
+    ],
+    "lore": {
+      "source": "docs/EQUIPMENT.md",
+      "section": "13.4"
+    },
+    "weightClass": "light"
+  },
+  {
+    "id": "last-watch-halberd",
+    "name": "Алебарда последнего караула",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 2,
+    "tier": 3,
+    "requirements": {
+      "strength": 1
+    },
+    "family": "halberd",
+    "description": "Длинное древковое оружие с топорным лезвием, верхним остриём и крюком; на втулке выбит знак давно исчезнувшего гарнизона. Штатное оружие старых крепостных стражей, в том числе живых доспехов. Название связано с теми часовыми, которые продолжают охранять пустые хранилища.\n\n«Приказ караулу никто не отменил. Отдававший его рассыпался в прах раньше древка».",
+    "figures": [
+      {
+        "id": "strike-1",
+        "order": 0,
+        "name": "Разнесённые уколы",
+        "shape": [
+          [0, 0],
+          [2, 0],
+          [1, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 4,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength"],
+          "types": {
+            "slash": 1,
+            "pierce": 1
+          }
+        },
+        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 1,
+        "name": "Крюк караула",
+        "shape": [
+          [0, 0],
+          [2, 0],
+          [2, 1],
+          [2, 2]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 1,
+        "staminaCost": 5,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength"],
+          "types": {
+            "slash": 1,
+            "pierce": 1
+          }
+        },
+        "description": "4 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "sweep",
+        "order": 2,
+        "name": "Круговой взмах",
+        "shape": [
+          [0, 0],
+          [1, 0],
+          [2, 0],
+          [1, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 1,
+        "staminaCost": 5,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength"],
+          "types": {
+            "slash": 1,
+            "pierce": 1
+          }
+        },
+        "description": "4 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      }
+    ],
+    "lore": {
+      "source": "docs/EQUIPMENT.md",
+      "section": "13.5"
+    },
+    "weightClass": "heavy"
+  },
+  {
+    "id": "hunting-bow",
+    "name": "Лук лесной охоты",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 2,
+    "tier": 1,
+    "requirements": {
+      "agility": 1
+    },
+    "family": "bow",
+    "description": "Длинный деревянный лук, простой колчан, стрелы с разным оперением. Поверхности натёрты воском и потемнели от дождя. Оружие охотников, лесных дозорных и разбойников. Некоторые фавны пользуются сходными луками на территориях своих союзников-фей.\n\n«На дереве нет ни рун, ни благословений. Только следы пальцев человека, который редко промахивался».",
+    "figures": [
+      {
+        "id": "strike-1",
+        "order": 0,
+        "name": "Одиночная стрела",
+        "shape": [[0, 0]],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 6,
+        "staminaCost": 1,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["agility"],
+          "types": {
+            "pierce": 1
+          }
+        },
+        "description": "1 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 1,
+        "name": "Веер стрел",
+        "shape": [
+          [0, 0],
+          [2, 2]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 3,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["agility"],
+          "types": {
+            "pierce": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      }
+    ],
+    "lore": {
+      "source": "docs/EQUIPMENT.md",
+      "section": "13.6"
+    },
+    "weightClass": "light"
+  },
+  {
+    "id": "outpost-crossbow",
+    "name": "Арбалет заставы",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 2,
+    "tier": 2,
+    "requirements": {
+      "agility": 1
+    },
+    "family": "crossbow",
+    "description": "Крепкое деревянное ложе, металлическая дуга, поясной крюк для взвода. На прикладе вырезан номер караульного места. Оружие городских стражей и защитников переправ. После падения застав попадает к наёмникам и грабителям.\n\n«На прикладе двадцать зарубок. Ни одна не объясняет, кого здесь считали врагом».",
+    "figures": [
+      {
+        "id": "strike-1",
+        "order": 0,
+        "name": "Серия болтов",
+        "shape": [
+          [0, 0],
+          [2, 0],
+          [1, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 4,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["agility"],
+          "types": {
+            "pierce": 1
+          }
+        },
+        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 1,
+        "name": "Косой обстрел",
+        "shape": [
+          [0, 0],
+          [2, 0],
+          [0, 2],
+          [2, 2]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 5,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["agility"],
+          "types": {
+            "pierce": 1
+          }
+        },
+        "description": "4 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      }
+    ],
+    "lore": {
+      "source": "docs/EQUIPMENT.md",
+      "section": "13.7"
+    },
+    "weightClass": "heavy"
+  },
+  {
+    "id": "guest-blade",
+    "name": "Лезвие ласкового гостя",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 1,
+    "tier": 2,
+    "requirements": {
+      "agility": 1
+    },
+    "family": "dagger",
+    "description": "Узкий кинжал, скрытый в неприметных ножнах или оформленный как часть дорогого дорожного прибора. Гарда мала и не цепляется за одежду. Любимое орудие некоторых вампиров, обманщиков и убийц, предпочитающих сначала войти в доверие. Принадлежность вампиру не наделяет клинок его природой.\n\n«Хозяин просил поддержать его под локоть. Клинок оказался в другой руке».",
+    "figures": [
+      {
+        "id": "strike-1",
+        "order": 0,
+        "name": "Быстрый укол",
+        "shape": [[0, 0]],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 6,
+        "staminaCost": 1,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["agility"],
+          "types": {
+            "pierce": 1
+          }
+        },
+        "description": "1 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 1,
+        "name": "Короткий разворот",
+        "shape": [
+          [0, 0],
+          [1, 0]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 3,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["agility"],
+          "types": {
+            "pierce": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      }
+    ],
+    "lore": {
+      "source": "docs/EQUIPMENT.md",
+      "section": "13.8"
+    },
+    "weightClass": "light"
+  },
+  {
+    "id": "marsh-hook",
+    "name": "Болотный крюк",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 1,
+    "tier": 2,
+    "requirements": {
+      "agility": 1
+    },
+    "family": "hook",
+    "description": "Длинная кривая рукоять с тяжёлым железным крюком; по металлу тянется зелёный налёт, а в обмотке застряли камышовые волокна. Орудие отдельных болотниц и жестоких обитателей трясин. Болотница может утаскивать им добычу в жилище; это вариант её вооружения, а не обязательная черта всего вида.\n\n«Старуха называла его багром. Лодки возле её дома никто не видел».",
+    "figures": [
+      {
+        "id": "strike-1",
+        "order": 0,
+        "name": "Дальний зацеп",
+        "shape": [
+          [0, 0],
+          [2, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 3,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["agility"],
+          "types": {
+            "pierce": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 1,
+        "name": "Рывок крюком",
+        "shape": [
+          [0, 0],
+          [2, 0],
+          [2, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 1,
+        "staminaCost": 4,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["agility"],
+          "types": {
+            "pierce": 1
+          }
+        },
+        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "sweep",
+        "order": 2,
+        "name": "Захлёст крюка",
+        "shape": [
+          [0, 0],
+          [2, 1],
+          [1, 2]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 1,
+        "staminaCost": 4,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["agility"],
+          "types": {
+            "pierce": 1
+          }
+        },
+        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      }
+    ],
+    "lore": {
+      "source": "docs/EQUIPMENT.md",
+      "section": "13.9"
+    },
+    "weightClass": "medium"
+  },
+  {
+    "id": "bog-stinger",
+    "name": "Шип трясины",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 1,
+    "tier": 3,
+    "requirements": {
+      "agility": 1
+    },
+    "family": "blowpipe",
+    "description": "Духовая трубка из тёмного полого стебля с костяным мундштуком и связкой тонких дротиков в закрытом футляре. Оружие болотных охотников и скрытных убийц. Яд для дротиков готовят знахари и алхимики; связь с сёстрами Млечного познания не предполагается.\n\n«Путник смахнул с шеи то, что принял за мошку. До сухого берега он не дошёл».",
+    "figures": [
+      {
+        "id": "strike-1",
+        "order": 0,
+        "name": "Тихий дротик",
+        "shape": [[0, 0]],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 6,
+        "staminaCost": 1,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["agility"],
+          "types": {
+            "pierce": 1,
+            "poison": 2
+          }
+        },
+        "description": "1 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 1,
+        "name": "Рассеянный обстрел",
+        "shape": [
+          [0, 0],
+          [2, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 3,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["agility"],
+          "types": {
+            "pierce": 1,
+            "poison": 2
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      }
+    ],
+    "lore": {
+      "source": "docs/EQUIPMENT.md",
+      "section": "13.10"
+    },
+    "weightClass": "light"
+  },
+  {
+    "id": "elven-moon-sickle",
+    "name": "Лунный серп эльфов",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 1,
+    "tier": 2,
+    "requirements": {
+      "agility": 1
+    },
+    "family": "sickle",
+    "description": "Короткое изогнутое лезвие матового металла, рукоять из плотного светлого дерева, узор ветвей вдоль обуха. Название описывает форму, а не источник силы. Оружие и рабочий инструмент эльфийских хранителей рощ. Им срезают повреждённые ветви и защищают скрытые поселения.\n\n«Ветвь срезают, чтобы дерево жило. О целом мире его хозяева судят осторожнее».",
+    "figures": [
+      {
+        "id": "strike-1",
+        "order": 0,
+        "name": "Косой срез",
+        "shape": [
+          [0, 0],
+          [1, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 3,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["agility"],
+          "types": {
+            "slash": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 1,
+        "name": "Зацеп серпом",
+        "shape": [
+          [0, 0],
+          [1, 0],
+          [2, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 4,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["agility"],
+          "types": {
+            "slash": 1
+          }
+        },
+        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      }
+    ],
+    "lore": {
+      "source": "docs/EQUIPMENT.md",
+      "section": "13.11"
+    },
+    "weightClass": "medium"
+  },
+  {
+    "id": "faun-boar-spear",
+    "name": "Рогатина фавна",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 2,
+    "tier": 2,
+    "requirements": {
+      "strength": 1
+    },
+    "family": "boar-spear",
+    "description": "Крепкое короткое копьё с широким наконечником и поперечиной; древко обвито корнями и украшено резными отметками рощи. Оружие фавнов, защищающих общие с феями земли. Поперечина помогает удержать крупного зверя, бросившегося на остриё.\n\n«За этой чертой начинается чужой дом. Фавн показывает границу остриём».",
+    "figures": [
+      {
+        "id": "point",
+        "order": 0,
+        "name": "Укол рогатиной",
+        "shape": [
+          [0, 0],
+          [1, 0]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 1,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength"],
+          "types": {
+            "pierce": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "strike-1",
+        "order": 1,
+        "name": "Встречные уколы",
+        "shape": [
+          [0, 0],
+          [2, 0]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength"],
+          "types": {
+            "pierce": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 2,
+        "name": "Граница рощи",
+        "shape": [
+          [0, 0],
+          [2, 0],
+          [1, 2]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 4,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength"],
+          "types": {
+            "pierce": 1
+          }
+        },
+        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      }
+    ],
+    "lore": {
+      "source": "docs/EQUIPMENT.md",
+      "section": "13.12"
+    },
+    "weightClass": "medium"
+  },
+  {
+    "id": "emberstone-staff",
+    "name": "Посох тлеющего камня",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 2,
+    "tier": 2,
+    "requirements": {
+      "intelligence": 1
+    },
+    "family": "fire-staff",
+    "description": "Обугленный посох с камнем в железной клетке навершия. В трещинах минерала виден жар, у хвата дерево остаётся холодным. Инструмент магов, изучающих взаимодействие огня и камня. Чаще встречается у боевых магов, которым нужен управляемый источник жара.\n\n«Камень не горит. Он помнит, как велено гореть тому, что находится рядом».",
+    "figures": [
+      {
+        "id": "strike-1",
+        "order": 0,
+        "name": "Искры камня",
+        "shape": [
+          [0, 0],
+          [1, 0],
+          [2, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 4,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["intelligence"],
+          "types": {
+            "fire": 1
+          }
+        },
+        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 1,
+        "name": "Языки пламени",
+        "shape": [
+          [0, 0],
+          [1, 0],
+          [1, 1],
+          [2, 2]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 1,
+        "staminaCost": 5,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["intelligence"],
+          "types": {
+            "fire": 1
+          }
+        },
+        "description": "4 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "sweep",
+        "order": 2,
+        "name": "Пылающая дуга",
+        "shape": [
+          [0, 0],
+          [2, 0],
+          [1, 1],
+          [1, 2]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 1,
+        "staminaCost": 5,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["intelligence"],
+          "types": {
+            "fire": 1
+          }
+        },
+        "description": "4 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      }
+    ],
+    "lore": {
+      "source": "docs/EQUIPMENT.md",
+      "section": "13.13"
+    },
+    "weightClass": "heavy"
+  },
+  {
+    "id": "river-ice-wand",
+    "name": "Жезл речного льда",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 1,
+    "tier": 2,
+    "requirements": {
+      "intelligence": 1
+    },
+    "family": "ice-wand",
+    "description": "Короткий жезл с прозрачным минеральным наконечником и запаянной полостью для воды. По оправе медленно собираются холодные капли. Происходит от инструментов магов, расчищавших реки для судоходства. Военные мастера приспособили те же знания для боя.\n\n«Когда-то им открывали путь лодкам. Теперь лёд смыкается вокруг тех, кто пытается переплыть реку».",
+    "figures": [
+      {
+        "id": "strike-1",
+        "order": 0,
+        "name": "Ледяная игла",
+        "shape": [[0, 0]],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 6,
+        "staminaCost": 1,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["intelligence"],
+          "types": {
+            "frost": 1
+          }
+        },
+        "description": "1 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 1,
+        "name": "Замерзающий поток",
+        "shape": [
+          [0, 0],
+          [2, 0]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 3,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["intelligence"],
+          "types": {
+            "frost": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      }
+    ],
+    "lore": {
+      "source": "docs/EQUIPMENT.md",
+      "section": "13.14"
+    },
+    "weightClass": "light"
+  },
+  {
+    "id": "tailwind-spear",
+    "name": "Копьё попутного ветра",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 2,
+    "tier": 2,
+    "requirements": {
+      "agility": 1,
+      "intelligence": 1
+    },
+    "family": "spear",
+    "description": "Лёгкое копьё с полым навершием под наконечником; внутри закреплены тонкие каменные пластинки, тихо звенящие при движении. Оружие, подготовленное магом воздуха для разведчиков и посыльных. В пластинках закреплено простое действие, усиливающее поток воздуха при направленном выпаде.\n\n«Его заказывали, чтобы расчистить дорогу одному гонцу. Гонец не вернулся; копьё дошло до рынка».",
+    "figures": [
+      {
+        "id": "point",
+        "order": 0,
+        "name": "Точный укол ветра",
+        "shape": [
+          [0, 0],
+          [1, 0]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 1,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["agility", "intelligence"],
+          "types": {
+            "pierce": 1,
+            "wind": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "strike-1",
+        "order": 1,
+        "name": "Уколы попутного ветра",
+        "shape": [
+          [0, 0],
+          [2, 0]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["agility", "intelligence"],
+          "types": {
+            "pierce": 1,
+            "wind": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 2,
+        "name": "Воздушный натиск",
+        "shape": [
+          [0, 0],
+          [1, 0],
+          [2, 0]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 4,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["agility", "intelligence"],
+          "types": {
+            "pierce": 1,
+            "wind": 1
+          }
+        },
+        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      }
+    ],
+    "lore": {
+      "source": "docs/EQUIPMENT.md",
+      "section": "13.15"
+    },
+    "weightClass": "medium"
+  },
+  {
+    "id": "stonecrusher",
+    "name": "Камнедроб",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 1,
+    "tier": 2,
+    "requirements": {
+      "strength": 1,
+      "intelligence": 1
+    },
+    "family": "mace",
+    "description": "Тяжёлая булава с каменным навершием, стянутым железными полосами. По поверхности расходятся тонкие вырезанные борозды. Работа магов земли, умеющих согласовывать поведение камня и металла. Подготовленное навершие при ударе передаёт короткое сотрясение соприкасающемуся материалу.\n\n«Мастер не учил камень ненавидеть. Он научил его передавать удар дальше».",
+    "figures": [
+      {
+        "id": "strike-1",
+        "order": 0,
+        "name": "Сотрясение камня",
+        "shape": [
+          [0, 0],
+          [1, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 3,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength", "intelligence"],
+          "types": {
+            "blunt": 1,
+            "magic": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 1,
+        "name": "Раскол навершием",
+        "shape": [
+          [0, 0],
+          [1, 0],
+          [2, 2]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 4,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength", "intelligence"],
+          "types": {
+            "blunt": 1,
+            "magic": 1
+          }
+        },
+        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      }
+    ],
+    "lore": {
+      "source": "docs/EQUIPMENT.md",
+      "section": "13.16"
+    },
+    "weightClass": "medium"
+  },
+  {
+    "id": "bitter-censer",
+    "name": "Кадило горького дыма",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 1,
+    "tier": 3,
+    "requirements": {
+      "intelligence": 1
+    },
+    "family": "censer",
+    "description": "Закрытый перфорированный сосуд на короткой рукояти с крышкой и внутренней чашей для состава. Тёмные потёки забили часть отверстий. Оружие некоторых диких магов и отравителей. В нём нагревают заранее приготовленную смесь растительных и минеральных компонентов. Название и форма не означают принадлежности ордену Света.\n\n«Запах напоминает лекарство. Тот, кто приготовил смесь, хорошо знал разницу в пропорциях».",
+    "figures": [
+      {
+        "id": "strike-1",
+        "order": 0,
+        "name": "Две струи дыма",
+        "shape": [
+          [0, 0],
+          [2, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 3,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["intelligence"],
+          "types": {
+            "poison": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 1,
+        "name": "Горькая завеса",
+        "shape": [
+          [0, 0],
+          [1, 0],
+          [2, 2]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 1,
+        "staminaCost": 4,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["intelligence"],
+          "types": {
+            "poison": 1
+          }
+        },
+        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "sweep",
+        "order": 2,
+        "name": "Облако горького дыма",
+        "shape": [
+          [0, 0],
+          [2, 0],
+          [2, 2]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 1,
+        "staminaCost": 4,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["intelligence"],
+          "types": {
+            "poison": 1
+          }
+        },
+        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      }
+    ],
+    "lore": {
+      "source": "docs/EQUIPMENT.md",
+      "section": "13.17"
+    },
+    "weightClass": "medium"
+  },
+  {
+    "id": "sealed-stone-sling",
+    "name": "Праща печатных камней",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 1,
+    "tier": 2,
+    "requirements": {
+      "strength": 1,
+      "agility": 1
+    },
+    "family": "sling",
+    "description": "Широкая кожаная праща и футляр с гладкими камнями, каждый из которых отмечен отдельной тонкой печатью. Снаряжение вспомогательных отрядов при боевых магах. Мастер заранее закрепляет в камнях короткий жаровой всплеск, срабатывающий от сильного удара.\n\n«На вид — речная галька. В обозе её хранили отдельно и запрещали ронять».",
+    "figures": [
+      {
+        "id": "strike-1",
+        "order": 0,
+        "name": "Печатный камень",
+        "shape": [[0, 0]],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 6,
+        "staminaCost": 1,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength", "agility"],
+          "types": {
+            "blunt": 1,
+            "fire": 1
+          }
+        },
+        "description": "1 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 1,
+        "name": "Жаровая дуга",
+        "shape": [
+          [0, 0],
+          [1, 0]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 1,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength", "agility"],
+          "types": {
+            "blunt": 1,
+            "fire": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "scatter",
+        "order": 2,
+        "name": "Рассеянный бросок",
+        "shape": [
+          [0, 0],
+          [2, 2]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength", "agility"],
+          "types": {
+            "blunt": 1,
+            "fire": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      }
+    ],
+    "lore": {
+      "source": "docs/EQUIPMENT.md",
+      "section": "13.18"
+    },
+    "weightClass": "light"
+  },
+  {
+    "id": "convoy-blade",
+    "name": "Клинок островного конвоя",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 1,
+    "tier": 1,
+    "requirements": {
+      "strength": 1
+    },
+    "family": "sword",
+    "description": "Простой короткий меч с закрытой гардой; у основания клинка выбит знак острова Света. Ножны рассчитаны на долгую дорогу и сырость. Оружие мирских сопровождающих при жрецах Света. Его задача — защищать носителя аттрактора от разбойников и материальных существ. Может стать оружием героя из погибшего отряда, если такой вариант будет выбран для начала истории.\n\n«Жрец отвечал за то, что шло из других миров. Человек с этим мечом — за то, что выходило из придорожных кустов».",
+    "figures": [
+      {
+        "id": "point",
+        "order": 0,
+        "name": "Укол остриём",
+        "shape": [
+          [0, 0],
+          [1, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 1,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength"],
+          "types": {
+            "slash": 1,
+            "pierce": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "strike-1",
+        "order": 1,
+        "name": "Рубящий проход",
+        "shape": [
+          [0, 0],
+          [1, 0]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength"],
+          "types": {
+            "slash": 1,
+            "pierce": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 2,
+        "name": "Разворот клинка",
+        "shape": [
+          [0, 0],
+          [1, 0],
+          [0, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 4,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength"],
+          "types": {
+            "slash": 1,
+            "pierce": 1
+          }
+        },
+        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      }
+    ],
+    "lore": {
+      "source": "docs/EQUIPMENT.md",
+      "section": "13.19"
+    },
+    "weightClass": "medium"
+  },
+  {
+    "id": "sinew-lash",
+    "name": "Жильный бич",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 1,
+    "tier": 2,
+    "requirements": {
+      "strength": 1,
+      "agility": 1
+    },
+    "family": "lash",
+    "description": "Короткая рукоять и несколько гибких плетей из обработанных сухожилий с костяными наконечниками. В покое они иногда слабо подёргиваются. Работа дикого мага, соединившего остаточные свойства животных тканей с простым закреплённым действием. Оружие встречается у жестоких наёмников и хозяев подпольных мастерских; в нём не обязательно заключена самостоятельная душа.\n\n«Мастер утверждал, что ткани ничего не чувствуют. Бич дёргался всякий раз, когда он подносил иглу».",
+    "figures": [
+      {
+        "id": "strike-1",
+        "order": 0,
+        "name": "Сдвоенный хлёст",
+        "shape": [
+          [0, 0],
+          [2, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 3,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength", "agility"],
+          "types": {
+            "slash": 1,
+            "magic": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 1,
+        "name": "Захлёст плетей",
+        "shape": [
+          [0, 0],
+          [2, 1],
+          [0, 2]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 1,
+        "staminaCost": 4,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength", "agility"],
+          "types": {
+            "slash": 1,
+            "magic": 1
+          }
+        },
+        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "sweep",
+        "order": 2,
+        "name": "Широкий захлёст",
+        "shape": [
+          [0, 0],
+          [2, 0],
+          [1, 2]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 1,
+        "staminaCost": 4,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength", "agility"],
+          "types": {
+            "slash": 1,
+            "magic": 1
+          }
+        },
+        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      }
+    ],
+    "lore": {
+      "source": "docs/EQUIPMENT.md",
+      "section": "13.20"
+    },
+    "weightClass": "medium"
+  },
+  {
+    "id": "ropewalk-chain-knife",
+    "name": "Цепной нож канатчика",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 1,
+    "tier": 3,
+    "requirements": {
+      "agility": 1
+    },
+    "family": "chain-knife",
+    "description": "Узкий треугольный нож на короткой тонкой цепи с кожаной петлёй для руки. Потемневшее железо и тёмная кожа. Канатчики портовых переправ приспособили нож для боя среди снастей. Цепь возвращает клинок в ладонь, но требует точного движения. «Верёвку здесь режут один раз. За ошибку платят пальцами».",
+    "figures": [
+      {
+        "id": "strike-1",
+        "order": 0,
+        "name": "Возвратный укол",
+        "shape": [
+          [0, 0],
+          [2, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 3,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["agility"],
+          "types": {
+            "pierce": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 1,
+        "name": "Дуга цепи",
+        "shape": [
+          [0, 0],
+          [2, 0],
+          [2, 2]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 1,
+        "staminaCost": 4,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["agility"],
+          "types": {
+            "pierce": 1
+          }
+        },
+        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "sweep",
+        "order": 2,
+        "name": "Круг цепи",
+        "shape": [
+          [0, 0],
+          [1, 1],
+          [2, 2]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 1,
+        "staminaCost": 4,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["agility"],
+          "types": {
+            "pierce": 1
+          }
+        },
+        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      }
+    ],
+    "weightClass": "medium"
+  },
+  {
+    "id": "dustglass-wand",
+    "name": "Жезл пыльного стекла",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 1,
+    "tier": 0,
+    "requirements": {
+      "intelligence": 1
+    },
+    "family": "glass-wand",
+    "description": "Короткий жезл с дымчатым стеклом в треснувшей деревянной оправе и потёртым кожаным хватом. Учебный инструмент мастеров, направляющих мелкие частицы стекла. Помутневшая сердцевина сохраняет следы многих неудачных опытов. «Первый урок — собрать осколки, не касаясь их».",
+    "figures": [
+      {
+        "id": "point",
+        "order": 0,
+        "name": "Стеклянная игла",
+        "shape": [[0, 0]],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 6,
+        "staminaCost": 1,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["intelligence"],
+          "types": {
+            "magic": 1
+          }
+        },
+        "description": "1 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "strike-1",
+        "order": 1,
+        "name": "Стеклянная грань",
+        "shape": [
+          [0, 0],
+          [1, 0]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 1,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["intelligence"],
+          "types": {
+            "magic": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 2,
+        "name": "Веер осколков",
+        "shape": [
+          [0, 0],
+          [2, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["intelligence"],
+          "types": {
+            "magic": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      }
+    ],
+    "weightClass": "light"
+  },
+  {
+    "id": "hollow-tuning-fork",
+    "name": "Камертон пустых залов",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 1,
+    "tier": 1,
+    "requirements": {
+      "intelligence": 1
+    },
+    "family": "tuning-fork",
+    "description": "Бронзовый камертон на деревянной ручке. Его длинные неровные ветви потемнели от времени. Маги воздуха проверяли им резонанс пустых водохранилищ. В бою дрожание ветвей направляет короткую воздушную волну. «В пустом зале всегда есть кому ответить».",
+    "figures": [
+      {
+        "id": "strike-1",
+        "order": 0,
+        "name": "Воздушная щель",
+        "shape": [
+          [0, 0],
+          [1, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 3,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["intelligence"],
+          "types": {
+            "wind": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 1,
+        "name": "Двойной резонанс",
+        "shape": [
+          [0, 0],
+          [2, 0],
+          [1, 2]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 4,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["intelligence"],
+          "types": {
+            "wind": 1
+          }
+        },
+        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      }
+    ],
+    "weightClass": "medium"
+  },
+  {
+    "id": "spark-lantern",
+    "name": "Фонарь забытой искры",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 1,
+    "tier": 2,
+    "requirements": {
+      "intelligence": 1
+    },
+    "family": "lantern",
+    "description": "Переносной железный фонарь с жёсткой ручкой. За закопчённым янтарным стеклом тлеет единственный уголёк. Смотрители магических печей носили в таких фонарях образец поддерживаемого огня. Искра подчиняется подготовленному направляющему жесту. «Печь остыла. Дежурный свет остался».",
+    "figures": [
+      {
+        "id": "strike-1",
+        "order": 0,
+        "name": "Угольная струя",
+        "shape": [
+          [0, 0],
+          [1, 0]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 3,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["intelligence"],
+          "types": {
+            "fire": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 1,
+        "name": "Раскрытая заслонка",
+        "shape": [
+          [1, 0],
+          [0, 1],
+          [2, 2]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 4,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["intelligence"],
+          "types": {
+            "fire": 1
+          }
+        },
+        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      }
+    ],
+    "weightClass": "medium"
+  },
+  {
+    "id": "winter-shard",
+    "name": "Осколок зимнего колодца",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 1,
+    "tier": 0,
+    "requirements": {
+      "intelligence": 1
+    },
+    "family": "cold-focus",
+    "description": "Матовый ледяной кристалл в тёмной железной оправе с короткой кожаной ручкой. Холодный минерал извлекли из колодца, который не оттаивал даже летом. Мастера закрепили его в оправе для простых ледяных выбросов. «Воду из того колодца больше не пьют».",
+    "figures": [
+      {
+        "id": "strike-1",
+        "order": 0,
+        "name": "Осколок инея",
+        "shape": [[0, 0]],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 6,
+        "staminaCost": 1,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["intelligence"],
+          "types": {
+            "frost": 1
+          }
+        },
+        "description": "1 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 1,
+        "name": "Ледяной разлом",
+        "shape": [
+          [0, 0],
+          [1, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 1,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["intelligence"],
+          "types": {
+            "frost": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "shards",
+        "order": 2,
+        "name": "Разлёт осколков",
+        "shape": [
+          [0, 0],
+          [2, 2]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["intelligence"],
+          "types": {
+            "frost": 1
+          }
+        },
+        "description": "2 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      }
+    ],
+    "weightClass": "light"
+  },
+  {
+    "id": "bitter-spore-staff",
+    "name": "Посох горьких спор",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 2,
+    "tier": 3,
+    "requirements": {
+      "intelligence": 1
+    },
+    "family": "spore-staff",
+    "description": "Длинный посох из тёмного древесного корня. Пористое навершие удерживает железная сетка; у отверстий проступает оливковый налёт. Болотные алхимики запечатывают сухие споры в пористом навершии. Обученный владелец выпускает отмеренную порцию, удерживая посох обеими руками. «Лечебный порошок хранят в другой комнате».",
+    "figures": [
+      {
+        "id": "strike-1",
+        "order": 0,
+        "name": "Рассеянные споры",
+        "shape": [
+          [0, 0],
+          [2, 0],
+          [1, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 4,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["intelligence"],
+          "types": {
+            "poison": 1
+          }
+        },
+        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 1,
+        "name": "Горькое облако",
+        "shape": [
+          [0, 0],
+          [1, 0],
+          [0, 1],
+          [2, 2]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 5,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["intelligence"],
+          "types": {
+            "poison": 1
+          }
+        },
+        "description": "4 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      }
+    ],
+    "weightClass": "heavy"
+  },
+  {
+    "id": "clay-circle-staff",
+    "name": "Посох глиняного круга",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 2,
+    "tier": 2,
+    "requirements": {
+      "intelligence": 1
+    },
+    "family": "earth-staff",
+    "description": "Деревянный посох с круглым глиняным навершием. Железные скобы стягивают сколотый диск с концентрическими бороздами. Мастера земли использовали этот инструмент при укреплении подземных сводов. Борозды собирают усилие в короткий направленный толчок. «Свод не рухнул. Лестница к нему не сохранилась».",
+    "figures": [
+      {
+        "id": "point",
+        "order": 0,
+        "name": "Каменный всплеск",
+        "shape": [
+          [0, 0],
+          [1, 0],
+          [0, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 1,
+        "staminaCost": 4,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["intelligence"],
+          "types": {
+            "magic": 1
+          }
+        },
+        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "strike-1",
+        "order": 1,
+        "name": "Каменный отклик",
+        "shape": [
+          [0, 0],
+          [2, 1],
+          [0, 2]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 1,
+        "staminaCost": 4,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["intelligence"],
+          "types": {
+            "magic": 1
+          }
+        },
+        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 2,
+        "name": "Разлом круга",
+        "shape": [
+          [0, 0],
+          [1, 1],
+          [2, 0],
+          [1, 2]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 5,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["intelligence"],
+          "types": {
+            "magic": 1
+          }
+        },
+        "description": "4 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      }
+    ],
+    "weightClass": "heavy"
+  },
+  {
+    "id": "ferry-espadon",
+    "name": "Эспадон переправы",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 2,
+    "tier": 2,
+    "requirements": {
+      "strength": 1,
+      "agility": 1
+    },
+    "family": "espadon",
+    "description": "Тяжёлый двуручный меч с длинной рукоятью, широкой крестовиной и кожаной обмоткой у основания клинка. Охрана переправы ценила этот меч за управляемый широкий размах. Вес требует силы, а тесный настил — точности. «На мосту некуда отступить ни тому, ни другому».",
+    "figures": [
+      {
+        "id": "strike-1",
+        "order": 0,
+        "name": "Косой взмах",
+        "shape": [
+          [0, 0],
+          [1, 1],
+          [2, 0]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 4,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength", "agility"],
+          "types": {
+            "slash": 1
+          }
+        },
+        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 1,
+        "name": "Перехват на мосту",
+        "shape": [
+          [0, 0],
+          [2, 0],
+          [2, 1],
+          [1, 2]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 1,
+        "staminaCost": 5,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength", "agility"],
+          "types": {
+            "slash": 1
+          }
+        },
+        "description": "4 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "sweep",
+        "order": 2,
+        "name": "Размах переправы",
+        "shape": [
+          [0, 0],
+          [1, 0],
+          [2, 0],
+          [2, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 1,
+        "staminaCost": 5,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength", "agility"],
+          "types": {
+            "slash": 1
+          }
+        },
+        "description": "4 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      }
+    ],
+    "weightClass": "heavy"
+  },
+  {
+    "id": "glassfurnace-hammer",
+    "name": "Молот стекольного горна",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 2,
+    "tier": 2,
+    "requirements": {
+      "strength": 1,
+      "intelligence": 1
+    },
+    "family": "war-hammer",
+    "description": "Двуручный молот на обожжённой деревянной рукояти. В массивном железном бойке заключён тускло-красный осколок жаропрочного стекла. Маг стекольного горна закрепил в бойке краткий выброс жара. Сильный владелец удерживает тяжёлую головку, знание устройства направляет нагрев. «Им не ковали сталь. Стекло помнило удары дольше».",
+    "figures": [
+      {
+        "id": "strike-1",
+        "order": 0,
+        "name": "Удар горячего бойка",
+        "shape": [
+          [0, 0],
+          [1, 1],
+          [2, 0]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 4,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength", "intelligence"],
+          "types": {
+            "blunt": 1,
+            "fire": 1
+          }
+        },
+        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      },
+      {
+        "id": "heavy",
+        "order": 1,
+        "name": "Жаровой скол",
+        "shape": [
+          [0, 0],
+          [1, 0],
+          [0, 1],
+          [1, 1]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 6,
+        "blockCost": 0,
+        "staminaDamagePerCell": 2,
+        "healthDamage": {
+          "base": 3,
+          "stats": ["strength", "intelligence"],
+          "types": {
+            "blunt": 1,
+            "fire": 1
+          }
+        },
+        "description": "4 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      }
+    ],
+    "weightClass": "heavy"
   }
 ]

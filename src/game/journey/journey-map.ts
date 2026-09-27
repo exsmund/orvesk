@@ -1,5 +1,5 @@
 import configs from "../../../data/journey-maps.json";
-import type { Journey, PublicGame } from "../types";
+import type { Journey, PublicGame } from "@/game/types";
 export interface MapPoint {
   id: string;
   x: number;
@@ -169,40 +169,24 @@ export function collapseJourneyPoints(
   };
 }
 
-function generateCandidate(
-  geometry: JourneyGraph,
-  random: () => number,
-): JourneyMapLayout {
-  const graph = validateJourneyGraph(geometry);
-  const pick = <T>(items: T[]) => items[Math.floor(random() * items.length)];
-  const shuffle = <T>(items: T[]) => {
-    const result = [...items];
-    for (let i = result.length - 1; i > 0; i--) {
-      const j = Math.floor(random() * (i + 1));
-      [result[i], result[j]] = [result[j], result[i]];
-    }
-    return result;
+/** Four encounters each offer a camp, optionally an alternative forge, then the boss. */
+export function generateJourneyMap(random: () => number): JourneyMapLayout {
+  let seed = Math.floor(random() * 4294967296) >>> 0;
+  const roll = () => {
+    seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
+    return seed / 4294967296;
   };
-  // All opponents belong to one directed path, including its two endpoints.
-  const path = [graph.start];
-  while (path.at(-1) !== graph.end) {
-    const choices = graph.outgoing
-      .get(path.at(-1)!)!
-      .filter((id) => path.length + graph.length.get(id)! >= 5);
-    path.push(pick(choices));
-  }
-  const middle = new Set(shuffle(path.slice(1, -1)).slice(0, 3));
-  const fights = path.filter(
-    (id) => id === graph.start || id === graph.end || middle.has(id),
-  );
-  const events = new Map<string, JourneyNode>();
+  const geometry = generateJourneyGraph(roll);
+  const graph = validateJourneyGraph(geometry);
+  const nodes: JourneyNode[] = [];
+  const edges: [string, string][] = [];
   const add = (
     point: string,
     id: string,
     kind: JourneyNode["kind"],
     stage: number,
   ) => {
-    events.set(point, {
+    nodes.push({
       ...geometry.nodes.find((n) => n.id === point)!,
       id,
       kind,
@@ -210,51 +194,37 @@ function generateCandidate(
       name: eventName(kind, stage),
     });
   };
-  fights.forEach((point, i) => add(point, `fight-${i + 1}`, "fight", i + 1));
-  const free = shuffle(
-    geometry.nodes.map((n) => n.id).filter((id) => !events.has(id)),
-  );
-  // Choose event counts that fit the generated points.
-  const counts: [number, number][] = [];
-  for (let forge = 0; forge <= 2; forge++)
-    for (let camp = 1; camp <= 4; camp++)
-      if (forge + camp <= free.length) counts.push([forge, camp]);
-  const [forges, camps] = pick(counts);
-  const kinds: JourneyNode["kind"][] = [
-    ...Array<"forge">(forges).fill("forge"),
-    ...Array<"camp">(camps).fill("camp"),
-  ];
-  kinds.forEach((kind, i) => add(free[i], `${kind}-${i + 1}`, kind, 0));
-  return collapseJourneyPoints(geometry, events);
-}
-
-/** Keep randomness bounded and reproducible, including for constant test RNGs. */
-export function generateJourneyMap(random: () => number): JourneyMapLayout {
-  let seed = Math.floor(random() * 4294967296) >>> 0;
-  const roll = () => {
-    seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
-    return seed / 4294967296;
-  };
-  const graph = generateJourneyGraph(roll);
-  for (let attempt = 0; attempt < 500; attempt++) {
-    const layout = generateCandidate(graph, roll);
-    const fights = new Set(
-      layout.nodes.filter((n) => n.kind === "fight").map((n) => n.id),
-    );
-    if (
-      layout.nodes.every((n) => {
-        const next = layout.edges.filter(([from]) => from === n.id);
-        return (
-          next.length <= 2 &&
-          next.filter(([, to]) => fights.has(to)).length <= 1
-        );
-      })
-    )
-      return layout;
+  const branches = [0, 1, 2, 3];
+  for (let i = branches.length - 1; i > 0; i--) {
+    const j = Math.floor(roll() * (i + 1));
+    [branches[i], branches[j]] = [branches[j], branches[i]];
   }
-  throw new Error(
-    "Невозможно разместить события на карте без выбора между противниками.",
-  );
+  const forgeBranches = new Set(branches.slice(0, Math.floor(roll() * 3)));
+  let current = graph.start;
+  add(current, "fight-1", "fight", 1);
+  for (let branch = 0; branch < 4; branch++) {
+    const sides = graph.outgoing.get(current)!;
+    const campSide = Math.floor(roll() * sides.length);
+    const camp = sides[campSide];
+    const forge = sides[1 - campSide];
+    const next = graph.outgoing.get(camp)![0];
+    const stage = branch + 1;
+    add(camp, `camp-${stage}`, "camp", stage);
+    edges.push(
+      [`fight-${stage}`, `camp-${stage}`],
+      [`camp-${stage}`, `fight-${stage + 1}`],
+    );
+    if (forgeBranches.has(branch)) {
+      add(forge, `forge-${stage}`, "forge", stage);
+      edges.push(
+        [`fight-${stage}`, `forge-${stage}`],
+        [`forge-${stage}`, `fight-${stage + 1}`],
+      );
+    }
+    add(next, `fight-${stage + 1}`, "fight", stage + 1);
+    current = next;
+  }
+  return { nodes, edges };
 }
 
 /** Missing layouts use a stable fallback seed. */
@@ -277,7 +247,7 @@ export function availableJourneyNodes(
   if (!j) return [];
   if (game.phase === "combat" || game.phase === "draw")
     return [currentJourneyNode(j)];
-  if (game.phase === "defeat") return ["fight-1"];
+  if (game.phase === "defeat") return [currentJourneyNode(j)];
   if (game.phase !== "ready" || j.finished) return [];
   const current = currentJourneyNode(j),
     node = journeyNode(current, j);

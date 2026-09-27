@@ -1,49 +1,41 @@
-import { isEvade, skill } from "../skills/skills";
-import { maxHp } from "./engine";
-import {
-  comboCandidates,
-  groupCombos,
-  type FigureCombo,
-} from "./figure-combos";
-import { maxPoise, poise } from "./tactics";
-import { sideAdjacent } from "./battle-traits";
-import { item } from "../equipment/catalog";
-import { damageParts } from "./engine";
-import { placementCells } from "./board";
+import BALANCE from "../../../data/combat-balance.json";
+import { isEvade } from "@/game/skills/skills";
+import { maxHp } from "@/game/combat/engine";
+import { stamina } from "@/game/combat/tactics";
+import { placementCells } from "@/game/combat/board";
 import {
   reactionManeuvers,
   isStrike,
   isGuard,
-  maneuverPoiseDamage,
-} from "./reaction-rules";
+} from "@/game/combat/reaction-rules";
+import {
+  figureCellParts,
+  armorRating,
+  mitigate,
+} from "@/game/combat/figure-power";
 import type {
   BoardModifiers,
+  ClashResult,
   Fighter,
   Maneuver,
   Placement,
   PublicGame,
   Side,
-  SpecialCell,
-} from "../types";
+} from "@/game/types";
 export const attackParts = (f: Fighter, m: Maneuver) =>
-  damageParts(
-    { ...f, gear: { ...f.gear, weapon: m.weaponId ?? f.gear.weapon } },
-    { action: m.action as "attack", step: 0 },
-  ).map((part) => ({ ...part, value: part.value * (m.powerScale ?? 1) }));
+  figureCellParts(f, m).map((p) => ({ ...p, value: p.value * m.shape.length }));
 export function layer(
   f: Fighter,
   placed: Placement[],
   mod: BoardModifiers,
 ): Array<Maneuver | undefined> {
-  const result: Array<Maneuver | undefined> = Array(9).fill(undefined),
-    tokens = reactionManeuvers(f);
+  const result: Array<Maneuver | undefined> = Array(9).fill(undefined);
   for (const p of placed) {
-    const m = tokens.find((m) => m.id === p.id)!;
-    for (const cell of placementCells(m, p, mod)) result[cell] = m;
+    const m = reactionManeuvers(f).find((m) => m.id === p.id);
+    if (m) for (const cell of placementCells(m, p, mod)) result[cell] = m;
   }
   return result;
 }
-/** Distribute rounded tenths without losing or inventing health across cells. */
 export function distributeDamage(total: number, weights: number[]): number[] {
   const sum = weights.reduce((a, b) => a + b, 0),
     units = Math.round(total * 10);
@@ -61,97 +53,109 @@ export function distributeDamage(total: number, weights: number[]): number[] {
   return result.map((n) => n / 10);
 }
 
-/** Shared by actual resolution and the public reaction preview. No state changes or random rolls. */
+export function healthDamage(hp: number, incoming: number[]) {
+  const lost = Math.min(
+    hp,
+    Math.round(incoming.reduce((a, b) => a + b, 0) * 10) / 10,
+  );
+  return { lost, actual: distributeDamage(lost, incoming) };
+}
+const contact = (m: Maneuver, opposing?: Maneuver) =>
+  m.counter
+    ? isStrike(opposing)
+      ? 1
+      : 0
+    : isGuard(opposing) || isEvade(opposing)
+      ? 0
+      : isStrike(opposing)
+        ? 0.5
+        : 1;
+
+function staminaDamageByCell(
+  attackers: Array<Maneuver | undefined>,
+  defenders: Array<Maneuver | undefined>,
+) {
+  const sizes = new Map<string, number>();
+  for (const m of attackers) if (m) sizes.set(m.id, (sizes.get(m.id) ?? 0) + 1);
+  return attackers.map((m, index) =>
+    m && (isStrike(m) || m.counter)
+      ? (m.staminaDamagePerCell ?? 0) *
+        (m.shape.length / sizes.get(m.id)!) *
+        contact(m, defenders[index])
+      : 0,
+  );
+}
+
+/** Older results keep the figures and total loss, enough to recover cell shares. */
+export function clashResultCells(result: ClashResult) {
+  const player = result.cells.map((cell) => cell.player);
+  const enemy = result.cells.map((cell) => cell.enemy);
+  const playerStamina = distributeDamage(
+    result.playerStaminaLoss,
+    staminaDamageByCell(enemy, player),
+  );
+  const enemyStamina = distributeDamage(
+    result.enemyStaminaLoss,
+    staminaDamageByCell(player, enemy),
+  );
+  return result.cells.map((cell, index) => ({
+    ...cell,
+    playerStaminaDamage: cell.playerStaminaDamage ?? playerStamina[index],
+    enemyStaminaDamage: cell.enemyStaminaDamage ?? enemyStamina[index],
+  }));
+}
 export function attackDamage(
   f: Fighter,
   d: Fighter,
   m: Maneuver,
   indices: number[],
   opposing: Array<Maneuver | undefined>,
-  special?: SpecialCell,
-  bonus = 0,
 ) {
-  const base =
-    indices.length === m.cellWeights?.length
-      ? m.cellWeights
-      : indices.map(() => 1 / indices.length);
-  const original = base.reduce((a, b) => a + b, 0);
-  const contact = indices.map(
-    (n, i) =>
-      (base[i] / original) *
-      (isGuard(opposing[n]) || isEvade(opposing[n])
-        ? 0
-        : isStrike(opposing[n])
-          ? d.archetype === "ghost"
-            ? 0.75
-            : 0.5
-          : 1),
-  );
-  const poiseCoverage = contact.reduce((a, b) => a + b, 0);
-  const weights = indices.map(
-    (n, i) =>
-      contact[i] *
-      (special?.kind === "surge" &&
-      indices.includes(special.index) &&
-      (n === special.index || sideAdjacent(n, special.index))
-        ? 1.25
-        : 1),
-  );
-  const coverage = weights.reduce((a, b) => a + b, 0);
-  const pierce =
-    special?.kind === "pierce"
-      ? (weights[indices.indexOf(special.index)] ?? 0)
-      : 0;
-  const armor = [d.gear.body, d.gear.feet]
-      .filter(Boolean)
-      .map((id) => item(id)),
-    parts = attackParts(f, m);
-  if (bonus && parts.length)
-    parts[0] = { ...parts[0], value: parts[0].value + bonus };
-  const blockedRaw =
-    indices.reduce(
-      (sum, n, i) =>
-        sum +
-        (isGuard(opposing[n]) || isEvade(opposing[n])
-          ? (base[i] / original) *
-            (special?.kind === "surge" &&
-            indices.includes(special.index) &&
-            (n === special.index || sideAdjacent(n, special.index))
-              ? 1.25
-              : 1)
-          : 0),
+  const parts = figureCellParts(f, m);
+  const weights: number[] = indices.map((n) => contact(m, opposing[n]));
+  const concentration = m.shape.length / indices.length;
+  const shares = weights.map((w) =>
+    parts.reduce(
+      (sum, p) =>
+        sum + mitigate(p.value, armorRating(d, p.type)) * w * concentration,
       0,
-    ) * parts.reduce((n, p) => n + p.value, 0);
-  const amount = parts.reduce((sum, part) => {
-    const flat = armor.reduce((n, a) => n + (a.defense?.[part.type] ?? 0), 0),
-      penetration =
-        part.type === "fire"
-          ? Math.min(3, Math.floor(f.stats.intelligence / 3))
-          : 0;
-    const bypass = coverage ? Math.min(1, pierce / coverage) : 0;
-    return (
-      sum +
-      Math.max(
-        0,
-        part.value * coverage - Math.max(0, flat - penetration) * (1 - bypass),
-      ) *
-        armor.reduce((n, a) => n * (1 - (a.resistance?.[part.type] ?? 0)), 1)
-    );
-  }, 0);
-  const damage = Math.round(amount * 10) / 10;
+    ),
+  );
   return {
     parts,
-    coverage,
-    poiseCoverage,
-    damage,
-    blockedRaw,
-    shares: distributeDamage(damage, weights),
+    coverage: weights.reduce((a, b) => a + b, 0) / indices.length,
+    staminaCoverage: weights.reduce((a, b) => a + b, 0) / indices.length,
+    blockStaminaDamage: 0,
+    damage: shares.reduce((a, b) => a + b, 0),
+    blockedRaw: 0,
+    shares,
   };
 }
-export function healthDamage(hp: number, incoming: number[]) {
-  const total = incoming.reduce((a, b) => a + b, 0),
-    lost = Math.min(hp, Math.round(total * 10) / 10);
-  return { lost, actual: distributeDamage(lost, incoming) };
+/** Cost is reserved before damage. A blind first move reserves every guard cell. */
+export function placementCost(
+  f: Fighter,
+  placed: Placement[],
+  mod: BoardModifiers,
+  opposing?: Array<Maneuver | undefined>,
+) {
+  let attacks = 0,
+    blocks = 0;
+  for (const p of placed) {
+    const m = reactionManeuvers(f).find((m) => m.id === p.id);
+    if (!m) continue;
+    attacks += m.staminaCost ?? 0;
+    if (m.blockCost)
+      blocks +=
+        placementCells(m, p, mod).filter(
+          (n) => !opposing || isStrike(opposing[n]),
+        ).length * m.blockCost;
+  }
+  return {
+    attacks,
+    blocks,
+    total: attacks + blocks,
+    remaining: stamina(f) - attacks - blocks,
+  };
 }
 export interface ClashSideSummary {
   hpBefore: number;
@@ -159,269 +163,118 @@ export interface ClashSideSummary {
   damage: number;
   blocked: number;
   healed?: number;
-  poiseBefore: number;
-  poiseAfter: number;
-  poiseLoss: number;
-  poiseRecovered: number;
-  prone: boolean;
-  reasons: string[];
-  combos: FigureCombo[];
+  staminaBefore: number;
+  staminaAfter: number;
+  staminaLoss: number;
+  staminaRecovered: number;
+  cost: number;
+  attackCost: number;
+  blockCost: number;
+  available: number;
+  exhausted: boolean;
 }
-export interface ClashCalculation {
-  cells: { index: number; playerDamage: number; enemyDamage: number }[];
-  playerDamage: number;
-  enemyDamage: number;
-  sides: Record<Side, ClashSideSummary>;
-  attacks: Record<Side, Record<string, ReturnType<typeof attackDamage>>>;
-}
-/** One deterministic calculation for the server, previews and post-combat explanations. */
 export function calculateClash(
   fighters: Record<Side, Fighter>,
   moves: Record<Side, Placement[]>,
   mods: Record<Side, BoardModifiers>,
-  special?: SpecialCell,
-): ClashCalculation {
+) {
   const sides = ["player", "enemy"] as const;
   const layers = {
     player: layer(fighters.player, moves.player, mods.player),
     enemy: layer(fighters.enemy, moves.enemy, mods.enemy),
   };
-  const incoming: Record<Side, number[]> = {
-    player: Array(9).fill(0),
-    enemy: Array(9).fill(0),
+  const incoming = {
+    player: Array(9).fill(0) as number[],
+    enemy: Array(9).fill(0) as number[],
   };
-  const attacks: ClashCalculation["attacks"] = { player: {}, enemy: {} };
-  const summaries = {} as ClashCalculation["sides"];
-  const standing = {
-    player: fighters.player.prone && moves.player.some((p) => p.id === "stand"),
-    enemy: fighters.enemy.prone && moves.enemy.some((p) => p.id === "stand"),
+  const incomingStamina = {
+    player: staminaDamageByCell(layers.enemy, layers.player),
+    enemy: staminaDamageByCell(layers.player, layers.enemy),
   };
-  const addPoiseLoss = (side: Side, loss: number, reason: string) => {
-    if (standing[side] || loss <= 0) return;
-    summaries[side].poiseLoss =
-      Math.round((summaries[side].poiseLoss + loss) * 10) / 10;
-    summaries[side].reasons.push(reason);
-  };
+  const attacks: Record<
+    Side,
+    Record<string, ReturnType<typeof attackDamage>>
+  > = { player: {}, enemy: {} };
   for (const side of sides) {
-    const f = fighters[side];
-    summaries[side] = {
-      hpBefore: f.hp,
-      hpAfter: f.hp,
-      damage: 0,
-      blocked: 0,
-      poiseBefore: poise(f),
-      poiseAfter: poise(f),
-      poiseLoss: 0,
-      poiseRecovered: 0,
-      prone: f.prone,
-      reasons: [],
-      combos: [],
-    };
-  }
-  for (const side of sides) {
-    const target = side === "player" ? "enemy" : "player",
-      f = fighters[side],
-      d = fighters[target],
-      tokens = reactionManeuvers(f);
-    const candidates = comboCandidates(f, moves[side], mods[side]);
-    const guarded = (c: FigureCombo) =>
-      moves[side]
-        .filter((p) => p.id === c.actionIds[1])
-        .some((p) =>
-          placementCells(
-            tokens.find((m) => m.id === p.id)!,
-            p,
-            mods[side],
-          ).some((n) => isStrike(layers[target][n])),
-        );
-    // Each adjacent dagger attack gets at most one bonus, even with several shields.
-    const counters = groupCombos(
-      candidates.filter(
-        (c) =>
-          c.kind === "counter" &&
-          guarded(c) &&
-          moves[side].some(
-            (p) =>
-              p.id === c.actionIds[0] &&
-              placementCells(
-                tokens.find((m) => m.id === p.id)!,
-                p,
-                mods[side],
-              ).some(
-                (n) =>
-                  !isGuard(layers[target][n]) && !isEvade(layers[target][n]),
-              ),
-          ),
-      ),
-    );
+    const target = side === "player" ? "enemy" : "player";
     for (const p of moves[side]) {
-      const m = tokens.find((m) => m.id === p.id)!;
-      if (!isStrike(m)) continue;
+      const m = reactionManeuvers(fighters[side]).find((m) => m.id === p.id);
+      if (!m || (!isStrike(m) && !m.counter)) continue;
       const indices = placementCells(m, p, mods[side]);
-      const base = attackDamage(f, d, m, indices, layers[target], special),
-        counter = counters.find((c) => c.actionIds[0] === p.id);
-      const result =
-        counter?.actionIds[0] === p.id
-          ? attackDamage(f, d, m, indices, layers[target], special, 1)
-          : base;
-      attacks[side][p.id] = result;
-      indices.forEach((n, i) => (incoming[target][n] += result.shares[i]));
-      summaries[target].blocked += result.blockedRaw;
-      if (result.damage > 0) {
-        const full = maneuverPoiseDamage(f, m),
-          loss = Math.round(full * result.poiseCoverage * 10) / 10;
-        addPoiseLoss(
-          target,
-          loss,
-          `${m.name}: −${loss.toLocaleString("ru-RU")} стойки (${full} × ${Math.round(result.poiseCoverage * 100)}% прошедшей атаки)`,
-        );
-      }
-      if (counter?.actionIds[0] === p.id) {
-        counter.damageBonus =
-          Math.round((result.damage - base.damage) * 10) / 10;
-        summaries[side].combos.push(counter);
-      }
-    }
-    for (const kind of ["pressure", "support"] as const) {
-      const combo = candidates.find(
-        (c) =>
-          c.kind === kind &&
-          (attacks[side][c.actionIds[0]]?.damage ?? 0) > 0 &&
-          (kind === "pressure"
-            ? (attacks[side][c.actionIds[1]]?.damage ?? 0) > 0
-            : guarded(c)),
+      const a = attackDamage(
+        fighters[side],
+        fighters[target],
+        m,
+        indices,
+        layers[target],
       );
-      if (combo && !(kind === "pressure" && standing[target])) {
-        if (kind === "pressure") {
-          combo.poiseBonus = 1;
-          addPoiseLoss(target, 1, "Подсечка: −1 стойки");
-        } else combo.recoveryBonus = 1;
-        summaries[side].combos.push(combo);
-      }
+      attacks[side][p.id] = a;
+      indices.forEach((n, i) => {
+        incoming[target][n] += a.shares[i];
+      });
     }
-    // Recoveries are independent of placement order and precede simultaneous poise damage.
-    let recovery = 0;
-    for (const p of moves[side]) {
-      const m = tokens.find((m) => m.id === p.id)!,
-        indices = placementCells(m, p, mods[side]);
-      if (isGuard(m)) {
-        if (
-          indices.some(
-            (n) =>
-              !isStrike(layers[target][n]) &&
-              !isGuard(layers[target][n]) &&
-              !isEvade(layers[target][n]),
-          )
-        ) {
-          addPoiseLoss(target, 1, `${m.name} на пустоте: −1 стойки`);
-        }
-        if (special?.kind === "rally" && indices.includes(special.index)) {
-          recovery += 2;
-          summaries[side].reasons.push("Опора на поле: до +2 стойки");
-        }
-        if (
-          f.archetype === "warden" &&
-          indices.every((n) => !isStrike(layers[target][n]))
-        ) {
-          recovery++;
-          summaries[side].reasons.push("Страж: до +1 стойки");
-        }
-      }
-      const ability = m.skillId ? skill(m.skillId) : undefined;
-      if (ability?.effect === "poise") {
-        recovery += ability.amount;
-        summaries[side].reasons.push(`${m.name}: до +${ability.amount} стойки`);
-      }
-      if (isEvade(m))
-        summaries[side].reasons.push(
-          `${m.name}: урон здоровью и стойке в перекрытых клетках отменён`,
-        );
-      if (m.action === "rest") {
-        recovery += 2;
-        summaries[side].reasons.push("Передышка: до +2 стойки");
-      }
-      if (m.action === "stand") {
-        summaries[side].prone = false;
-        summaries[side].reasons.push(
-          "Подъём: полное восстановление и защита от потери стойки на этот раунд; урон здоровью сохраняется",
-        );
-      }
-    }
-    // Count enemy figures, not cells or defending blocks. Several blocks may cover one attack.
-    const shield = f.gear.shield ? item(f.gear.shield) : undefined;
-    if (shield?.fullBlockPoiseRecovery) {
-      const enemyTokens = reactionManeuvers(d);
-      for (const attack of moves[target]) {
-        const m = enemyTokens.find((m) => m.id === attack.id)!;
-        if (!isStrike(m)) continue;
-        const cells = placementCells(m, attack, mods[target]);
-        if (
-          cells.length &&
-          cells.every(
-            (n) =>
-              isGuard(layers[side][n]) &&
-              layers[side][n]?.shieldId === shield.id,
-          )
-        ) {
-          recovery += shield.fullBlockPoiseRecovery;
-          summaries[side].reasons.push(
-            `${shield.name}: полностью перекрыта фигура «${m.name}» — до +${shield.fullBlockPoiseRecovery} стойки`,
-          );
-        }
-      }
-    }
-    if (summaries[side].combos.some((c) => c.kind === "support")) {
-      recovery++;
-      summaries[side].reasons.push("Опора меча: до +1 стойки");
-    }
-    const afterRecovery = standing[side]
-      ? maxPoise(f)
-      : Math.min(maxPoise(f), poise(f) + recovery);
-    summaries[side].poiseRecovered =
-      Math.round((afterRecovery - poise(f)) * 10) / 10;
-    summaries[side].poiseAfter = afterRecovery;
   }
   const health = {
     player: healthDamage(fighters.player.hp, incoming.player),
     enemy: healthDamage(fighters.enemy.hp, incoming.enemy),
   };
+  const summaries = {} as Record<Side, ClashSideSummary>;
   for (const side of sides) {
-    const s = summaries[side];
-    s.damage = health[side].lost;
-    s.hpAfter = Math.max(0, Math.round((s.hpBefore - s.damage) * 10) / 10);
-    s.blocked = Math.round(s.blocked * 10) / 10;
-    s.poiseAfter = Math.max(
+    const f = fighters[side];
+    const target = side === "player" ? "enemy" : "player";
+    const cost = placementCost(f, moves[side], mods[side], layers[target]);
+    let hpAfter = Math.max(0, Math.round((f.hp - health[side].lost) * 10) / 10);
+    const healing = moves[side].reduce(
+      (sum, p) =>
+        sum + (reactionManeuvers(f).find((m) => m.id === p.id)?.healing ?? 0),
       0,
-      Math.round((s.poiseAfter - s.poiseLoss) * 10) / 10,
     );
-    s.prone = s.prone || s.poiseAfter === 0;
+    const healed = hpAfter > 0 ? Math.min(healing, maxHp(f) - hpAfter) : 0;
+    hpAfter += healed;
+    const staminaDamage = incomingStamina[side].reduce((sum, n) => sum + n, 0);
+    const loss = Math.min(Math.max(0, cost.remaining), staminaDamage);
+    const exhausted = staminaDamage > 0 && cost.remaining - staminaDamage <= 0;
+    const resting = !moves[side].length && hpAfter > 0;
+    summaries[side] = {
+      hpBefore: f.hp,
+      hpAfter,
+      damage: health[side].lost,
+      blocked: 0,
+      healed,
+      staminaBefore: stamina(f),
+      staminaAfter: resting
+        ? BALANCE.stamina.max
+        : Math.max(0, cost.remaining - loss),
+      staminaLoss: loss,
+      staminaRecovered: resting
+        ? BALANCE.stamina.max - Math.max(0, cost.remaining - loss)
+        : 0,
+      cost: cost.total,
+      attackCost: cost.attacks,
+      blockCost: cost.blocks,
+      available: cost.remaining,
+      exhausted: exhausted && !resting,
+    };
   }
-  for (const side of sides) {
-    const s = summaries[side];
-    const healing = moves[side].reduce((n, p) => {
-      const m = reactionManeuvers(fighters[side]).find((m) => m.id === p.id),
-        ability = m?.skillId ? skill(m.skillId) : undefined;
-      return n + (ability?.effect === "heal" ? ability.amount : 0);
-    }, 0);
-    if (healing && s.hpAfter > 0) {
-      s.healed = Math.max(
-        0,
-        Math.min(healing, maxHp(fighters[side]) - s.hpAfter),
-      );
-      s.hpAfter = Math.round((s.hpAfter + s.healed) * 10) / 10;
-      s.reasons.push(`Перевязка: +${s.healed} здоровья после урона`);
-    }
-  }
+  const staminaLoss = {
+    player: distributeDamage(
+      summaries.player.staminaLoss,
+      incomingStamina.player,
+    ),
+    enemy: distributeDamage(summaries.enemy.staminaLoss, incomingStamina.enemy),
+  };
   return {
+    sides: summaries,
+    attacks,
+    playerDamage: health.player.lost,
+    enemyDamage: health.enemy.lost,
     cells: Array.from({ length: 9 }, (_, index) => ({
       index,
       playerDamage: health.player.actual[index],
       enemyDamage: health.enemy.actual[index],
+      playerStaminaDamage: staminaLoss.player[index],
+      enemyStaminaDamage: staminaLoss.enemy[index],
     })),
-    playerDamage: health.player.lost,
-    enemyDamage: health.enemy.lost,
-    sides: summaries,
-    attacks,
   };
 }
 export function previewClashDamage(
@@ -430,63 +283,31 @@ export function previewClashDamage(
   mod: BoardModifiers = {},
 ) {
   const plan = game.clash;
-  if (
-    !plan ||
-    plan.stage !== "reaction" ||
-    plan.preparer !== "enemy" ||
-    !plan.enemyPlaced
-  )
-    return null;
+  if (!plan?.enemyPlaced) return null;
   return calculateClash(
     game,
     { player: placed, enemy: plan.enemyPlaced },
     { player: mod, enemy: plan.enemyModifiers ?? {} },
-    plan.special,
   );
 }
-
-/** Preparation shows attack potential only: the hidden response must never be read. */
 export function preparationDamage(
   f: Fighter,
   placed: Placement[],
   mod: BoardModifiers = {},
-  special?: SpecialCell,
 ) {
-  const tokens = reactionManeuvers(f),
-    potential = Array(9).fill(0) as number[],
-    conditional = Array(9).fill(0) as number[];
-  const candidates = comboCandidates(f, placed, mod);
-  const undefended = { ...f, gear: { ...f.gear, body: null, feet: null } };
+  const potential = Array(9).fill(0) as number[];
   for (const p of placed) {
-    const m = tokens.find((m) => m.id === p.id)!;
-    if (!isStrike(m)) continue;
-    const indices = placementCells(m, p, mod),
-      base = attackDamage(
-        f,
-        undefended,
-        m,
-        indices,
-        Array(9).fill(undefined),
-        special,
-      );
-    const withBonus = candidates.some(
-      (c) => c.kind === "counter" && c.actionIds[0] === p.id,
-    )
-      ? attackDamage(
-          f,
-          undefended,
-          m,
-          indices,
-          Array(9).fill(undefined),
-          special,
-          1,
-        )
-      : base;
-    indices.forEach((n, i) => {
-      potential[n] = base.shares[i];
-      conditional[n] =
-        Math.round((withBonus.shares[i] - base.shares[i]) * 10) / 10;
-    });
+    const m = reactionManeuvers(f).find((m) => m.id === p.id);
+    if (!m || !isStrike(m)) continue;
+    const value = figureCellParts(f, m).reduce((sum, p) => sum + p.value, 0);
+    const cells = placementCells(m, p, mod);
+    for (const n of cells)
+      potential[n] = (value * m.shape.length) / cells.length;
   }
-  return { potential, conditional };
+  return {
+    potential,
+    stamina: staminaDamageByCell(layer(f, placed, mod), []),
+  };
 }
+
+export type ClashCalculation = ReturnType<typeof calculateClash>;

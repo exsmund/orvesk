@@ -1,0 +1,251 @@
+.creation-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+}
+@media (max-width: 599px) {
+  .creation-back {
+    font-size: 0.7rem;
+    padding: 8px;
+  }
+}
+dialog.heroes-dialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.heroes-dialog-body {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 24px 28px;
+}
+.heroes-dialog .heroes-roster {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+}
+.heroes-dialog .heroes-empty {
+  padding: 32px 0;
+}
+@media (max-width: 599px) {
+  .heroes-dialog-body {
+    padding: 16px;
+  }
+  .heroes-dialog .heroes-roster {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+}
+
+.heroes-dialog .hero-select {
+  display: grid;
+  grid-template-columns: 130px minmax(0, 1fr);
+  align-items: center;
+  gap: 24px;
+  border: 0;
+  border-radius: 0;
+  background: var(--color-base-transparent);
+  box-shadow: none;
+  overflow: visible;
+}
+.heroes-dialog .hero-select:hover {
+  background: var(--color-base-transparent);
+  box-shadow: none;
+}
+.heroes-dialog .hero-select > div {
+  min-width: 0;
+  padding: 0;
+}
+.heroes-dialog .hero-select h2 {
+  margin: 0 0 8px;
+}
+.heroes-dialog .hero-select .eyebrow {
+  display: block;
+  margin-bottom: 10px;
+}
+.heroes-dialog .hero-select p {
+  margin: 0 0 12px;
+}
+.heroes-dialog .hero-select:hover h2 {
+  color: var(--color-text-highlight);
+}
+@media (max-width: 599px) {
+  .heroes-dialog .hero-select {
+    grid-template-columns: 96px minmax(0, 1fr);
+    gap: 16px;
+  }
+}
+
+.heroes-dialog .hero-roster-entry {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+}
+.heroes-dialog .hero-select {
+  min-width: 0;
+}
+.hero-roster-entry .hero-delete {
+  margin: 0;
+}
+@media (max-width: 599px) {
+  .heroes-dialog .hero-roster-entry {
+    gap: 10px;
+  }
+  .heroes-dialog .hero-select {
+    grid-template-columns: clamp(56px, 20vw, 80px) minmax(0, 1fr);
+    gap: 12px;
+  }
+}
+dialog.hero-confirm-dialog[data-size] {
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.hero-confirm-body {
+  padding: 20px 28px;
+  overflow: auto;
+  min-height: 0;
+}
+@media (max-width: 599px) {
+  dialog.hero-confirm-dialog[data-size] {
+    height: 100dvh;
+  }
+  .hero-confirm-body {
+    flex: 1;
+  }
+}
+.heroes-screen {
+  position: relative;
+  isolation: isolate;
+  min-height: 100dvh;
+  background: var(--color-background-page);
+  color: var(--color-text-primary);
+}
+.heroes-screen:before,
+.heroes-modal-backdrop:before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      180deg,
+      var(--color-background-start-screen),
+      var(--color-background-start-screen-2) 25%,
+      var(--color-background-start-screen-3) 75%,
+      var(--color-background-start-screen-4)
+    ),
+    radial-gradient(
+      ellipse at 50% 50%,
+      var(--color-background-start-screen-5),
+      var(--color-base-transparent) 65%
+    );
+}
+.heroes-screen:not(.heroes-modal-backdrop):before {
+  background: linear-gradient(
+    180deg,
+    var(--color-background-start-screen-9),
+    var(--color-background-start-screen-10)
+  );
+}
+.heroes-roster {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 22px;
+}
+.hero-roster-entry {
+  min-width: 0;
+}
+.hero-select {
+  display: block;
+  text-align: left;
+  width: 100%;
+  padding: 0;
+  background: var(--color-background-start-screen-12);
+  border: 1px solid var(--color-border-start-screen-2-2);
+  border-radius: 3px;
+  overflow: hidden;
+  box-shadow: 0 12px 28px var(--color-shadow-combat-replay);
+  transition:
+    box-shadow 0.2s,
+    border-color 0.2s;
+}
+.hero-select:hover {
+  border-color: var(--color-border-start-screen);
+  box-shadow:
+    0 12px 28px var(--color-shadow-style-4),
+    0 0 16px var(--color-shadow-start-screen);
+}
+.hero-select > div {
+  padding: 18px;
+}
+.hero-select h2 {
+  font: 400 1.55rem var(--serif);
+  margin: 8px 0;
+  overflow-wrap: anywhere;
+}
+.hero-select .eyebrow {
+  font-size: 0.6rem;
+  color: var(--color-text-muted);
+}
+.hero-select p {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  margin-bottom: 14px;
+}
+.hero-load-error {
+  padding: 20px;
+  background: var(--color-background-panel);
+  border: 1px solid var(--color-border-souls-3);
+}
+.hero-load-error p {
+  margin: 12px 0;
+}
+.heroes-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  text-align: center;
+  padding: 60px 20px;
+}
+.heroes-empty h2 {
+  font: 400 1.8rem var(--serif);
+}
+.heroes-empty p {
+  color: var(--color-text-muted);
+}
+@media (max-width: 599px) {
+  .heroes-roster {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .hero-select > div {
+    padding: 12px;
+  }
+  .hero-select h2 {
+    font-size: 1.2rem;
+  }
+  .hero-select p {
+    font-size: 0.65rem;
+  }
+  .hero-select .soul-balance {
+    gap: 5px;
+  }
+  .heroes-empty {
+    padding: 40px 0;
+  }
+}
+.roster-portrait-frame {
+  width: 100%;
+}
+@media (max-width: 599px) {
+  .roster-portrait-frame {
+    --portrait-edge: 24px;
+  }
+}

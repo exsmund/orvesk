@@ -1,0 +1,15 @@
+.game-header-menu button:where(:not(.gothic-text-button)).combat-menu-button {
+  position: static;
+}
+button:where(:not(.gothic-text-button)).combat-menu-button {
+  position: absolute;
+  top: 8px;
+  left: 18px;
+  z-index: 20;
+}
+@media (max-width: 599px) {
+  button:where(:not(.gothic-text-button)).combat-menu-button {
+    left: 8px;
+    top: 6px;
+  }
+}

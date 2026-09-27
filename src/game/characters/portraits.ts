@@ -1,12 +1,21 @@
-import type { Fighter } from "../types";
+import { CREATURES, creature } from "@/game/creatures/catalog";
 import portraits from "../../../data/portraits.json";
 
 export const PORTRAITS = portraits;
 export const DEFAULT_PORTRAIT_ID = PORTRAITS[0].id;
 export const isPortraitId = (value: unknown): value is string =>
   typeof value === "string" && PORTRAITS.some((p) => p.id === value);
-export const portrait = (id?: string) =>
-  PORTRAITS.find((p) => p.id === id) ?? PORTRAITS[0];
+export const portrait = (id?: string) => {
+  const c = id?.startsWith("creature:") ? creature(id.slice(9)) : undefined;
+  return c
+    ? { id: id!, label: c.name, src: c.portrait.src, facing: c.portrait.facing }
+    : {
+        ...(PORTRAITS.find((p) => p.id === id) ?? PORTRAITS[0]),
+        facing: "right" as const,
+      };
+};
+export const portraitFacing = (src: string) =>
+  CREATURES.find((c) => c.portrait.src === src)?.portrait.facing ?? "right";
 
 /** Stable encounter artwork shared by the map preview and battle generation. */
 export function encounterPortrait(
@@ -31,20 +40,6 @@ export function encounterIdentity(
   let hash = 2166136261;
   for (const char of `${player.name}:${player.portraitId}:${expedition}:${stage}:identity`)
     hash = Math.imul(hash ^ char.charCodeAt(0), 16777619) >>> 0;
-  const archetype: Fighter["archetype"] =
-    stage === 1
-      ? undefined
-      : stage === 2
-        ? hash % 2
-          ? "warden"
-          : "duelist"
-        : stage === 3
-          ? hash % 2
-            ? "duelist"
-            : "crusher"
-          : hash % 2
-            ? "crusher"
-            : "ghost";
   const names = [
     "Безымянный",
     "Тихий странник",
@@ -59,6 +54,5 @@ export function encounterIdentity(
         : stage === 5
           ? "Босс круга"
           : names[(hash >>> 1) % names.length],
-    archetype,
   };
 }

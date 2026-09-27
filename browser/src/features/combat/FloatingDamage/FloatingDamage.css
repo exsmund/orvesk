@@ -1,0 +1,58 @@
+.floating-damage {
+  position: absolute;
+  z-index: 5;
+  top: 25%;
+  left: 50%;
+  pointer-events: none;
+  color: var(--color-text-accent);
+  font-size: clamp(1.9rem, 3vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  text-shadow:
+    0 2px 3px var(--color-shadow-battle-effects),
+    0 0 14px var(--color-shadow-battle-effects-2);
+  animation: damage-rise 1.8s ease-out both;
+}
+.floating-damage small {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.55rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+}
+@keyframes damage-rise {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 8px) scale(0.75);
+  }
+  12% {
+    opacity: 1;
+    transform: translate(-50%, -10px) scale(1.12);
+  }
+  27% {
+    transform: translate(-50%, -15px) scale(1);
+  }
+  72% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -75px) scale(0.95);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .floating-damage {
+    animation: none;
+  }
+  .floating-damage {
+    opacity: 1;
+    transform: translate(-50%, -15px);
+  }
+}
+@media (max-width: 599px) {
+  .combat-app .floating-damage {
+    font-size: 1.5rem;
+  }
+}

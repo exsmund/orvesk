@@ -1,0 +1,12 @@
+.item-delta {
+  font-weight: 600;
+}
+.item-delta.better {
+  color: var(--color-text-success);
+}
+.item-delta.worse {
+  color: var(--color-text-danger);
+}
+.item-delta.same {
+  color: var(--color-text-muted);
+}

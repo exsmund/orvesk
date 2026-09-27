@@ -1,0 +1,62 @@
+.rules {
+  padding: 26px 32px 38px;
+  max-width: 760px;
+  margin: auto;
+}
+.rules h3 {
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 26px 0 12px;
+  color: var(--color-text-success);
+}
+.rules p,
+.rules li {
+  font-size: 0.875rem;
+  line-height: 1.8;
+  color: var(--color-text-muted);
+}
+.rules p + p {
+  margin-top: 12px;
+}
+.rules ul {
+  padding-left: 21px;
+}
+@media (max-width: 599px) {
+  .rules {
+    padding: 20px;
+  }
+  .rules p,
+  .rules li {
+    font-size: 0.875rem;
+  }
+}
+
+.rule-intro {
+  display: flex;
+  align-items: center;
+  gap: 23px;
+  background: var(--color-background-style-34);
+  padding: 24px;
+  color: var(--accent);
+}
+.rule-intro p {
+  color: var(--color-text-muted);
+}
+.rule-intro strong {
+  font-weight: 500;
+  color: var(--color-text-highlight);
+}
+
+.rules-terms {
+  margin: 0;
+}
+.rules-terms > div {
+  margin-block: 0 16px;
+}
+.rules-terms dt {
+  margin-bottom: 4px;
+}
+.rules-terms dd {
+  margin: 0;
+  color: var(--color-text-muted);
+}

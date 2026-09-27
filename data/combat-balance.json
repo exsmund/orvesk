@@ -1,0 +1,23 @@
+{
+  "health": {
+    "base": 30,
+    "perVitality": 20
+  },
+  "stamina": {
+    "max": 8,
+    "recovery": 2,
+    "exchangeCost": 1
+  },
+  "handSize": 4,
+  "board": {
+    "rockChance": 0
+  },
+  "armorK": 10,
+  "damage": {
+    "levelPerRequiredStat": 1,
+    "perStatPoint": 1
+  },
+  "loot": {
+    "variation": [-1, 0, 1]
+  }
+}

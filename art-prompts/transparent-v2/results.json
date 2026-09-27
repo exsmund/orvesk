@@ -1,0 +1,423 @@
+{
+  "date": "2026-09-27",
+  "method": "built-in image_gen",
+  "results": [
+    {
+      "id": "item-fist",
+      "output": "public/items/fist-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-672dea2d-f840-40c6-9a22-9fa2268de86f.png"
+    },
+    {
+      "id": "action-guard",
+      "output": "public/actions/guard-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-66952545-f237-4d3a-b230-4060880823cf.png"
+    },
+    {
+      "id": "action-kick",
+      "output": "public/actions/kick-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-141e4dd2-6708-432b-968e-7c204b4ffb69.png"
+    },
+    {
+      "id": "creature-claw",
+      "output": "public/creatures/actions/claw-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-2bcde7b4-f266-4aaa-9a88-50ecc4785b39.png"
+    },
+    {
+      "id": "item-dagger",
+      "output": "public/items/dagger-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-d631aa48-7aa4-4ec0-946d-fb31ffb895ab.png"
+    },
+    {
+      "id": "item-club",
+      "output": "public/items/club-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-70afeed0-fb0c-4010-9d04-a956aafbeca5.png"
+    },
+    {
+      "id": "item-shortsword",
+      "output": "public/items/shortsword-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-875638ac-824a-44fe-ad77-d43ae6dcc0e8.png"
+    },
+    {
+      "id": "item-rapier",
+      "output": "public/items/rapier-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-7a4899c0-a37e-4d42-95f4-bd2b0cc10d5e.png"
+    },
+    {
+      "id": "item-axe",
+      "output": "public/items/axe-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-542252b6-4361-43a7-ac74-44a493529939.png"
+    },
+    {
+      "id": "item-spear",
+      "output": "public/items/spear-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-b413da49-c9e9-41cd-9da0-2f483c6577b7.png"
+    },
+    {
+      "id": "item-greatsword",
+      "output": "public/items/greatsword-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-a25dfc8c-b2d6-4f74-85e0-2045027c7120.png"
+    },
+    {
+      "id": "item-hammer",
+      "output": "public/items/hammer-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-c6338287-18b8-4212-9eaf-3e7837a28360.png"
+    },
+    {
+      "id": "item-frost-dagger",
+      "output": "public/items/frost-dagger-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-be61ac86-b53b-4d32-841c-4e2b1a9232be.png"
+    },
+    {
+      "id": "item-ember-sword",
+      "output": "public/items/ember-sword-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-3b5db2d6-759c-45b8-a1d8-84f5265dc9e4.png"
+    },
+    {
+      "id": "item-wind-sickle",
+      "output": "public/items/wind-sickle-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-b6a5a7ea-941d-452f-8964-834a666db0ab.png"
+    },
+    {
+      "id": "item-staff",
+      "output": "public/items/staff-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-af4b1c5a-6bb9-4a24-9621-d0d8c3c2e06b.png"
+    },
+    {
+      "id": "item-buckler",
+      "output": "public/items/buckler-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-950e8c20-bec9-4e74-a16f-9d691223c326.png"
+    },
+    {
+      "id": "item-kite-shield",
+      "output": "public/items/kite-shield-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-f22b1920-1da2-4494-ba4b-6804519ecc85.png"
+    },
+    {
+      "id": "item-mirror-shield",
+      "output": "public/items/mirror-shield-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-98529bd1-3274-46b4-a54d-fd1dea86f65c.png"
+    },
+    {
+      "id": "item-ephemeral-sword",
+      "output": "public/items/ephemeral-sword-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-ebae281f-06a7-438e-beea-9247403587d3.png"
+    },
+    {
+      "id": "item-road-sword",
+      "output": "public/items/road-sword-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-8aa72ec1-37fb-41e9-adfc-1a5fa1533f56.png"
+    },
+    {
+      "id": "item-soldier-spear",
+      "output": "public/items/soldier-spear-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-a00e9112-685e-4537-9620-358efe211b56.png"
+    },
+    {
+      "id": "item-bandit-cleaver",
+      "output": "public/items/bandit-cleaver-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-3c0ccbe6-5379-4851-b01d-f6ecc71489a9.png"
+    },
+    {
+      "id": "item-beaked-hammer",
+      "output": "public/items/beaked-hammer-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-7ab548f3-4ea6-4abd-8a84-bf870fc62bd7.png"
+    },
+    {
+      "id": "item-last-watch-halberd",
+      "output": "public/items/last-watch-halberd-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-5b6bd9bf-405b-4e5c-abc5-00b36bd0ca71.png"
+    },
+    {
+      "id": "item-hunting-bow",
+      "output": "public/items/hunting-bow-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-d509d3d7-2e78-49ef-9113-726113000664.png"
+    },
+    {
+      "id": "item-outpost-crossbow",
+      "output": "public/items/outpost-crossbow-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-8451a6c8-b743-43cf-ab4e-09d4af3dc862.png"
+    },
+    {
+      "id": "item-guest-blade",
+      "output": "public/items/guest-blade-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-a60163eb-0f78-4f53-92a9-fb74fe1d20cb.png"
+    },
+    {
+      "id": "item-marsh-hook",
+      "output": "public/items/marsh-hook-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-e92ea590-dc52-48e4-8b61-59589b5035da.png"
+    },
+    {
+      "id": "item-bog-stinger",
+      "output": "public/items/bog-stinger-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-6799197c-3cbd-43ab-bcb7-2eed69e3d1a1.png"
+    },
+    {
+      "id": "item-elven-moon-sickle",
+      "output": "public/items/elven-moon-sickle-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-9fea5c81-9a37-4c04-8ce7-841b0584ac17.png"
+    },
+    {
+      "id": "item-faun-boar-spear",
+      "output": "public/items/faun-boar-spear-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-f8030542-196f-4a81-8ee2-16b6d18a4f97.png"
+    },
+    {
+      "id": "item-emberstone-staff",
+      "output": "public/items/emberstone-staff-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-4898ed18-8b9b-443e-a238-c8c9470c1b68.png"
+    },
+    {
+      "id": "item-river-ice-wand",
+      "output": "public/items/river-ice-wand-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-675778ac-7876-4f5a-931d-bc447a73831e.png"
+    },
+    {
+      "id": "item-tailwind-spear",
+      "output": "public/items/tailwind-spear-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-30f7dc55-29cd-4ba3-bc74-26816f54a460.png"
+    },
+    {
+      "id": "item-stonecrusher",
+      "output": "public/items/stonecrusher-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-ac1d2b7e-b0a9-44a2-8729-287a00a69c51.png"
+    },
+    {
+      "id": "item-bitter-censer",
+      "output": "public/items/bitter-censer-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-f7e2fee2-a177-44cd-b7cf-5c0f0a22136d.png"
+    },
+    {
+      "id": "item-sealed-stone-sling",
+      "output": "public/items/sealed-stone-sling-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-afee96f0-5e88-4b65-9d04-da1235e0adcd.png"
+    },
+    {
+      "id": "item-convoy-blade",
+      "output": "public/items/convoy-blade-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-860ff0ba-0029-44ae-b6b2-308b19a53509.png"
+    },
+    {
+      "id": "item-sinew-lash",
+      "output": "public/items/sinew-lash-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-9a6ced59-f9cf-4fa4-87e0-4eb3154b884a.png"
+    },
+    {
+      "id": "item-ropewalk-chain-knife",
+      "output": "public/items/ropewalk-chain-knife-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-e43cf120-a719-4145-ba8b-1b241c851b30.png"
+    },
+    {
+      "id": "item-dustglass-wand",
+      "output": "public/items/dustglass-wand-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-a284aaab-7334-41bb-892a-1465cc8df695.png"
+    },
+    {
+      "id": "item-hollow-tuning-fork",
+      "output": "public/items/hollow-tuning-fork-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-c8bc009c-c76f-4290-80a1-d8792922db3f.png"
+    },
+    {
+      "id": "item-spark-lantern",
+      "output": "public/items/spark-lantern-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-92120d34-ce9a-4d02-9993-2ef06c1d62ea.png"
+    },
+    {
+      "id": "item-winter-shard",
+      "output": "public/items/winter-shard-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-6470c7ca-fcc5-4270-aa58-df3c03079dc5.png"
+    },
+    {
+      "id": "item-bitter-spore-staff",
+      "output": "public/items/bitter-spore-staff-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-db4a8919-28d3-40b6-9869-ac60ba254bb4.png"
+    },
+    {
+      "id": "item-clay-circle-staff",
+      "output": "public/items/clay-circle-staff-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-da65250d-27a0-44a0-bfe6-84b3257487bd.png"
+    },
+    {
+      "id": "item-ferry-espadon",
+      "output": "public/items/ferry-espadon-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-9b176f4c-6df2-410a-9478-bc67566754d9.png"
+    },
+    {
+      "id": "item-glassfurnace-hammer",
+      "output": "public/items/glassfurnace-hammer-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-fbf0cf92-5a07-4bc4-995d-4ac4c6d68393.png"
+    },
+    {
+      "id": "item-robe",
+      "output": "public/items/robe-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-5c9dcfde-c26a-4adf-bcc6-6dfcdfbf2839.png"
+    },
+    {
+      "id": "item-rags",
+      "output": "public/items/rags-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-74733c7b-ce9d-4acc-afe0-b3cf26949911.png"
+    },
+    {
+      "id": "item-leather",
+      "output": "public/items/leather-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-d1fca978-c535-4395-8218-2bd313ce9931.png"
+    },
+    {
+      "id": "item-chainmail",
+      "output": "public/items/chainmail-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-98cdbfd7-a5d5-4ab0-a6f7-3c717b111129.png"
+    },
+    {
+      "id": "item-plate",
+      "output": "public/items/plate-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-2110f277-dd99-4a2c-8a71-68b63e796201.png"
+    },
+    {
+      "id": "item-ash-mantle",
+      "output": "public/items/ash-mantle-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-0304225a-46e2-470a-8f63-2a69da88af98.png"
+    },
+    {
+      "id": "item-iron-boots",
+      "output": "public/items/iron-boots-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-bdf1c979-ebfe-4f50-8a38-e6d8b9b0d223.png"
+    },
+    {
+      "id": "item-wanderer-boots",
+      "output": "public/items/wanderer-boots-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-88945a53-1123-46c3-99f4-0ac9527ece8f.png"
+    },
+    {
+      "id": "item-greaves",
+      "output": "public/items/greaves-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-648b1c79-369c-4135-b717-7f2c1f4aac9c.png"
+    },
+    {
+      "id": "item-unlock-ring",
+      "output": "public/items/unlock-ring-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-e7b9edc3-e0f4-4ccc-8a3d-37d039a90393.png"
+    },
+    {
+      "id": "item-fold-amulet",
+      "output": "public/items/fold-amulet-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-b044fad9-79d8-4e47-88b3-dacffc8131c5.png"
+    },
+    {
+      "id": "creature-bite",
+      "output": "public/creatures/actions/bite-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-ac268f77-7dba-4e63-a62a-aa7c2a9b050b.png"
+    },
+    {
+      "id": "creature-talon",
+      "output": "public/creatures/actions/talon-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-d09e61d3-6d14-4989-92f2-38d7a3f88610.png"
+    },
+    {
+      "id": "creature-horn",
+      "output": "public/creatures/actions/horn-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-fb5ae849-a0b1-4e1b-b623-cf4eda954ed7.png"
+    },
+    {
+      "id": "creature-slam",
+      "output": "public/creatures/actions/slam-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-dd1d3e35-278e-4972-8976-277d2fe9b7e9.png"
+    },
+    {
+      "id": "creature-constrict",
+      "output": "public/creatures/actions/constrict-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-2696bba6-9f47-41dc-a379-9d38c4ed0cbc.png"
+    },
+    {
+      "id": "creature-tentacle",
+      "output": "public/creatures/actions/tentacle-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-0ead2a8a-3491-46ee-b18e-e02fa69b5b6a.png"
+    },
+    {
+      "id": "creature-root",
+      "output": "public/creatures/actions/root-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-0ba6c548-354e-4f70-bfc3-205e26dfb3cf.png"
+    },
+    {
+      "id": "creature-mind",
+      "output": "public/creatures/actions/mind-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-8f99bea0-de3c-467d-8844-b2b1d9e051ca.png"
+    },
+    {
+      "id": "creature-magic",
+      "output": "public/creatures/actions/magic-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-b684a6ce-af63-4596-a864-a6ccace0dddb.png"
+    },
+    {
+      "id": "creature-poison",
+      "output": "public/creatures/actions/poison-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-69e08c41-d572-4fed-b709-63d4689fd007.png"
+    },
+    {
+      "id": "creature-spores",
+      "output": "public/creatures/actions/spores-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-dcc59ac9-30c0-43f8-b6b8-773628076d3f.png"
+    },
+    {
+      "id": "creature-ash",
+      "output": "public/creatures/actions/ash-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-7a88bbe1-76ba-457e-ad14-a2035a5c5600.png"
+    },
+    {
+      "id": "creature-mirror",
+      "output": "public/creatures/actions/mirror-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-c2fcc912-e843-4257-bdd8-b201754382b2.png"
+    },
+    {
+      "id": "creature-whisper",
+      "output": "public/creatures/actions/whisper-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-991ada25-f03f-4e58-ae33-3f0205e02931.png"
+    },
+    {
+      "id": "creature-evade",
+      "output": "public/creatures/actions/evade-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-83aca7c3-0a50-4b7d-8a3d-846c1205e7c3.png",
+      "previousSource": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-ec52d933-dcf7-4b88-88b4-fcc05e60496a.png",
+      "revisionPrompt": "Edit the supplied square transparent PNG game-action icon. Keep the same dark-fantasy wolf, full body, realistic fur and muted earth palette, clean readable silhouette and transparent RGBA background. Correct ONLY the facing direction: the wolf's head and muzzle MUST point toward the LEFT edge of the image, eyes looking LEFT, while it recoils/leaps away defensively. Do not leave the head looking right over its shoulder. Keep the whole wolf inside the square with clear transparent margins. No ground, backdrop, frame, text, UI, or rectangular shadow."
+    },
+    {
+      "id": "creature-veil",
+      "output": "public/creatures/actions/veil-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-13a32fa2-9873-4568-8d63-a4c7f8ef0a31.png"
+    },
+    {
+      "id": "creature-ward",
+      "output": "public/creatures/actions/ward-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-de4d65f4-4aa9-4b91-b55c-4d48a31cbe3a.png"
+    },
+    {
+      "id": "skill-dodge",
+      "output": "public/skills/dodge-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-12a823aa-e6f1-404d-9c5a-b44b82be773f.png"
+    },
+    {
+      "id": "skill-sidestep",
+      "output": "public/skills/sidestep-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-c99857ef-8c8c-4b3c-baf9-49e185e7bd94.png"
+    },
+    {
+      "id": "skill-bandage",
+      "output": "public/skills/bandage-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-223ee157-b00f-4d1f-871c-c91929d943b9.png"
+    },
+    {
+      "id": "skill-parry",
+      "output": "public/skills/parry-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-3488eaa7-5d9d-46b8-9770-6cb58c236aad.png"
+    },
+    {
+      "id": "skill-attack-training",
+      "output": "public/skills/attack-training-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-dc116395-672a-4e4e-98a2-023a3a2e62ed.png"
+    },
+    {
+      "id": "skill-defense-training",
+      "output": "public/skills/defense-training-transparent-v2.png",
+      "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-c27bb856-694e-47e1-9aed-2898d2ea52f4.png"
+    }
+  ]
+}

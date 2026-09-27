@@ -1,0 +1,37 @@
+.requirements > .unmet {
+  color: var(--color-text-danger);
+}
+.item-description {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  margin: 14px 0 12px;
+}
+.item-properties {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.item-properties > span {
+  padding: 5px 7px;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  background: var(--color-background-style-27);
+  color: var(--color-text-muted);
+  border-radius: 2px;
+}
+.requirements {
+  font-size: 0.75rem;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  margin-top: 14px;
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+.requirements > span {
+  color: var(--color-text-muted);
+}
+.requirements > .unmet {
+  color: var(--color-text-muted);
+}

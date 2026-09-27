@@ -1,0 +1,6524 @@
+{
+  "components": [
+    {
+      "name": "App",
+      "file": "src/app/App/App.tsx",
+      "line": 18,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/main.tsx",
+          "line": 13,
+          "owner": null
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "CharacterCard",
+      "file": "src/features/characters/CharacterCard/CharacterCard.tsx",
+      "line": 21,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/combat/GameScreen/GameScreen.tsx",
+          "line": 319,
+          "owner": "src/features/combat/GameScreen/GameScreen.tsx#GameScreen"
+        },
+        {
+          "file": "tests/responsive-preview.tsx",
+          "line": 50,
+          "owner": null
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "CharacterCreation",
+      "file": "src/features/characters/CharacterCreation/CharacterCreation.tsx",
+      "line": 24,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/app/App/App.tsx",
+          "line": 109,
+          "owner": "src/app/App/App.tsx#App"
+        },
+        {
+          "file": "tests/creation-preview.tsx",
+          "line": 31,
+          "owner": null
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "CharacterHome",
+      "file": "src/features/characters/CharacterHome/CharacterHome.tsx",
+      "line": 20,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/app/App/App.tsx",
+          "line": 75,
+          "owner": "src/app/App/App.tsx#App"
+        },
+        {
+          "file": "tests/start-screen-preview.tsx",
+          "line": 82,
+          "owner": null
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "CharacterStats",
+      "file": "src/features/characters/CharacterStats/CharacterStats.tsx",
+      "line": 10,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/characters/CharacterCard/CharacterCard.tsx",
+          "line": 133,
+          "owner": "src/features/characters/CharacterCard/CharacterCard.tsx#CharacterCard"
+        },
+        {
+          "file": "src/features/characters/FighterPanel/FighterPanel.tsx",
+          "line": 85,
+          "owner": "src/features/characters/FighterPanel/FighterPanel.tsx#FighterPanel"
+        },
+        {
+          "file": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx",
+          "line": 207,
+          "owner": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx#VictoryRewardDialog"
+        },
+        {
+          "file": "tests/reward-map-preview.tsx",
+          "line": 81,
+          "owner": null
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "FighterDebuffs",
+      "file": "src/features/characters/FighterDebuffs/FighterDebuffs.tsx",
+      "line": 4,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/characters/FighterPanel/FighterPanel.tsx",
+          "line": 77,
+          "owner": "src/features/characters/FighterPanel/FighterPanel.tsx#FighterPanel"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "FighterDialog",
+      "file": "src/features/characters/FighterDialog/FighterDialog.tsx",
+      "line": 6,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/combat/GameScreen/GameScreen.tsx",
+          "line": 339,
+          "owner": "src/features/combat/GameScreen/GameScreen.tsx#GameScreen"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "FighterPanel",
+      "file": "src/features/characters/FighterPanel/FighterPanel.tsx",
+      "line": 19,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/characters/FighterDialog/FighterDialog.tsx",
+          "line": 32,
+          "owner": "src/features/characters/FighterDialog/FighterDialog.tsx#FighterDialog"
+        },
+        {
+          "file": "src/features/combat/GameScreen/GameScreen.tsx",
+          "line": 225,
+          "owner": "src/features/combat/GameScreen/GameScreen.tsx#GameScreen"
+        },
+        {
+          "file": "src/features/combat/GameScreen/GameScreen.tsx",
+          "line": 238,
+          "owner": "src/features/combat/GameScreen/GameScreen.tsx#GameScreen"
+        },
+        {
+          "file": "tests/interaction-preview.tsx",
+          "line": 38,
+          "owner": null
+        },
+        {
+          "file": "tests/interaction-preview.tsx",
+          "line": 51,
+          "owner": null
+        },
+        {
+          "file": "tests/portrait-layout-preview.tsx",
+          "line": 26,
+          "owner": null
+        },
+        {
+          "file": "tests/portrait-layout-preview.tsx",
+          "line": 39,
+          "owner": null
+        },
+        {
+          "file": "tests/responsive-preview.tsx",
+          "line": 145,
+          "owner": null
+        },
+        {
+          "file": "tests/responsive-preview.tsx",
+          "line": 161,
+          "owner": null
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "SoulBalance",
+      "file": "src/features/characters/SoulBalance/SoulBalance.tsx",
+      "line": 5,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/characters/CharacterCard/CharacterCard.tsx",
+          "line": 127,
+          "owner": "src/features/characters/CharacterCard/CharacterCard.tsx#CharacterCard"
+        },
+        {
+          "file": "src/features/characters/CharacterCreation/CharacterCreation.tsx",
+          "line": 140,
+          "owner": "src/features/characters/CharacterCreation/CharacterCreation.tsx#CharacterCreation"
+        },
+        {
+          "file": "src/features/characters/CharacterHome/CharacterHome.tsx",
+          "line": 107,
+          "owner": "src/features/characters/CharacterHome/CharacterHome.tsx#CharacterHome"
+        },
+        {
+          "file": "src/features/characters/CharacterStats/CharacterStats.tsx",
+          "line": 35,
+          "owner": "src/features/characters/CharacterStats/CharacterStats.tsx#CharacterStats"
+        },
+        {
+          "file": "src/features/characters/CharacterStats/CharacterStats.tsx",
+          "line": 38,
+          "owner": "src/features/characters/CharacterStats/CharacterStats.tsx#CharacterStats"
+        },
+        {
+          "file": "src/features/characters/FighterPanel/FighterPanel.tsx",
+          "line": 84,
+          "owner": "src/features/characters/FighterPanel/FighterPanel.tsx#FighterPanel"
+        },
+        {
+          "file": "src/features/combat/BattleHeader/BattleHeader.tsx",
+          "line": 72,
+          "owner": "src/features/combat/BattleHeader/BattleHeader.tsx#BattleHeader"
+        },
+        {
+          "file": "src/features/journey/JourneyNodeIcon/JourneyNodeIcon.tsx",
+          "line": 57,
+          "owner": "src/features/journey/JourneyNodeIcon/JourneyNodeIcon.tsx#JourneyNodeIcon"
+        },
+        {
+          "file": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx",
+          "line": 137,
+          "owner": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx#VictoryRewardDialog"
+        },
+        {
+          "file": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx",
+          "line": 139,
+          "owner": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx#VictoryRewardDialog"
+        },
+        {
+          "file": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx",
+          "line": 142,
+          "owner": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx#VictoryRewardDialog"
+        },
+        {
+          "file": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx",
+          "line": 205,
+          "owner": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx#VictoryRewardDialog"
+        },
+        {
+          "file": "tests/reward-map-preview.tsx",
+          "line": 80,
+          "owner": null
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "ActionFigure",
+      "file": "src/features/combat/ActionFigure/ActionFigure.tsx",
+      "line": 9,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/combat/ActionPalette/ActionPalette.tsx",
+          "line": 91,
+          "owner": "src/features/combat/ActionPalette/ActionPalette.tsx#ActionPalette"
+        },
+        {
+          "file": "src/features/combat/CellPopup/CellPopup.tsx",
+          "line": 41,
+          "owner": "src/features/combat/CellPopup/CellPopup.tsx#CellPopup"
+        },
+        {
+          "file": "src/features/combat/FigureCard/FigureCard.tsx",
+          "line": 18,
+          "owner": "src/features/combat/FigureCard/FigureCard.tsx#FigureCard"
+        },
+        {
+          "file": "src/features/combat/ReactionBoard/ReactionBoard.tsx",
+          "line": 579,
+          "owner": "src/features/combat/ReactionBoard/ReactionBoard.tsx#ReactionBoard"
+        },
+        {
+          "file": "src/features/creatures/CreatureDetails/CreatureDetails.tsx",
+          "line": 45,
+          "owner": "src/features/creatures/CreatureDetails/CreatureDetails.tsx#CreatureDetails"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "ActionPalette",
+      "file": "src/features/combat/ActionPalette/ActionPalette.tsx",
+      "line": 17,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/combat/ReactionBoard/ReactionBoard.tsx",
+          "line": 339,
+          "owner": "src/features/combat/ReactionBoard/ReactionBoard.tsx#ReactionBoard"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "ActionSource",
+      "file": "src/features/combat/ActionSource/ActionSource.tsx",
+      "line": 10,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/combat/ActionFigure/ActionFigure.tsx",
+          "line": 56,
+          "owner": "src/features/combat/ActionFigure/ActionFigure.tsx#ActionFigure"
+        },
+        {
+          "file": "src/features/combat/CellPopup/CellPopup.tsx",
+          "line": 72,
+          "owner": "src/features/combat/CellPopup/CellPopup.tsx#CellPopup"
+        },
+        {
+          "file": "src/features/combat/ReactionBoard/LayerIcon.tsx",
+          "line": 14,
+          "owner": "src/features/combat/ReactionBoard/LayerIcon.tsx#LayerIcon"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "BattleHeader",
+      "file": "src/features/combat/BattleHeader/BattleHeader.tsx",
+      "line": 14,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/combat/GameScreen/GameScreen.tsx",
+          "line": 212,
+          "owner": "src/features/combat/GameScreen/GameScreen.tsx#GameScreen"
+        },
+        {
+          "file": "src/features/journey/JourneyScreen/JourneyScreen.tsx",
+          "line": 47,
+          "owner": "src/features/journey/JourneyScreen/JourneyScreen.tsx#JourneyScreen"
+        },
+        {
+          "file": "tests/responsive-preview.tsx",
+          "line": 126,
+          "owner": null
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "BattleModeArtwork",
+      "file": "src/features/combat/BattleModeArtwork/BattleModeArtwork.tsx",
+      "line": 6,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/combat/BattleHeader/BattleHeader.tsx",
+          "line": 46,
+          "owner": "src/features/combat/BattleHeader/BattleHeader.tsx#BattleHeader"
+        },
+        {
+          "file": "src/features/combat/BattleHeader/BattleHeader.tsx",
+          "line": 84,
+          "owner": "src/features/combat/BattleHeader/BattleHeader.tsx#BattleHeader"
+        },
+        {
+          "file": "src/features/combat/BattleModeDialog/BattleModeDialog.tsx",
+          "line": 26,
+          "owner": "src/features/combat/BattleModeDialog/BattleModeDialog.tsx#BattleModeDialog"
+        },
+        {
+          "file": "src/features/journey/BattleModeInfo/BattleModeInfo.tsx",
+          "line": 20,
+          "owner": "src/features/journey/BattleModeInfo/BattleModeInfo.tsx#BattleModeInfo"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "BattleModeDialog",
+      "file": "src/features/combat/BattleModeDialog/BattleModeDialog.tsx",
+      "line": 10,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/combat/GameScreen/GameScreen.tsx",
+          "line": 290,
+          "owner": "src/features/combat/GameScreen/GameScreen.tsx#GameScreen"
+        },
+        {
+          "file": "tests/expendable-preview.tsx",
+          "line": 54,
+          "owner": null
+        },
+        {
+          "file": "tests/responsive-preview.tsx",
+          "line": 122,
+          "owner": null
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "BattleResultDialog",
+      "file": "src/features/combat/BattleResultDialog/BattleResultDialog.tsx",
+      "line": 9,
+      "exported": true,
+      "uses": [
+        {
+          "file": "tests/expendable-preview.tsx",
+          "line": 48,
+          "owner": null
+        },
+        {
+          "file": "tests/reward-map-preview.tsx",
+          "line": 75,
+          "owner": null
+        }
+      ],
+      "active": false
+    },
+    {
+      "name": "BattleWorkspace",
+      "file": "src/features/combat/BattleWorkspace/BattleWorkspace.tsx",
+      "line": 5,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/combat/ClashOutcome/ClashOutcome.tsx",
+          "line": 43,
+          "owner": "src/features/combat/ClashOutcome/ClashOutcome.tsx#ClashOutcome"
+        },
+        {
+          "file": "src/features/combat/ReactionBoard/ReactionBoard.tsx",
+          "line": 329,
+          "owner": "src/features/combat/ReactionBoard/ReactionBoard.tsx#ReactionBoard"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "CellDamage",
+      "file": "src/features/combat/CellDamage/CellDamage.tsx",
+      "line": 10,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/combat/ClashOutcome/ClashOutcome.tsx",
+          "line": 94,
+          "owner": "src/features/combat/ClashOutcome/ClashOutcome.tsx#ClashOutcome"
+        },
+        {
+          "file": "src/features/combat/ReactionBoard/ReactionBoard.tsx",
+          "line": 422,
+          "owner": "src/features/combat/ReactionBoard/ReactionBoard.tsx#ReactionBoard"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "CellPopup",
+      "file": "src/features/combat/CellPopup/CellPopup.tsx",
+      "line": 14,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/combat/ClashOutcome/ClashOutcome.tsx",
+          "line": 101,
+          "owner": "src/features/combat/ClashOutcome/ClashOutcome.tsx#ClashOutcome"
+        },
+        {
+          "file": "src/features/combat/ReactionBoard/ReactionBoard.tsx",
+          "line": 588,
+          "owner": "src/features/combat/ReactionBoard/ReactionBoard.tsx#ReactionBoard"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "ClashOutcome",
+      "file": "src/features/combat/ClashOutcome/ClashOutcome.tsx",
+      "line": 18,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/combat/BattleResultDialog/BattleResultDialog.tsx",
+          "line": 52,
+          "owner": "src/features/combat/BattleResultDialog/BattleResultDialog.tsx#BattleResultDialog"
+        },
+        {
+          "file": "src/features/combat/GameScreen/GameScreen.tsx",
+          "line": 162,
+          "owner": "src/features/combat/GameScreen/GameScreen.tsx#GameScreen"
+        },
+        {
+          "file": "tests/modes-preview.tsx",
+          "line": 90,
+          "owner": null
+        },
+        {
+          "file": "tests/skills-preview.tsx",
+          "line": 117,
+          "owner": null
+        },
+        {
+          "file": "tests/terrain-preview.tsx",
+          "line": 59,
+          "owner": null
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "CombatBackdrop",
+      "file": "src/features/combat/CombatBackdrop/CombatBackdrop.tsx",
+      "line": 5,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/combat/GameScreen/GameScreen.tsx",
+          "line": 211,
+          "owner": "src/features/combat/GameScreen/GameScreen.tsx#GameScreen"
+        },
+        {
+          "file": "tests/expendable-preview.tsx",
+          "line": 30,
+          "owner": null
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "CombatMenu",
+      "file": "src/features/combat/CombatMenu/CombatMenu.tsx",
+      "line": 6,
+      "exported": true,
+      "uses": [
+        {
+          "file": "tests/interaction-preview.tsx",
+          "line": 30,
+          "owner": null
+        },
+        {
+          "file": "tests/portrait-layout-preview.tsx",
+          "line": 18,
+          "owner": null
+        },
+        {
+          "file": "tests/responsive-preview.tsx",
+          "line": 136,
+          "owner": null
+        }
+      ],
+      "active": false
+    },
+    {
+      "name": "FigureCard",
+      "file": "src/features/combat/FigureCard/FigureCard.tsx",
+      "line": 8,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/equipment/ItemInspection/ItemCard.tsx",
+          "line": 116,
+          "owner": "src/features/equipment/ItemInspection/ItemCard.tsx#ItemCard"
+        },
+        {
+          "file": "src/features/skills/SkillCard/SkillCard.tsx",
+          "line": 12,
+          "owner": "src/features/skills/SkillCard/SkillCard.tsx#SkillCard"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "FloatingDamage",
+      "file": "src/features/combat/FloatingDamage/FloatingDamage.tsx",
+      "line": 5,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/characters/FighterPanel/FighterPanel.tsx",
+          "line": 76,
+          "owner": "src/features/characters/FighterPanel/FighterPanel.tsx#FighterPanel"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "GameScreen",
+      "file": "src/features/combat/GameScreen/GameScreen.tsx",
+      "line": 29,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/app/App/App.tsx",
+          "line": 118,
+          "owner": "src/app/App/App.tsx#App"
+        },
+        {
+          "file": "tests/battle-ending-preview.tsx",
+          "line": 23,
+          "owner": null
+        },
+        {
+          "file": "tests/game-screen-preview.tsx",
+          "line": 11,
+          "owner": null
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "LayerIcon",
+      "file": "src/features/combat/ReactionBoard/LayerIcon.tsx",
+      "line": 7,
+      "exported": false,
+      "uses": [
+        {
+          "file": "src/features/combat/ClashOutcome/ClashOutcome.tsx",
+          "line": 92,
+          "owner": "src/features/combat/ClashOutcome/ClashOutcome.tsx#ClashOutcome"
+        },
+        {
+          "file": "src/features/combat/ClashOutcome/ClashOutcome.tsx",
+          "line": 93,
+          "owner": "src/features/combat/ClashOutcome/ClashOutcome.tsx#ClashOutcome"
+        },
+        {
+          "file": "src/features/combat/ReactionBoard/ReactionBoard.tsx",
+          "line": 414,
+          "owner": "src/features/combat/ReactionBoard/ReactionBoard.tsx#ReactionBoard"
+        },
+        {
+          "file": "src/features/combat/ReactionBoard/ReactionBoard.tsx",
+          "line": 415,
+          "owner": "src/features/combat/ReactionBoard/ReactionBoard.tsx#ReactionBoard"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "ReactionBoard",
+      "file": "src/features/combat/ReactionBoard/ReactionBoard.tsx",
+      "line": 39,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/combat/GameScreen/GameScreen.tsx",
+          "line": 86,
+          "owner": "src/features/combat/GameScreen/GameScreen.tsx#GameScreen"
+        },
+        {
+          "file": "tests/expendable-preview.tsx",
+          "line": 32,
+          "owner": null
+        },
+        {
+          "file": "tests/interaction-preview.tsx",
+          "line": 44,
+          "owner": null
+        },
+        {
+          "file": "tests/modes-preview.tsx",
+          "line": 110,
+          "owner": null
+        },
+        {
+          "file": "tests/portrait-layout-preview.tsx",
+          "line": 32,
+          "owner": null
+        },
+        {
+          "file": "tests/responsive-preview.tsx",
+          "line": 152,
+          "owner": null
+        },
+        {
+          "file": "tests/skills-preview.tsx",
+          "line": 123,
+          "owner": null
+        },
+        {
+          "file": "tests/terrain-preview.tsx",
+          "line": 65,
+          "owner": null
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "Resources",
+      "file": "src/features/combat/Resources/Resources.tsx",
+      "line": 7,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/characters/CharacterCard/CharacterCard.tsx",
+          "line": 128,
+          "owner": "src/features/characters/CharacterCard/CharacterCard.tsx#CharacterCard"
+        },
+        {
+          "file": "src/features/characters/FighterPanel/FighterPanel.tsx",
+          "line": 75,
+          "owner": "src/features/characters/FighterPanel/FighterPanel.tsx#FighterPanel"
+        },
+        {
+          "file": "src/features/combat/BattleHeader/BattleHeader.tsx",
+          "line": 35,
+          "owner": "src/features/combat/BattleHeader/BattleHeader.tsx#BattleHeader"
+        },
+        {
+          "file": "src/features/combat/BattleHeader/BattleHeader.tsx",
+          "line": 54,
+          "owner": "src/features/combat/BattleHeader/BattleHeader.tsx#BattleHeader"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "RockTerrain",
+      "file": "src/features/combat/RockTerrain/RockTerrain.tsx",
+      "line": 6,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/combat/ClashOutcome/ClashOutcome.tsx",
+          "line": 71,
+          "owner": "src/features/combat/ClashOutcome/ClashOutcome.tsx#ClashOutcome"
+        },
+        {
+          "file": "src/features/combat/ReactionBoard/ReactionBoard.tsx",
+          "line": 363,
+          "owner": "src/features/combat/ReactionBoard/ReactionBoard.tsx#ReactionBoard"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "CreatureDetails",
+      "file": "src/features/creatures/CreatureDetails/CreatureDetails.tsx",
+      "line": 10,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/characters/CharacterCard/CharacterCard.tsx",
+          "line": 148,
+          "owner": "src/features/characters/CharacterCard/CharacterCard.tsx#CharacterCard"
+        },
+        {
+          "file": "src/features/characters/FighterPanel/FighterPanel.tsx",
+          "line": 93,
+          "owner": "src/features/characters/FighterPanel/FighterPanel.tsx#FighterPanel"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "EquipmentDoll",
+      "file": "src/features/equipment/EquipmentDoll/EquipmentDoll.tsx",
+      "line": 10,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/characters/CharacterCard/CharacterCard.tsx",
+          "line": 149,
+          "owner": "src/features/characters/CharacterCard/CharacterCard.tsx#CharacterCard"
+        },
+        {
+          "file": "src/features/characters/FighterPanel/FighterPanel.tsx",
+          "line": 99,
+          "owner": "src/features/characters/FighterPanel/FighterPanel.tsx#FighterPanel"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "ItemDetails",
+      "file": "src/features/equipment/ItemDetails/ItemDetails.tsx",
+      "line": 5,
+      "exported": true,
+      "uses": [],
+      "active": false
+    },
+    {
+      "name": "Delta",
+      "file": "src/features/equipment/ItemInspection/Delta.tsx",
+      "line": 7,
+      "exported": false,
+      "uses": [
+        {
+          "file": "src/features/equipment/ItemInspection/ItemCard.tsx",
+          "line": 62,
+          "owner": "src/features/equipment/ItemInspection/ItemCard.tsx#ItemCard"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "ItemCard",
+      "file": "src/features/equipment/ItemInspection/ItemCard.tsx",
+      "line": 13,
+      "exported": false,
+      "uses": [
+        {
+          "file": "src/features/equipment/ItemInspection/ItemInspection.tsx",
+          "line": 30,
+          "owner": "src/features/equipment/ItemInspection/ItemInspection.tsx#ItemInspection"
+        },
+        {
+          "file": "src/features/equipment/ItemInspection/ItemInspection.tsx",
+          "line": 40,
+          "owner": "src/features/equipment/ItemInspection/ItemInspection.tsx#ItemInspection"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "ItemInspection",
+      "file": "src/features/equipment/ItemInspection/ItemInspection.tsx",
+      "line": 7,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/equipment/ItemInspectionWindow/ItemInspectionWindow.tsx",
+          "line": 31,
+          "owner": "src/features/equipment/ItemInspectionWindow/ItemInspectionWindow.tsx#ItemInspectionWindow"
+        },
+        {
+          "file": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx",
+          "line": 215,
+          "owner": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx#VictoryRewardDialog"
+        },
+        {
+          "file": "tests/map-preview.tsx",
+          "line": 139,
+          "owner": null
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "ItemInspectionWindow",
+      "file": "src/features/equipment/ItemInspectionWindow/ItemInspectionWindow.tsx",
+      "line": 8,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/combat/GameScreen/GameScreen.tsx",
+          "line": 355,
+          "owner": "src/features/combat/GameScreen/GameScreen.tsx#GameScreen"
+        },
+        {
+          "file": "tests/item-window-preview.tsx",
+          "line": 17,
+          "owner": null
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "StartScreen",
+      "file": "src/features/home/StartScreen/StartScreen.tsx",
+      "line": 9,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/app/App/App.tsx",
+          "line": 63,
+          "owner": "src/app/App/App.tsx#App"
+        },
+        {
+          "file": "tests/responsive-preview.tsx",
+          "line": 64,
+          "owner": null
+        },
+        {
+          "file": "tests/start-screen-preview.tsx",
+          "line": 74,
+          "owner": null
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "BattleModeInfo",
+      "file": "src/features/journey/BattleModeInfo/BattleModeInfo.tsx",
+      "line": 8,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/journey/JourneyChoices/JourneyChoices.tsx",
+          "line": 50,
+          "owner": "src/features/journey/JourneyChoices/JourneyChoices.tsx#JourneyChoices"
+        },
+        {
+          "file": "tests/map-preview.tsx",
+          "line": 114,
+          "owner": null
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "JourneyChoices",
+      "file": "src/features/journey/JourneyChoices/JourneyChoices.tsx",
+      "line": 11,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/combat/GameScreen/GameScreen.tsx",
+          "line": 147,
+          "owner": "src/features/combat/GameScreen/GameScreen.tsx#GameScreen"
+        },
+        {
+          "file": "tests/modes-preview.tsx",
+          "line": 97,
+          "owner": null
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "JourneyMap",
+      "file": "src/features/journey/JourneyMap/JourneyMap.tsx",
+      "line": 26,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/journey/JourneyChoices/JourneyChoices.tsx",
+          "line": 61,
+          "owner": "src/features/journey/JourneyChoices/JourneyChoices.tsx#JourneyChoices"
+        },
+        {
+          "file": "src/features/journey/JourneyScreen/JourneyScreen.tsx",
+          "line": 56,
+          "owner": "src/features/journey/JourneyScreen/JourneyScreen.tsx#JourneyScreen"
+        },
+        {
+          "file": "tests/map-preview.tsx",
+          "line": 115,
+          "owner": null
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "NodeDialog",
+      "file": "src/features/journey/JourneyMap/NodeDialog.tsx",
+      "line": 11,
+      "exported": false,
+      "uses": [
+        {
+          "file": "src/features/journey/JourneyMap/JourneyMap.tsx",
+          "line": 225,
+          "owner": "src/features/journey/JourneyMap/JourneyMap.tsx#JourneyMap"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "JourneyNodeIcon",
+      "file": "src/features/journey/JourneyNodeIcon/JourneyNodeIcon.tsx",
+      "line": 8,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/journey/JourneyMap/JourneyMap.tsx",
+          "line": 171,
+          "owner": "src/features/journey/JourneyMap/JourneyMap.tsx#JourneyMap"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "JourneyScreen",
+      "file": "src/features/journey/JourneyScreen/JourneyScreen.tsx",
+      "line": 14,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/combat/GameScreen/GameScreen.tsx",
+          "line": 191,
+          "owner": "src/features/combat/GameScreen/GameScreen.tsx#GameScreen"
+        },
+        {
+          "file": "tests/map-preview.tsx",
+          "line": 118,
+          "owner": null
+        },
+        {
+          "file": "tests/map-resume-preview.tsx",
+          "line": 20,
+          "owner": null
+        },
+        {
+          "file": "tests/responsive-preview.tsx",
+          "line": 74,
+          "owner": null
+        },
+        {
+          "file": "tests/responsive-preview.tsx",
+          "line": 105,
+          "owner": null
+        },
+        {
+          "file": "tests/reward-map-preview.tsx",
+          "line": 64,
+          "owner": null
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "MapWindow",
+      "file": "src/features/journey/JourneyScreen/MapWindow.tsx",
+      "line": 5,
+      "exported": false,
+      "uses": [
+        {
+          "file": "src/features/journey/JourneyScreen/JourneyScreen.tsx",
+          "line": 79,
+          "owner": "src/features/journey/JourneyScreen/JourneyScreen.tsx#JourneyScreen"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "JourneyStop",
+      "file": "src/features/journey/JourneyStop/JourneyStop.tsx",
+      "line": 13,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/journey/JourneyChoices/JourneyChoices.tsx",
+          "line": 53,
+          "owner": "src/features/journey/JourneyChoices/JourneyChoices.tsx#JourneyChoices"
+        },
+        {
+          "file": "src/features/journey/JourneyScreen/JourneyScreen.tsx",
+          "line": 83,
+          "owner": "src/features/journey/JourneyScreen/JourneyScreen.tsx#JourneyScreen"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "RewardArt",
+      "file": "src/features/rewards/VictoryRewardDialog/RewardArt.tsx",
+      "line": 10,
+      "exported": false,
+      "uses": [
+        {
+          "file": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx",
+          "line": 92,
+          "owner": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx#VictoryRewardDialog"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "RewardWindow",
+      "file": "src/features/rewards/VictoryRewardDialog/RewardWindow.tsx",
+      "line": 7,
+      "exported": false,
+      "uses": [
+        {
+          "file": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx",
+          "line": 76,
+          "owner": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx#VictoryRewardDialog"
+        },
+        {
+          "file": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx",
+          "line": 103,
+          "owner": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx#VictoryRewardDialog"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "VictoryRewardDialog",
+      "file": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx",
+      "line": 21,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/combat/GameScreen/GameScreen.tsx",
+          "line": 296,
+          "owner": "src/features/combat/GameScreen/GameScreen.tsx#GameScreen"
+        },
+        {
+          "file": "tests/reward-map-preview.tsx",
+          "line": 92,
+          "owner": null
+        },
+        {
+          "file": "tests/skills-preview.tsx",
+          "line": 91,
+          "owner": null
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "Rules",
+      "file": "src/features/rules/Rules/Rules.tsx",
+      "line": 4,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/combat/GameScreen/GameScreen.tsx",
+          "line": 315,
+          "owner": "src/features/combat/GameScreen/GameScreen.tsx#GameScreen"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "FighterSkills",
+      "file": "src/features/skills/FighterSkills/FighterSkills.tsx",
+      "line": 16,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/characters/CharacterCard/CharacterCard.tsx",
+          "line": 153,
+          "owner": "src/features/characters/CharacterCard/CharacterCard.tsx#CharacterCard"
+        },
+        {
+          "file": "src/features/characters/FighterPanel/FighterPanel.tsx",
+          "line": 111,
+          "owner": "src/features/characters/FighterPanel/FighterPanel.tsx#FighterPanel"
+        },
+        {
+          "file": "tests/skills-preview.tsx",
+          "line": 112,
+          "owner": null
+        },
+        {
+          "file": "tests/skills-preview.tsx",
+          "line": 114,
+          "owner": null
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "SkillCard",
+      "file": "src/features/skills/SkillCard/SkillCard.tsx",
+      "line": 8,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx",
+          "line": 156,
+          "owner": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx#VictoryRewardDialog"
+        },
+        {
+          "file": "src/features/skills/FighterSkills/FighterSkills.tsx",
+          "line": 50,
+          "owner": "src/features/skills/FighterSkills/FighterSkills.tsx#FighterSkills"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "CharacterPortrait",
+      "file": "src/shared/ui/CharacterPortrait/CharacterPortrait.tsx",
+      "line": 7,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/characters/CharacterCard/CharacterCard.tsx",
+          "line": 121,
+          "owner": "src/features/characters/CharacterCard/CharacterCard.tsx#CharacterCard"
+        },
+        {
+          "file": "src/features/characters/CharacterCreation/CharacterCreation.tsx",
+          "line": 104,
+          "owner": "src/features/characters/CharacterCreation/CharacterCreation.tsx#CharacterCreation"
+        },
+        {
+          "file": "src/features/characters/CharacterHome/CharacterHome.tsx",
+          "line": 96,
+          "owner": "src/features/characters/CharacterHome/CharacterHome.tsx#CharacterHome"
+        },
+        {
+          "file": "src/features/characters/FighterPanel/FighterPanel.tsx",
+          "line": 55,
+          "owner": "src/features/characters/FighterPanel/FighterPanel.tsx#FighterPanel"
+        },
+        {
+          "file": "src/features/combat/BattleHeader/BattleHeader.tsx",
+          "line": 27,
+          "owner": "src/features/combat/BattleHeader/BattleHeader.tsx#BattleHeader"
+        },
+        {
+          "file": "src/features/combat/BattleHeader/BattleHeader.tsx",
+          "line": 55,
+          "owner": "src/features/combat/BattleHeader/BattleHeader.tsx#BattleHeader"
+        },
+        {
+          "file": "src/features/journey/JourneyMap/NodeDialog.tsx",
+          "line": 57,
+          "owner": "src/features/journey/JourneyMap/NodeDialog.tsx#NodeDialog"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "EquipmentIcon",
+      "file": "src/shared/ui/EquipmentIcon/EquipmentIcon.tsx",
+      "line": 7,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/combat/ActionSource/ActionSource.tsx",
+          "line": 53,
+          "owner": "src/features/combat/ActionSource/ActionSource.tsx#ActionSource"
+        },
+        {
+          "file": "src/features/creatures/CreatureDetails/CreatureDetails.tsx",
+          "line": 37,
+          "owner": "src/features/creatures/CreatureDetails/CreatureDetails.tsx#CreatureDetails"
+        },
+        {
+          "file": "src/features/equipment/EquipmentDoll/EquipmentDoll.tsx",
+          "line": 56,
+          "owner": "src/features/equipment/EquipmentDoll/EquipmentDoll.tsx#EquipmentDoll"
+        },
+        {
+          "file": "src/features/equipment/ItemInspection/ItemCard.tsx",
+          "line": 81,
+          "owner": "src/features/equipment/ItemInspection/ItemCard.tsx#ItemCard"
+        },
+        {
+          "file": "src/features/journey/JourneyStop/JourneyStop.tsx",
+          "line": 63,
+          "owner": "src/features/journey/JourneyStop/JourneyStop.tsx#JourneyStop"
+        },
+        {
+          "file": "src/features/journey/JourneyStop/JourneyStop.tsx",
+          "line": 97,
+          "owner": "src/features/journey/JourneyStop/JourneyStop.tsx#JourneyStop"
+        },
+        {
+          "file": "src/features/rewards/VictoryRewardDialog/RewardArt.tsx",
+          "line": 12,
+          "owner": "src/features/rewards/VictoryRewardDialog/RewardArt.tsx#RewardArt"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "GameMenu",
+      "file": "src/shared/ui/GameMenu/GameMenu.tsx",
+      "line": 5,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/combat/CombatMenu/CombatMenu.tsx",
+          "line": 30,
+          "owner": "src/features/combat/CombatMenu/CombatMenu.tsx#CombatMenu"
+        }
+      ],
+      "active": false
+    },
+    {
+      "name": "GameMenuOptions",
+      "file": "src/shared/ui/GameMenuOptions/GameMenuOptions.tsx",
+      "line": 6,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/characters/CharacterCard/CharacterCard.tsx",
+          "line": 158,
+          "owner": "src/features/characters/CharacterCard/CharacterCard.tsx#CharacterCard"
+        },
+        {
+          "file": "src/shared/ui/GameMenu/GameMenu.tsx",
+          "line": 13,
+          "owner": "src/shared/ui/GameMenu/GameMenu.tsx#GameMenu"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "GothicIcon",
+      "file": "src/shared/ui/GothicIcon/GothicIcon.tsx",
+      "line": 4,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/characters/CharacterCard/CharacterCard.tsx",
+          "line": 107,
+          "owner": "src/features/characters/CharacterCard/CharacterCard.tsx#CharacterCard"
+        },
+        {
+          "file": "src/features/characters/CharacterCreation/CharacterCreation.tsx",
+          "line": 102,
+          "owner": "src/features/characters/CharacterCreation/CharacterCreation.tsx#CharacterCreation"
+        },
+        {
+          "file": "src/features/characters/CharacterCreation/CharacterCreation.tsx",
+          "line": 115,
+          "owner": "src/features/characters/CharacterCreation/CharacterCreation.tsx#CharacterCreation"
+        },
+        {
+          "file": "src/features/characters/CharacterCreation/CharacterCreation.tsx",
+          "line": 159,
+          "owner": "src/features/characters/CharacterCreation/CharacterCreation.tsx#CharacterCreation"
+        },
+        {
+          "file": "src/features/characters/CharacterCreation/CharacterCreation.tsx",
+          "line": 174,
+          "owner": "src/features/characters/CharacterCreation/CharacterCreation.tsx#CharacterCreation"
+        },
+        {
+          "file": "src/features/characters/CharacterHome/CharacterHome.tsx",
+          "line": 137,
+          "owner": "src/features/characters/CharacterHome/CharacterHome.tsx#CharacterHome"
+        },
+        {
+          "file": "src/features/characters/CharacterStats/CharacterStats.tsx",
+          "line": 73,
+          "owner": "src/features/characters/CharacterStats/CharacterStats.tsx#CharacterStats"
+        },
+        {
+          "file": "src/features/combat/CombatMenu/CombatMenu.tsx",
+          "line": 27,
+          "owner": "src/features/combat/CombatMenu/CombatMenu.tsx#CombatMenu"
+        },
+        {
+          "file": "src/features/equipment/ItemInspectionWindow/ItemInspectionWindow.tsx",
+          "line": 28,
+          "owner": "src/features/equipment/ItemInspectionWindow/ItemInspectionWindow.tsx#ItemInspectionWindow"
+        },
+        {
+          "file": "src/shared/ui/Modal/ModalHeader.tsx",
+          "line": 28,
+          "owner": "src/shared/ui/Modal/ModalHeader.tsx#ModalHeader"
+        },
+        {
+          "file": "src/shared/ui/Modal/ModalHeader.tsx",
+          "line": 42,
+          "owner": "src/shared/ui/Modal/ModalHeader.tsx#ModalHeader"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "GothicTextButton",
+      "file": "src/shared/ui/GothicTextButton/GothicTextButton.tsx",
+      "line": 15,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/app/App/App.tsx",
+          "line": 49,
+          "owner": "src/app/App/App.tsx#App"
+        },
+        {
+          "file": "src/features/characters/CharacterCreation/CharacterCreation.tsx",
+          "line": 199,
+          "owner": "src/features/characters/CharacterCreation/CharacterCreation.tsx#CharacterCreation"
+        },
+        {
+          "file": "src/features/characters/CharacterHome/CharacterHome.tsx",
+          "line": 144,
+          "owner": "src/features/characters/CharacterHome/CharacterHome.tsx#CharacterHome"
+        },
+        {
+          "file": "src/features/characters/CharacterHome/CharacterHome.tsx",
+          "line": 169,
+          "owner": "src/features/characters/CharacterHome/CharacterHome.tsx#CharacterHome"
+        },
+        {
+          "file": "src/features/characters/CharacterHome/CharacterHome.tsx",
+          "line": 177,
+          "owner": "src/features/characters/CharacterHome/CharacterHome.tsx#CharacterHome"
+        },
+        {
+          "file": "src/features/combat/BattleModeDialog/BattleModeDialog.tsx",
+          "line": 31,
+          "owner": "src/features/combat/BattleModeDialog/BattleModeDialog.tsx#BattleModeDialog"
+        },
+        {
+          "file": "src/features/combat/BattleResultDialog/BattleResultDialog.tsx",
+          "line": 67,
+          "owner": "src/features/combat/BattleResultDialog/BattleResultDialog.tsx#BattleResultDialog"
+        },
+        {
+          "file": "src/features/combat/ClashOutcome/ClashOutcome.tsx",
+          "line": 120,
+          "owner": "src/features/combat/ClashOutcome/ClashOutcome.tsx#ClashOutcome"
+        },
+        {
+          "file": "src/features/combat/GameScreen/GameScreen.tsx",
+          "line": 138,
+          "owner": "src/features/combat/GameScreen/GameScreen.tsx#GameScreen"
+        },
+        {
+          "file": "src/features/combat/ReactionBoard/ReactionBoard.tsx",
+          "line": 459,
+          "owner": "src/features/combat/ReactionBoard/ReactionBoard.tsx#ReactionBoard"
+        },
+        {
+          "file": "src/features/combat/ReactionBoard/ReactionBoard.tsx",
+          "line": 481,
+          "owner": "src/features/combat/ReactionBoard/ReactionBoard.tsx#ReactionBoard"
+        },
+        {
+          "file": "src/features/combat/ReactionBoard/ReactionBoard.tsx",
+          "line": 509,
+          "owner": "src/features/combat/ReactionBoard/ReactionBoard.tsx#ReactionBoard"
+        },
+        {
+          "file": "src/features/combat/ReactionBoard/ReactionBoard.tsx",
+          "line": 515,
+          "owner": "src/features/combat/ReactionBoard/ReactionBoard.tsx#ReactionBoard"
+        },
+        {
+          "file": "src/features/combat/ReactionBoard/ReactionBoard.tsx",
+          "line": 536,
+          "owner": "src/features/combat/ReactionBoard/ReactionBoard.tsx#ReactionBoard"
+        },
+        {
+          "file": "src/features/combat/ReactionBoard/ReactionBoard.tsx",
+          "line": 554,
+          "owner": "src/features/combat/ReactionBoard/ReactionBoard.tsx#ReactionBoard"
+        },
+        {
+          "file": "src/features/journey/JourneyChoices/JourneyChoices.tsx",
+          "line": 25,
+          "owner": "src/features/journey/JourneyChoices/JourneyChoices.tsx#JourneyChoices"
+        },
+        {
+          "file": "src/features/journey/JourneyChoices/JourneyChoices.tsx",
+          "line": 76,
+          "owner": "src/features/journey/JourneyChoices/JourneyChoices.tsx#JourneyChoices"
+        },
+        {
+          "file": "src/features/journey/JourneyMap/NodeDialog.tsx",
+          "line": 94,
+          "owner": "src/features/journey/JourneyMap/NodeDialog.tsx#NodeDialog"
+        },
+        {
+          "file": "src/features/journey/JourneyMap/NodeDialog.tsx",
+          "line": 103,
+          "owner": "src/features/journey/JourneyMap/NodeDialog.tsx#NodeDialog"
+        },
+        {
+          "file": "src/features/journey/JourneyStop/JourneyStop.tsx",
+          "line": 74,
+          "owner": "src/features/journey/JourneyStop/JourneyStop.tsx#JourneyStop"
+        },
+        {
+          "file": "src/features/journey/JourneyStop/JourneyStop.tsx",
+          "line": 120,
+          "owner": "src/features/journey/JourneyStop/JourneyStop.tsx#JourneyStop"
+        },
+        {
+          "file": "src/features/journey/JourneyStop/JourneyStop.tsx",
+          "line": 127,
+          "owner": "src/features/journey/JourneyStop/JourneyStop.tsx#JourneyStop"
+        },
+        {
+          "file": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx",
+          "line": 108,
+          "owner": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx#VictoryRewardDialog"
+        },
+        {
+          "file": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx",
+          "line": 115,
+          "owner": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx#VictoryRewardDialog"
+        },
+        {
+          "file": "src/shared/ui/GameMenuOptions/GameMenuOptions.tsx",
+          "line": 19,
+          "owner": "src/shared/ui/GameMenuOptions/GameMenuOptions.tsx#GameMenuOptions"
+        },
+        {
+          "file": "src/shared/ui/GameMenuOptions/GameMenuOptions.tsx",
+          "line": 24,
+          "owner": "src/shared/ui/GameMenuOptions/GameMenuOptions.tsx#GameMenuOptions"
+        },
+        {
+          "file": "src/shared/ui/GameMenuOptions/GameMenuOptions.tsx",
+          "line": 29,
+          "owner": "src/shared/ui/GameMenuOptions/GameMenuOptions.tsx#GameMenuOptions"
+        },
+        {
+          "file": "tests/text-controls-preview.tsx",
+          "line": 22,
+          "owner": null
+        },
+        {
+          "file": "tests/text-controls-preview.tsx",
+          "line": 28,
+          "owner": null
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "ItemIcon",
+      "file": "src/shared/ui/ItemIcon/ItemIcon.tsx",
+      "line": 7,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/equipment/EquipmentDoll/EquipmentDoll.tsx",
+          "line": 58,
+          "owner": "src/features/equipment/EquipmentDoll/EquipmentDoll.tsx#EquipmentDoll"
+        },
+        {
+          "file": "src/features/rewards/VictoryRewardDialog/RewardArt.tsx",
+          "line": 16,
+          "owner": "src/features/rewards/VictoryRewardDialog/RewardArt.tsx#RewardArt"
+        },
+        {
+          "file": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx",
+          "line": 178,
+          "owner": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx#VictoryRewardDialog"
+        },
+        {
+          "file": "src/features/skills/FighterSkills/FighterSkills.tsx",
+          "line": 41,
+          "owner": "src/features/skills/FighterSkills/FighterSkills.tsx#FighterSkills"
+        },
+        {
+          "file": "src/shared/ui/EquipmentIcon/EquipmentIcon.tsx",
+          "line": 13,
+          "owner": "src/shared/ui/EquipmentIcon/EquipmentIcon.tsx#EquipmentIcon"
+        },
+        {
+          "file": "src/shared/ui/SkillIcon/SkillIcon.tsx",
+          "line": 10,
+          "owner": "src/shared/ui/SkillIcon/SkillIcon.tsx#SkillIcon"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "Mark",
+      "file": "src/shared/ui/Mark/Mark.tsx",
+      "line": 4,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/app/App/App.tsx",
+          "line": 88,
+          "owner": "src/app/App/App.tsx#App"
+        },
+        {
+          "file": "src/app/App/App.tsx",
+          "line": 95,
+          "owner": "src/app/App/App.tsx#App"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "Modal",
+      "file": "src/shared/ui/Modal/Modal.tsx",
+      "line": 8,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/app/App/App.tsx",
+          "line": 39,
+          "owner": "src/app/App/App.tsx#App"
+        },
+        {
+          "file": "src/features/characters/CharacterCard/CharacterCard.tsx",
+          "line": 66,
+          "owner": "src/features/characters/CharacterCard/CharacterCard.tsx#CharacterCard"
+        },
+        {
+          "file": "src/features/characters/CharacterCreation/CharacterCreation.tsx",
+          "line": 69,
+          "owner": "src/features/characters/CharacterCreation/CharacterCreation.tsx#CharacterCreation"
+        },
+        {
+          "file": "src/features/characters/CharacterHome/CharacterHome.tsx",
+          "line": 68,
+          "owner": "src/features/characters/CharacterHome/CharacterHome.tsx#CharacterHome"
+        },
+        {
+          "file": "src/features/characters/CharacterHome/CharacterHome.tsx",
+          "line": 151,
+          "owner": "src/features/characters/CharacterHome/CharacterHome.tsx#CharacterHome"
+        },
+        {
+          "file": "src/features/characters/FighterDialog/FighterDialog.tsx",
+          "line": 26,
+          "owner": "src/features/characters/FighterDialog/FighterDialog.tsx#FighterDialog"
+        },
+        {
+          "file": "src/features/combat/BattleHeader/BattleHeader.tsx",
+          "line": 78,
+          "owner": "src/features/combat/BattleHeader/BattleHeader.tsx#BattleHeader"
+        },
+        {
+          "file": "src/features/combat/BattleModeDialog/BattleModeDialog.tsx",
+          "line": 19,
+          "owner": "src/features/combat/BattleModeDialog/BattleModeDialog.tsx#BattleModeDialog"
+        },
+        {
+          "file": "src/features/combat/BattleResultDialog/BattleResultDialog.tsx",
+          "line": 24,
+          "owner": "src/features/combat/BattleResultDialog/BattleResultDialog.tsx#BattleResultDialog"
+        },
+        {
+          "file": "src/features/combat/GameScreen/GameScreen.tsx",
+          "line": 314,
+          "owner": "src/features/combat/GameScreen/GameScreen.tsx#GameScreen"
+        },
+        {
+          "file": "src/features/combat/ReactionBoard/ReactionBoard.tsx",
+          "line": 467,
+          "owner": "src/features/combat/ReactionBoard/ReactionBoard.tsx#ReactionBoard"
+        },
+        {
+          "file": "src/features/combat/ReactionBoard/ReactionBoard.tsx",
+          "line": 495,
+          "owner": "src/features/combat/ReactionBoard/ReactionBoard.tsx#ReactionBoard"
+        },
+        {
+          "file": "src/features/equipment/ItemInspectionWindow/ItemInspectionWindow.tsx",
+          "line": 13,
+          "owner": "src/features/equipment/ItemInspectionWindow/ItemInspectionWindow.tsx#ItemInspectionWindow"
+        },
+        {
+          "file": "src/features/journey/JourneyMap/NodeDialog.tsx",
+          "line": 45,
+          "owner": "src/features/journey/JourneyMap/NodeDialog.tsx#NodeDialog"
+        },
+        {
+          "file": "src/features/journey/JourneyScreen/MapWindow.tsx",
+          "line": 15,
+          "owner": "src/features/journey/JourneyScreen/MapWindow.tsx#MapWindow"
+        },
+        {
+          "file": "src/features/rewards/VictoryRewardDialog/RewardWindow.tsx",
+          "line": 21,
+          "owner": "src/features/rewards/VictoryRewardDialog/RewardWindow.tsx#RewardWindow"
+        },
+        {
+          "file": "src/features/skills/FighterSkills/FighterSkills.tsx",
+          "line": 48,
+          "owner": "src/features/skills/FighterSkills/FighterSkills.tsx#FighterSkills"
+        },
+        {
+          "file": "src/shared/ui/GameMenu/GameMenu.tsx",
+          "line": 7,
+          "owner": "src/shared/ui/GameMenu/GameMenu.tsx#GameMenu"
+        },
+        {
+          "file": "tests/text-controls-preview.tsx",
+          "line": 13,
+          "owner": null
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "ModalHeader",
+      "file": "src/shared/ui/Modal/ModalHeader.tsx",
+      "line": 8,
+      "exported": false,
+      "uses": [
+        {
+          "file": "src/shared/ui/Modal/Modal.tsx",
+          "line": 58,
+          "owner": "src/shared/ui/Modal/Modal.tsx#Modal"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "ModalFooter",
+      "file": "src/shared/ui/ModalFooter/ModalFooter.tsx",
+      "line": 5,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/app/App/App.tsx",
+          "line": 48,
+          "owner": "src/app/App/App.tsx#App"
+        },
+        {
+          "file": "src/features/characters/CharacterCreation/CharacterCreation.tsx",
+          "line": 188,
+          "owner": "src/features/characters/CharacterCreation/CharacterCreation.tsx#CharacterCreation"
+        },
+        {
+          "file": "src/features/characters/CharacterHome/CharacterHome.tsx",
+          "line": 143,
+          "owner": "src/features/characters/CharacterHome/CharacterHome.tsx#CharacterHome"
+        },
+        {
+          "file": "src/features/characters/CharacterHome/CharacterHome.tsx",
+          "line": 168,
+          "owner": "src/features/characters/CharacterHome/CharacterHome.tsx#CharacterHome"
+        },
+        {
+          "file": "src/features/combat/BattleModeDialog/BattleModeDialog.tsx",
+          "line": 30,
+          "owner": "src/features/combat/BattleModeDialog/BattleModeDialog.tsx#BattleModeDialog"
+        },
+        {
+          "file": "src/features/combat/BattleResultDialog/BattleResultDialog.tsx",
+          "line": 66,
+          "owner": "src/features/combat/BattleResultDialog/BattleResultDialog.tsx#BattleResultDialog"
+        },
+        {
+          "file": "src/features/combat/ReactionBoard/ReactionBoard.tsx",
+          "line": 508,
+          "owner": "src/features/combat/ReactionBoard/ReactionBoard.tsx#ReactionBoard"
+        },
+        {
+          "file": "src/features/journey/JourneyMap/NodeDialog.tsx",
+          "line": 93,
+          "owner": "src/features/journey/JourneyMap/NodeDialog.tsx#NodeDialog"
+        },
+        {
+          "file": "src/features/journey/JourneyStop/JourneyStop.tsx",
+          "line": 119,
+          "owner": "src/features/journey/JourneyStop/JourneyStop.tsx#JourneyStop"
+        },
+        {
+          "file": "src/features/rewards/VictoryRewardDialog/RewardWindow.tsx",
+          "line": 31,
+          "owner": "src/features/rewards/VictoryRewardDialog/RewardWindow.tsx#RewardWindow"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "Notification",
+      "file": "src/shared/ui/Notification/Notification.tsx",
+      "line": 6,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/combat/GameScreen/GameScreen.tsx",
+          "line": 279,
+          "owner": "src/features/combat/GameScreen/GameScreen.tsx#GameScreen"
+        },
+        {
+          "file": "src/features/combat/ReactionBoard/ReactionBoard.tsx",
+          "line": 528,
+          "owner": "src/features/combat/ReactionBoard/ReactionBoard.tsx#ReactionBoard"
+        },
+        {
+          "file": "src/features/journey/JourneyMap/JourneyMap.tsx",
+          "line": 218,
+          "owner": "src/features/journey/JourneyMap/JourneyMap.tsx#JourneyMap"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "Popup",
+      "file": "src/shared/ui/Popup/Popup.tsx",
+      "line": 5,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/combat/CellPopup/CellPopup.tsx",
+          "line": 36,
+          "owner": "src/features/combat/CellPopup/CellPopup.tsx#CellPopup"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "ResourceBar",
+      "file": "src/shared/ui/ResourceBar/ResourceBar.tsx",
+      "line": 16,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/combat/Resources/Resources.tsx",
+          "line": 16,
+          "owner": "src/features/combat/Resources/Resources.tsx#Resources"
+        },
+        {
+          "file": "src/features/combat/Resources/Resources.tsx",
+          "line": 24,
+          "owner": "src/features/combat/Resources/Resources.tsx#Resources"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "SkillIcon",
+      "file": "src/shared/ui/SkillIcon/SkillIcon.tsx",
+      "line": 4,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/features/combat/ActionSource/ActionSource.tsx",
+          "line": 39,
+          "owner": "src/features/combat/ActionSource/ActionSource.tsx#ActionSource"
+        },
+        {
+          "file": "src/features/rewards/VictoryRewardDialog/RewardArt.tsx",
+          "line": 14,
+          "owner": "src/features/rewards/VictoryRewardDialog/RewardArt.tsx#RewardArt"
+        },
+        {
+          "file": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx",
+          "line": 150,
+          "owner": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx#VictoryRewardDialog"
+        },
+        {
+          "file": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx",
+          "line": 176,
+          "owner": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx#VictoryRewardDialog"
+        },
+        {
+          "file": "src/features/skills/FighterSkills/FighterSkills.tsx",
+          "line": 39,
+          "owner": "src/features/skills/FighterSkills/FighterSkills.tsx#FighterSkills"
+        }
+      ],
+      "active": true
+    },
+    {
+      "name": "Text",
+      "file": "src/shared/ui/Text/Text.tsx",
+      "line": 8,
+      "exported": true,
+      "uses": [
+        {
+          "file": "src/app/App/App.tsx",
+          "line": 46,
+          "owner": "src/app/App/App.tsx#App"
+        },
+        {
+          "file": "src/app/App/App.tsx",
+          "line": 89,
+          "owner": "src/app/App/App.tsx#App"
+        },
+        {
+          "file": "src/app/App/App.tsx",
+          "line": 96,
+          "owner": "src/app/App/App.tsx#App"
+        },
+        {
+          "file": "src/app/App/App.tsx",
+          "line": 100,
+          "owner": "src/app/App/App.tsx#App"
+        },
+        {
+          "file": "src/app/App/App.tsx",
+          "line": 103,
+          "owner": "src/app/App/App.tsx#App"
+        },
+        {
+          "file": "src/features/characters/CharacterCard/CharacterCard.tsx",
+          "line": 120,
+          "owner": "src/features/characters/CharacterCard/CharacterCard.tsx#CharacterCard"
+        },
+        {
+          "file": "src/features/characters/CharacterCard/CharacterCard.tsx",
+          "line": 126,
+          "owner": "src/features/characters/CharacterCard/CharacterCard.tsx#CharacterCard"
+        },
+        {
+          "file": "src/features/characters/CharacterCard/CharacterCard.tsx",
+          "line": 140,
+          "owner": "src/features/characters/CharacterCard/CharacterCard.tsx#CharacterCard"
+        },
+        {
+          "file": "src/features/characters/CharacterCreation/CharacterCreation.tsx",
+          "line": 145,
+          "owner": "src/features/characters/CharacterCreation/CharacterCreation.tsx#CharacterCreation"
+        },
+        {
+          "file": "src/features/characters/CharacterCreation/CharacterCreation.tsx",
+          "line": 146,
+          "owner": "src/features/characters/CharacterCreation/CharacterCreation.tsx#CharacterCreation"
+        },
+        {
+          "file": "src/features/characters/CharacterCreation/CharacterCreation.tsx",
+          "line": 149,
+          "owner": "src/features/characters/CharacterCreation/CharacterCreation.tsx#CharacterCreation"
+        },
+        {
+          "file": "src/features/characters/CharacterCreation/CharacterCreation.tsx",
+          "line": 165,
+          "owner": "src/features/characters/CharacterCreation/CharacterCreation.tsx#CharacterCreation"
+        },
+        {
+          "file": "src/features/characters/CharacterCreation/CharacterCreation.tsx",
+          "line": 183,
+          "owner": "src/features/characters/CharacterCreation/CharacterCreation.tsx#CharacterCreation"
+        },
+        {
+          "file": "src/features/characters/CharacterHome/CharacterHome.tsx",
+          "line": 76,
+          "owner": "src/features/characters/CharacterHome/CharacterHome.tsx#CharacterHome"
+        },
+        {
+          "file": "src/features/characters/CharacterHome/CharacterHome.tsx",
+          "line": 83,
+          "owner": "src/features/characters/CharacterHome/CharacterHome.tsx#CharacterHome"
+        },
+        {
+          "file": "src/features/characters/CharacterHome/CharacterHome.tsx",
+          "line": 84,
+          "owner": "src/features/characters/CharacterHome/CharacterHome.tsx#CharacterHome"
+        },
+        {
+          "file": "src/features/characters/CharacterHome/CharacterHome.tsx",
+          "line": 102,
+          "owner": "src/features/characters/CharacterHome/CharacterHome.tsx#CharacterHome"
+        },
+        {
+          "file": "src/features/characters/CharacterHome/CharacterHome.tsx",
+          "line": 103,
+          "owner": "src/features/characters/CharacterHome/CharacterHome.tsx#CharacterHome"
+        },
+        {
+          "file": "src/features/characters/CharacterHome/CharacterHome.tsx",
+          "line": 106,
+          "owner": "src/features/characters/CharacterHome/CharacterHome.tsx#CharacterHome"
+        },
+        {
+          "file": "src/features/characters/CharacterHome/CharacterHome.tsx",
+          "line": 112,
+          "owner": "src/features/characters/CharacterHome/CharacterHome.tsx#CharacterHome"
+        },
+        {
+          "file": "src/features/characters/CharacterHome/CharacterHome.tsx",
+          "line": 113,
+          "owner": "src/features/characters/CharacterHome/CharacterHome.tsx#CharacterHome"
+        },
+        {
+          "file": "src/features/characters/CharacterHome/CharacterHome.tsx",
+          "line": 118,
+          "owner": "src/features/characters/CharacterHome/CharacterHome.tsx#CharacterHome"
+        },
+        {
+          "file": "src/features/characters/CharacterHome/CharacterHome.tsx",
+          "line": 122,
+          "owner": "src/features/characters/CharacterHome/CharacterHome.tsx#CharacterHome"
+        },
+        {
+          "file": "src/features/characters/CharacterHome/CharacterHome.tsx",
+          "line": 158,
+          "owner": "src/features/characters/CharacterHome/CharacterHome.tsx#CharacterHome"
+        },
+        {
+          "file": "src/features/characters/CharacterHome/CharacterHome.tsx",
+          "line": 163,
+          "owner": "src/features/characters/CharacterHome/CharacterHome.tsx#CharacterHome"
+        },
+        {
+          "file": "src/features/characters/CharacterStats/CharacterStats.tsx",
+          "line": 33,
+          "owner": "src/features/characters/CharacterStats/CharacterStats.tsx#CharacterStats"
+        },
+        {
+          "file": "src/features/characters/CharacterStats/CharacterStats.tsx",
+          "line": 34,
+          "owner": "src/features/characters/CharacterStats/CharacterStats.tsx#CharacterStats"
+        },
+        {
+          "file": "src/features/characters/CharacterStats/CharacterStats.tsx",
+          "line": 37,
+          "owner": "src/features/characters/CharacterStats/CharacterStats.tsx#CharacterStats"
+        },
+        {
+          "file": "src/features/characters/CharacterStats/CharacterStats.tsx",
+          "line": 51,
+          "owner": "src/features/characters/CharacterStats/CharacterStats.tsx#CharacterStats"
+        },
+        {
+          "file": "src/features/characters/CharacterStats/CharacterStats.tsx",
+          "line": 52,
+          "owner": "src/features/characters/CharacterStats/CharacterStats.tsx#CharacterStats"
+        },
+        {
+          "file": "src/features/characters/CharacterStats/CharacterStats.tsx",
+          "line": 56,
+          "owner": "src/features/characters/CharacterStats/CharacterStats.tsx#CharacterStats"
+        },
+        {
+          "file": "src/features/characters/CharacterStats/CharacterStats.tsx",
+          "line": 64,
+          "owner": "src/features/characters/CharacterStats/CharacterStats.tsx#CharacterStats"
+        },
+        {
+          "file": "src/features/characters/CharacterStats/CharacterStats.tsx",
+          "line": 81,
+          "owner": "src/features/characters/CharacterStats/CharacterStats.tsx#CharacterStats"
+        },
+        {
+          "file": "src/features/characters/FighterDebuffs/FighterDebuffs.tsx",
+          "line": 11,
+          "owner": "src/features/characters/FighterDebuffs/FighterDebuffs.tsx#FighterDebuffs"
+        },
+        {
+          "file": "src/features/characters/FighterPanel/FighterPanel.tsx",
+          "line": 45,
+          "owner": "src/features/characters/FighterPanel/FighterPanel.tsx#FighterPanel"
+        },
+        {
+          "file": "src/features/characters/FighterPanel/FighterPanel.tsx",
+          "line": 52,
+          "owner": "src/features/characters/FighterPanel/FighterPanel.tsx#FighterPanel"
+        },
+        {
+          "file": "src/features/characters/FighterPanel/FighterPanel.tsx",
+          "line": 65,
+          "owner": "src/features/characters/FighterPanel/FighterPanel.tsx#FighterPanel"
+        },
+        {
+          "file": "src/features/characters/FighterPanel/FighterPanel.tsx",
+          "line": 80,
+          "owner": "src/features/characters/FighterPanel/FighterPanel.tsx#FighterPanel"
+        },
+        {
+          "file": "src/features/characters/FighterPanel/FighterPanel.tsx",
+          "line": 97,
+          "owner": "src/features/characters/FighterPanel/FighterPanel.tsx#FighterPanel"
+        },
+        {
+          "file": "src/features/characters/FighterPanel/FighterPanel.tsx",
+          "line": 106,
+          "owner": "src/features/characters/FighterPanel/FighterPanel.tsx#FighterPanel"
+        },
+        {
+          "file": "src/features/characters/FighterPanel/FighterPanel.tsx",
+          "line": 107,
+          "owner": "src/features/characters/FighterPanel/FighterPanel.tsx#FighterPanel"
+        },
+        {
+          "file": "src/features/characters/FighterPanel/FighterPanel.tsx",
+          "line": 108,
+          "owner": "src/features/characters/FighterPanel/FighterPanel.tsx#FighterPanel"
+        },
+        {
+          "file": "src/features/characters/SoulBalance/SoulBalance.tsx",
+          "line": 7,
+          "owner": "src/features/characters/SoulBalance/SoulBalance.tsx#SoulBalance"
+        },
+        {
+          "file": "src/features/characters/SoulBalance/SoulBalance.tsx",
+          "line": 13,
+          "owner": "src/features/characters/SoulBalance/SoulBalance.tsx#SoulBalance"
+        },
+        {
+          "file": "src/features/combat/ActionFigure/ActionFigure.tsx",
+          "line": 40,
+          "owner": "src/features/combat/ActionFigure/ActionFigure.tsx#ActionFigure"
+        },
+        {
+          "file": "src/features/combat/ActionFigure/ActionFigure.tsx",
+          "line": 50,
+          "owner": "src/features/combat/ActionFigure/ActionFigure.tsx#ActionFigure"
+        },
+        {
+          "file": "src/features/combat/ActionFigure/ActionFigure.tsx",
+          "line": 58,
+          "owner": "src/features/combat/ActionFigure/ActionFigure.tsx#ActionFigure"
+        },
+        {
+          "file": "src/features/combat/ActionFigure/ActionFigure.tsx",
+          "line": 63,
+          "owner": "src/features/combat/ActionFigure/ActionFigure.tsx#ActionFigure"
+        },
+        {
+          "file": "src/features/combat/ActionFigure/ActionFigure.tsx",
+          "line": 69,
+          "owner": "src/features/combat/ActionFigure/ActionFigure.tsx#ActionFigure"
+        },
+        {
+          "file": "src/features/combat/ActionFigure/ActionFigure.tsx",
+          "line": 80,
+          "owner": "src/features/combat/ActionFigure/ActionFigure.tsx#ActionFigure"
+        },
+        {
+          "file": "src/features/combat/ActionPalette/ActionPalette.tsx",
+          "line": 99,
+          "owner": "src/features/combat/ActionPalette/ActionPalette.tsx#ActionPalette"
+        },
+        {
+          "file": "src/features/combat/ActionSource/ActionSource.tsx",
+          "line": 20,
+          "owner": "src/features/combat/ActionSource/ActionSource.tsx#ActionSource"
+        },
+        {
+          "file": "src/features/combat/ActionSource/ActionSource.tsx",
+          "line": 31,
+          "owner": "src/features/combat/ActionSource/ActionSource.tsx#ActionSource"
+        },
+        {
+          "file": "src/features/combat/ActionSource/ActionSource.tsx",
+          "line": 45,
+          "owner": "src/features/combat/ActionSource/ActionSource.tsx#ActionSource"
+        },
+        {
+          "file": "src/features/combat/BattleHeader/BattleHeader.tsx",
+          "line": 48,
+          "owner": "src/features/combat/BattleHeader/BattleHeader.tsx#BattleHeader"
+        },
+        {
+          "file": "src/features/combat/BattleHeader/BattleHeader.tsx",
+          "line": 85,
+          "owner": "src/features/combat/BattleHeader/BattleHeader.tsx#BattleHeader"
+        },
+        {
+          "file": "src/features/combat/BattleHeader/BattleHeader.tsx",
+          "line": 86,
+          "owner": "src/features/combat/BattleHeader/BattleHeader.tsx#BattleHeader"
+        },
+        {
+          "file": "src/features/combat/BattleModeDialog/BattleModeDialog.tsx",
+          "line": 27,
+          "owner": "src/features/combat/BattleModeDialog/BattleModeDialog.tsx#BattleModeDialog"
+        },
+        {
+          "file": "src/features/combat/BattleModeDialog/BattleModeDialog.tsx",
+          "line": 28,
+          "owner": "src/features/combat/BattleModeDialog/BattleModeDialog.tsx#BattleModeDialog"
+        },
+        {
+          "file": "src/features/combat/BattleResultDialog/BattleResultDialog.tsx",
+          "line": 33,
+          "owner": "src/features/combat/BattleResultDialog/BattleResultDialog.tsx#BattleResultDialog"
+        },
+        {
+          "file": "src/features/combat/BattleResultDialog/BattleResultDialog.tsx",
+          "line": 39,
+          "owner": "src/features/combat/BattleResultDialog/BattleResultDialog.tsx#BattleResultDialog"
+        },
+        {
+          "file": "src/features/combat/BattleResultDialog/BattleResultDialog.tsx",
+          "line": 47,
+          "owner": "src/features/combat/BattleResultDialog/BattleResultDialog.tsx#BattleResultDialog"
+        },
+        {
+          "file": "src/features/combat/BattleResultDialog/BattleResultDialog.tsx",
+          "line": 60,
+          "owner": "src/features/combat/BattleResultDialog/BattleResultDialog.tsx#BattleResultDialog"
+        },
+        {
+          "file": "src/features/combat/BattleWorkspace/BattleWorkspace.tsx",
+          "line": 16,
+          "owner": "src/features/combat/BattleWorkspace/BattleWorkspace.tsx#BattleWorkspace"
+        },
+        {
+          "file": "src/features/combat/CellDamage/CellDamage.tsx",
+          "line": 30,
+          "owner": "src/features/combat/CellDamage/CellDamage.tsx#CellDamage"
+        },
+        {
+          "file": "src/features/combat/CellDamage/CellDamage.tsx",
+          "line": 38,
+          "owner": "src/features/combat/CellDamage/CellDamage.tsx#CellDamage"
+        },
+        {
+          "file": "src/features/combat/CellDamage/CellDamage.tsx",
+          "line": 45,
+          "owner": "src/features/combat/CellDamage/CellDamage.tsx#CellDamage"
+        },
+        {
+          "file": "src/features/combat/CellPopup/CellPopup.tsx",
+          "line": 48,
+          "owner": "src/features/combat/CellPopup/CellPopup.tsx#CellPopup"
+        },
+        {
+          "file": "src/features/combat/CellPopup/CellPopup.tsx",
+          "line": 51,
+          "owner": "src/features/combat/CellPopup/CellPopup.tsx#CellPopup"
+        },
+        {
+          "file": "src/features/combat/CellPopup/CellPopup.tsx",
+          "line": 59,
+          "owner": "src/features/combat/CellPopup/CellPopup.tsx#CellPopup"
+        },
+        {
+          "file": "src/features/combat/CellPopup/CellPopup.tsx",
+          "line": 63,
+          "owner": "src/features/combat/CellPopup/CellPopup.tsx#CellPopup"
+        },
+        {
+          "file": "src/features/combat/CellPopup/CellPopup.tsx",
+          "line": 75,
+          "owner": "src/features/combat/CellPopup/CellPopup.tsx#CellPopup"
+        },
+        {
+          "file": "src/features/combat/CellPopup/CellPopup.tsx",
+          "line": 78,
+          "owner": "src/features/combat/CellPopup/CellPopup.tsx#CellPopup"
+        },
+        {
+          "file": "src/features/combat/CellPopup/CellPopup.tsx",
+          "line": 85,
+          "owner": "src/features/combat/CellPopup/CellPopup.tsx#CellPopup"
+        },
+        {
+          "file": "src/features/combat/CellPopup/CellPopup.tsx",
+          "line": 92,
+          "owner": "src/features/combat/CellPopup/CellPopup.tsx#CellPopup"
+        },
+        {
+          "file": "src/features/combat/ClashOutcome/ClashOutcome.tsx",
+          "line": 47,
+          "owner": "src/features/combat/ClashOutcome/ClashOutcome.tsx#ClashOutcome"
+        },
+        {
+          "file": "src/features/combat/ClashOutcome/ClashOutcome.tsx",
+          "line": 55,
+          "owner": "src/features/combat/ClashOutcome/ClashOutcome.tsx#ClashOutcome"
+        },
+        {
+          "file": "src/features/combat/ClashOutcome/ClashOutcome.tsx",
+          "line": 60,
+          "owner": "src/features/combat/ClashOutcome/ClashOutcome.tsx#ClashOutcome"
+        },
+        {
+          "file": "src/features/combat/FigureCard/FigureCard.tsx",
+          "line": 20,
+          "owner": "src/features/combat/FigureCard/FigureCard.tsx#FigureCard"
+        },
+        {
+          "file": "src/features/combat/FigureCard/FigureCard.tsx",
+          "line": 24,
+          "owner": "src/features/combat/FigureCard/FigureCard.tsx#FigureCard"
+        },
+        {
+          "file": "src/features/combat/FloatingDamage/FloatingDamage.tsx",
+          "line": 8,
+          "owner": "src/features/combat/FloatingDamage/FloatingDamage.tsx#FloatingDamage"
+        },
+        {
+          "file": "src/features/combat/FloatingDamage/FloatingDamage.tsx",
+          "line": 10,
+          "owner": "src/features/combat/FloatingDamage/FloatingDamage.tsx#FloatingDamage"
+        },
+        {
+          "file": "src/features/combat/GameScreen/GameScreen.tsx",
+          "line": 105,
+          "owner": "src/features/combat/GameScreen/GameScreen.tsx#GameScreen"
+        },
+        {
+          "file": "src/features/combat/GameScreen/GameScreen.tsx",
+          "line": 114,
+          "owner": "src/features/combat/GameScreen/GameScreen.tsx#GameScreen"
+        },
+        {
+          "file": "src/features/combat/GameScreen/GameScreen.tsx",
+          "line": 118,
+          "owner": "src/features/combat/GameScreen/GameScreen.tsx#GameScreen"
+        },
+        {
+          "file": "src/features/combat/GameScreen/GameScreen.tsx",
+          "line": 126,
+          "owner": "src/features/combat/GameScreen/GameScreen.tsx#GameScreen"
+        },
+        {
+          "file": "src/features/combat/GameScreen/GameScreen.tsx",
+          "line": 135,
+          "owner": "src/features/combat/GameScreen/GameScreen.tsx#GameScreen"
+        },
+        {
+          "file": "src/features/combat/GameScreen/GameScreen.tsx",
+          "line": 251,
+          "owner": "src/features/combat/GameScreen/GameScreen.tsx#GameScreen"
+        },
+        {
+          "file": "src/features/combat/GameScreen/GameScreen.tsx",
+          "line": 268,
+          "owner": "src/features/combat/GameScreen/GameScreen.tsx#GameScreen"
+        },
+        {
+          "file": "src/features/combat/ReactionBoard/LayerIcon.tsx",
+          "line": 9,
+          "owner": "src/features/combat/ReactionBoard/LayerIcon.tsx#LayerIcon"
+        },
+        {
+          "file": "src/features/combat/ReactionBoard/ReactionBoard.tsx",
+          "line": 417,
+          "owner": "src/features/combat/ReactionBoard/ReactionBoard.tsx#ReactionBoard"
+        },
+        {
+          "file": "src/features/combat/ReactionBoard/ReactionBoard.tsx",
+          "line": 427,
+          "owner": "src/features/combat/ReactionBoard/ReactionBoard.tsx#ReactionBoard"
+        },
+        {
+          "file": "src/features/combat/ReactionBoard/ReactionBoard.tsx",
+          "line": 432,
+          "owner": "src/features/combat/ReactionBoard/ReactionBoard.tsx#ReactionBoard"
+        },
+        {
+          "file": "src/features/combat/ReactionBoard/ReactionBoard.tsx",
+          "line": 441,
+          "owner": "src/features/combat/ReactionBoard/ReactionBoard.tsx#ReactionBoard"
+        },
+        {
+          "file": "src/features/combat/ReactionBoard/ReactionBoard.tsx",
+          "line": 474,
+          "owner": "src/features/combat/ReactionBoard/ReactionBoard.tsx#ReactionBoard"
+        },
+        {
+          "file": "src/features/combat/ReactionBoard/ReactionBoard.tsx",
+          "line": 490,
+          "owner": "src/features/combat/ReactionBoard/ReactionBoard.tsx#ReactionBoard"
+        },
+        {
+          "file": "src/features/combat/ReactionBoard/ReactionBoard.tsx",
+          "line": 502,
+          "owner": "src/features/combat/ReactionBoard/ReactionBoard.tsx#ReactionBoard"
+        },
+        {
+          "file": "src/features/creatures/CreatureDetails/CreatureDetails.tsx",
+          "line": 21,
+          "owner": "src/features/creatures/CreatureDetails/CreatureDetails.tsx#CreatureDetails"
+        },
+        {
+          "file": "src/features/creatures/CreatureDetails/CreatureDetails.tsx",
+          "line": 22,
+          "owner": "src/features/creatures/CreatureDetails/CreatureDetails.tsx#CreatureDetails"
+        },
+        {
+          "file": "src/features/creatures/CreatureDetails/CreatureDetails.tsx",
+          "line": 42,
+          "owner": "src/features/creatures/CreatureDetails/CreatureDetails.tsx#CreatureDetails"
+        },
+        {
+          "file": "src/features/creatures/CreatureDetails/CreatureDetails.tsx",
+          "line": 47,
+          "owner": "src/features/creatures/CreatureDetails/CreatureDetails.tsx#CreatureDetails"
+        },
+        {
+          "file": "src/features/creatures/CreatureDetails/CreatureDetails.tsx",
+          "line": 48,
+          "owner": "src/features/creatures/CreatureDetails/CreatureDetails.tsx#CreatureDetails"
+        },
+        {
+          "file": "src/features/equipment/EquipmentDoll/EquipmentDoll.tsx",
+          "line": 52,
+          "owner": "src/features/equipment/EquipmentDoll/EquipmentDoll.tsx#EquipmentDoll"
+        },
+        {
+          "file": "src/features/equipment/EquipmentDoll/EquipmentDoll.tsx",
+          "line": 61,
+          "owner": "src/features/equipment/EquipmentDoll/EquipmentDoll.tsx#EquipmentDoll"
+        },
+        {
+          "file": "src/features/equipment/EquipmentDoll/EquipmentDoll.tsx",
+          "line": 66,
+          "owner": "src/features/equipment/EquipmentDoll/EquipmentDoll.tsx#EquipmentDoll"
+        },
+        {
+          "file": "src/features/equipment/ItemDetails/ItemDetails.tsx",
+          "line": 14,
+          "owner": "src/features/equipment/ItemDetails/ItemDetails.tsx#ItemDetails"
+        },
+        {
+          "file": "src/features/equipment/ItemDetails/ItemDetails.tsx",
+          "line": 18,
+          "owner": "src/features/equipment/ItemDetails/ItemDetails.tsx#ItemDetails"
+        },
+        {
+          "file": "src/features/equipment/ItemDetails/ItemDetails.tsx",
+          "line": 20,
+          "owner": "src/features/equipment/ItemDetails/ItemDetails.tsx#ItemDetails"
+        },
+        {
+          "file": "src/features/equipment/ItemDetails/ItemDetails.tsx",
+          "line": 27,
+          "owner": "src/features/equipment/ItemDetails/ItemDetails.tsx#ItemDetails"
+        },
+        {
+          "file": "src/features/equipment/ItemDetails/ItemDetails.tsx",
+          "line": 33,
+          "owner": "src/features/equipment/ItemDetails/ItemDetails.tsx#ItemDetails"
+        },
+        {
+          "file": "src/features/equipment/ItemDetails/ItemDetails.tsx",
+          "line": 34,
+          "owner": "src/features/equipment/ItemDetails/ItemDetails.tsx#ItemDetails"
+        },
+        {
+          "file": "src/features/equipment/ItemDetails/ItemDetails.tsx",
+          "line": 36,
+          "owner": "src/features/equipment/ItemDetails/ItemDetails.tsx#ItemDetails"
+        },
+        {
+          "file": "src/features/equipment/ItemDetails/ItemDetails.tsx",
+          "line": 43,
+          "owner": "src/features/equipment/ItemDetails/ItemDetails.tsx#ItemDetails"
+        },
+        {
+          "file": "src/features/equipment/ItemDetails/ItemDetails.tsx",
+          "line": 47,
+          "owner": "src/features/equipment/ItemDetails/ItemDetails.tsx#ItemDetails"
+        },
+        {
+          "file": "src/features/equipment/ItemDetails/ItemDetails.tsx",
+          "line": 52,
+          "owner": "src/features/equipment/ItemDetails/ItemDetails.tsx#ItemDetails"
+        },
+        {
+          "file": "src/features/equipment/ItemInspection/Delta.tsx",
+          "line": 16,
+          "owner": "src/features/equipment/ItemInspection/Delta.tsx#Delta"
+        },
+        {
+          "file": "src/features/equipment/ItemInspection/ItemCard.tsx",
+          "line": 47,
+          "owner": "src/features/equipment/ItemInspection/ItemCard.tsx#ItemCard"
+        },
+        {
+          "file": "src/features/equipment/ItemInspection/ItemCard.tsx",
+          "line": 53,
+          "owner": "src/features/equipment/ItemInspection/ItemCard.tsx#ItemCard"
+        },
+        {
+          "file": "src/features/equipment/ItemInspection/ItemCard.tsx",
+          "line": 56,
+          "owner": "src/features/equipment/ItemInspection/ItemCard.tsx#ItemCard"
+        },
+        {
+          "file": "src/features/equipment/ItemInspection/ItemCard.tsx",
+          "line": 76,
+          "owner": "src/features/equipment/ItemInspection/ItemCard.tsx#ItemCard"
+        },
+        {
+          "file": "src/features/equipment/ItemInspection/ItemCard.tsx",
+          "line": 82,
+          "owner": "src/features/equipment/ItemInspection/ItemCard.tsx#ItemCard"
+        },
+        {
+          "file": "src/features/equipment/ItemInspection/ItemCard.tsx",
+          "line": 83,
+          "owner": "src/features/equipment/ItemInspection/ItemCard.tsx#ItemCard"
+        },
+        {
+          "file": "src/features/equipment/ItemInspection/ItemCard.tsx",
+          "line": 85,
+          "owner": "src/features/equipment/ItemInspection/ItemCard.tsx#ItemCard"
+        },
+        {
+          "file": "src/features/equipment/ItemInspection/ItemCard.tsx",
+          "line": 89,
+          "owner": "src/features/equipment/ItemInspection/ItemCard.tsx#ItemCard"
+        },
+        {
+          "file": "src/features/equipment/ItemInspection/ItemCard.tsx",
+          "line": 94,
+          "owner": "src/features/equipment/ItemInspection/ItemCard.tsx#ItemCard"
+        },
+        {
+          "file": "src/features/equipment/ItemInspection/ItemCard.tsx",
+          "line": 96,
+          "owner": "src/features/equipment/ItemInspection/ItemCard.tsx#ItemCard"
+        },
+        {
+          "file": "src/features/equipment/ItemInspection/ItemCard.tsx",
+          "line": 97,
+          "owner": "src/features/equipment/ItemInspection/ItemCard.tsx#ItemCard"
+        },
+        {
+          "file": "src/features/equipment/ItemInspection/ItemCard.tsx",
+          "line": 104,
+          "owner": "src/features/equipment/ItemInspection/ItemCard.tsx#ItemCard"
+        },
+        {
+          "file": "src/features/equipment/ItemInspection/ItemCard.tsx",
+          "line": 112,
+          "owner": "src/features/equipment/ItemInspection/ItemCard.tsx#ItemCard"
+        },
+        {
+          "file": "src/features/equipment/ItemInspection/ItemCard.tsx",
+          "line": 120,
+          "owner": "src/features/equipment/ItemInspection/ItemCard.tsx#ItemCard"
+        },
+        {
+          "file": "src/features/equipment/ItemInspection/ItemCard.tsx",
+          "line": 133,
+          "owner": "src/features/equipment/ItemInspection/ItemCard.tsx#ItemCard"
+        },
+        {
+          "file": "src/features/home/StartScreen/StartScreen.tsx",
+          "line": 35,
+          "owner": "src/features/home/StartScreen/StartScreen.tsx#StartScreen"
+        },
+        {
+          "file": "src/features/home/StartScreen/StartScreen.tsx",
+          "line": 36,
+          "owner": "src/features/home/StartScreen/StartScreen.tsx#StartScreen"
+        },
+        {
+          "file": "src/features/home/StartScreen/StartScreen.tsx",
+          "line": 39,
+          "owner": "src/features/home/StartScreen/StartScreen.tsx#StartScreen"
+        },
+        {
+          "file": "src/features/home/StartScreen/StartScreen.tsx",
+          "line": 48,
+          "owner": "src/features/home/StartScreen/StartScreen.tsx#StartScreen"
+        },
+        {
+          "file": "src/features/home/StartScreen/StartScreen.tsx",
+          "line": 52,
+          "owner": "src/features/home/StartScreen/StartScreen.tsx#StartScreen"
+        },
+        {
+          "file": "src/features/home/StartScreen/StartScreen.tsx",
+          "line": 55,
+          "owner": "src/features/home/StartScreen/StartScreen.tsx#StartScreen"
+        },
+        {
+          "file": "src/features/home/StartScreen/StartScreen.tsx",
+          "line": 60,
+          "owner": "src/features/home/StartScreen/StartScreen.tsx#StartScreen"
+        },
+        {
+          "file": "src/features/home/StartScreen/StartScreen.tsx",
+          "line": 63,
+          "owner": "src/features/home/StartScreen/StartScreen.tsx#StartScreen"
+        },
+        {
+          "file": "src/features/home/StartScreen/StartScreen.tsx",
+          "line": 65,
+          "owner": "src/features/home/StartScreen/StartScreen.tsx#StartScreen"
+        },
+        {
+          "file": "src/features/home/StartScreen/StartScreen.tsx",
+          "line": 69,
+          "owner": "src/features/home/StartScreen/StartScreen.tsx#StartScreen"
+        },
+        {
+          "file": "src/features/home/StartScreen/StartScreen.tsx",
+          "line": 75,
+          "owner": "src/features/home/StartScreen/StartScreen.tsx#StartScreen"
+        },
+        {
+          "file": "src/features/journey/BattleModeInfo/BattleModeInfo.tsx",
+          "line": 19,
+          "owner": "src/features/journey/BattleModeInfo/BattleModeInfo.tsx#BattleModeInfo"
+        },
+        {
+          "file": "src/features/journey/BattleModeInfo/BattleModeInfo.tsx",
+          "line": 21,
+          "owner": "src/features/journey/BattleModeInfo/BattleModeInfo.tsx#BattleModeInfo"
+        },
+        {
+          "file": "src/features/journey/BattleModeInfo/BattleModeInfo.tsx",
+          "line": 23,
+          "owner": "src/features/journey/BattleModeInfo/BattleModeInfo.tsx#BattleModeInfo"
+        },
+        {
+          "file": "src/features/journey/BattleModeInfo/BattleModeInfo.tsx",
+          "line": 29,
+          "owner": "src/features/journey/BattleModeInfo/BattleModeInfo.tsx#BattleModeInfo"
+        },
+        {
+          "file": "src/features/journey/JourneyChoices/JourneyChoices.tsx",
+          "line": 39,
+          "owner": "src/features/journey/JourneyChoices/JourneyChoices.tsx#JourneyChoices"
+        },
+        {
+          "file": "src/features/journey/JourneyChoices/JourneyChoices.tsx",
+          "line": 68,
+          "owner": "src/features/journey/JourneyChoices/JourneyChoices.tsx#JourneyChoices"
+        },
+        {
+          "file": "src/features/journey/JourneyChoices/JourneyChoices.tsx",
+          "line": 90,
+          "owner": "src/features/journey/JourneyChoices/JourneyChoices.tsx#JourneyChoices"
+        },
+        {
+          "file": "src/features/journey/JourneyMap/NodeDialog.tsx",
+          "line": 63,
+          "owner": "src/features/journey/JourneyMap/NodeDialog.tsx#NodeDialog"
+        },
+        {
+          "file": "src/features/journey/JourneyMap/NodeDialog.tsx",
+          "line": 64,
+          "owner": "src/features/journey/JourneyMap/NodeDialog.tsx#NodeDialog"
+        },
+        {
+          "file": "src/features/journey/JourneyMap/NodeDialog.tsx",
+          "line": 65,
+          "owner": "src/features/journey/JourneyMap/NodeDialog.tsx#NodeDialog"
+        },
+        {
+          "file": "src/features/journey/JourneyMap/NodeDialog.tsx",
+          "line": 68,
+          "owner": "src/features/journey/JourneyMap/NodeDialog.tsx#NodeDialog"
+        },
+        {
+          "file": "src/features/journey/JourneyMap/NodeDialog.tsx",
+          "line": 76,
+          "owner": "src/features/journey/JourneyMap/NodeDialog.tsx#NodeDialog"
+        },
+        {
+          "file": "src/features/journey/JourneyMap/NodeDialog.tsx",
+          "line": 81,
+          "owner": "src/features/journey/JourneyMap/NodeDialog.tsx#NodeDialog"
+        },
+        {
+          "file": "src/features/journey/JourneyMap/NodeDialog.tsx",
+          "line": 84,
+          "owner": "src/features/journey/JourneyMap/NodeDialog.tsx#NodeDialog"
+        },
+        {
+          "file": "src/features/journey/JourneyNodeIcon/JourneyNodeIcon.tsx",
+          "line": 51,
+          "owner": "src/features/journey/JourneyNodeIcon/JourneyNodeIcon.tsx#JourneyNodeIcon"
+        },
+        {
+          "file": "src/features/journey/JourneyNodeIcon/JourneyNodeIcon.tsx",
+          "line": 61,
+          "owner": "src/features/journey/JourneyNodeIcon/JourneyNodeIcon.tsx#JourneyNodeIcon"
+        },
+        {
+          "file": "src/features/journey/JourneyScreen/JourneyScreen.tsx",
+          "line": 44,
+          "owner": "src/features/journey/JourneyScreen/JourneyScreen.tsx#JourneyScreen"
+        },
+        {
+          "file": "src/features/journey/JourneyScreen/JourneyScreen.tsx",
+          "line": 67,
+          "owner": "src/features/journey/JourneyScreen/JourneyScreen.tsx#JourneyScreen"
+        },
+        {
+          "file": "src/features/journey/JourneyScreen/JourneyScreen.tsx",
+          "line": 68,
+          "owner": "src/features/journey/JourneyScreen/JourneyScreen.tsx#JourneyScreen"
+        },
+        {
+          "file": "src/features/journey/JourneyScreen/JourneyScreen.tsx",
+          "line": 74,
+          "owner": "src/features/journey/JourneyScreen/JourneyScreen.tsx#JourneyScreen"
+        },
+        {
+          "file": "src/features/journey/JourneyStop/JourneyStop.tsx",
+          "line": 36,
+          "owner": "src/features/journey/JourneyStop/JourneyStop.tsx#JourneyStop"
+        },
+        {
+          "file": "src/features/journey/JourneyStop/JourneyStop.tsx",
+          "line": 37,
+          "owner": "src/features/journey/JourneyStop/JourneyStop.tsx#JourneyStop"
+        },
+        {
+          "file": "src/features/journey/JourneyStop/JourneyStop.tsx",
+          "line": 70,
+          "owner": "src/features/journey/JourneyStop/JourneyStop.tsx#JourneyStop"
+        },
+        {
+          "file": "src/features/journey/JourneyStop/JourneyStop.tsx",
+          "line": 86,
+          "owner": "src/features/journey/JourneyStop/JourneyStop.tsx#JourneyStop"
+        },
+        {
+          "file": "src/features/journey/JourneyStop/JourneyStop.tsx",
+          "line": 113,
+          "owner": "src/features/journey/JourneyStop/JourneyStop.tsx#JourneyStop"
+        },
+        {
+          "file": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx",
+          "line": 94,
+          "owner": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx#VictoryRewardDialog"
+        },
+        {
+          "file": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx",
+          "line": 130,
+          "owner": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx#VictoryRewardDialog"
+        },
+        {
+          "file": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx",
+          "line": 138,
+          "owner": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx#VictoryRewardDialog"
+        },
+        {
+          "file": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx",
+          "line": 141,
+          "owner": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx#VictoryRewardDialog"
+        },
+        {
+          "file": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx",
+          "line": 144,
+          "owner": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx#VictoryRewardDialog"
+        },
+        {
+          "file": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx",
+          "line": 157,
+          "owner": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx#VictoryRewardDialog"
+        },
+        {
+          "file": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx",
+          "line": 174,
+          "owner": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx#VictoryRewardDialog"
+        },
+        {
+          "file": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx",
+          "line": 181,
+          "owner": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx#VictoryRewardDialog"
+        },
+        {
+          "file": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx",
+          "line": 189,
+          "owner": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx#VictoryRewardDialog"
+        },
+        {
+          "file": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx",
+          "line": 194,
+          "owner": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx#VictoryRewardDialog"
+        },
+        {
+          "file": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx",
+          "line": 204,
+          "owner": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx#VictoryRewardDialog"
+        },
+        {
+          "file": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx",
+          "line": 221,
+          "owner": "src/features/rewards/VictoryRewardDialog/VictoryRewardDialog.tsx#VictoryRewardDialog"
+        },
+        {
+          "file": "src/features/rules/Rules/Rules.tsx",
+          "line": 7,
+          "owner": "src/features/rules/Rules/Rules.tsx#Rules"
+        },
+        {
+          "file": "src/features/rules/Rules/Rules.tsx",
+          "line": 11,
+          "owner": "src/features/rules/Rules/Rules.tsx#Rules"
+        },
+        {
+          "file": "src/features/rules/Rules/Rules.tsx",
+          "line": 14,
+          "owner": "src/features/rules/Rules/Rules.tsx#Rules"
+        },
+        {
+          "file": "src/features/rules/Rules/Rules.tsx",
+          "line": 20,
+          "owner": "src/features/rules/Rules/Rules.tsx#Rules"
+        },
+        {
+          "file": "src/features/rules/Rules/Rules.tsx",
+          "line": 21,
+          "owner": "src/features/rules/Rules/Rules.tsx#Rules"
+        },
+        {
+          "file": "src/features/rules/Rules/Rules.tsx",
+          "line": 28,
+          "owner": "src/features/rules/Rules/Rules.tsx#Rules"
+        },
+        {
+          "file": "src/features/rules/Rules/Rules.tsx",
+          "line": 29,
+          "owner": "src/features/rules/Rules/Rules.tsx#Rules"
+        },
+        {
+          "file": "src/features/rules/Rules/Rules.tsx",
+          "line": 36,
+          "owner": "src/features/rules/Rules/Rules.tsx#Rules"
+        },
+        {
+          "file": "src/features/rules/Rules/Rules.tsx",
+          "line": 37,
+          "owner": "src/features/rules/Rules/Rules.tsx#Rules"
+        },
+        {
+          "file": "src/features/rules/Rules/Rules.tsx",
+          "line": 45,
+          "owner": "src/features/rules/Rules/Rules.tsx#Rules"
+        },
+        {
+          "file": "src/features/rules/Rules/Rules.tsx",
+          "line": 46,
+          "owner": "src/features/rules/Rules/Rules.tsx#Rules"
+        },
+        {
+          "file": "src/features/rules/Rules/Rules.tsx",
+          "line": 53,
+          "owner": "src/features/rules/Rules/Rules.tsx#Rules"
+        },
+        {
+          "file": "src/features/rules/Rules/Rules.tsx",
+          "line": 60,
+          "owner": "src/features/rules/Rules/Rules.tsx#Rules"
+        },
+        {
+          "file": "src/features/rules/Rules/Rules.tsx",
+          "line": 61,
+          "owner": "src/features/rules/Rules/Rules.tsx#Rules"
+        },
+        {
+          "file": "src/features/rules/Rules/Rules.tsx",
+          "line": 68,
+          "owner": "src/features/rules/Rules/Rules.tsx#Rules"
+        },
+        {
+          "file": "src/features/rules/Rules/Rules.tsx",
+          "line": 74,
+          "owner": "src/features/rules/Rules/Rules.tsx#Rules"
+        },
+        {
+          "file": "src/features/rules/Rules/Rules.tsx",
+          "line": 75,
+          "owner": "src/features/rules/Rules/Rules.tsx#Rules"
+        },
+        {
+          "file": "src/features/rules/Rules/Rules.tsx",
+          "line": 82,
+          "owner": "src/features/rules/Rules/Rules.tsx#Rules"
+        },
+        {
+          "file": "src/features/rules/Rules/Rules.tsx",
+          "line": 83,
+          "owner": "src/features/rules/Rules/Rules.tsx#Rules"
+        },
+        {
+          "file": "src/features/rules/Rules/Rules.tsx",
+          "line": 91,
+          "owner": "src/features/rules/Rules/Rules.tsx#Rules"
+        },
+        {
+          "file": "src/features/rules/Rules/Rules.tsx",
+          "line": 92,
+          "owner": "src/features/rules/Rules/Rules.tsx#Rules"
+        },
+        {
+          "file": "src/features/rules/Rules/Rules.tsx",
+          "line": 100,
+          "owner": "src/features/rules/Rules/Rules.tsx#Rules"
+        },
+        {
+          "file": "src/features/skills/SkillCard/SkillCard.tsx",
+          "line": 27,
+          "owner": "src/features/skills/SkillCard/SkillCard.tsx#SkillCard"
+        },
+        {
+          "file": "src/features/skills/SkillCard/SkillCard.tsx",
+          "line": 28,
+          "owner": "src/features/skills/SkillCard/SkillCard.tsx#SkillCard"
+        },
+        {
+          "file": "src/features/skills/SkillCard/SkillCard.tsx",
+          "line": 29,
+          "owner": "src/features/skills/SkillCard/SkillCard.tsx#SkillCard"
+        },
+        {
+          "file": "src/shared/ui/CharacterPortrait/CharacterPortrait.tsx",
+          "line": 61,
+          "owner": "src/shared/ui/CharacterPortrait/CharacterPortrait.tsx#CharacterPortrait"
+        },
+        {
+          "file": "src/shared/ui/GothicTextButton/GothicTextButton.tsx",
+          "line": 96,
+          "owner": "src/shared/ui/GothicTextButton/GothicTextButton.tsx#GothicTextButton"
+        },
+        {
+          "file": "src/shared/ui/ItemIcon/ItemIcon.tsx",
+          "line": 14,
+          "owner": "src/shared/ui/ItemIcon/ItemIcon.tsx#ItemIcon"
+        },
+        {
+          "file": "src/shared/ui/Mark/Mark.tsx",
+          "line": 8,
+          "owner": "src/shared/ui/Mark/Mark.tsx#Mark"
+        },
+        {
+          "file": "src/shared/ui/Mark/Mark.tsx",
+          "line": 9,
+          "owner": "src/shared/ui/Mark/Mark.tsx#Mark"
+        },
+        {
+          "file": "src/shared/ui/Modal/ModalHeader.tsx",
+          "line": 31,
+          "owner": "src/shared/ui/Modal/ModalHeader.tsx#ModalHeader"
+        },
+        {
+          "file": "src/shared/ui/ModalFooter/ModalFooter.tsx",
+          "line": 16,
+          "owner": "src/shared/ui/ModalFooter/ModalFooter.tsx#ModalFooter"
+        },
+        {
+          "file": "src/shared/ui/Notification/Notification.tsx",
+          "line": 31,
+          "owner": "src/shared/ui/Notification/Notification.tsx#Notification"
+        },
+        {
+          "file": "src/shared/ui/ResourceBar/ResourceBar.tsx",
+          "line": 195,
+          "owner": "src/shared/ui/ResourceBar/ResourceBar.tsx#ResourceBar"
+        },
+        {
+          "file": "src/shared/ui/ResourceBar/ResourceBar.tsx",
+          "line": 199,
+          "owner": "src/shared/ui/ResourceBar/ResourceBar.tsx#ResourceBar"
+        }
+      ],
+      "active": true
+    }
+  ],
+  "assets": [
+    {
+      "file": "public/terrain/rock-horizontal.png",
+      "url": "/terrain/rock-horizontal.png",
+      "bytes": 3415848,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "public/terrain/rock-vertical.png",
+      "url": "/terrain/rock-vertical.png",
+      "bytes": 3364591,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "public/terrain/rock.png",
+      "url": "/terrain/rock.png",
+      "bytes": 3424287,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "src/features/combat/ReactionBoard/ReactionBoard.css",
+          "line": 374
+        }
+      ]
+    },
+    {
+      "file": "public/ui/character-card-tabs-v1.png",
+      "url": "/ui/character-card-tabs-v1.png",
+      "bytes": 1004118,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "src/features/characters/CharacterCard/CharacterCard.css",
+          "line": 101
+        }
+      ]
+    },
+    {
+      "file": "public/ui/item-grain-v2.svg",
+      "url": "/ui/item-grain-v2.svg",
+      "bytes": 475,
+      "extension": ".svg",
+      "uses": [
+        {
+          "file": "src/features/equipment/ItemInspection/ItemCard.css",
+          "line": 374
+        },
+        {
+          "file": "src/features/equipment/ItemInspection/ItemCard.css",
+          "line": 397
+        }
+      ]
+    },
+    {
+      "file": "public/ui/item-patina-v2.svg",
+      "url": "/ui/item-patina-v2.svg",
+      "bytes": 481,
+      "extension": ".svg",
+      "uses": [
+        {
+          "file": "src/features/equipment/ItemInspection/ItemCard.css",
+          "line": 375
+        },
+        {
+          "file": "src/features/equipment/ItemInspection/ItemCard.css",
+          "line": 398
+        }
+      ]
+    },
+    {
+      "file": "public/ui/item-scuffs-v2.svg",
+      "url": "/ui/item-scuffs-v2.svg",
+      "bytes": 2659,
+      "extension": ".svg",
+      "uses": [
+        {
+          "file": "src/features/equipment/ItemInspection/ItemCard.css",
+          "line": 374
+        },
+        {
+          "file": "src/features/equipment/ItemInspection/ItemCard.css",
+          "line": 397
+        }
+      ]
+    },
+    {
+      "file": "public/ui/modal-body-v1.png",
+      "url": "/ui/modal-body-v1.png",
+      "bytes": 3185423,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "src/features/characters/CharacterCard/CharacterCard.css",
+          "line": 125
+        },
+        {
+          "file": "src/features/characters/CharacterCreation/CharacterCreation.css",
+          "line": 283
+        },
+        {
+          "file": "src/features/skills/FighterSkills/FighterSkills.css",
+          "line": 21
+        },
+        {
+          "file": "src/shared/ui/Modal/Modal.css",
+          "line": 130
+        }
+      ]
+    },
+    {
+      "file": "public/ui/modal-header-v2.png",
+      "url": "/ui/modal-header-v2.png",
+      "bytes": 3025416,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "src/features/characters/CharacterCreation/CharacterCreation.css",
+          "line": 283
+        },
+        {
+          "file": "src/features/combat/BattleHeader/BattleHeader.css",
+          "line": 17
+        },
+        {
+          "file": "src/shared/ui/Modal/Modal.css",
+          "line": 130
+        }
+      ]
+    },
+    {
+      "file": "public/ui/navigation/close-v2.png",
+      "url": "/ui/navigation/close-v2.png",
+      "bytes": 2563001,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "public/ui/navigation/grave-v1.png",
+      "url": "/ui/navigation/grave-v1.png",
+      "bytes": 2531049,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "public/ui/navigation/left-v1.png",
+      "url": "/ui/navigation/left-v1.png",
+      "bytes": 2873288,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "public/ui/navigation/menu-v1.png",
+      "url": "/ui/navigation/menu-v1.png",
+      "bytes": 2438985,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "public/ui/navigation/minus-v1.png",
+      "url": "/ui/navigation/minus-v1.png",
+      "bytes": 2611497,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "public/ui/navigation/plus-v1.png",
+      "url": "/ui/navigation/plus-v1.png",
+      "bytes": 2524279,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "public/ui/navigation/right-v2.png",
+      "url": "/ui/navigation/right-v2.png",
+      "bytes": 2589022,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "public/ui/portrait-death-skull-enemy-v1.png",
+      "url": "/ui/portrait-death-skull-enemy-v1.png",
+      "bytes": 2364293,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "src/shared/ui/CharacterPortrait/CharacterPortrait.tsx",
+          "line": 36
+        }
+      ]
+    },
+    {
+      "file": "public/ui/portrait-death-skull-v1.png",
+      "url": "/ui/portrait-death-skull-v1.png",
+      "bytes": 2274592,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "src/shared/ui/CharacterPortrait/CharacterPortrait.tsx",
+          "line": 37
+        }
+      ]
+    },
+    {
+      "file": "public/ui/soul-wisp-v1.png",
+      "url": "/ui/soul-wisp-v1.png",
+      "bytes": 1027234,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "src/features/characters/SoulBalance/model.ts",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "file": "public/ui/text-button-v1.png",
+      "url": "/ui/text-button-v1.png",
+      "bytes": 2513002,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "src/shared/ui/GothicTextButton/GothicTextButton.css",
+          "line": 38
+        }
+      ]
+    },
+    {
+      "file": "public/ui/text-input-v1.png",
+      "url": "/ui/text-input-v1.png",
+      "bytes": 1507159,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "src/features/characters/CharacterCreation/CharacterCreation.css",
+          "line": 217
+        }
+      ]
+    },
+    {
+      "file": "../public/actions/guard-transparent-v2.png",
+      "url": "/actions/guard-transparent-v2.png",
+      "bytes": 1943254,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/base-figures.json",
+          "line": 92
+        }
+      ]
+    },
+    {
+      "file": "../public/actions/kick-transparent-v2.png",
+      "url": "/actions/kick-transparent-v2.png",
+      "bytes": 1132068,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/base-figures.json",
+          "line": 123
+        }
+      ]
+    },
+    {
+      "file": "../public/actions/kick.png",
+      "url": "/actions/kick.png",
+      "bytes": 2592585,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/creatures/actions/ash-transparent-v2.png",
+      "url": "/creatures/actions/ash-transparent-v2.png",
+      "bytes": 1282531,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 2854
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/actions/ash.png",
+      "url": "/creatures/actions/ash.png",
+      "bytes": 2677193,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/creatures/actions/bite-transparent-v2.png",
+      "url": "/creatures/actions/bite-transparent-v2.png",
+      "bytes": 2032792,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 659
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 1079
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 1132
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 1248
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 1376
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 1500
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 1698
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 2018
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 2115
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 2213
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 2311
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 2385
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 2582
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 2705
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 2878
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/actions/bite.png",
+      "url": "/creatures/actions/bite.png",
+      "bytes": 3149199,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/creatures/actions/claw-transparent-v2.png",
+      "url": "/creatures/actions/claw-transparent-v2.png",
+      "bytes": 1623122,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 234
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 808
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 1202
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 1227
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 1305
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 1401
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 1476
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 1575
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 1628
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 1723
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 2410
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 2607
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 3126
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 3421
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/actions/claw.png",
+      "url": "/creatures/actions/claw.png",
+      "bytes": 3210853,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/creatures/actions/constrict-transparent-v2.png",
+      "url": "/creatures/actions/constrict-transparent-v2.png",
+      "bytes": 2068834,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 2042
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 2139
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 2508
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 3322
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/actions/constrict.png",
+      "url": "/creatures/actions/constrict.png",
+      "bytes": 3385198,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/creatures/actions/evade-transparent-v2.png",
+      "url": "/creatures/actions/evade-transparent-v2.png",
+      "bytes": 1770752,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 458
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 680
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 754
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 829
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 903
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 956
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 1100
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 1153
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 1272
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 1326
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 1422
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 1521
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 1596
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 1649
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 1744
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 1818
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 1871
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 1965
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 2063
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 2160
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 2234
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 2332
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 2431
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 2529
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 2628
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 2726
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 2899
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 2998
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 3171
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 3343
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 3442
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/actions/evade.png",
+      "url": "/creatures/actions/evade.png",
+      "bytes": 3076864,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/creatures/actions/horn-transparent-v2.png",
+      "url": "/creatures/actions/horn-transparent-v2.png",
+      "bytes": 1959631,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 882
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 935
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/actions/horn.png",
+      "url": "/creatures/actions/horn.png",
+      "bytes": 3373383,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/creatures/actions/magic-transparent-v2.png",
+      "url": "/creatures/actions/magic-transparent-v2.png",
+      "bytes": 1418573,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 289
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 363
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 437
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 511
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 585
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 3396
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/actions/magic.png",
+      "url": "/creatures/actions/magic.png",
+      "bytes": 2732463,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/creatures/actions/mind-transparent-v2.png",
+      "url": "/creatures/actions/mind-transparent-v2.png",
+      "bytes": 1472755,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 32
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 136
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/actions/mind.png",
+      "url": "/creatures/actions/mind.png",
+      "bytes": 3075081,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/creatures/actions/mirror-transparent-v2.png",
+      "url": "/creatures/actions/mirror-transparent-v2.png",
+      "bytes": 1246116,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 3051
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/actions/mirror.png",
+      "url": "/creatures/actions/mirror.png",
+      "bytes": 2863846,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/creatures/actions/poison-transparent-v2.png",
+      "url": "/creatures/actions/poison-transparent-v2.png",
+      "bytes": 1521782,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 209
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 2681
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/actions/poison.png",
+      "url": "/creatures/actions/poison.png",
+      "bytes": 2736898,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/creatures/actions/recover.png",
+      "url": "/creatures/actions/recover.png",
+      "bytes": 2571121,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/creatures/actions/rest.png",
+      "url": "/creatures/actions/rest.png",
+      "bytes": 2882312,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/creatures/actions/root-transparent-v2.png",
+      "url": "/creatures/actions/root-transparent-v2.png",
+      "bytes": 1477430,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 2953
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/actions/root.png",
+      "url": "/creatures/actions/root.png",
+      "bytes": 3154774,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/creatures/actions/slam-transparent-v2.png",
+      "url": "/creatures/actions/slam-transparent-v2.png",
+      "bytes": 2170538,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 1005
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 1944
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 2977
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 3150
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 3298
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/actions/slam.png",
+      "url": "/creatures/actions/slam.png",
+      "bytes": 3077906,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/creatures/actions/spores-transparent-v2.png",
+      "url": "/creatures/actions/spores-transparent-v2.png",
+      "bytes": 1777687,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 2780
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/actions/spores.png",
+      "url": "/creatures/actions/spores.png",
+      "bytes": 3475625,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/creatures/actions/talon-transparent-v2.png",
+      "url": "/creatures/actions/talon-transparent-v2.png",
+      "bytes": 1378785,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 733
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 1797
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 1850
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 1920
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 2287
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/actions/talon.png",
+      "url": "/creatures/actions/talon.png",
+      "bytes": 2640421,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/creatures/actions/tentacle-transparent-v2.png",
+      "url": "/creatures/actions/tentacle-transparent-v2.png",
+      "bytes": 1652298,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 2484
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/actions/tentacle.png",
+      "url": "/creatures/actions/tentacle.png",
+      "bytes": 3295223,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/creatures/actions/veil-transparent-v2.png",
+      "url": "/creatures/actions/veil-transparent-v2.png",
+      "bytes": 1629472,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 53
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 157
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 532
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 606
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 3072
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 3245
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/actions/veil.png",
+      "url": "/creatures/actions/veil.png",
+      "bytes": 3113952,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/creatures/actions/ward-transparent-v2.png",
+      "url": "/creatures/actions/ward-transparent-v2.png",
+      "bytes": 2121885,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 310
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 384
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 1026
+        },
+        {
+          "file": "../data/creatures.json",
+          "line": 2801
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/actions/ward.png",
+      "url": "/creatures/actions/ward.png",
+      "bytes": 3266234,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/creatures/actions/whisper-transparent-v2.png",
+      "url": "/creatures/actions/whisper-transparent-v2.png",
+      "bytes": 1619127,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 3224
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/actions/whisper.png",
+      "url": "/creatures/actions/whisper.png",
+      "bytes": 3309930,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/creatures/portraits/ash-hound.png",
+      "url": "/creatures/portraits/ash-hound.png",
+      "bytes": 2693988,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 2829
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/portraits/attractor-v1.png",
+      "url": "/creatures/portraits/attractor-v1.png",
+      "bytes": 2395176,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 3470
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/portraits/battle-mage.png",
+      "url": "/creatures/portraits/battle-mage.png",
+      "bytes": 2647593,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 264
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/portraits/bog-bell.png",
+      "url": "/creatures/portraits/bog-bell.png",
+      "bytes": 2739991,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 2754
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/portraits/bone-collector.png",
+      "url": "/creatures/portraits/bone-collector.png",
+      "bytes": 2597772,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 2557
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/portraits/cat.png",
+      "url": "/creatures/portraits/cat.png",
+      "bytes": 2947742,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 1549
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/portraits/dark-faerie.png",
+      "url": "/creatures/portraits/dark-faerie.png",
+      "bytes": 2761741,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 560
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/portraits/demon.png",
+      "url": "/creatures/portraits/demon.png",
+      "bytes": 2702531,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 7
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/portraits/dog.png",
+      "url": "/creatures/portraits/dog.png",
+      "bytes": 2947686,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 1054
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/portraits/dragon.png",
+      "url": "/creatures/portraits/dragon.png",
+      "bytes": 2853206,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 2360
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/portraits/elf.png",
+      "url": "/creatures/portraits/elf.png",
+      "bytes": 2774293,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 412
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/portraits/faerie.png",
+      "url": "/creatures/portraits/faerie.png",
+      "bytes": 2960606,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 486
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/portraits/faun.png",
+      "url": "/creatures/portraits/faun.png",
+      "bytes": 2873229,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 857
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/portraits/flying-lizard.png",
+      "url": "/creatures/portraits/flying-lizard.png",
+      "bytes": 2948226,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 2262
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/portraits/flying-snake.png",
+      "url": "/creatures/portraits/flying-snake.png",
+      "bytes": 2650306,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 2188
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/portraits/giant-snake.png",
+      "url": "/creatures/portraits/giant-snake.png",
+      "bytes": 2673003,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 1993
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/portraits/harpy.png",
+      "url": "/creatures/portraits/harpy.png",
+      "bytes": 2683883,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 708
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/portraits/huge-cat.png",
+      "url": "/creatures/portraits/huge-cat.png",
+      "bytes": 2884452,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 1673
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/portraits/huge-wolf.png",
+      "url": "/creatures/portraits/huge-wolf.png",
+      "bytes": 2917934,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 1351
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/portraits/lake-snake.png",
+      "url": "/creatures/portraits/lake-snake.png",
+      "bytes": 2595352,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 2091
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/portraits/large-bird.png",
+      "url": "/creatures/portraits/large-bird.png",
+      "bytes": 2773568,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 1895
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/portraits/leshy.png",
+      "url": "/creatures/portraits/leshy.png",
+      "bytes": 2804312,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 782
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/portraits/light-spirit.png",
+      "url": "/creatures/portraits/light-spirit.png",
+      "bytes": 2893192,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 81
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/portraits/living-armor.png",
+      "url": "/creatures/portraits/living-armor.png",
+      "bytes": 2794424,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 980
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/portraits/meldling.png",
+      "url": "/creatures/portraits/meldling.png",
+      "bytes": 2973899,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 3371
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/portraits/mirror-being.png",
+      "url": "/creatures/portraits/mirror-being.png",
+      "bytes": 2758934,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 3026
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/portraits/octopus.png",
+      "url": "/creatures/portraits/octopus.png",
+      "bytes": 2680659,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 2459
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/portraits/root-shepherd.png",
+      "url": "/creatures/portraits/root-shepherd.png",
+      "bytes": 2990151,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 2927
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/portraits/rust-eater.png",
+      "url": "/creatures/portraits/rust-eater.png",
+      "bytes": 2598052,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 2656
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/portraits/small-bird.png",
+      "url": "/creatures/portraits/small-bird.png",
+      "bytes": 2585424,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 1772
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/portraits/stitchling.png",
+      "url": "/creatures/portraits/stitchling.png",
+      "bytes": 2920593,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 3100
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/portraits/stone-yawn.png",
+      "url": "/creatures/portraits/stone-yawn.png",
+      "bytes": 2803085,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 3273
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/portraits/swamp-hag.png",
+      "url": "/creatures/portraits/swamp-hag.png",
+      "bytes": 2798616,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 185
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/portraits/vampire.png",
+      "url": "/creatures/portraits/vampire.png",
+      "bytes": 2683958,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 634
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/portraits/vanishing.png",
+      "url": "/creatures/portraits/vanishing.png",
+      "bytes": 1070144,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 111
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/portraits/werewolf.png",
+      "url": "/creatures/portraits/werewolf.png",
+      "bytes": 2736857,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 1450
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/portraits/whisperess.png",
+      "url": "/creatures/portraits/whisperess.png",
+      "bytes": 2785911,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 3199
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/portraits/wild-mage.png",
+      "url": "/creatures/portraits/wild-mage.png",
+      "bytes": 2938851,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 338
+        }
+      ]
+    },
+    {
+      "file": "../public/creatures/portraits/wolf.png",
+      "url": "/creatures/portraits/wolf.png",
+      "bytes": 2786400,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/creatures.json",
+          "line": 1177
+        }
+      ]
+    },
+    {
+      "file": "../public/favicon.svg",
+      "url": "/favicon.svg",
+      "bytes": 295,
+      "extension": ".svg",
+      "uses": [
+        {
+          "file": "index.html",
+          "line": 11
+        }
+      ]
+    },
+    {
+      "file": "../public/items/ash-mantle-transparent-v2.png",
+      "url": "/items/ash-mantle-transparent-v2.png",
+      "bytes": 1603182,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 23
+        }
+      ]
+    },
+    {
+      "file": "../public/items/ash-mantle.png",
+      "url": "/items/ash-mantle.png",
+      "bytes": 1814008,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/axe-transparent-v2.png",
+      "url": "/items/axe-transparent-v2.png",
+      "bytes": 1003247,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 7
+        }
+      ]
+    },
+    {
+      "file": "../public/items/axe.png",
+      "url": "/items/axe.png",
+      "bytes": 1526997,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/bandit-cleaver-transparent-v2.png",
+      "url": "/items/bandit-cleaver-transparent-v2.png",
+      "bytes": 1120629,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 32
+        }
+      ]
+    },
+    {
+      "file": "../public/items/bandit-cleaver.png",
+      "url": "/items/bandit-cleaver.png",
+      "bytes": 1594370,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/beaked-hammer-transparent-v2.png",
+      "url": "/items/beaked-hammer-transparent-v2.png",
+      "bytes": 791334,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 33
+        }
+      ]
+    },
+    {
+      "file": "../public/items/beaked-hammer.png",
+      "url": "/items/beaked-hammer.png",
+      "bytes": 1416168,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/bitter-censer-transparent-v2.png",
+      "url": "/items/bitter-censer-transparent-v2.png",
+      "bytes": 1079128,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 46
+        }
+      ]
+    },
+    {
+      "file": "../public/items/bitter-censer.png",
+      "url": "/items/bitter-censer.png",
+      "bytes": 1471315,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/bitter-spore-staff-transparent-v2.png",
+      "url": "/items/bitter-spore-staff-transparent-v2.png",
+      "bytes": 579708,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 55
+        }
+      ]
+    },
+    {
+      "file": "../public/items/bitter-spore-staff.png",
+      "url": "/items/bitter-spore-staff.png",
+      "bytes": 1267201,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/bog-stinger-transparent-v2.png",
+      "url": "/items/bog-stinger-transparent-v2.png",
+      "bytes": 771858,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 39
+        }
+      ]
+    },
+    {
+      "file": "../public/items/bog-stinger.png",
+      "url": "/items/bog-stinger.png",
+      "bytes": 1406751,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/buckler-transparent-v2.png",
+      "url": "/items/buckler-transparent-v2.png",
+      "bytes": 2369582,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 15
+        }
+      ]
+    },
+    {
+      "file": "../public/items/buckler.png",
+      "url": "/items/buckler.png",
+      "bytes": 2141312,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/chainmail-transparent-v2.png",
+      "url": "/items/chainmail-transparent-v2.png",
+      "bytes": 2357765,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 21
+        }
+      ]
+    },
+    {
+      "file": "../public/items/chainmail.png",
+      "url": "/items/chainmail.png",
+      "bytes": 2022266,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/clay-circle-staff-transparent-v2.png",
+      "url": "/items/clay-circle-staff-transparent-v2.png",
+      "bytes": 752401,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 56
+        }
+      ]
+    },
+    {
+      "file": "../public/items/clay-circle-staff.png",
+      "url": "/items/clay-circle-staff.png",
+      "bytes": 1280660,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/club-transparent-v2.png",
+      "url": "/items/club-transparent-v2.png",
+      "bytes": 835783,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "file": "../public/items/club.png",
+      "url": "/items/club.png",
+      "bytes": 1494197,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/convoy-blade-transparent-v2.png",
+      "url": "/items/convoy-blade-transparent-v2.png",
+      "bytes": 765143,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 48
+        }
+      ]
+    },
+    {
+      "file": "../public/items/convoy-blade.png",
+      "url": "/items/convoy-blade.png",
+      "bytes": 1534127,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/dagger-transparent-v2.png",
+      "url": "/items/dagger-transparent-v2.png",
+      "bytes": 765979,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "file": "../public/items/dagger.png",
+      "url": "/items/dagger.png",
+      "bytes": 1269083,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/dustglass-wand-transparent-v2.png",
+      "url": "/items/dustglass-wand-transparent-v2.png",
+      "bytes": 794518,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 51
+        }
+      ]
+    },
+    {
+      "file": "../public/items/dustglass-wand.png",
+      "url": "/items/dustglass-wand.png",
+      "bytes": 1282762,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/elven-moon-sickle-transparent-v2.png",
+      "url": "/items/elven-moon-sickle-transparent-v2.png",
+      "bytes": 799109,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 40
+        }
+      ]
+    },
+    {
+      "file": "../public/items/elven-moon-sickle.png",
+      "url": "/items/elven-moon-sickle.png",
+      "bytes": 1283019,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/ember-sword-transparent-v2.png",
+      "url": "/items/ember-sword-transparent-v2.png",
+      "bytes": 564356,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 12
+        }
+      ]
+    },
+    {
+      "file": "../public/items/ember-sword.png",
+      "url": "/items/ember-sword.png",
+      "bytes": 1242814,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/emberstone-staff-transparent-v2.png",
+      "url": "/items/emberstone-staff-transparent-v2.png",
+      "bytes": 672669,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 42
+        }
+      ]
+    },
+    {
+      "file": "../public/items/emberstone-staff.png",
+      "url": "/items/emberstone-staff.png",
+      "bytes": 1429662,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/ephemeral-sword-transparent-v2.png",
+      "url": "/items/ephemeral-sword-transparent-v2.png",
+      "bytes": 744224,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 27
+        }
+      ]
+    },
+    {
+      "file": "../public/items/ephemeral-sword.png",
+      "url": "/items/ephemeral-sword.png",
+      "bytes": 1669365,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/faun-boar-spear-transparent-v2.png",
+      "url": "/items/faun-boar-spear-transparent-v2.png",
+      "bytes": 616453,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 41
+        }
+      ]
+    },
+    {
+      "file": "../public/items/faun-boar-spear.png",
+      "url": "/items/faun-boar-spear.png",
+      "bytes": 1261204,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/ferry-espadon-transparent-v2.png",
+      "url": "/items/ferry-espadon-transparent-v2.png",
+      "bytes": 517030,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 57
+        }
+      ]
+    },
+    {
+      "file": "../public/items/ferry-espadon.png",
+      "url": "/items/ferry-espadon.png",
+      "bytes": 1202561,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/fist-transparent-v2.png",
+      "url": "/items/fist-transparent-v2.png",
+      "bytes": 1805204,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/base-figures.json",
+          "line": 30
+        },
+        {
+          "file": "../data/base-figures.json",
+          "line": 64
+        },
+        {
+          "file": "../data/item-art.json",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "file": "../public/items/fist.png",
+      "url": "/items/fist.png",
+      "bytes": 1619450,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/fold-amulet-transparent-v2.png",
+      "url": "/items/fold-amulet-transparent-v2.png",
+      "bytes": 901034,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 29
+        }
+      ]
+    },
+    {
+      "file": "../public/items/fold-amulet.png",
+      "url": "/items/fold-amulet.png",
+      "bytes": 1341360,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/frost-dagger-transparent-v2.png",
+      "url": "/items/frost-dagger-transparent-v2.png",
+      "bytes": 768943,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 11
+        }
+      ]
+    },
+    {
+      "file": "../public/items/frost-dagger.png",
+      "url": "/items/frost-dagger.png",
+      "bytes": 1322007,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/glassfurnace-hammer-transparent-v2.png",
+      "url": "/items/glassfurnace-hammer-transparent-v2.png",
+      "bytes": 759429,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 58
+        }
+      ]
+    },
+    {
+      "file": "../public/items/glassfurnace-hammer.png",
+      "url": "/items/glassfurnace-hammer.png",
+      "bytes": 1552254,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/greatsword-transparent-v2.png",
+      "url": "/items/greatsword-transparent-v2.png",
+      "bytes": 793974,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 9
+        }
+      ]
+    },
+    {
+      "file": "../public/items/greatsword.png",
+      "url": "/items/greatsword.png",
+      "bytes": 1211447,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/greaves-transparent-v2.png",
+      "url": "/items/greaves-transparent-v2.png",
+      "bytes": 1657642,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/armor.json",
+          "line": 233
+        },
+        {
+          "file": "../data/item-art.json",
+          "line": 26
+        }
+      ]
+    },
+    {
+      "file": "../public/items/greaves.png",
+      "url": "/items/greaves.png",
+      "bytes": 1991786,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/guest-blade-transparent-v2.png",
+      "url": "/items/guest-blade-transparent-v2.png",
+      "bytes": 591531,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 37
+        }
+      ]
+    },
+    {
+      "file": "../public/items/guest-blade.png",
+      "url": "/items/guest-blade.png",
+      "bytes": 1473044,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/hammer-transparent-v2.png",
+      "url": "/items/hammer-transparent-v2.png",
+      "bytes": 768218,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 10
+        }
+      ]
+    },
+    {
+      "file": "../public/items/hammer.png",
+      "url": "/items/hammer.png",
+      "bytes": 1333700,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/hollow-tuning-fork-transparent-v2.png",
+      "url": "/items/hollow-tuning-fork-transparent-v2.png",
+      "bytes": 633001,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 52
+        }
+      ]
+    },
+    {
+      "file": "../public/items/hollow-tuning-fork.png",
+      "url": "/items/hollow-tuning-fork.png",
+      "bytes": 1252710,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/hunting-bow-transparent-v2.png",
+      "url": "/items/hunting-bow-transparent-v2.png",
+      "bytes": 432185,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 35
+        }
+      ]
+    },
+    {
+      "file": "../public/items/hunting-bow.png",
+      "url": "/items/hunting-bow.png",
+      "bytes": 1340987,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/iron-boots-transparent-v2.png",
+      "url": "/items/iron-boots-transparent-v2.png",
+      "bytes": 2231395,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/armor.json",
+          "line": 140
+        },
+        {
+          "file": "../data/item-art.json",
+          "line": 24
+        }
+      ]
+    },
+    {
+      "file": "../public/items/iron-boots.png",
+      "url": "/items/iron-boots.png",
+      "bytes": 1978696,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/kite-shield-transparent-v2.png",
+      "url": "/items/kite-shield-transparent-v2.png",
+      "bytes": 1295651,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 16
+        }
+      ]
+    },
+    {
+      "file": "../public/items/kite-shield.png",
+      "url": "/items/kite-shield.png",
+      "bytes": 1641593,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/last-watch-halberd-transparent-v2.png",
+      "url": "/items/last-watch-halberd-transparent-v2.png",
+      "bytes": 603016,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 34
+        }
+      ]
+    },
+    {
+      "file": "../public/items/last-watch-halberd.png",
+      "url": "/items/last-watch-halberd.png",
+      "bytes": 1193799,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/leather-transparent-v2.png",
+      "url": "/items/leather-transparent-v2.png",
+      "bytes": 2151968,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 20
+        }
+      ]
+    },
+    {
+      "file": "../public/items/leather.png",
+      "url": "/items/leather.png",
+      "bytes": 1939349,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/marsh-hook-transparent-v2.png",
+      "url": "/items/marsh-hook-transparent-v2.png",
+      "bytes": 740700,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 38
+        }
+      ]
+    },
+    {
+      "file": "../public/items/marsh-hook.png",
+      "url": "/items/marsh-hook.png",
+      "bytes": 1277002,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/mirror-shield-transparent-v2.png",
+      "url": "/items/mirror-shield-transparent-v2.png",
+      "bytes": 1692037,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 17
+        }
+      ]
+    },
+    {
+      "file": "../public/items/mirror-shield.png",
+      "url": "/items/mirror-shield.png",
+      "bytes": 1898521,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/outpost-crossbow-transparent-v2.png",
+      "url": "/items/outpost-crossbow-transparent-v2.png",
+      "bytes": 1023838,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 36
+        }
+      ]
+    },
+    {
+      "file": "../public/items/outpost-crossbow.png",
+      "url": "/items/outpost-crossbow.png",
+      "bytes": 1754225,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/plate-transparent-v2.png",
+      "url": "/items/plate-transparent-v2.png",
+      "bytes": 2411062,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 22
+        }
+      ]
+    },
+    {
+      "file": "../public/items/plate.png",
+      "url": "/items/plate.png",
+      "bytes": 2114145,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/rags-transparent-v2.png",
+      "url": "/items/rags-transparent-v2.png",
+      "bytes": 2104009,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 19
+        }
+      ]
+    },
+    {
+      "file": "../public/items/rags.png",
+      "url": "/items/rags.png",
+      "bytes": 2033700,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/rapier-transparent-v2.png",
+      "url": "/items/rapier-transparent-v2.png",
+      "bytes": 486146,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "file": "../public/items/rapier.png",
+      "url": "/items/rapier.png",
+      "bytes": 1121227,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/river-ice-wand-transparent-v2.png",
+      "url": "/items/river-ice-wand-transparent-v2.png",
+      "bytes": 747552,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 43
+        }
+      ]
+    },
+    {
+      "file": "../public/items/river-ice-wand.png",
+      "url": "/items/river-ice-wand.png",
+      "bytes": 1600187,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/road-sword-transparent-v2.png",
+      "url": "/items/road-sword-transparent-v2.png",
+      "bytes": 516666,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 30
+        }
+      ]
+    },
+    {
+      "file": "../public/items/road-sword.png",
+      "url": "/items/road-sword.png",
+      "bytes": 1261364,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/robe-transparent-v2.png",
+      "url": "/items/robe-transparent-v2.png",
+      "bytes": 1588504,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 18
+        }
+      ]
+    },
+    {
+      "file": "../public/items/robe.png",
+      "url": "/items/robe.png",
+      "bytes": 1700702,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/ropewalk-chain-knife-transparent-v2.png",
+      "url": "/items/ropewalk-chain-knife-transparent-v2.png",
+      "bytes": 755927,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 50
+        }
+      ]
+    },
+    {
+      "file": "../public/items/ropewalk-chain-knife.png",
+      "url": "/items/ropewalk-chain-knife.png",
+      "bytes": 1227708,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/sealed-stone-sling-transparent-v2.png",
+      "url": "/items/sealed-stone-sling-transparent-v2.png",
+      "bytes": 1392421,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 47
+        }
+      ]
+    },
+    {
+      "file": "../public/items/sealed-stone-sling.png",
+      "url": "/items/sealed-stone-sling.png",
+      "bytes": 1609281,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/shortsword-transparent-v2.png",
+      "url": "/items/shortsword-transparent-v2.png",
+      "bytes": 654205,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "file": "../public/items/shortsword.png",
+      "url": "/items/shortsword.png",
+      "bytes": 1204734,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/sinew-lash-transparent-v2.png",
+      "url": "/items/sinew-lash-transparent-v2.png",
+      "bytes": 1077393,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 49
+        }
+      ]
+    },
+    {
+      "file": "../public/items/sinew-lash.png",
+      "url": "/items/sinew-lash.png",
+      "bytes": 1666538,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/soldier-spear-transparent-v2.png",
+      "url": "/items/soldier-spear-transparent-v2.png",
+      "bytes": 331170,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 31
+        }
+      ]
+    },
+    {
+      "file": "../public/items/soldier-spear.png",
+      "url": "/items/soldier-spear.png",
+      "bytes": 1181180,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/spark-lantern-transparent-v2.png",
+      "url": "/items/spark-lantern-transparent-v2.png",
+      "bytes": 1399055,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 53
+        }
+      ]
+    },
+    {
+      "file": "../public/items/spark-lantern.png",
+      "url": "/items/spark-lantern.png",
+      "bytes": 1860799,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/spear-transparent-v2.png",
+      "url": "/items/spear-transparent-v2.png",
+      "bytes": 429348,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 8
+        }
+      ]
+    },
+    {
+      "file": "../public/items/spear.png",
+      "url": "/items/spear.png",
+      "bytes": 1030109,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/staff-transparent-v2.png",
+      "url": "/items/staff-transparent-v2.png",
+      "bytes": 685872,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 14
+        }
+      ]
+    },
+    {
+      "file": "../public/items/staff.png",
+      "url": "/items/staff.png",
+      "bytes": 1118681,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/stonecrusher-transparent-v2.png",
+      "url": "/items/stonecrusher-transparent-v2.png",
+      "bytes": 932994,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 45
+        }
+      ]
+    },
+    {
+      "file": "../public/items/stonecrusher.png",
+      "url": "/items/stonecrusher.png",
+      "bytes": 1446124,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/tailwind-spear-transparent-v2.png",
+      "url": "/items/tailwind-spear-transparent-v2.png",
+      "bytes": 483922,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 44
+        }
+      ]
+    },
+    {
+      "file": "../public/items/tailwind-spear.png",
+      "url": "/items/tailwind-spear.png",
+      "bytes": 1359726,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/unlock-ring-transparent-v2.png",
+      "url": "/items/unlock-ring-transparent-v2.png",
+      "bytes": 1695368,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 28
+        }
+      ]
+    },
+    {
+      "file": "../public/items/unlock-ring.png",
+      "url": "/items/unlock-ring.png",
+      "bytes": 1940609,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/wanderer-boots-transparent-v2.png",
+      "url": "/items/wanderer-boots-transparent-v2.png",
+      "bytes": 1669727,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/armor.json",
+          "line": 186
+        },
+        {
+          "file": "../data/item-art.json",
+          "line": 25
+        }
+      ]
+    },
+    {
+      "file": "../public/items/wanderer-boots.png",
+      "url": "/items/wanderer-boots.png",
+      "bytes": 1820459,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/wind-sickle-transparent-v2.png",
+      "url": "/items/wind-sickle-transparent-v2.png",
+      "bytes": 733423,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 13
+        }
+      ]
+    },
+    {
+      "file": "../public/items/wind-sickle.png",
+      "url": "/items/wind-sickle.png",
+      "bytes": 1211078,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/items/winter-shard-transparent-v2.png",
+      "url": "/items/winter-shard-transparent-v2.png",
+      "bytes": 849900,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/item-art.json",
+          "line": 54
+        }
+      ]
+    },
+    {
+      "file": "../public/items/winter-shard.png",
+      "url": "/items/winter-shard.png",
+      "bytes": 1529580,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/portraits/character-01-ash.png",
+      "url": "/portraits/character-01-ash.png",
+      "bytes": 2649345,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/portraits.json",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "file": "../public/portraits/character-02-earth.png",
+      "url": "/portraits/character-02-earth.png",
+      "bytes": 2586460,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/portraits.json",
+          "line": 10
+        }
+      ]
+    },
+    {
+      "file": "../public/portraits/character-03-ivory.png",
+      "url": "/portraits/character-03-ivory.png",
+      "bytes": 2786882,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/portraits.json",
+          "line": 15
+        }
+      ]
+    },
+    {
+      "file": "../public/portraits/character-04-copper.png",
+      "url": "/portraits/character-04-copper.png",
+      "bytes": 2392166,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/portraits.json",
+          "line": 20
+        }
+      ]
+    },
+    {
+      "file": "../public/portraits/character-05-mist.png",
+      "url": "/portraits/character-05-mist.png",
+      "bytes": 2391186,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/portraits.json",
+          "line": 25
+        }
+      ]
+    },
+    {
+      "file": "../public/portraits/character-06-flint.png",
+      "url": "/portraits/character-06-flint.png",
+      "bytes": 2470663,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/portraits.json",
+          "line": 30
+        }
+      ]
+    },
+    {
+      "file": "../public/portraits/character-07-amber.png",
+      "url": "/portraits/character-07-amber.png",
+      "bytes": 2356653,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/portraits.json",
+          "line": 35
+        }
+      ]
+    },
+    {
+      "file": "../public/portraits/character-08-raven.png",
+      "url": "/portraits/character-08-raven.png",
+      "bytes": 2330103,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/portraits.json",
+          "line": 40
+        }
+      ]
+    },
+    {
+      "file": "../public/portraits/character-09-frost.png",
+      "url": "/portraits/character-09-frost.png",
+      "bytes": 2555280,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/portraits.json",
+          "line": 45
+        }
+      ]
+    },
+    {
+      "file": "../public/portraits/character-10-ochre.png",
+      "url": "/portraits/character-10-ochre.png",
+      "bytes": 2399189,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/portraits.json",
+          "line": 50
+        }
+      ]
+    },
+    {
+      "file": "../public/portraits/character-11-ember.png",
+      "url": "/portraits/character-11-ember.png",
+      "bytes": 2321433,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/portraits.json",
+          "line": 55
+        }
+      ]
+    },
+    {
+      "file": "../public/portraits/character-12-willow.png",
+      "url": "/portraits/character-12-willow.png",
+      "bytes": 2409330,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/portraits.json",
+          "line": 60
+        }
+      ]
+    },
+    {
+      "file": "../public/portraits/character-13-storm.png",
+      "url": "/portraits/character-13-storm.png",
+      "bytes": 2402874,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/portraits.json",
+          "line": 65
+        }
+      ]
+    },
+    {
+      "file": "../public/portraits/character-14-sand.png",
+      "url": "/portraits/character-14-sand.png",
+      "bytes": 2406937,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/portraits.json",
+          "line": 70
+        }
+      ]
+    },
+    {
+      "file": "../public/portraits/character-15-slate.png",
+      "url": "/portraits/character-15-slate.png",
+      "bytes": 2361098,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/portraits.json",
+          "line": 75
+        }
+      ]
+    },
+    {
+      "file": "../public/portraits/character-16-silver.png",
+      "url": "/portraits/character-16-silver.png",
+      "bytes": 2538165,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/portraits.json",
+          "line": 80
+        }
+      ]
+    },
+    {
+      "file": "../public/portraits/character-17-heather.png",
+      "url": "/portraits/character-17-heather.png",
+      "bytes": 2411783,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/portraits.json",
+          "line": 85
+        }
+      ]
+    },
+    {
+      "file": "../public/portraits/character-18-bronze.png",
+      "url": "/portraits/character-18-bronze.png",
+      "bytes": 2359378,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/portraits.json",
+          "line": 90
+        }
+      ]
+    },
+    {
+      "file": "../public/portraits/character-19-night.png",
+      "url": "/portraits/character-19-night.png",
+      "bytes": 2340023,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/portraits.json",
+          "line": 95
+        }
+      ]
+    },
+    {
+      "file": "../public/portraits/character-20-dawn.png",
+      "url": "/portraits/character-20-dawn.png",
+      "bytes": 2639418,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/portraits.json",
+          "line": 100
+        }
+      ]
+    },
+    {
+      "file": "../public/portraits/character-21-reed.png",
+      "url": "/portraits/character-21-reed.png",
+      "bytes": 2568445,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/portraits.json",
+          "line": 105
+        }
+      ]
+    },
+    {
+      "file": "../public/portraits/character-22-pine.png",
+      "url": "/portraits/character-22-pine.png",
+      "bytes": 2504441,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/portraits.json",
+          "line": 110
+        }
+      ]
+    },
+    {
+      "file": "../public/portraits/character-23-clay.png",
+      "url": "/portraits/character-23-clay.png",
+      "bytes": 2515038,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/portraits.json",
+          "line": 115
+        }
+      ]
+    },
+    {
+      "file": "../public/portraits/character-24-steppe.png",
+      "url": "/portraits/character-24-steppe.png",
+      "bytes": 2367812,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/portraits.json",
+          "line": 120
+        }
+      ]
+    },
+    {
+      "file": "../public/portraits/character-25-saffron.png",
+      "url": "/portraits/character-25-saffron.png",
+      "bytes": 2350574,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/portraits.json",
+          "line": 125
+        }
+      ]
+    },
+    {
+      "file": "../public/portraits/character-26-basalt.png",
+      "url": "/portraits/character-26-basalt.png",
+      "bytes": 2395476,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/portraits.json",
+          "line": 130
+        }
+      ]
+    },
+    {
+      "file": "../public/portraits/character-27-cinder.png",
+      "url": "/portraits/character-27-cinder.png",
+      "bytes": 2401190,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/portraits.json",
+          "line": 135
+        }
+      ]
+    },
+    {
+      "file": "../public/portraits/character-28-cypress.png",
+      "url": "/portraits/character-28-cypress.png",
+      "bytes": 2608534,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/portraits.json",
+          "line": 140
+        }
+      ]
+    },
+    {
+      "file": "../public/portraits/character-29-thorn.png",
+      "url": "/portraits/character-29-thorn.png",
+      "bytes": 2417360,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/portraits.json",
+          "line": 145
+        }
+      ]
+    },
+    {
+      "file": "../public/portraits/character-30-flax.png",
+      "url": "/portraits/character-30-flax.png",
+      "bytes": 2538714,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/portraits.json",
+          "line": 150
+        }
+      ]
+    },
+    {
+      "file": "../public/portraits/character-31-moss.png",
+      "url": "/portraits/character-31-moss.png",
+      "bytes": 2545888,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/portraits.json",
+          "line": 155
+        }
+      ]
+    },
+    {
+      "file": "../public/portraits/character-32-quartz.png",
+      "url": "/portraits/character-32-quartz.png",
+      "bytes": 2744509,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/portraits.json",
+          "line": 160
+        }
+      ]
+    },
+    {
+      "file": "../public/portraits/character-33-umber.png",
+      "url": "/portraits/character-33-umber.png",
+      "bytes": 2564143,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/portraits.json",
+          "line": 165
+        }
+      ]
+    },
+    {
+      "file": "../public/portraits/character-34-silt.png",
+      "url": "/portraits/character-34-silt.png",
+      "bytes": 2503545,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/portraits.json",
+          "line": 170
+        }
+      ]
+    },
+    {
+      "file": "../public/portraits/character-35-lichen.png",
+      "url": "/portraits/character-35-lichen.png",
+      "bytes": 2728526,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/portraits.json",
+          "line": 175
+        }
+      ]
+    },
+    {
+      "file": "../public/skills/attack-training-transparent-v2.png",
+      "url": "/skills/attack-training-transparent-v2.png",
+      "bytes": 1285476,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/skills.json",
+          "line": 128
+        }
+      ]
+    },
+    {
+      "file": "../public/skills/bandage-transparent-v2.png",
+      "url": "/skills/bandage-transparent-v2.png",
+      "bytes": 1323461,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/skills.json",
+          "line": 88
+        }
+      ]
+    },
+    {
+      "file": "../public/skills/bandage-v1.png",
+      "url": "/skills/bandage-v1.png",
+      "bytes": 2546549,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/skills/composure-v1.png",
+      "url": "/skills/composure-v1.png",
+      "bytes": 2494563,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/skills/defense-training-transparent-v2.png",
+      "url": "/skills/defense-training-transparent-v2.png",
+      "bytes": 2066430,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/skills.json",
+          "line": 140
+        }
+      ]
+    },
+    {
+      "file": "../public/skills/dodge-transparent-v2.png",
+      "url": "/skills/dodge-transparent-v2.png",
+      "bytes": 1574154,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/skills.json",
+          "line": 30
+        }
+      ]
+    },
+    {
+      "file": "../public/skills/dodge-v1.png",
+      "url": "/skills/dodge-v1.png",
+      "bytes": 2607634,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/skills/parry-transparent-v2.png",
+      "url": "/skills/parry-transparent-v2.png",
+      "bytes": 1225697,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/skills.json",
+          "line": 116
+        }
+      ]
+    },
+    {
+      "file": "../public/skills/sidestep-transparent-v2.png",
+      "url": "/skills/sidestep-transparent-v2.png",
+      "bytes": 1332434,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/skills.json",
+          "line": 58
+        }
+      ]
+    },
+    {
+      "file": "../public/skills/sidestep-v1.png",
+      "url": "/skills/sidestep-v1.png",
+      "bytes": 2715788,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/terrain/grass.png",
+      "url": "/terrain/grass.png",
+      "bytes": 3460137,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "src/features/combat/ReactionBoard/ReactionBoard.css",
+          "line": 366
+        }
+      ]
+    },
+    {
+      "file": "../public/ui/battle-modes/expendable-v1.png",
+      "url": "/ui/battle-modes/expendable-v1.png",
+      "bytes": 1424977,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "src/features/combat/BattleModeArtwork/model.ts",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "file": "../public/ui/battle-modes/free-v1.png",
+      "url": "/ui/battle-modes/free-v1.png",
+      "bytes": 1133925,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "src/features/combat/BattleModeArtwork/model.ts",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "file": "../public/ui/battle-modes/limited-v1.png",
+      "url": "/ui/battle-modes/limited-v1.png",
+      "bytes": 2206670,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/ui/character-card-frame-v1.png",
+      "url": "/ui/character-card-frame-v1.png",
+      "bytes": 1359090,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/ui/equipment-silhouette-neutral.png",
+      "url": "/ui/equipment-silhouette-neutral.png",
+      "bytes": 2300396,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "src/features/equipment/EquipmentDoll/EquipmentDoll.tsx",
+          "line": 25
+        }
+      ]
+    },
+    {
+      "file": "../public/ui/equipment-silhouette.png",
+      "url": "/ui/equipment-silhouette.png",
+      "bytes": 2413793,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/ui/gothic-frame.png",
+      "url": "/ui/gothic-frame.png",
+      "bytes": 1032209,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "src/app/styles/style.css",
+          "line": 132
+        },
+        {
+          "file": "src/features/combat/BattleHeader/BattleHeader.css",
+          "line": 27
+        },
+        {
+          "file": "src/shared/ui/ItemIcon/ItemIcon.css",
+          "line": 37
+        }
+      ]
+    },
+    {
+      "file": "../public/ui/item-card-leather-v1.png",
+      "url": "/ui/item-card-leather-v1.png",
+      "bytes": 3582580,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/ui/journey/battle-v1.png",
+      "url": "/ui/journey/battle-v1.png",
+      "bytes": 2715415,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/ui/journey/camp-v1.png",
+      "url": "/ui/journey/camp-v1.png",
+      "bytes": 2748185,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/ui/journey/champion-v1.png",
+      "url": "/ui/journey/champion-v1.png",
+      "bytes": 2739701,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/ui/journey/forge-v1.png",
+      "url": "/ui/journey/forge-v1.png",
+      "bytes": 2730259,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/ui/journey/maps/forest-battle-v1.png",
+      "url": "/ui/journey/maps/forest-battle-v1.png",
+      "bytes": 2976960,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/journey-maps.json",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "file": "../public/ui/journey/maps/forest-v3.png",
+      "url": "/ui/journey/maps/forest-v3.png",
+      "bytes": 11136870,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/journey-maps.json",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "file": "../public/ui/journey/maps/ruins-battle-v1.png",
+      "url": "/ui/journey/maps/ruins-battle-v1.png",
+      "bytes": 2973658,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/journey-maps.json",
+          "line": 22
+        }
+      ]
+    },
+    {
+      "file": "../public/ui/journey/maps/ruins-v3.png",
+      "url": "/ui/journey/maps/ruins-v3.png",
+      "bytes": 11649466,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/journey-maps.json",
+          "line": 21
+        }
+      ]
+    },
+    {
+      "file": "../public/ui/journey/maps/steppe-battle-v1.png",
+      "url": "/ui/journey/maps/steppe-battle-v1.png",
+      "bytes": 2846889,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/journey-maps.json",
+          "line": 14
+        }
+      ]
+    },
+    {
+      "file": "../public/ui/journey/maps/steppe-v3.png",
+      "url": "/ui/journey/maps/steppe-v3.png",
+      "bytes": 11957730,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "../data/journey-maps.json",
+          "line": 13
+        }
+      ]
+    },
+    {
+      "file": "../public/ui/logos-shard-v1.png",
+      "url": "/ui/logos-shard-v1.png",
+      "bytes": 1212498,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/ui/logos-shards-v2.png",
+      "url": "/ui/logos-shards-v2.png",
+      "bytes": 951268,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/ui/logos-shards-v3.png",
+      "url": "/ui/logos-shards-v3.png",
+      "bytes": 517235,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/ui/modal-header-v1.png",
+      "url": "/ui/modal-header-v1.png",
+      "bytes": 2576606,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/ui/navigation/close-v1.png",
+      "url": "/ui/navigation/close-v1.png",
+      "bytes": 3288210,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/ui/navigation/right-v1.png",
+      "url": "/ui/navigation/right-v1.png",
+      "bytes": 2909119,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../public/ui/portrait-frame-round-v1.png",
+      "url": "/ui/portrait-frame-round-v1.png",
+      "bytes": 874116,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "src/shared/ui/CharacterPortrait/CharacterPortrait.css",
+          "line": 61
+        }
+      ]
+    },
+    {
+      "file": "../public/ui/portrait-frame-v1.png",
+      "url": "/ui/portrait-frame-v1.png",
+      "bytes": 1185947,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "src/app/styles/style.css",
+          "line": 43
+        }
+      ]
+    },
+    {
+      "file": "../public/ui/start-landscape-v1.png",
+      "url": "/ui/start-landscape-v1.png",
+      "bytes": 2531047,
+      "extension": ".png",
+      "uses": [
+        {
+          "file": "src/features/characters/CharacterCreation/CharacterCreation.tsx",
+          "line": 66
+        },
+        {
+          "file": "src/features/characters/CharacterHome/CharacterHome.tsx",
+          "line": 65
+        },
+        {
+          "file": "src/features/home/StartScreen/StartScreen.tsx",
+          "line": 29
+        }
+      ]
+    },
+    {
+      "file": "../art-prompts/README.md",
+      "url": "/__project_assets/art-prompts/README.md",
+      "bytes": 1287,
+      "extension": ".md",
+      "uses": []
+    },
+    {
+      "file": "../art-prompts/characters/concepts/portraits-v1/generation-prompts.json",
+      "url": "/__project_assets/art-prompts/characters/concepts/portraits-v1/generation-prompts.json",
+      "bytes": 9574,
+      "extension": ".json",
+      "uses": []
+    },
+    {
+      "file": "../art-prompts/characters/concepts/portraits-v2/generation-prompts.json",
+      "url": "/__project_assets/art-prompts/characters/concepts/portraits-v2/generation-prompts.json",
+      "bytes": 46368,
+      "extension": ".json",
+      "uses": []
+    },
+    {
+      "file": "../art-prompts/characters/concepts/portraits-v3/generation-prompts.json",
+      "url": "/__project_assets/art-prompts/characters/concepts/portraits-v3/generation-prompts.json",
+      "bytes": 25418,
+      "extension": ".json",
+      "uses": []
+    },
+    {
+      "file": "../art-prompts/characters/concepts/portraits-v4/generation-prompts.json",
+      "url": "/__project_assets/art-prompts/characters/concepts/portraits-v4/generation-prompts.json",
+      "bytes": 15677,
+      "extension": ".json",
+      "uses": []
+    },
+    {
+      "file": "../art-prompts/creatures/attractor/generation.json",
+      "url": "/__project_assets/art-prompts/creatures/attractor/generation.json",
+      "bytes": 2044,
+      "extension": ".json",
+      "uses": []
+    },
+    {
+      "file": "../art-prompts/items/generated-lore-v1/generation-prompts.json",
+      "url": "/__project_assets/art-prompts/items/generated-lore-v1/generation-prompts.json",
+      "bytes": 58249,
+      "extension": ".json",
+      "uses": []
+    },
+    {
+      "file": "../art-prompts/items/generated-v1/generation-prompts.json",
+      "url": "/__project_assets/art-prompts/items/generated-v1/generation-prompts.json",
+      "bytes": 53183,
+      "extension": ".json",
+      "uses": []
+    },
+    {
+      "file": "../art-prompts/items/jewelry/generation-prompts.json",
+      "url": "/__project_assets/art-prompts/items/jewelry/generation-prompts.json",
+      "bytes": 1769,
+      "extension": ".json",
+      "uses": []
+    },
+    {
+      "file": "../art-prompts/reaction-v2/connected-rocks-prompts.json",
+      "url": "/__project_assets/art-prompts/reaction-v2/connected-rocks-prompts.json",
+      "bytes": 2274,
+      "extension": ".json",
+      "uses": []
+    },
+    {
+      "file": "../art-prompts/reaction-v2/generation-prompts.json",
+      "url": "/__project_assets/art-prompts/reaction-v2/generation-prompts.json",
+      "bytes": 3529,
+      "extension": ".json",
+      "uses": []
+    },
+    {
+      "file": "../art-prompts/reaction-v2/neutral-silhouette-prompt.json",
+      "url": "/__project_assets/art-prompts/reaction-v2/neutral-silhouette-prompt.json",
+      "bytes": 1417,
+      "extension": ".json",
+      "uses": []
+    },
+    {
+      "file": "../art-prompts/reaction-v2/ui-textures-prompts.json",
+      "url": "/__project_assets/art-prompts/reaction-v2/ui-textures-prompts.json",
+      "bytes": 3028,
+      "extension": ".json",
+      "uses": []
+    },
+    {
+      "file": "../art-prompts/shards/generation-v1.json",
+      "url": "/__project_assets/art-prompts/shards/generation-v1.json",
+      "bytes": 2331,
+      "extension": ".json",
+      "uses": []
+    },
+    {
+      "file": "../art-prompts/shards/generation-v2.json",
+      "url": "/__project_assets/art-prompts/shards/generation-v2.json",
+      "bytes": 2319,
+      "extension": ".json",
+      "uses": []
+    },
+    {
+      "file": "../art-prompts/shards/generation-v3.json",
+      "url": "/__project_assets/art-prompts/shards/generation-v3.json",
+      "bytes": 1605,
+      "extension": ".json",
+      "uses": []
+    },
+    {
+      "file": "../art-prompts/transparent-v2/plan.json",
+      "url": "/__project_assets/art-prompts/transparent-v2/plan.json",
+      "bytes": 136502,
+      "extension": ".json",
+      "uses": []
+    },
+    {
+      "file": "../art-prompts/transparent-v2/results.json",
+      "url": "/__project_assets/art-prompts/transparent-v2/results.json",
+      "bytes": 21477,
+      "extension": ".json",
+      "uses": []
+    },
+    {
+      "file": "../art-prompts/ui/controls-v2/generation-prompts.json",
+      "url": "/__project_assets/art-prompts/ui/controls-v2/generation-prompts.json",
+      "bytes": 2483,
+      "extension": ".json",
+      "uses": []
+    },
+    {
+      "file": "../art-prompts/ui/equipment-silhouette-neutral/generation-prompt.json",
+      "url": "/__project_assets/art-prompts/ui/equipment-silhouette-neutral/generation-prompt.json",
+      "bytes": 1011,
+      "extension": ".json",
+      "uses": []
+    },
+    {
+      "file": "../art-prompts/ui/journey-maps-v3/forest-terrain-prompt.txt",
+      "url": "/__project_assets/art-prompts/ui/journey-maps-v3/forest-terrain-prompt.txt",
+      "bytes": 1554,
+      "extension": ".txt",
+      "uses": []
+    },
+    {
+      "file": "../art-prompts/ui/journey-maps-v3/ruins-architecture-prompt.txt",
+      "url": "/__project_assets/art-prompts/ui/journey-maps-v3/ruins-architecture-prompt.txt",
+      "bytes": 1434,
+      "extension": ".txt",
+      "uses": []
+    },
+    {
+      "file": "../art-prompts/ui/journey-maps-v3/steppe-terrain-prompt.txt",
+      "url": "/__project_assets/art-prompts/ui/journey-maps-v3/steppe-terrain-prompt.txt",
+      "bytes": 1436,
+      "extension": ".txt",
+      "uses": []
+    },
+    {
+      "file": "../art-prompts/ui/modal-header-v2/generation-prompt.json",
+      "url": "/__project_assets/art-prompts/ui/modal-header-v2/generation-prompt.json",
+      "bytes": 1003,
+      "extension": ".json",
+      "uses": []
+    },
+    {
+      "file": "../art-prompts/ui/modal-surfaces-v1/generation-prompts.json",
+      "url": "/__project_assets/art-prompts/ui/modal-surfaces-v1/generation-prompts.json",
+      "bytes": 1963,
+      "extension": ".json",
+      "uses": []
+    },
+    {
+      "file": "../art-prompts/ui/navigation-menu/generation-prompt.json",
+      "url": "/__project_assets/art-prompts/ui/navigation-menu/generation-prompt.json",
+      "bytes": 483,
+      "extension": ".json",
+      "uses": []
+    },
+    {
+      "file": "../art-prompts/ui/navigation-right-v2/generation-prompt.json",
+      "url": "/__project_assets/art-prompts/ui/navigation-right-v2/generation-prompt.json",
+      "bytes": 752,
+      "extension": ".json",
+      "uses": []
+    },
+    {
+      "file": "../art-prompts/ui/navigation-v1/generation-prompts.json",
+      "url": "/__project_assets/art-prompts/ui/navigation-v1/generation-prompts.json",
+      "bytes": 3193,
+      "extension": ".json",
+      "uses": []
+    },
+    {
+      "file": "../art-prompts/ui/portrait-frame-v1/generation-prompt.json",
+      "url": "/__project_assets/art-prompts/ui/portrait-frame-v1/generation-prompt.json",
+      "bytes": 1425,
+      "extension": ".json",
+      "uses": []
+    },
+    {
+      "file": "../art-prompts/ui/text-controls-v1/generation-prompts.json",
+      "url": "/__project_assets/art-prompts/ui/text-controls-v1/generation-prompts.json",
+      "bytes": 2806,
+      "extension": ".json",
+      "uses": []
+    },
+    {
+      "file": "../refs/image1.png",
+      "url": "/__project_assets/refs/image1.png",
+      "bytes": 259217,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../refs/image2.png",
+      "url": "/__project_assets/refs/image2.png",
+      "bytes": 160683,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../refs/image3.png",
+      "url": "/__project_assets/refs/image3.png",
+      "bytes": 217346,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../refs/items/README.md",
+      "url": "/__project_assets/refs/items/README.md",
+      "bytes": 1169,
+      "extension": ".md",
+      "uses": []
+    },
+    {
+      "file": "../refs/items/buckler.png",
+      "url": "/__project_assets/refs/items/buckler.png",
+      "bytes": 2369582,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../refs/items/dagger.png",
+      "url": "/__project_assets/refs/items/dagger.png",
+      "bytes": 765979,
+      "extension": ".png",
+      "uses": []
+    },
+    {
+      "file": "../refs/items/robe.png",
+      "url": "/__project_assets/refs/items/robe.png",
+      "bytes": 1588504,
+      "extension": ".png",
+      "uses": []
+    }
+  ]
+}

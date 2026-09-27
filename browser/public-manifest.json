@@ -1,0 +1,28 @@
+{
+  "description": "Browser-only assets moved from shared public; URLs unchanged",
+  "files": [
+    "ui/character-card-tabs-v1.png",
+    "ui/item-grain-v2.svg",
+    "ui/item-patina-v2.svg",
+    "ui/item-scuffs-v2.svg",
+    "ui/modal-body-v1.png",
+    "ui/modal-header-v2.png",
+    "ui/portrait-death-skull-v1.png",
+    "ui/portrait-death-skull-enemy-v1.png",
+    "ui/soul-wisp-v1.png",
+    "ui/text-button-v1.png",
+    "ui/text-input-v1.png",
+    "ui/navigation/menu-v1.png",
+    "ui/navigation/left-v1.png",
+    "ui/navigation/right-v2.png",
+    "ui/navigation/close-v2.png",
+    "ui/navigation/minus-v1.png",
+    "ui/navigation/plus-v1.png",
+    "ui/navigation/grave-v1.png",
+    "terrain/rock.png",
+    "terrain/rock-horizontal.png",
+    "terrain/rock-vertical.png",
+    "ui/navigation/close-v1.png",
+    "ui/navigation/right-v1.png"
+  ]
+}

@@ -1,0 +1,499 @@
+.fighter-panel > .soul-balance {
+  margin: 14px 0 0;
+}
+.combat-app .fighter-panel {
+  position: relative;
+}
+.fighter-panel > .floating-damage {
+  top: 120px;
+  left: 50%;
+  z-index: 5;
+}
+button:where(:not(.gothic-text-button)).fighter-name-button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+}
+
+.fighter-skills-open {
+  margin-top: 8px;
+  font-size: 0.7rem;
+}
+@media (max-width: 599px) {
+  .fighter-portrait-button {
+    --portrait-edge: 18px;
+  }
+}
+.fighter-panel {
+  padding: 25px 22px;
+  background: var(--color-background-panel);
+  z-index: 1;
+}
+.fighter-panel > .eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  justify-content: space-between;
+}
+.fighter-panel > .eyebrow > span {
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+.fighter-panel h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 1.13rem;
+  margin: 14px 0 24px;
+  min-height: 28px;
+  overflow-wrap: anywhere;
+}
+.opponent-panel .hp-track > span {
+  background: var(--color-background-style-8);
+}
+.opponent-panel .hp-label > span {
+  color: var(--color-text-muted);
+}
+.status-text {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  min-height: 28px;
+  line-height: 1.5;
+  margin-top: 9px;
+}
+.section-caption {
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  color: var(--color-text-muted);
+  margin-bottom: 12px;
+}
+@media (max-width: 899px) {
+  .fighter-panel {
+    padding: 22px 17px;
+  }
+}
+@media (max-width: 899px) {
+  .fighter-panel {
+    padding: 20px 14px;
+  }
+  .fighter-panel h2 {
+    font-size: 0.98rem;
+  }
+  .fighter-panel > .eyebrow > span {
+    display: none;
+  }
+}
+@media (max-width: 599px) {
+  .fighter-panel {
+    padding: 20px;
+    grid-row: 2;
+  }
+  .fighter-panel:first-child {
+    border-right: 1px solid var(--line);
+  }
+  .fighter-panel > .eyebrow {
+    font-size: 0.75rem;
+  }
+  .fighter-panel > .eyebrow > span {
+    display: block;
+    font-size: 0.75rem;
+  }
+  .fighter-panel h2 {
+    margin: 11px 0 19px;
+    font-size: 1.05rem;
+  }
+}
+@media (max-width: 599px) {
+  .fighter-panel .stats i {
+    display: none;
+  }
+  .fighter-panel > .eyebrow {
+    min-height: 30px;
+    align-items: flex-start;
+  }
+  .fighter-panel h2 {
+    min-height: 48px;
+  }
+  .fighter-panel {
+    padding: 16px 13px;
+  }
+}
+.portrait-creation .creation-layout {
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 70px;
+  align-items: start;
+  padding: 40px 0;
+}
+.portrait-creation .creation-copy > .eyebrow {
+  margin-bottom: 16px;
+}
+.portrait-creation .creation-copy h1 {
+  font-size: clamp(1.9rem, 3vw, 2.65rem);
+  line-height: 1.4;
+}
+.portrait-creation .creation-lead {
+  margin: 14px 0 23px;
+  font-size: 0.875rem;
+  line-height: 1.7;
+}
+.portrait-creation .creation-copy form {
+  max-width: 480px;
+}
+.portrait-creation .creation-copy input#name {
+  padding: 13px 15px;
+}
+.portrait-picker {
+  border: 0;
+  padding: 0;
+  margin: 22px 0 0;
+  min-width: 0;
+}
+.portrait-picker legend {
+  width: 100%;
+  padding: 0;
+  margin-bottom: 12px;
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+.portrait-picker legend > span {
+  float: right;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-muted);
+}
+.portrait-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 9px;
+}
+.portrait-grid .portrait-option {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  margin: 0;
+  min-width: 0;
+  border: 1px solid var(--color-border-style-2);
+  border-radius: 3px;
+  background: var(--color-background-character-card-4);
+  overflow: hidden;
+  aspect-ratio: 5 / 6;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+.portrait-option img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 30%;
+  opacity: 0.78;
+  transition: opacity 0.15s;
+}
+.portrait-option:hover img {
+  opacity: 1;
+}
+.portrait-option:hover {
+  border-color: var(--color-border-portraits);
+}
+.portrait-option:has(input:focus-visible) {
+  outline: 2px solid var(--bright);
+  outline-offset: 3px;
+}
+.portrait-picker:disabled .portrait-option {
+  cursor: wait;
+  opacity: 0.6;
+}
+.portrait-number {
+  position: absolute;
+  bottom: 5px;
+  left: 6px;
+  font-size: 0.75rem;
+  color: var(--color-text-primary);
+  text-shadow:
+    0 1px 5px var(--color-base-black),
+    0 0 4px var(--color-base-black);
+}
+.portrait-selected {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--color-text-inverse);
+  height: 19px;
+  width: 19px;
+  display: grid;
+  place-items: center;
+}
+.portrait-hint {
+  margin-top: 12px;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+.portrait-creation .creation-foot {
+  margin-top: 17px;
+}
+.portrait-preview {
+  position: sticky;
+  top: 30px;
+  padding: 0;
+  width: 100%;
+  max-width: 410px;
+  justify-self: center;
+}
+.portrait-art {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  max-height: 545px;
+  border: 1px solid var(--color-border-style-16);
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--color-background-portraits-2);
+  box-shadow: 0 16px 50px var(--color-shadow-portraits-2);
+}
+.portrait-art > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.portrait-art-index {
+  position: absolute;
+  bottom: 20px;
+  left: 22px;
+  color: var(--color-text-success);
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  text-shadow: 0 2px 8px var(--color-base-black);
+}
+.portrait-art-index small {
+  font-family: "Golos Text", sans-serif;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+.portrait-preview .character-caption {
+  margin-top: 20px;
+}
+.portrait-preview .character-caption h2 {
+  margin-top: 8px;
+}
+.portrait-preview .initial-stats {
+  margin-top: 22px;
+  padding-top: 19px;
+  gap: 24px;
+}
+.portrait-preview .initial-stats b {
+  font-size: 1.4rem;
+}
+.portrait-preview .initial-stats span {
+  margin-top: 7px;
+}
+.fighter-identity {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin: 17px 0 22px;
+  min-width: 0;
+}
+.fighter-panel .fighter-identity h2 {
+  margin: 0;
+  min-height: 0;
+  font-size: 1.05rem;
+}
+@media (max-width: 899px) {
+  .portrait-creation .creation-layout {
+    gap: 40px;
+  }
+  .portrait-preview {
+    max-width: 360px;
+  }
+  .portrait-preview .initial-stats {
+    gap: 17px;
+  }
+}
+@media (max-width: 899px) {
+  .portrait-creation .creation-layout {
+    gap: 28px;
+  }
+  .portrait-grid {
+    gap: 6px;
+  }
+  .portrait-preview {
+    max-width: 320px;
+  }
+  .portrait-preview .initial-stats {
+    gap: 12px;
+  }
+  .portrait-creation .creation-copy h1 {
+    font-size: 2rem;
+  }
+  .fighter-identity {
+    flex-wrap: wrap;
+    gap: 9px;
+  }
+}
+@media (max-width: 599px) {
+  .portrait-creation .creation-layout {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 28px 0;
+    gap: 30px;
+  }
+  .portrait-creation .creation-copy form {
+    max-width: none;
+  }
+  .portrait-creation .creation-copy h1 {
+    font-size: 1.8rem;
+  }
+  .portrait-creation .creation-lead {
+    margin-bottom: 20px;
+  }
+  .portrait-grid {
+    gap: 7px;
+  }
+  .portrait-preview {
+    position: static;
+    max-width: 340px;
+  }
+  .portrait-preview .portrait-art {
+    max-height: none;
+  }
+  .portrait-preview .initial-stats {
+    gap: 20px;
+  }
+  .portrait-creation .creation-foot {
+    font-size: 0.75rem;
+  }
+  .fighter-identity {
+    margin: 13px 0 18px;
+  }
+  .fighter-panel .fighter-identity h2 {
+    font-size: 0.95rem;
+  }
+}
+.combat-app .fighter-panel {
+  padding: 17px 14px;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+.combat-app .fighter-panel > .eyebrow {
+  font-size: 0.6rem;
+  min-height: 12px;
+  letter-spacing: 0.07em;
+}
+.combat-app .fighter-panel > .eyebrow > span {
+  font-size: 0.6rem;
+  display: block;
+}
+.combat-app .fighter-identity {
+  margin: 12px 0;
+  gap: 9px;
+  min-height: 48px;
+  flex-wrap: nowrap;
+}
+.combat-app .fighter-panel .fighter-identity h2 {
+  font-size: 0.94rem;
+  line-height: 1.4;
+  margin: 0;
+  min-height: 0;
+}
+.combat-app .status-text {
+  font-size: 0.65rem;
+  line-height: 1.35;
+  min-height: 24px;
+  margin-top: 7px;
+}
+.combat-app .section-caption {
+  margin-bottom: 7px;
+  font-size: 0.63rem;
+}
+@media (max-width: 899px) and (min-width: 600px) {
+  .combat-app .fighter-panel {
+    padding-inline: 10px;
+  }
+  .combat-app .fighter-panel > .eyebrow > span {
+    display: none;
+  }
+}
+@media (max-width: 599px) {
+  .combat-app .fighter-panel {
+    grid-row: 1;
+    padding: 8px 9px;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-content: start;
+  }
+  .combat-app .fighter-panel > .eyebrow {
+    font-size: 0.48rem;
+    min-height: 9px;
+  }
+  .combat-app .fighter-panel > .eyebrow > span {
+    font-size: 0.48rem;
+  }
+  .combat-app .fighter-identity {
+    min-height: 25px;
+    height: 25px;
+    margin: 5px 0;
+    gap: 6px;
+  }
+  .combat-app .fighter-panel .fighter-identity h2 {
+    font-size: 0.7rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .combat-app .status-text {
+    font-size: 0.5rem;
+    margin-top: 4px;
+    min-height: 14px;
+  }
+  .combat-app .section-caption {
+    display: none;
+  }
+}
+@media (max-width: 599px) {
+  .combat-app .fighter-panel {
+    padding-inline: 6px;
+  }
+}
+.fighter-portrait-button {
+  display: block;
+  width: 100%;
+}
+.fighter-portrait-button:hover::after {
+  filter: brightness(1.2);
+}
+.opponent-panel .identity-portrait:not([data-facing="left"]) {
+  transform: scaleX(-1);
+}
+.fighter-portrait-button {
+  position: relative;
+  isolation: isolate;
+  border-radius: 0;
+  display: block;
+}
+.fighter-portrait-button:focus-visible {
+  outline: 2px solid var(--color-border-ui-textures);
+  outline-offset: 3px;
+}
+@media (min-width: 600px) and (max-width: 899px) {
+  .app.combat-app .fighter-panel .stats {
+    font-size: 12px;
+    gap: 8px;
+  }
+  .app.combat-app .fighter-panel > .eyebrow {
+    font-size: 9px;
+    flex-wrap: wrap;
+  }
+  .app.combat-app .fighter-panel .resource-bar__numbers {
+    font-size: 12px;
+  }
+  .app.combat-app .fighter-panel .section-caption {
+    font-size: 10px;
+  }
+}

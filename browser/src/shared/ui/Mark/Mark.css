@@ -1,0 +1,53 @@
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+.brand > svg {
+  color: var(--accent);
+}
+.brand > span {
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+}
+.brand small {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  color: var(--color-text-muted);
+  margin-top: 7px;
+}
+@media (max-width: 599px) {
+  .brand > span {
+    font-size: 1rem;
+  }
+  .brand {
+    gap: 9px;
+  }
+  .brand small {
+    font-size: 0.75rem;
+  }
+  .brand > svg {
+    width: 23px;
+  }
+}
+.combat-app .brand small {
+  display: none;
+}
+.combat-app .brand > span {
+  font-size: 1rem;
+}
+@media (max-width: 599px) {
+  .combat-app .brand {
+    gap: 5px;
+  }
+  .combat-app .brand > svg {
+    width: 18px;
+  }
+  .combat-app .brand > span {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+  }
+}
