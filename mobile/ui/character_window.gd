@@ -1,4 +1,5 @@
 extends Control
+const ModalDialog = preload("res://ui/modal_dialog.gd")
 ## Overlay: map selection, dealt cards, board placements and RNG stay in their owners.
 const GothicTheme = preload("res://ui/gothic_theme.gd")
 const Frame = preload("res://ui/texture_frame.gd")
@@ -6,7 +7,8 @@ const TabButton = preload("res://ui/character_tab_button.gd")
 const TITLES = ["Герой", "Характеристики", "Экипировка и навыки", "Меню игры"]
 var host
 var panel = Control.new()
-var title = Label.new()
+var window_header = preload("res://ui/window_header.gd").new()
+var title = window_header.title
 var body = Control.new()
 var navigation = Control.new()
 var pages: Array = []
@@ -16,9 +18,9 @@ var previous_focus: Control
 var previous_processing: int
 var closing = false
 var background = preload("res://ui/character_surface.gd").new()
-var header_surface = preload("res://ui/character_surface.gd").new()
+var header_surface = window_header.surface
 var navigation_surface = preload("res://ui/character_surface.gd").new()
-var header_separator = preload("res://ui/textured_divider.gd").new()
+var header_separator = window_header.divider
 var navigation_separator = preload("res://ui/textured_divider.gd").new()
 var close_separator = preload("res://ui/textured_divider.gd").new()
 var landscape = TextureRect.new()
@@ -60,18 +62,8 @@ func configure(owner_ui):
 	inner_shadow.material.set_shader_parameter("shadow_color", host.data.color("shadow-character-card-2"))
 	panel.add_child(inner_shadow)
 	inner_shadow.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	panel.add_child(header_surface)
-	header_surface.configure(host.data, 20, 0.78)
-	header_surface.frame.hide()
-	panel.add_child(header_separator)
-	header_separator.configure(host.data)
-	panel.add_child(title)
-	title.clip_text = true
-	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	title.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	title.add_theme_font_override("font", GothicTheme.DISPLAY_FONT)
-	title.add_theme_color_override("font_color", host.data.color("text-home"))
-	title.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	panel.add_child(window_header)
+	window_header.configure(host.data)
 	panel.add_child(body)
 	body.clip_contents = true
 	pages = [preload("res://ui/character_overview.gd").new(), preload("res://ui/character_attributes.gd").new(), preload("res://ui/character_equipment.gd").new(), preload("res://ui/character_menu.gd").new()]
@@ -118,23 +110,13 @@ func arrange():
 	var available = size - Vector2(left + right, top + bottom)
 	var wide = available.x > available.y * 1.08
 	panel.size = Vector2(minf(available.x, available.y * 1.65), available.y) if wide else Vector2(minf(560, available.x), minf(920, available.y))
+	panel.size.x = minf(panel.size.x, host.AdaptiveLayout.content_width(available))
 	panel.position = Vector2(left, top) + (available - panel.size) / 2
 	if wide: panel.position.x = left
 	elif available.y > available.x * 1.65: panel.position.y = top + available.y - panel.size.y
 	var unit = maxf(1, minf(panel.size.x / 900, panel.size.y / 650)) if wide else 1.0
-	var head = minf(74 * unit if wide else 82, panel.size.y * 0.17)
+	var head = window_header.arrange(panel.size)
 	var foot = minf(90 * unit if wide else 100, maxf(66, panel.size.y * 0.19))
-	header_surface.position = Vector2(2, 2)
-	header_surface.size = Vector2(panel.size.x - 4, head)
-	header_separator.position = Vector2(12, head + 1)
-	header_separator.size = Vector2(panel.size.x - 24, header_separator.THICKNESS)
-	title.position = Vector2(18, 6)
-	title.size = Vector2(panel.size.x - 36, head - 10)
-	var fitted = int(28 * unit)
-	while fitted > 16 and GothicTheme.DISPLAY_FONT.get_string_size(title.text,HORIZONTAL_ALIGNMENT_LEFT,-1,fitted).x > title.size.x: fitted -= 1
-	title.add_theme_font_size_override("font_size", fitted)
-	# Prata's visible letters sit above the center of its line box.
-	title.position.y += fitted * 0.25
 	body.position = Vector2(18, head + 14)
 	body.size = Vector2(panel.size.x - 36, panel.size.y - head - foot - 30)
 	navigation_surface.position = Vector2(2, panel.size.y - foot - 2)
@@ -188,7 +170,7 @@ func focus_targets(node, result: Array):
 func _input(event):
 	if closing or is_instance_valid(host.inspection_window) or not event is InputEventKey or not event.pressed: return
 	# Embedded inspection dialogs handle their own keyboard navigation first.
-	if host.get_children().any(func(c): return c is AcceptDialog and c.visible): return
+	if host.get_children().any(func(c): return c is ModalDialog and c.visible): return
 	if event.keycode == KEY_ESCAPE:
 		back()
 		get_viewport().set_input_as_handled()

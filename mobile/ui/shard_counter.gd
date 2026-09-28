@@ -7,6 +7,8 @@ var amount = 0
 var icon: Texture2D
 var tint = Color.WHITE
 var font_size = 28
+var icon_scale = 1.24
+var group_digits = false
 var icon_rect = Rect2()
 var number_rect = Rect2()
 static var numeral_bounds: Dictionary = {}
@@ -26,9 +28,15 @@ func configure(data, value: int):
 func _draw():
 	if not icon: return
 	var font = GothicTheme.DISPLAY_FONT
-	var text = prefix + str(amount)
+	var digits = str(amount)
+	if group_digits:
+		var end = digits.length() - 3
+		while end > (1 if amount < 0 else 0):
+			digits = digits.insert(end, " ")
+			end -= 3
+	var text = prefix + digits
 	var fitted = font_size
-	while fitted > 12 and font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, fitted).x + fitted + 8 > size.x: fitted -= 1
+	while fitted > 1 and font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, fitted).x + fitted * icon_scale + 8 > size.x: fitted -= 1
 	var width = font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, fitted).x
 	# Glyph texture bounds include MSDF padding; contour bounds measure the visible ink.
 	if not numeral_bounds.has(fitted):
@@ -44,7 +52,7 @@ func _draw():
 		numeral_bounds[fitted] = Rect2(low, high - low) if not points.is_empty() else Rect2(0, -fitted * 0.8, fitted, fitted * 0.8)
 	var bounds: Rect2 = numeral_bounds[fitted]
 	var height = bounds.size.y
-	var icon_height = height * 1.24
+	var icon_height = height * icon_scale
 	var extent = Vector2(icon_height * icon.get_width() / icon.get_height(), icon_height)
 	var left = maxf(0, size.x - width - extent.x - 8)
 	if alignment == HORIZONTAL_ALIGNMENT_CENTER: left *= 0.5

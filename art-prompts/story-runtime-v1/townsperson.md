@@ -1,0 +1,8 @@
+# Горожанин
+
+2026-09-28. Built-in image_gen; model/seed not exposed.
+Asset: `public/characters/townsperson-v1.png`.
+References inspected: refs/image1.png (warm metal), refs/image2.png (gothic/cold materials), refs/image3.png (linen/bone); no image attached to generation. Original new identity.
+
+Use case: stylized-concept. Single original portrait asset for dark gothic game Heroes of Orvesk. Vertical canvas 1024x1536, 2:3. Painted sculptural volume, fine interrupted dry-brush strokes following form, matte uneven skin halftones, controlled simplification, deep chiaroscuro; NOT a photograph, NOT glossy CGI, no uniform grain overlay. Close head and upper shoulders against near black charcoal. Face most detailed; hair in masses; worn linen broad broken folds fading into darkness. Muted charcoal, graphite and bone palette with subtle natural skin warmth. Single directional light from upper front LEFT of image. Three quarter head looking LEFT (NPC). Fixed composition on full canvas: head center X50%, top of hair Y12%, eyes Y38%, anatomical chin Y64%, main head width70% canvas. Complete head in canvas, identity traits within circle centered(512,640), radius460.8; do not draw guide or circle. No frames, text, logos, weapons, jewelry or unrequested props. No anime, modern clothing, saturated/neon accents, perfect model beauty, large impasto smears or low poly.
+Subject: An ordinary town resident about 57, broad rounded Central Asian face, warm medium skin, prominent ears, grey close-cut hair, uneven eyebrows, deep horizontal forehead wrinkles. Simple charcoal wool with a small overlapping standing collar. Measured attentive expression.

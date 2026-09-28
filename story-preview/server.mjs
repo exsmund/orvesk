@@ -15,7 +15,7 @@ export const server=http.createServer(async(req,res)=>{
    const config=JSON.parse(await readFile(resolve(root,'data/story-preview.json'),'utf8'));
    const changed=[];
    for(const src of config.sources){
-    if(!['data/story.json','docs/STORY.md','data/story-characters.json'].includes(src.path))continue;
+    if(!['data/story.json','docs/STORY.md','data/story-characters.json','data/map-points.json','data/journey-maps.json'].includes(src.path))continue;
     const digest=createHash('sha256').update(await readFile(resolve(root,src.path))).digest('hex');
     if(digest!==src.sha256)changed.push(src.path);
    }

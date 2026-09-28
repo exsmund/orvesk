@@ -14,9 +14,10 @@ const FigureArt = preload("res://ui/figure_art.gd")
 const Column = preload("res://ui/inspection_column.gd")
 var host
 var panel = Control.new()
-var header = Surface.new()
+var window_header = preload("res://ui/window_header.gd").new()
+var header = window_header.surface
 var footer = Surface.new()
-var title = Label.new()
+var title = window_header.title
 var scroll = ScrollContainer.new()
 var body_padding = MarginContainer.new()
 var body = VBoxContainer.new()
@@ -31,7 +32,7 @@ var primary = Button.new()
 var secondary = Button.new()
 var close_button = TabButton.new()
 var footer_hint = Label.new()
-var header_separator = Divider.new()
+var header_separator = window_header.divider
 var footer_separator = Divider.new()
 var close_separator = Divider.new()
 var frame = Frame.new()
@@ -77,19 +78,14 @@ func configure(owner_ui, entries: Array, settings: Dictionary = {}):
 	shadow.material.shader = preload("res://shaders/character_shadow.gdshader")
 	shadow.material.set_shader_parameter("shadow_color",host.data.color("shadow-character-card-2"))
 	shadow.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	for strip in [header, footer]:
-		panel.add_child(strip)
-		strip.configure(host.data, 20, 0.78 if strip == header else 0.20)
-		strip.frame.hide()
-	for line in [header_separator, footer_separator, close_separator]:
+	panel.add_child(window_header)
+	window_header.configure(host.data)
+	panel.add_child(footer)
+	footer.configure(host.data, 20, 0.20)
+	footer.frame.hide()
+	for line in [footer_separator, close_separator]:
 		panel.add_child(line)
 		line.configure(host.data,line == close_separator)
-	panel.add_child(title)
-	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	title.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	title.clip_text = true
-	title.add_theme_font_override("font",GothicTheme.DISPLAY_FONT)
-	title.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	panel.add_child(scroll)
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER
@@ -116,7 +112,6 @@ func configure(owner_ui, entries: Array, settings: Dictionary = {}):
 	columns.sort_children.connect(func(): update_sticky_columns.call_deferred())
 	for button in [secondary,primary]:
 		panel.add_child(button)
-		button.add_theme_font_size_override("font_size",18)
 	secondary.pressed.connect(func(): canceled.emit())
 	primary.pressed.connect(func():
 		if not primary.disabled and not closing: confirmed.emit())
@@ -190,28 +185,19 @@ func arrange():
 	if not host or not is_inside_tree(): return
 	var origin = Vector2(host.margin.get_theme_constant("margin_left"),host.margin.get_theme_constant("margin_top"))
 	var area = size - origin - Vector2(host.margin.get_theme_constant("margin_right"),host.margin.get_theme_constant("margin_bottom"))
-	panel.size = Vector2(minf(1120 if groups.size() > 1 else 540,area.x),minf(900,area.y))
+	panel.size = Vector2(minf(1120 if groups.size() > 1 else 540,host.AdaptiveLayout.content_width(area)),minf(900,area.y))
 	panel.position = origin + (area - panel.size) / 2
 	if area.y > area.x * 1.65: panel.position.y = origin.y + area.y - panel.size.y
-	var head = 76.0
+	var head = window_header.arrange(panel.size)
 	var compact = primary.visible and panel.size.x < 440
 	footer_hint.size.x = panel.size.x-40
 	var hint_height = maxf(18,footer_hint.get_minimum_size().y) if footer_hint.visible else 0.0
 	var hint_space = hint_height+8 if footer_hint.visible else 0.0
 	var foot = (140.0 if compact else 82.0)+hint_space
-	header.position = Vector2(2,2)
-	header.size = Vector2(panel.size.x-4,head)
 	footer.position = Vector2(2,panel.size.y-foot-2)
 	footer.size = Vector2(panel.size.x-4,foot)
-	header_separator.position = Vector2(12,head+1)
-	header_separator.size = Vector2(panel.size.x-24,2)
 	footer_separator.position = Vector2(12,footer.position.y)
 	footer_separator.size = Vector2(panel.size.x-24,2)
-	title.size = Vector2(panel.size.x-36,head-10)
-	var fitted = 28
-	while fitted > 16 and GothicTheme.DISPLAY_FONT.get_string_size(title.text,HORIZONTAL_ALIGNMENT_LEFT,-1,fitted).x > title.size.x: fitted -= 1
-	title.add_theme_font_size_override("font_size",fitted)
-	title.position = Vector2(18,6+fitted*0.25)
 	# Insets belong to scrolling content, so the clipping edges meet both strips.
 	scroll.position = Vector2(20,header.position.y+header.size.y)
 	scroll.size = Vector2(panel.size.x-40,maxf(1,footer.position.y-scroll.position.y))
@@ -233,7 +219,7 @@ func arrange():
 		secondary.size = Vector2(width,50)
 		primary.position = Vector2(30+width,y)
 		primary.size = Vector2(width,50)
-		for button in [secondary,primary]: button.add_theme_font_size_override("font_size",14 if width < 120 else 18)
+		for button in [secondary,primary]: GothicTheme.fit_button_text(button,width)
 		if compact:
 			close_button.position = Vector2((panel.size.x-close_side)/2,y+58)
 			close_separator.hide()

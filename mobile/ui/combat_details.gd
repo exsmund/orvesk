@@ -27,6 +27,7 @@ func cell_text(cell: Dictionary) -> String:
 		if not card.is_empty():
 			lines.append("Ваша фигура: " + card.name + "\n" + card.get("description", ""))
 			lines.append("Потенциал этой клетки: %s здоровья, %s выносливости. Без учёта брони и ответа противника." % [number(cell.potential), number(cell.potentialStamina)])
+			lines.append("Предварительные потери противника с учётом брони: %s здоровья, %s выносливости. Ответ противника может изменить эти числа." % [number(cell.get("previewDamage", 0)), number(cell.get("previewStaminaDamage", 0))])
 			if card.get("counter", false): lines.append("Контратака нанесёт урон только при встречной атаке.")
 			lines.append("Цена фигуры: %s; резерв блока за клетку: %s выносливости." % [number(card.get("staminaCost", 0)), number(card.get("blockCost", 0))])
 		return "\n\n".join(lines)

@@ -10,7 +10,7 @@ func configure(data, glyph: String):
 	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	custom_minimum_size = Vector2(44, 44)
 	add_theme_font_override("font", GothicTheme.BODY_FONT)
-	add_theme_font_size_override("font_size", 28)
+	add_theme_font_size_override("font_size", GothicTheme.button_text_size(28))
 	for state in ["normal", "hover", "pressed", "disabled"]:
 		var style = StyleBoxTexture.new()
 		style.texture = PRESSED if state == "pressed" else NORMAL

@@ -1,0 +1,24 @@
+{
+  "icons": 12,
+  "size": 512,
+  "transparentCorners": true,
+  "opaqueCenter": true,
+  "sharedRingPixels": true,
+  "backgrounds": [
+    "forest",
+    "steppe",
+    "ruins"
+  ],
+  "displaySizes": [
+    48,
+    64,
+    96
+  ],
+  "mobileWidth": 320,
+  "mobileNoOverflow": true,
+  "selectionAndLabels": true,
+  "pageErrors": [],
+  "visualReview": "All three backgrounds reviewed. Main silhouettes remain distinguishable at 48px; 64px recommended for play. Small textures intentionally lose detail.",
+  "ringComparisonMinimumRadiusPx": 200,
+  "opaqueCenterRadiusPx": 200
+}

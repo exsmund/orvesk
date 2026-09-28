@@ -77,6 +77,7 @@ func run():
 	root.size = Vector2i(480,900)
 	if not OS.get_cmdline_user_args().is_empty(): output = OS.get_cmdline_user_args()[0]
 	ui = load("res://scenes/main.tscn").instantiate()
+	ui.session = preload("res://tests/campaign_driver.gd").new(ui.data)
 	ui.saves = MemorySaves.new()
 	ui.preferences = MemoryPreferences.new()
 	root.add_child(ui)
@@ -142,13 +143,14 @@ func run():
 	var forge = {}
 	for seed_value in range(1,15):
 		ui.session.combat.rng.seed = seed_value
-		ui.session.new_journey(1)
+		ui.session.map_fixture(1)
 		for node in ui.session.game.journey.map.nodes:
 			if node.kind == "forge": forge=node;break
 		if not forge.is_empty(): break
 	ui.session.game.journey.path = [forge.id]
 	ui.session.game.journey.forgeResolved = false
 	ui.session.game.journey.offers = ["shortsword@2"]
+	ui.session.service_fixture(forge, ui.session.game.journey.offers)
 	ui.session.game.phase = "ready"
 	ui.show_game()
 	await settle()

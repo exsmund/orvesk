@@ -103,6 +103,7 @@ func run():
 	root.size = Vector2i(432,1008)
 	if not OS.get_cmdline_user_args().is_empty(): output = OS.get_cmdline_user_args()[0]
 	ui = load("res://scenes/main.tscn").instantiate()
+	ui.session = preload("res://tests/campaign_driver.gd").new(ui.data)
 	ui.saves = MemorySaves.new()
 	root.add_child(ui)
 	await settle()
@@ -236,7 +237,8 @@ func run():
 	click(combat.action.get_global_rect().get_center())
 	check(ui.session.game == battle, "Overlay consumes taps aimed at underlying combat action")
 	check(attributes.locked and attributes.confirm.disabled and attributes.warning.text == "Недоступно во время боя", "Combat attribute tab explicitly locked")
-	check(not descendants(attributes).any(func(c): return c is SquareButton), "Combat has no plus/minus controls")
+	check(descendants(attributes).filter(func(c): return c is SquareButton).size() == 8, "Combat retains all plus/minus controls")
+	check(descendants(attributes).filter(func(c): return c is SquareButton).all(func(c): return c.visible and c.disabled), "Combat plus/minus controls are visible and disabled")
 	attributes.change("strength",1)
 	attributes.commit()
 	check(not ui.session.upgrade("strength").is_empty(), "Backend also rejects upgrading in battle")

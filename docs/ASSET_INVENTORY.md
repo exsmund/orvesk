@@ -4,7 +4,7 @@
 
 **Как читать:** считаются уникальные файлы, а не число показов или ссылок. «Браузер» и «Мобильная» могут пересекаться. «Без подключения» означает отсутствие ссылки из игровых каталогов и кода этих двух клиентов; это не разрешение удалить файл. Референсы, архивы, Storybook и тестовые страницы отмечены отдельно. Каталожный портрет считается подключённым, даже если сюжет с ним ещё не реализован. Статический анализ не доказывает, что каждый экран реально посещён.
 
-В `public` колонка мобильной версии означает использование оригинала через копию `mobile/content/generated/art`. Сами копии посчитаны отдельно как физические файлы. Старые копии не очищаются скриптом синхронизации. Исключены зависимости, `.git`, `.godot`, `dist`, `storybook-static` (производные сборки, не авторские ассеты).
+В `public` колонка мобильной версии означает использование оригинала через копию `mobile/content/generated/art`. Сами копии посчитаны отдельно как физические файлы. С 2026-09-28 синхронизация удаляет прежние производные копии, отмеченные старым манифестом и отсутствующие в новом; исходники `public` не удаляет. Таблица ниже — снимок на указанную дату, дальнейшие изменения перечислены в дополнениях. Исключены зависимости, `.git`, `.godot`, `dist`, `storybook-static` (производные сборки, не авторские ассеты).
 
 | Директория | Всего | Браузер | Мобильная | Без подключения | Назначение |
 |---|---:|---:|---:|---:|---|
@@ -14,13 +14,14 @@
 | mobile/content/generated/art/creatures/actions | 36 | 0 | 18 | 18 | Мобильные копии: Природные действия существ |
 | mobile/content/generated/art/creatures/portraits | 41 | 0 | 41 | 0 | Мобильные копии: Портреты существ и диалоговых собеседников |
 | mobile/content/generated/art/items | 114 | 0 | 57 | 57 | Мобильные копии: Предметы и изображения действий экипировки |
-| mobile/content/generated/art/portraits | 35 | 0 | 35 | 0 | Мобильные копии: Портреты людей |
+| mobile/content/generated/art/portraits | 35 | 0 | 0 | 35 | Архивные мобильные копии прежних портретов, из каталога удалены |
+| mobile/content/generated/art/portraits/heroes-v2 | 25 | 0 | 25 | 0 | Мобильные копии новых портретов героя |
 | mobile/content/generated/art/skills | 10 | 0 | 6 | 4 | Мобильные копии: Иллюстрации навыков |
 | mobile/content/generated/art/terrain | 1 | 0 | 0 | 1 | Мобильные копии: Текстура поля и препятствий |
 | mobile/content/generated/art/ui | 7 | 0 | 5 | 2 | Мобильные копии: Фоны, рамки, кнопки, валюта, силуэты |
 | mobile/content/generated/art/ui/battle-modes | 2 | 0 | 2 | 0 | Мобильные копии: Значки режимов боя |
 | mobile/content/generated/art/ui/journey | 4 | 0 | 4 | 0 | Мобильные копии: Значки этапов маршрута |
-| mobile/content/generated/art/ui/journey/maps | 6 | 0 | 6 | 0 | Мобильные копии: Фоны карт и боёв |
+| mobile/content/generated/art/ui/journey/maps | 16 | 0 | 16 | 0 | Мобильные копии: Фоны карт и боёв |
 | mobile/content/ui | 11 | 0 | 10 | 1 | Собственные рамки, клетки и кнопки Godot |
 | public | 1 | 1 | 1 | 0 | Иконка вкладки / приложения |
 | public/characters | 32 | 0 | 0 | 32 | Сюжетные персонажи: подготовлены в data/story-characters.json, сюжетный интерфейс ещё не подключён |
@@ -28,17 +29,21 @@
 | public/creatures/actions | 38 | 18 | 18 | 20 | Природные действия существ |
 | public/creatures/portraits | 41 | 41 | 41 | 0 | Портреты существ и диалоговых собеседников |
 | public/items | 114 | 57 | 57 | 57 | Предметы и изображения действий экипировки |
-| public/portraits | 35 | 35 | 35 | 0 | Портреты людей |
+| public/portraits | 35 | 0 | 0 | 35 | Архив прежних портретов, из каталога удалены |
+| public/portraits/heroes-v2 | 25 | 25 | 25 | 0 | Текущий выбираемый набор портретов героя |
 | public/skills | 10 | 6 | 6 | 4 | Иллюстрации навыков |
 | public/terrain | 4 | 4 | 0 | 0 | Текстура поля и препятствий |
 | public/ui | 23 | 16 | 5 | 6 | Фоны, рамки, кнопки, валюта, силуэты |
 | public/ui/battle-modes | 3 | 2 | 2 | 1 | Значки режимов боя |
 | public/ui/journey | 4 | 4 | 4 | 0 | Значки этапов маршрута |
-| public/ui/journey/maps | 6 | 6 | 6 | 0 | Фоны карт и боёв |
+| public/ui/journey/maps | 16 | 16 | 16 | 0 | Фоны карт и боёв |
+| public/ui/map-points/v1 | 13 | 0 | 0 | 13 | Общая рамка и 12 готовых значков; каталог подготовлен, в игровые клиенты не подключён |
+| public/ui/map-points/v1/symbols | 12 | 0 | 0 | 12 | Исходные прозрачные символы общей серии |
+| public/ui/map-points/v1/previews | 3 | 0 | 0 | 3 | Контрольные снимки на трёх игровых фонах; только документация |
 | browser/public/ui/navigation | 9 | 7 | 0 | 2 | Навигационные иконки |
 | refs | 3 | 0 | 0 | 3 | Художественные референсы |
 
-Всего физических изображений: **600**. Без подключения к двум клиентам: **213**.
+Всего физических изображений: **698**. Без подключения к двум клиентам: **311**.
 
 ## Очистка исходников 2026-09-27
 
@@ -291,41 +296,41 @@
 
 ### `mobile/content/generated/art/portraits`
 
-- `character-01-ash.png` — Мобильная: data/portraits.json.
-- `character-02-earth.png` — Мобильная: data/portraits.json.
-- `character-03-ivory.png` — Мобильная: data/portraits.json.
-- `character-04-copper.png` — Мобильная: data/portraits.json.
-- `character-05-mist.png` — Мобильная: data/portraits.json.
-- `character-06-flint.png` — Мобильная: data/portraits.json.
-- `character-07-amber.png` — Мобильная: data/portraits.json.
-- `character-08-raven.png` — Мобильная: data/portraits.json.
-- `character-09-frost.png` — Мобильная: data/portraits.json.
-- `character-10-ochre.png` — Мобильная: data/portraits.json.
-- `character-11-ember.png` — Мобильная: data/portraits.json.
-- `character-12-willow.png` — Мобильная: data/portraits.json.
-- `character-13-storm.png` — Мобильная: data/portraits.json.
-- `character-14-sand.png` — Мобильная: data/portraits.json.
-- `character-15-slate.png` — Мобильная: data/portraits.json.
-- `character-16-silver.png` — Мобильная: data/portraits.json.
-- `character-17-heather.png` — Мобильная: data/portraits.json.
-- `character-18-bronze.png` — Мобильная: data/portraits.json.
-- `character-19-night.png` — Мобильная: data/portraits.json.
-- `character-20-dawn.png` — Мобильная: data/portraits.json.
-- `character-21-reed.png` — Мобильная: data/portraits.json.
-- `character-22-pine.png` — Мобильная: data/portraits.json.
-- `character-23-clay.png` — Мобильная: data/portraits.json.
-- `character-24-steppe.png` — Мобильная: data/portraits.json.
-- `character-25-saffron.png` — Мобильная: data/portraits.json.
-- `character-26-basalt.png` — Мобильная: data/portraits.json.
-- `character-27-cinder.png` — Мобильная: data/portraits.json.
-- `character-28-cypress.png` — Мобильная: data/portraits.json.
-- `character-29-thorn.png` — Мобильная: data/portraits.json.
-- `character-30-flax.png` — Мобильная: data/portraits.json.
-- `character-31-moss.png` — Мобильная: data/portraits.json.
-- `character-32-quartz.png` — Мобильная: data/portraits.json.
-- `character-33-umber.png` — Мобильная: data/portraits.json.
-- `character-34-silt.png` — Мобильная: data/portraits.json.
-- `character-35-lichen.png` — Мобильная: data/portraits.json.
+- `character-01-ash.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-02-earth.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-03-ivory.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-04-copper.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-05-mist.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-06-flint.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-07-amber.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-08-raven.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-09-frost.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-10-ochre.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-11-ember.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-12-willow.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-13-storm.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-14-sand.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-15-slate.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-16-silver.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-17-heather.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-18-bronze.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-19-night.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-20-dawn.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-21-reed.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-22-pine.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-23-clay.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-24-steppe.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-25-saffron.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-26-basalt.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-27-cinder.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-28-cypress.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-29-thorn.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-30-flax.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-31-moss.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-32-quartz.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-33-umber.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-34-silt.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-35-lichen.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
 
 ### `mobile/content/generated/art/skills`
 
@@ -604,41 +609,41 @@
 
 ### `public/portraits`
 
-- `character-01-ash.png` — Браузер: data/portraits.json; Мобильная: data/portraits.json.
-- `character-02-earth.png` — Браузер: data/portraits.json; Мобильная: data/portraits.json.
-- `character-03-ivory.png` — Браузер: data/portraits.json; Мобильная: data/portraits.json.
-- `character-04-copper.png` — Браузер: data/portraits.json; Мобильная: data/portraits.json.
-- `character-05-mist.png` — Браузер: data/portraits.json; Мобильная: data/portraits.json.
-- `character-06-flint.png` — Браузер: data/portraits.json; Мобильная: data/portraits.json.
-- `character-07-amber.png` — Браузер: data/portraits.json; Мобильная: data/portraits.json.
-- `character-08-raven.png` — Браузер: data/portraits.json; Мобильная: data/portraits.json.
-- `character-09-frost.png` — Браузер: data/portraits.json; Мобильная: data/portraits.json.
-- `character-10-ochre.png` — Браузер: data/portraits.json; Мобильная: data/portraits.json.
-- `character-11-ember.png` — Браузер: data/portraits.json; Мобильная: data/portraits.json.
-- `character-12-willow.png` — Браузер: data/portraits.json; Мобильная: data/portraits.json.
-- `character-13-storm.png` — Браузер: data/portraits.json; Мобильная: data/portraits.json.
-- `character-14-sand.png` — Браузер: data/portraits.json; Мобильная: data/portraits.json.
-- `character-15-slate.png` — Браузер: data/portraits.json; Мобильная: data/portraits.json.
-- `character-16-silver.png` — Браузер: data/portraits.json; Мобильная: data/portraits.json.
-- `character-17-heather.png` — Браузер: data/portraits.json; Мобильная: data/portraits.json.
-- `character-18-bronze.png` — Браузер: data/portraits.json; Мобильная: data/portraits.json.
-- `character-19-night.png` — Браузер: data/portraits.json; Мобильная: data/portraits.json.
-- `character-20-dawn.png` — Браузер: data/portraits.json; Мобильная: data/portraits.json.
-- `character-21-reed.png` — Браузер: data/portraits.json; Мобильная: data/portraits.json.
-- `character-22-pine.png` — Браузер: data/portraits.json; Мобильная: data/portraits.json.
-- `character-23-clay.png` — Браузер: data/portraits.json; Мобильная: data/portraits.json.
-- `character-24-steppe.png` — Браузер: data/portraits.json; Мобильная: data/portraits.json.
-- `character-25-saffron.png` — Браузер: data/portraits.json; Мобильная: data/portraits.json.
-- `character-26-basalt.png` — Браузер: data/portraits.json; Мобильная: data/portraits.json.
-- `character-27-cinder.png` — Браузер: data/portraits.json; Мобильная: data/portraits.json.
-- `character-28-cypress.png` — Браузер: data/portraits.json; Мобильная: data/portraits.json.
-- `character-29-thorn.png` — Браузер: data/portraits.json; Мобильная: data/portraits.json.
-- `character-30-flax.png` — Браузер: data/portraits.json; Мобильная: data/portraits.json.
-- `character-31-moss.png` — Браузер: data/portraits.json; Мобильная: data/portraits.json.
-- `character-32-quartz.png` — Браузер: data/portraits.json; Мобильная: data/portraits.json.
-- `character-33-umber.png` — Браузер: data/portraits.json; Мобильная: data/portraits.json.
-- `character-34-silt.png` — Браузер: data/portraits.json; Мобильная: data/portraits.json.
-- `character-35-lichen.png` — Браузер: data/portraits.json; Мобильная: data/portraits.json.
+- `character-01-ash.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-02-earth.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-03-ivory.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-04-copper.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-05-mist.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-06-flint.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-07-amber.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-08-raven.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-09-frost.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-10-ochre.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-11-ember.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-12-willow.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-13-storm.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-14-sand.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-15-slate.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-16-silver.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-17-heather.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-18-bronze.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-19-night.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-20-dawn.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-21-reed.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-22-pine.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-23-clay.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-24-steppe.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-25-saffron.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-26-basalt.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-27-cinder.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-28-cypress.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-29-thorn.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-30-flax.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-31-moss.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-32-quartz.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-33-umber.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-34-silt.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
+- `character-35-lichen.png` — Архив: удалён из каталога портретов, игровые клиенты не используют.
 
 ### `public/skills`
 
@@ -771,3 +776,95 @@
 - `public/characters/garrison-soldier-v1.png` — Солдат гарнизона, 1024 × 1536, разворот влево.
 - `public/characters/veyr-hunter-v1.png` — Охотник Вейра, 1024 × 1536, разворот влево.
 - `public/characters/wounded-soldier-v1.png` — Раненый солдат, 1024 × 1536, разворот влево.
+
+## Значки точек карты v1
+
+28 новых PNG: общая рамка, 12 исходных символов, 12 готовых круглых значков и 3 контрольных снимка. Типы и привязка к сюжету — [MAP_POINTS.md](MAP_POINTS.md), правила — [MAP_POINT_ART_DIRECTION.md](MAP_POINT_ART_DIRECTION.md). Изображения пока используются каталогом и отдельным стендом; браузерная игра и Godot сохраняют прежние значки `public/ui/journey`. Мобильные копии новой серии не создавались до подключения.
+
+- `public/ui/map-points/v1/frame.png` — общая рамка всех типов.
+- `public/ui/map-points/v1/combat.png` — Бой; `public/ui/map-points/v1/symbols/combat.png` — исходный символ.
+- `public/ui/map-points/v1/boss.png` — Босс; `public/ui/map-points/v1/symbols/boss.png` — исходный символ.
+- `public/ui/map-points/v1/campfire.png` — Костёр; `public/ui/map-points/v1/symbols/campfire.png` — исходный символ.
+- `public/ui/map-points/v1/forge.png` — Кузница; `public/ui/map-points/v1/symbols/forge.png` — исходный символ.
+- `public/ui/map-points/v1/healer.png` — Лечебница; `public/ui/map-points/v1/symbols/healer.png` — исходный символ.
+- `public/ui/map-points/v1/market.png` — Рынок; `public/ui/map-points/v1/symbols/market.png` — исходный символ.
+- `public/ui/map-points/v1/square.png` — Площадь; `public/ui/map-points/v1/symbols/square.png` — исходный символ.
+- `public/ui/map-points/v1/tavern.png` — Таверна; `public/ui/map-points/v1/symbols/tavern.png` — исходный символ.
+- `public/ui/map-points/v1/forest-meeting.png` — Лесная встреча; `public/ui/map-points/v1/symbols/forest-meeting.png` — исходный символ.
+- `public/ui/map-points/v1/fairy-meeting.png` — Встреча с феей; `public/ui/map-points/v1/symbols/fairy-meeting.png` — исходный символ.
+- `public/ui/map-points/v1/hermit-meeting.png` — Беседа с отшельником; `public/ui/map-points/v1/symbols/hermit-meeting.png` — исходный символ.
+- `public/ui/map-points/v1/aid.png` — Помощь; `public/ui/map-points/v1/symbols/aid.png` — исходный символ.
+- `public/ui/map-points/v1/previews/{forest,steppe,ruins}.png` — проверка размеров 48, 64 и 96 px на текущих фонах.
+
+## Локации сюжетных глав v1
+
+Добавлены пять пар карты и фона боя (10 PNG в `public/ui/journey/maps`) и 10 мобильных копий. Общий каталог содержит восемь пресетов. В `story.json` главы I–VI закреплены за `ravaged-lands`, `perevalets`, `forest`, `mire`, `warlands`, `limestone-valley`; применение этой последовательности в игровом клиенте требует сюжетного адаптера. Обычный генератор уже выбирает из расширенного каталога.
+
+- `public/ui/journey/maps/ravaged-lands-v1.png` — 1402 × 1122; браузер: `data/journey-maps.json`; мобильная копия: `mobile/content/generated/art/ui/journey/maps/ravaged-lands-v1.png`.
+- `public/ui/journey/maps/ravaged-lands-battle-v1.png` — 1672 × 941; браузер: `data/journey-maps.json`; мобильная копия: `mobile/content/generated/art/ui/journey/maps/ravaged-lands-battle-v1.png`.
+- `public/ui/journey/maps/perevalets-v1.png` — 1402 × 1122; браузер: `data/journey-maps.json`; мобильная копия: `mobile/content/generated/art/ui/journey/maps/perevalets-v1.png`.
+- `public/ui/journey/maps/perevalets-battle-v1.png` — 1672 × 941; браузер: `data/journey-maps.json`; мобильная копия: `mobile/content/generated/art/ui/journey/maps/perevalets-battle-v1.png`.
+- `public/ui/journey/maps/mire-v1.png` — 1402 × 1122; браузер: `data/journey-maps.json`; мобильная копия: `mobile/content/generated/art/ui/journey/maps/mire-v1.png`.
+- `public/ui/journey/maps/mire-battle-v1.png` — 1672 × 941; браузер: `data/journey-maps.json`; мобильная копия: `mobile/content/generated/art/ui/journey/maps/mire-battle-v1.png`.
+- `public/ui/journey/maps/warlands-v1.png` — 1402 × 1122; браузер: `data/journey-maps.json`; мобильная копия: `mobile/content/generated/art/ui/journey/maps/warlands-v1.png`.
+- `public/ui/journey/maps/warlands-battle-v1.png` — 1672 × 941; браузер: `data/journey-maps.json`; мобильная копия: `mobile/content/generated/art/ui/journey/maps/warlands-battle-v1.png`.
+- `public/ui/journey/maps/limestone-valley-v1.png` — 1402 × 1122; браузер: `data/journey-maps.json`; мобильная копия: `mobile/content/generated/art/ui/journey/maps/limestone-valley-v1.png`.
+- `public/ui/journey/maps/limestone-valley-battle-v1.png` — 1672 × 941; браузер: `data/journey-maps.json`; мобильная копия: `mobile/content/generated/art/ui/journey/maps/limestone-valley-battle-v1.png`.
+
+Превью и требования — [MAP_ART_DIRECTION.md](MAP_ART_DIRECTION.md#локации-сюжетных-глав). Исходники генерации сохранены отдельно, в проект скопированы без обрезки и увеличения.
+
+## Новая серия портретов героя — 2026-09-27
+
+В `public/portraits/heroes-v2/` добавлены 20 PNG; прежние 35 файлов из `public/portraits/` сохранены. Все новые файлы подключены через `data/portraits.json`, ни один не остаётся без подключения. [Превью и описания всей серии](HERO_PORTRAITS.md). Мобильные копии создаются штатной синхронизацией контента.
+
+| Файл (одинаковое имя в обеих директориях серии) | Ссылка в данных |
+|---|---|
+| `character-36-alder.png` | `data/portraits.json` → `character-36-alder`; мобильная копия каталога `mobile/content/generated/portraits.json` |
+| `character-37-jasper.png` | `data/portraits.json` → `character-37-jasper`; мобильная копия каталога `mobile/content/generated/portraits.json` |
+| `character-38-rime.png` | `data/portraits.json` → `character-38-rime`; мобильная копия каталога `mobile/content/generated/portraits.json` |
+| `character-39-sandal.png` | `data/portraits.json` → `character-39-sandal`; мобильная копия каталога `mobile/content/generated/portraits.json` |
+| `character-40-granite.png` | `data/portraits.json` → `character-40-granite`; мобильная копия каталога `mobile/content/generated/portraits.json` |
+| `character-41-sedge.png` | `data/portraits.json` → `character-41-sedge`; мобильная копия каталога `mobile/content/generated/portraits.json` |
+| `character-42-tamarind.png` | `data/portraits.json` → `character-42-tamarind`; мобильная копия каталога `mobile/content/generated/portraits.json` |
+| `character-43-agate.png` | `data/portraits.json` → `character-43-agate`; мобильная копия каталога `mobile/content/generated/portraits.json` |
+| `character-44-cedar.png` | `data/portraits.json` → `character-44-cedar`; мобильная копия каталога `mobile/content/generated/portraits.json` |
+| `character-45-coral.png` | `data/portraits.json` → `character-45-coral`; мобильная копия каталога `mobile/content/generated/portraits.json` |
+| `character-46-pearl.png` | `data/portraits.json` → `character-46-pearl`; мобильная копия каталога `mobile/content/generated/portraits.json` |
+| `character-47-ebony.png` | `data/portraits.json` → `character-47-ebony`; мобильная копия каталога `mobile/content/generated/portraits.json` |
+| `character-48-rowan.png` | `data/portraits.json` → `character-48-rowan`; мобильная копия каталога `mobile/content/generated/portraits.json` |
+| `character-49-cumin.png` | `data/portraits.json` → `character-49-cumin`; мобильная копия каталога `mobile/content/generated/portraits.json` |
+| `character-50-onyx.png` | `data/portraits.json` → `character-50-onyx`; мобильная копия каталога `mobile/content/generated/portraits.json` |
+| `character-51-dune.png` | `data/portraits.json` → `character-51-dune`; мобильная копия каталога `mobile/content/generated/portraits.json` |
+| `character-52-teak.png` | `data/portraits.json` → `character-52-teak`; мобильная копия каталога `mobile/content/generated/portraits.json` |
+| `character-53-salt.png` | `data/portraits.json` → `character-53-salt`; мобильная копия каталога `mobile/content/generated/portraits.json` |
+| `character-54-fern.png` | `data/portraits.json` → `character-54-fern`; мобильная копия каталога `mobile/content/generated/portraits.json` |
+| `character-55-ocean.png` | `data/portraits.json` → `character-55-ocean`; мобильная копия каталога `mobile/content/generated/portraits.json` |
+
+### Дополнение серии — 2026-09-28
+
+`character-56-alabaster.png` добавлен в `public/portraits/heroes-v2/` и в мобильные производные `mobile/content/generated/art/portraits/heroes-v2/`. Подключение: `data/portraits.json` → `character-56-alabaster`; мобильный каталог `mobile/content/generated/portraits.json`. В серии теперь 21 изображение; без подключения — 0. Прежние файлы не заменены. [Описание и превью](HERO_PORTRAITS.md).
+
+### Ещё четыре варианта героя — 2026-09-28
+
+В `public/portraits/heroes-v2/` добавлены четыре портрета с более выраженными мужскими чертами; в серии теперь 25 файлов. Все подключены через `data/portraits.json`; мобильные копии — `mobile/content/generated/art/portraits/heroes-v2/`, ссылки в `mobile/content/generated/portraits.json`. Неподключённых файлов новой партии нет. [Превью](HERO_PORTRAITS.md).
+
+- `character-57-iron.png` — Железный; запись каталога `character-57-iron`.
+- `character-58-mahogany.png` — Махагоновый; запись каталога `character-58-mahogany`.
+- `character-59-juniper.png` — Можжевеловый; запись каталога `character-59-juniper`.
+- `character-60-dolomite.png` — Доломитовый; запись каталога `character-60-dolomite`.
+
+## Перегенерация сюжетных портретов — 2026-09-28
+
+Все 32 файла в `public/characters` заменены новыми PNG 1024 × 1536 в живописной манере обновлённого [ART_DIRECTION.md](ART_DIRECTION.md). Семь именных и 25 эпизодических персонажей сохраняют свои ID, внешность и адреса `*-v1.png`; человеческие маски не выдают скрытый вид. Свет сверху и спереди-слева, разворот влево. Проверены полные портреты и круглое кадрирование 120/180 px.
+
+[Превью и анкеты](CHARACTERS.md), [запросы и происхождение серии v2](../art-prompts/story-characters-v2/generation-prompts.json), [проверки](../art-prompts/story-characters-v2/qa.json). Новых физических изображений в проекте не добавлено: 32 замены не меняют итоговые количества в таблице. Доступность в предпросмотре сценария не означает подключения к игровым клиентам; мобильных копий этой серии пока нет.
+
+## Выбор новой серии портретов 2026-09-28
+
+В `data/portraits.json` оставлены только 25 записей `heroes-v2` (ID 36–60). Старые 35 записей удалены; PNG в `public/portraits/` и прежние мобильные копии сохранены как архив, без подключения к игровым клиентам. Мобильный каталог и манифест обновлены штатной синхронизацией. Исходные файлы не удалялись; число физических изображений не изменилось.
+
+## Подключение сюжетной кампании в Godot — 2026-09-28
+
+Все 37 портретов `public/characters` теперь доставляются в `mobile/content/generated/art/characters` и используются диалогами. Добавлены пять ранее отсутствовавших собеседников: `saved-guest-v1.png`, `townsperson-v1.png`, `inn-maid-v1.png`, `shelter-attendant-v1.png`, `market-trader-v1.png` (PNG 1024 × 1536). [Анкеты и компактные превью](CHARACTERS.md), [точные запросы](../art-prompts/story-runtime-v1). Новые картинки созданы встроенным image_gen по ART_DIRECTION; проверены визуально.
+
+Godot также использует 25 новых портретов героя, 12 круглых значков `/ui/map-points/v1/` и шесть фиксированных пар фонов глав. Удалены только устаревшие мобильные копии, выпавшие из манифеста: в том числе четыре прежних значка маршрута и архивные портреты героя. Общие исходники остаются для браузера и архива. Круглые портреты кадрируются через cover, положение 50% 25%; прямоугольные сохраняют исходные пропорции.

@@ -1,26 +1,36 @@
 #!/usr/bin/env python3
 """Build mobile content from canonical repository data; never copy player saves."""
 import hashlib
+import importlib.util
 import json
 from pathlib import Path
 import re
 import shutil
 import subprocess
+import sys
+
+sys.dont_write_bytecode = True
 
 MOBILE = Path(__file__).resolve().parents[1]
 ROOT = MOBILE.parent
 OUT = MOBILE / 'content' / 'generated'
 MIPMAP_ART = {'/ui/gothic-frame.png', '/ui/portrait-frame-v1.png', '/ui/logos-shards-v3.png'}
 CATALOGS = ['weapons', 'armor', 'jewelry', 'base-figures', 'skills', 'creatures',
-            'portraits', 'journey-maps', 'journey-encounters', 'item-art', 'combat-balance', 'damage-types']
+            'portraits', 'journey-maps', 'journey-encounters', 'item-art', 'combat-balance', 'damage-types',
+            'story', 'story-characters', 'story-gameplay', 'map-points', 'journey-rules', 'portrait-presentation']
 
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     paths = {'/ui/start-landscape-v1.png',
              '/ui/battle-modes/free-v1.png', '/ui/battle-modes/expendable-v1.png',
              '/ui/logos-shards-v3.png', '/ui/portrait-frame-round-v1.png',
-             '/ui/portrait-frame-v1.png', '/ui/gothic-frame.png',
-             *('/ui/journey/' + kind + '-v1.png' for kind in ('battle', 'camp', 'forge', 'champion'))}
+             '/ui/portrait-frame-v1.png', '/ui/gothic-frame.png'}
+    old_manifest = json.loads((OUT / 'manifest.json').read_text()) if (OUT / 'manifest.json').exists() else {}
+    spec = importlib.util.spec_from_file_location("story_compiler", ROOT / "tools/compile-story.py")
+    compiler = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(compiler)
+    runtime = compiler.compile_story()
+    (OUT / "story-runtime.json").write_text(json.dumps(runtime, ensure_ascii=False, indent=2) + "\n")
     manifest = {}
     def collect(value):
         if isinstance(value, str) and value.startswith('/') and value.endswith(('.png', '.webp', '.jpg')):
@@ -74,6 +84,15 @@ def main():
             else:
                 settings += '\nmipmaps/generate=true\n'
             import_file.write_text(settings)
+    # Only remove previously generated delivery copies whose canonical references vanished.
+    for name in old_manifest:
+        if not name.startswith('public/') or name in manifest:
+            continue
+        target = OUT / 'art' / name.removeprefix('public/')
+        if not target.resolve().is_relative_to((OUT / 'art').resolve()):
+            raise ValueError('Asset outside generated delivery directory: ' + name)
+        for candidate in [target, Path(str(target) + '.import'), Path(str(target) + '.sha256')]:
+            candidate.unlink(missing_ok=True)
     (OUT / 'manifest.json').write_text(json.dumps(manifest, indent=2, sort_keys=True))
     print(f'Synchronized {len(CATALOGS)} catalogs and {len(paths)} images into {OUT}')
 

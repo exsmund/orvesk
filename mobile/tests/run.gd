@@ -1,7 +1,7 @@
 extends SceneTree
 const Catalog = preload("res://game/catalog.gd")
 const Combat = preload("res://game/combat.gd")
-const Session = preload("res://game/session.gd")
+const Session = preload("res://tests/campaign_driver.gd")
 const SaveStore = preload("res://game/save_store.gd")
 var checks = 0
 var failures: Array = []
@@ -74,7 +74,7 @@ func _initialize():
 	check(session.game.phase == "ready" and session.game.souls == 0, "Initial state")
 	for stage in range(1, 5):
 		check(data.stat_total(session.game.journey.enemies["fight-%d" % stage]) == 4, "First map ordinary level zero")
-	check(data.level(session.game.journey.enemies["fight-5"]) == 1, "First boss level")
+	check(data.stat_total(session.game.journey.enemies["fight-5"]) == 4, "First boss also has base stats")
 	check(session.travel("fight-5") != "", "Reject disconnected travel")
 	check(session.travel("fight-1").is_empty(), "Enter first fight")
 	# A real battle played by the same placement rules on both sides.
@@ -99,6 +99,8 @@ func _initialize():
 		check(session.reward(0, 0).is_empty(), "Claim skill/item reward")
 		check(session.game.souls == shards, "Choosing a reward does not change already credited shards")
 		check(session.reward(0) != "", "Cannot claim reward twice")
+		if session.game.get("victoryReward", {}).get("progressionPending", false):
+			check(session.complete_reward().is_empty(), "Continue past optional attribute upgrade")
 		if stage < 5:
 			check(session.game.player.hp == hp, "Reward preserves HP")
 			check(session.travel("camp-%d" % stage).is_empty(), "Camp visit")

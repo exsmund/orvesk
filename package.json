@@ -6,7 +6,11 @@
   "scripts": {
     "check": "tsc --noEmit",
     "check:story": "node tools/validate-story.mjs",
-    "test:story": "node --test tools/validate-story.test.mjs"
+    "test:story": "node --test tools/validate-story.test.mjs",
+    "check:map-points": "node tools/validate-map-points.mjs",
+    "preview:map-points": "node tools/preview-map-points.mjs",
+    "check:story-runtime": "python3 tools/compile-story.py",
+    "test:story-runtime": "python3 tools/test-compile-story.py"
   },
   "devDependencies": {
     "@types/node": "^22.10.5",

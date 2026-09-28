@@ -22,7 +22,8 @@ const BOARD_SOURCE_SIZE = Vector2(1254,1254)
 const CELL_X = [Vector2(28,412),Vector2(436,820),Vector2(845,1226)]
 const CELL_Y = [Vector2(28,406),Vector2(432,813),Vector2(839,1224)]
 const Symbols = preload("res://ui/resource_symbols.gd")
-var icons: Array[TextureRect] = []
+const Illustration = preload("res://ui/inspection_art.gd")
+var icons: Array[Control] = []
 var drawing_index = 0
 var player_modifiers: Dictionary = {}
 var enemy_modifiers: Dictionary = {}
@@ -32,10 +33,10 @@ func _init():
 	mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	resized.connect(queue_redraw)
 	for _i in 18:
-		var icon = TextureRect.new()
-		icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		var icon = Illustration.new()
+		icon.custom_minimum_size = Vector2.ZERO
+		# Keep the soft shadow inside its half-cell, clear of rails and damage counters.
+		icon.clip_contents = true
 		add_child(icon)
 		icons.append(icon)
 	tapped.connect(func(point): cell_chosen.emit(index_at(point - global_position)))
@@ -43,6 +44,7 @@ func _init():
 func configure(renderer, own: Array, opposing: Array, hidden: bool, hero: Dictionary, opponent: Dictionary, own_mod: Dictionary = {}, opposing_mod: Dictionary = {}):
 	art = renderer
 	data = art.data
+	for icon in icons: icon.configure(data, icon.texture)
 	player_layer = own
 	enemy_layer = opposing
 	enemy_hidden = hidden
@@ -92,21 +94,28 @@ func draw_layer(rect: Rect2, card: Dictionary, own: bool, ghost: bool = false, c
 		if not own: frame.position.x += frame.size.x + 3
 	var art_rect = Rect2(frame.position + Vector2(3, 3), Vector2(frame.size.x - 6, frame.size.y - 43))
 	var icon = icons[drawing_index * 2 + (0 if own else 1)]
-	icon.texture = art.texture_for(card)
 	icon.position = art_rect.position
 	icon.size = art_rect.size
+	icon.shadow_width = minf(Illustration.SHADOW_WIDTH, minf(art_rect.size.x, art_rect.size.y) * 0.28)
+	icon.set_texture(art.texture_for(card))
 	icon.show()
-	if enemy_hidden:
+	if enemy_hidden and not art.combat.is_strike(card) and not card.get("counter", false):
 		var caption = "Блок" if card.get("blocks", false) else ("Уворот" if card.get("evades", false) else "Атака")
 		draw_string(ThemeDB.fallback_font, Vector2(frame.position.x, frame.end.y - 7), caption, HORIZONTAL_ALIGNMENT_CENTER, frame.size.x, 11, data.color("text-success" if own else "text-accent"))
 	if ghost: draw_rect(frame, data.color("border-reaction-board-4"), false, 2)
 
 func damage_rows(cell: Dictionary, side: String) -> Array:
-	if not cell.get("known", false): return []
 	var rows: Array = []
+	var estimated = not cell.get("known", false)
+	if estimated and side != "enemy": return rows
+	# The snapshot stores losses by recipient; the opposite figure deals them.
+	var source = cell.get("enemy" if side == "player" else "player", {})
+	var attacks = source.get("category", "") == "attack" or source.get("counter", false)
 	for spec in [["health", "Damage"], ["stamina", "StaminaDamage"]]:
-		var value = float(cell.get(side + spec[1], 0))
-		if value > 0: rows.append({"kind": spec[0], "value": value})
+		var key = ("previewDamage" if spec[0] == "health" else "previewStaminaDamage") if estimated else side + spec[1]
+		var value = float(cell.get(key, 0))
+		var has_damage = not source.get("healthDamage", {}).is_empty() if spec[0] == "health" else source.get("staminaDamagePerCell", 0) > 0
+		if value > 0 or (attacks and has_damage): rows.append({"kind": spec[0], "value": value})
 	return rows
 
 func draw_damage(rect: Rect2, cell: Dictionary):
@@ -117,11 +126,16 @@ func draw_damage(rect: Rect2, cell: Dictionary):
 		var font_size = clampi(int(rect.size.x * 0.085), 9, 12)
 		var icon_size = float(font_size)
 		var line_height = font_size + 3
-		var offset = rect.size.x * (0.02 if side == "player" else 0.51)
+		# Keep the loss next to the figure that causes it, including a blocked zero.
+		var offset = rect.size.x * (0.02 if side == "enemy" else 0.51)
 		var tint = data.color("text-success" if side == "player" else "text-accent")
+		if not cell.get("known", false):
+			width = rect.size.x * 0.96
+			offset = rect.size.x * 0.02
+			tint = data.color("text-success")
 		var font = preload("res://ui/gothic_theme.gd").BODY_FONT
 		for line in rows.size():
-			var text = "−" + art.number(rows[line].value)
+			var text = ("−" if rows[line].value > 0 else "") + art.number(rows[line].value)
 			var text_width = font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x
 			var left = rect.position.x + offset + maxf(0, (width - text_width - icon_size - 3) / 2)
 			var y = rect.end.y - 8 - (rows.size() - 1 - line) * line_height

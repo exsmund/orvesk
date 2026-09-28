@@ -29,4 +29,6 @@ Node.js 22.13+. В корне: `npm ci`, затем `npm run check` для пр�
 - [Лор](docs/LORE.md), [сценарий](docs/STORY.md), [бестиарий](docs/BESTIARY.md), [экипировка](docs/EQUIPMENT.md), [навыки](docs/SKILLS.md), [персонажи сценария](docs/CHARACTERS.md).
 - [Художественное направление и генерация](docs/ART_DIRECTION.md), [изображения предметов](docs/ITEM_ART_DIRECTION.md), [карты и фоны боя](docs/MAP_ART_DIRECTION.md).
 
+- [Типы точек карты и значки](docs/MAP_POINTS.md), [художественные правила значков](docs/MAP_POINT_ART_DIRECTION.md): `npm run check:map-points`, `npm run preview:map-points`.
+
 - [Конфигурация сценария и подготовка интеграции](data/STORY.md): `npm run check:story`, `npm run test:story`.

@@ -37,7 +37,7 @@ func _draw():
 	if not art: return
 	var points = art.points(card, card_rotation, modifiers)
 	var pitch = cell_pitch
-	var extent = art.bounds(points) * pitch - Vector2.ONE * 3
+	var extent = art.pixel_extent(points, pitch)
 	var reserved = 48 if caption.visible else 24
 	var origin = Vector2((size.x - extent.x) / 2, 14 + (size.y - reserved - extent.y) / 2)
 	art.piece(self, card, fighter, card_rotation, modifiers, origin, pitch, chosen)

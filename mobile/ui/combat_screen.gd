@@ -5,20 +5,23 @@ const Board = preload("res://ui/board.gd")
 const Card = preload("res://ui/card_button.gd")
 const FigureArt = preload("res://ui/figure_art.gd")
 const Layout = preload("res://ui/adaptive_layout.gd")
+const Flags = preload("res://game/feature_flags.gd")
 var host
 var art
 var header = Header.new()
 var board = Board.new()
 var hand = Control.new()
-var phase_label = Label.new()
+var phase_label = header.title
 var hint = Label.new()
 var status = Label.new()
 var action = Button.new()
+var debug_action = Button.new()
 var ghost = Control.new()
 var cards: Array = []
 var columns = 1
 var hand_columns = 4
 var drag_id = ""
+var drag_source: Control
 var drag_rotation = 0
 var drag_point = Vector2.ZERO
 var drag_offset = Vector2.ZERO
@@ -28,20 +31,22 @@ var last_layout_size = Vector2.ZERO
 var forecast: Dictionary = {}
 
 func _init():
-	for node in [header, phase_label, board, hand, hint, status, action, ghost]: add_child(node)
-	for node in [phase_label, hint, status]:
+	for node in [header, board, hand, hint, status, action, debug_action, ghost]: add_child(node)
+	for node in [hint, status]:
 		node.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		node.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 		node.clip_text = true
 		node.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	phase_label.add_theme_font_size_override("font_size", 18)
-	phase_label.add_theme_font_override("font", preload("res://content/fonts/Prata-Regular.ttf"))
 	hint.add_theme_font_size_override("font_size", 12)
 	status.add_theme_font_size_override("font_size", 14)
 	hint.hide()
 	hand.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	action.add_theme_font_size_override("font_size", 19)
+	action.add_theme_font_size_override("font_size", preload("res://ui/gothic_theme.gd").button_text_size(19))
 	action.add_theme_font_override("font", preload("res://content/fonts/Prata-Regular.ttf"))
+	for button in [action, debug_action]:
+		button.clip_text = true
+		button.add_theme_font_override("font", preload("res://content/fonts/Prata-Regular.ttf"))
+	debug_action.text = "Победить врага"
 	ghost.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	ghost.z_index = 10
 	ghost.draw.connect(draw_ghost)
@@ -54,17 +59,18 @@ func configure(controller):
 	header.player_requested.connect(host.show_character)
 	header.enemy_requested.connect(host.show_enemy_details)
 	header.menu_requested.connect(host.show_battle_menu)
-	board.cell_chosen.connect(host.place_selected)
+	board.cell_chosen.connect(inspect_cell)
 	board.card_dropped.connect(func(id, index): host.place_card(id, index, host.rotation_for(id)))
 	board.held.connect(func(point):
 		var index = board.index_at(point - board.global_position)
-		if index < 0: return
-		host.show_cell_details(forecast.cells[index]))
+		inspect_cell(index))
 	board.drag_started.connect(func(point):
 		var index = board.index_at(point - board.global_position)
 		if index >= 0 and not board.player_layer[index].is_empty(): start_drag(board.player_layer[index].id, point, board))
-	board.drag_moved.connect(move_drag)
-	board.drag_ended.connect(end_drag)
+	board.drag_moved.connect(func(point):
+		if drag_source == board: move_drag(point))
+	board.drag_ended.connect(func(point, canceled):
+		if drag_source == board: end_drag(point, canceled))
 	for card in host.session.game.player.deck.hand:
 		var view = Card.new()
 		hand.add_child(view)
@@ -72,32 +78,38 @@ func configure(controller):
 		view.tapped.connect(func(_point): host.rotate_card(card.id))
 		view.held.connect(func(_point): host.show_figure_details(card, host.session.game.player))
 		view.drag_started.connect(func(point): start_drag(card.id, point, view))
-		view.drag_moved.connect(move_drag)
-		view.drag_ended.connect(end_drag)
+		view.drag_moved.connect(func(point):
+			if drag_source == view: move_drag(point))
+		view.drag_ended.connect(func(point, canceled):
+			if drag_source == view: end_drag(point, canceled))
 		cards.append(view)
 	action.pressed.connect(func():
 		if host.session.game.clashPlan.stage == "reveal": host.act(func(): return host.session.submit([]))
 		else:
 			var committed = host.draft.duplicate(true)
 			host.act(func(): return host.session.submit(committed)))
-	phase_label.add_theme_color_override("font_color", host.data.color("text-highlight"))
 	hint.add_theme_color_override("font_color", host.data.color("text-muted"))
 	action.add_theme_color_override("font_color", host.data.color("text-highlight"))
+	debug_action.add_theme_color_override("font_color", host.data.color("text-highlight"))
+	debug_action.pressed.connect(host.debug_win)
 	refresh()
 	layout()
+
+func inspect_cell(index: int):
+	if index >= 0 and index < forecast.get("cells", []).size():
+		host.show_cell_details(forecast.cells[index])
 
 func refresh():
 	var g = host.session.game
 	var p = g.clashPlan
 	var revealed = p.stage == "reveal"
-	phase_label.text = "Ход %d · %s" % [g.round, "Раскрытие" if revealed else ("Вы ходите первым" if p.preparer == "player" else "Ваш ответ")]
 	var moves = p.playerPlaced if revealed else host.draft
 	var visible_enemy = p.enemyPlaced if p.preparer == "enemy" or revealed else []
 	var opposing = host.session.combat.layer(g.enemy, visible_enemy, p.enemyModifiers)
 	var own_moves = moves.filter(func(m): return m.id != drag_id)
 	board.configure(art, host.session.combat.layer(g.player, own_moves, p.playerModifiers), opposing, p.preparer == "player" and not revealed, g.player, g.enemy, p.playerModifiers, p.enemyModifiers)
 	update_forecast(moves)
-	action.text = "Рассчитать ход" if revealed else ("Восстановить силы" if moves.is_empty() else "Подтвердить ход")
+	action.text = "Следующий ход" if revealed else ("Восстановить силы" if moves.is_empty() else "Подтвердить ход")
 	action.disabled = not revealed and forecast.cost.remaining < 0
 	hint.hide()
 	for card in cards:
@@ -130,16 +142,13 @@ func layout():
 		board.cancel_gesture()
 		for card in cards: card.cancel_gesture()
 		last_layout_size = size
-	var gap = 12.0
-	var header_height = 88.0
-	var footer_height = 78.0
+	var gap = Layout.CONTENT_GAP
+	var header_height = Header.HEIGHT
+	var footer_height = Layout.COMBAT_FOOTER_HEIGHT
 	header.position = Vector2.ZERO
 	header.size = Vector2(size.x, header_height)
-	phase_label.position = Vector2(0, header_height + 4)
-	phase_label.size = Vector2(size.x, 26)
-	var top = header_height + 36
-	var bottom = size.y - footer_height - gap
-	var body_height = maxf(0, bottom - top)
+	var top = header_height + gap
+	var body_height = Layout.battle_body_height(size.y)
 	columns = Layout.columns(size.x)
 	var hand_height = clampf(size.y * 0.19, 124, 180)
 	if columns == 1:
@@ -155,7 +164,7 @@ func layout():
 		var start = (size.x - extent * 2 - gap) / 2
 		board.position = Vector2(start, top + (body_height - extent) / 2)
 		board.size = Vector2.ONE * extent
-		hand_height = minf(body_height, 340)
+		hand_height = extent
 		hand.position = Vector2(start + extent + gap, top + (body_height - hand_height) / 2)
 		hand.size = Vector2(extent, hand_height)
 	hint.position = Vector2(hand.position.x, hand.position.y + hand.size.y)
@@ -168,7 +177,9 @@ func layout():
 	for card in cards:
 		var extent = art.bounds(art.points(card.card, 0))
 		span = maxf(span, maxf(extent.x, extent.y))
-	var pitch = minf(48, minf((slot - 16) / span, (slot_height - 48) / span))
+	# Beside the board, use the full 2×2 lane instead of the compact phone cap.
+	var max_pitch = 48.0 if columns == 1 else board.size.x / 3
+	var pitch = minf(max_pitch, minf((slot - 16) / span, (slot_height - 48) / span))
 	var visible_index = 0
 	for card in cards:
 		card.cell_pitch = pitch
@@ -179,25 +190,32 @@ func layout():
 		card.queue_redraw()
 	status.position = Vector2(hand.position.x, size.y - footer_height)
 	status.size = Vector2(hand.size.x, 24)
-	action.position = Vector2(hand.position.x, size.y - 54)
-	action.size = Vector2(hand.size.x, 54)
+	debug_action.visible = Flags.enabled(Flags.DEBUG_TOOLS)
+	var action_width = (hand.size.x - gap) / 2 if debug_action.visible else hand.size.x
+	place_action(action, Vector2(hand.position.x, size.y - 54), action_width)
+	if debug_action.visible: place_action(debug_action, action.position + Vector2(action_width + gap, 0), action_width)
 	ghost.position = Vector2.ZERO
 	ghost.size = size
 	ghost.queue_redraw()
 
+func place_action(button: Button, origin: Vector2, width: float):
+	preload("res://ui/gothic_theme.gd").fit_button_text(button, width, 19)
+	button.position = origin
+	button.size = Vector2(width, 54)
+
 func start_drag(id: String, point: Vector2, source):
-	if host.session.game.clashPlan.stage == "reveal": return
+	if host.session.game.clashPlan.stage == "reveal" or not drag_id.is_empty(): return
 	drag_id = id
+	drag_source = source
 	drag_rotation = host.rotation_for(id)
 	host.selected = id
 	host.card_rotation = drag_rotation
 	var pitch = board.size.x / 3
-	drag_offset = Vector2(pitch / 2, pitch * (1.15 if source.pointer >= 0 else 0.5))
-	if source == board:
-		for move in host.draft:
-			if move.id == id:
-				drag_offset = point - board.global_position - Vector2(move.x, move.y) * pitch
-				if source.pointer >= 0: drag_offset.y += pitch * 0.65
+	var card = host.session.combat.card_by_id(host.session.game.player, id)
+	var extent = art.pixel_extent(art.points(card, drag_rotation, host.session.game.clashPlan.playerModifiers), pitch)
+	# Hold the whole visible figure by its bottom center, regardless of grab cell.
+	# The same origin drives the ghost, target cells and damage preview.
+	drag_offset = Vector2(extent.x / 2, extent.y)
 	refresh()
 	move_drag(point)
 
@@ -206,15 +224,17 @@ func move_drag(point: Vector2):
 	drag_point = point
 	var target = point - drag_offset + Vector2.ONE * (board.size.x / 6)
 	drop_index = board.index_at(target - board.global_position)
-	drop_valid = drop_index >= 0 and host.can_place_card(drag_id, drop_index, drag_rotation)
+	var removing = drag_source == board and not board.get_global_rect().has_point(point)
+	drop_valid = not removing and drop_index >= 0 and host.can_place_card(drag_id, drop_index, drag_rotation)
 	board.preview = []
 	board.preview_card = host.session.combat.card_by_id(host.session.game.player, drag_id)
 	board.preview_valid = drop_valid
-	if drop_index >= 0:
+	if drop_index >= 0 and not removing:
 		board.preview = host.session.combat.cells(board.preview_card, {"id": drag_id, "x": drop_index % 3, "y": int(drop_index / 3), "rotation": drag_rotation}, host.session.game.clashPlan.playerModifiers)
 	var moves = host.draft
-	if drop_valid:
+	if removing or drop_valid:
 		moves = host.draft.filter(func(m): return m.id != drag_id)
+	if drop_valid:
 		moves.append({"id": drag_id, "x": drop_index % 3, "y": int(drop_index / 3), "rotation": drag_rotation})
 	update_forecast(moves)
 	board.queue_redraw()
@@ -227,7 +247,9 @@ func end_drag(point: Vector2, canceled: bool):
 	var index = drop_index
 	var rotation = drag_rotation
 	var valid = drop_valid
+	var removing = drag_source == board and not board.get_global_rect().has_point(point)
 	drag_id = ""
+	drag_source = null
 	board.preview = []
 	board.preview_card = {}
 	drop_index = -1
@@ -235,7 +257,8 @@ func end_drag(point: Vector2, canceled: bool):
 	ghost.queue_redraw()
 	refresh()
 	if canceled: return
-	if valid: host.place_card(id, index, rotation)
+	if removing: host.remove_card(id)
+	elif valid: host.place_card(id, index, rotation)
 	elif index >= 0: set_notice("Фигура пересекается с другой или выходит за край")
 
 func draw_ghost():

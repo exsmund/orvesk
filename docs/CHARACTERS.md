@@ -2,13 +2,15 @@
 
 Анкеты вынесены из [STORY.md](STORY.md). Здесь хранятся роли, ограничения образа и портреты; реплики и последовательность сцен остаются в сценарии. Новые детали внешности — художественное дополнение к прежним анкетам.
 
-Машиночитаемый каталог — `data/story-characters.json`. Это данные для будущего сюжетного слоя: наличие записи не добавляет случайного врага и само по себе не подключает диалоговый интерфейс. Сюжетные персонажи не включены в список выбираемых портретов героя и не дублируют виды в `data/creatures.json`.
+Машиночитаемый каталог — `data/story-characters.json`. Каталог подключён к мобильным диалогам через сюжетный граф; наличие персонажа само по себе не добавляет случайного врага. Сюжетные персонажи не включены в список выбираемых портретов героя и не дублируют виды в `data/creatures.json`.
 
 ## Портреты и использование
 
-Именные собеседники изображены отдельными портретами и смотрят влево. Свет всегда сверху и спереди-слева относительно изображения; зеркальное отражение запрещено. Портрет героя берётся из текущего персонажа игрока и смотрит вправо. Аттрактор использует существующий портрет камня. Название, изображение и голос скрыты от игрока до объяснения Севрана в сцене 1.2 (`attractorKnown: true`), включая окна поражения. Картинки в `public` не содержат реплик: при текстовой правке проверяются их ссылки и условия показа; сами портреты заменяются при изменении образа персонажа. Чёрный фон, формат 2:3, без рамки, текста и оружия; отображаемая ширина 200 px. Полные требования — [ART_DIRECTION.md](ART_DIRECTION.md).
+Сюжетные собеседники изображены отдельными портретами и смотрят влево. Свет всегда сверху и спереди-слева относительно изображения; зеркальное отражение запрещено. Портрет героя берётся из текущего персонажа игрока и смотрит вправо. Аттрактор использует существующий портрет камня. Название, изображение и голос скрыты от игрока до объяснения Севрана в сцене 1.2 (`attractorKnown: true`), включая окна поражения. Картинки в `public` не содержат реплик: при текстовой правке проверяются их ссылки и условия показа; сами портреты заменяются при изменении образа персонажа или художественного направления. Чёрный фон, формат 2:3, без рамки, текста и оружия; отображаемая ширина 200 px. Полные требования — [ART_DIRECTION.md](ART_DIRECTION.md).
 
-Генерация семи новых портретов выполнена встроенным `image_gen`. Запросы, происхождение и пути сохранены в `art-prompts/story-characters-v1/generation-prompts.json`. Их идентичности сохраняются между сценами; изменение костюма или выражения не должно подменять лицо.
+Все 32 портрета в `public/characters` перегенерированы 2026-09-28 встроенным `image_gen` по обновлённому художественному направлению: живописная фактура кожи, волос и ткани, выраженная светотень и крупный план лица. Сохранены индивидуальная внешность, возраст, одежда и человеческие маски до разоблачения. PNG 1024 × 1536 проверены целиком и в круглом кадре 120 и 180 px (`cover`, `object-position: 50% 25%`).
+
+Точные запросы, роли референсов, итерации и отпечатки выбранных изображений — [генерация серии v2](../art-prompts/story-characters-v2/generation-prompts.json); результаты проверки — [qa.json](../art-prompts/story-characters-v2/qa.json). Существующие имена файлов `*-v1.png` сохранены как адреса ассетов; они содержат новые изображения серии v2. ID и привязки в `data/story-characters.json`, `data/story.json` и `data/story-preview.json` сохраняются. История первоначальных семи образов — [серия v1](../art-prompts/story-characters-v1/generation-prompts.json). Между сценами лицо одного персонажа остаётся узнаваемым.
 
 <a id="hero"></a>
 
@@ -16,7 +18,7 @@
 
 **Каталог:** `data/story-characters.json` → `hero`.
 
-Используется выбранный игроком портрет; новый портрет героя не создаётся.
+Используется выбранный игроком портрет из `data/portraits.json`; отдельный сюжетный портрет героя не создаётся. Каталог содержит только [новую серию портретов героя](HERO_PORTRAITS.md) в `public/portraits/heroes-v2/`. Выбор внешности не задаёт пол, возраст или характеристики персонажа в механике игры.
 
 **Роль и ограничения:** Обычный человек без заданного имени, пола, болезни или потерянной памяти. В прологе можно выбрать исходное отношение к найму: заработок, желание сделать полезное дело или возможность уйти из разорённых земель. Это влияет на реплики, а не задаёт особые способности. После катастрофы герой продолжает путь по собственной воле.
 
@@ -121,7 +123,7 @@
 
 Три маски отмечены `portrayal: humanDisguise`: до разоблачения это человеческие лица без признаков демона, вампира или болотницы. После события раскрытия используется `revealedSpeakerId` из сценария. Сюжетные условия раскрытия и реплики не менялись.
 
-Портреты созданы встроенным `image_gen`; точные запросы и пути оригиналов — [generation-prompts.json](../art-prompts/story-extras-v1/generation-prompts.json). Все смотрят влево, свет сверху и спереди-слева, холст 1024 × 1536; без оружия и рамок. Изображения подготовлены для сюжетного интерфейса, его подключение остаётся отдельной задачей.
+Эти 25 портретов входят в обновлённую [серию v2](../art-prompts/story-characters-v2/generation-prompts.json); первоначальные запросы сохранены в [истории эпизодических образов](../art-prompts/story-extras-v1/generation-prompts.json). Все смотрят влево, свет сверху и спереди-слева, холст 1024 × 1536; без оружия и рамок. Изображения доступны в предпросмотре сценария. Подключение сюжетного интерфейса к игровым клиентам остаётся отдельной задачей.
 
 <a id="convoy-driver"></a>
 
@@ -423,3 +425,42 @@
 
 **Внешность:** Молодой взрослый мужчина с округлым лицом, веснушками, короткими вьющимися каштановыми волосами и растерянным взглядом.
 
+<a id="saved-guest"></a>
+
+### Спасённый постоялец
+
+Эпизодический собеседник; ID `saved-guest`. A recovered inn guest, adult about 42, slender oval face, olive brown skin, long uneven nose, tired hazel eyes, short wavy brown hair swept back, healed mark below right cheekbone. Simple dark travel linen with a loose slightly torn folded collar. Wary but relieved expression.
+
+<img src="../public/characters/saved-guest-v1.png" alt="Портрет" width="160">
+
+<a id="townsperson"></a>
+
+### Горожанин
+
+Эпизодический собеседник; ID `townsperson`. An ordinary town resident about 57, broad rounded Central Asian face, warm medium skin, prominent ears, grey close-cut hair, uneven eyebrows, deep horizontal forehead wrinkles. Simple charcoal wool with a small overlapping standing collar. Measured attentive expression.
+
+<img src="../public/characters/townsperson-v1.png" alt="Портрет" width="160">
+
+<a id="inn-maid"></a>
+
+### Служанка
+
+Эпизодический собеседник; ID `inn-maid`. An adult inn maid about 32, southeast Asian features, rounded cheeks, small mole near nose, dark tired eyes, black hair drawn back with a plain small dark linen tie, irregular loose strands. Worn grey-brown linen with narrow gathered neckline, no ornaments, guarded steady expression.
+
+<img src="../public/characters/inn-maid-v1.png" alt="Портрет" width="160">
+
+<a id="shelter-attendant"></a>
+
+### Служитель
+
+Эпизодический собеседник; ID `shelter-attendant`. A refuge medical attendant about 63, dark brown skin, narrow face, high forehead, fine silver tightly curled hair, wrinkles and small pigmentation variations. Plain bone grey linen mantle over a dark high folded neckline, modest and practical, calm observant expression.
+
+<img src="../public/characters/shelter-attendant-v1.png" alt="Портрет" width="160">
+
+<a id="market-trader"></a>
+
+### Торговец
+
+Эпизодический собеседник; ID `market-trader`. A travelling market trader about 47, pale freckled skin, broad asymmetrical nose, slightly heavy eyelids, receding dark copper hair cut short, clean shaven; faded dark ochre coarse linen with a broad asymmetric fold at collar and worn seams. Shrewd but ordinary human expression.
+
+<img src="../public/characters/market-trader-v1.png" alt="Портрет" width="160">

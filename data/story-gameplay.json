@@ -1,0 +1,253 @@
+{
+  "version": 1,
+  "revision": 1,
+  "authoringCatalog": "data/story.json",
+  "dialogueGraph": "data/story-preview.json",
+  "saveVersion": 6,
+  "voice": {
+    "speakerId": "attractor",
+    "depositField": "attractorDeposits",
+    "initialFill": 0,
+    "fragmentaryFrom": 1,
+    "coherentFrom": 20,
+    "largeFillFrom": 60
+  },
+  "rewardNodeBindings": {
+    "6.9": "6.9.97b32d3b9af8"
+  },
+  "storyRewards": [
+    {
+      "id": "sold-medicines",
+      "afterNode": "2.4.1c3ee7c764ff.effects",
+      "kind": "shards",
+      "upgradeCostFactor": 1,
+      "title": "Плата за лекарства"
+    },
+    {
+      "id": "killed-marauder",
+      "afterNode": "3.6.93f0b14f2fb2.effects",
+      "kind": "shards",
+      "upgradeCostFactor": 0.5,
+      "title": "Осколки мародёра"
+    },
+    {
+      "id": "sold-seeds",
+      "afterNode": "5.2.sold-effect",
+      "kind": "shards",
+      "upgradeCostFactor": 1.5,
+      "title": "Плата за семена"
+    },
+    {
+      "id": "city-thanks",
+      "afterNode": "5.8.83968682cce6.0",
+      "kind": "equipment",
+      "offers": 2,
+      "title": "Благодарность Перевальца"
+    }
+  ],
+  "activities": {
+    "campfire": {
+      "handler": "recover",
+      "healthFraction": 1,
+      "staminaFraction": 1,
+      "description": "Полное восстановление здоровья и выносливости."
+    },
+    "forge": {
+      "handler": "equipment",
+      "offers": 3,
+      "price": {
+        "base": 0,
+        "perLevel": 0,
+        "perTier": 0
+      },
+      "description": "Бесплатно замените один предмет экипировки."
+    },
+    "healer": {
+      "handler": "recover",
+      "healthFraction": 1,
+      "staminaFraction": 1,
+      "description": "Помощь лекарей: полное восстановление здоровья и выносливости, затем разговор."
+    },
+    "market": {
+      "handler": "equipment",
+      "offers": 3,
+      "price": {
+        "base": 1,
+        "perLevel": 2,
+        "perTier": 1
+      },
+      "description": "Можно купить один предмет за осколки. Покупка заменяет надетую вещь."
+    },
+    "square": {
+      "handler": "dialogue",
+      "description": "Городские слухи и свидетельства жителей."
+    },
+    "tavern": {
+      "handler": "dialogue",
+      "description": "Необязательный разговор в таверне."
+    },
+    "forest-meeting": {
+      "handler": "dialogue",
+      "description": "Разговор с лесным проводником."
+    },
+    "fairy-meeting": {
+      "handler": "dialogue",
+      "description": "Разговор с феей её местности."
+    },
+    "hermit-meeting": {
+      "handler": "dialogue",
+      "description": "Беседа с отшельницей."
+    },
+    "aid": {
+      "handler": "dialogue",
+      "description": "Помощь спасённому человеку."
+    }
+  },
+  "upgradesDisabledWhen": {
+    "eq": [
+      "ending",
+      "duty"
+    ]
+  },
+  "ui": {
+    "rewardLabel": "К награде",
+    "continueLabel": "Далее",
+    "endingLabel": "История завершена",
+    "upgradeHint": "Передайте осколки аттрактору, чтобы повысить характеристику.",
+    "currencyHint": "Осколки сознания Логоса",
+    "beforeCombatLabel": "Продолжить путь",
+    "stopLabel": "Выберите одно занятие"
+  },
+  "serviceEquipment": {
+    "maximumTierOffsetFromStatTotal": -3
+  },
+  "dialogueOverrides": {
+    "4.4.8457ba6ed9ec": {
+      "when": {
+        "not": {
+          "eq": [
+            "voiceCapability",
+            "silent"
+          ]
+        }
+      }
+    },
+    "5.6.3ba4c35d4b49": {
+      "when": {
+        "not": {
+          "eq": [
+            "voiceCapability",
+            "silent"
+          ]
+        }
+      }
+    },
+    "6.2.ba8479823d21": {
+      "when": {
+        "not": {
+          "eq": [
+            "voiceCapability",
+            "silent"
+          ]
+        }
+      }
+    },
+    "6.6.late-disclosure.hero": {
+      "when": {
+        "all": [
+          {
+            "all": [
+              {
+                "eq": [
+                  "astaDisclosure",
+                  "hidden"
+                ]
+              },
+              {
+                "eq": [
+                  "astaInformedAt",
+                  null
+                ]
+              }
+            ]
+          },
+          {
+            "not": {
+              "eq": [
+                "voiceCapability",
+                "silent"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "6.6.node.ff6633995c9f": {
+      "when": {
+        "all": [
+          {
+            "all": [
+              {
+                "eq": [
+                  "astaDisclosure",
+                  "hidden"
+                ]
+              },
+              {
+                "eq": [
+                  "astaInformedAt",
+                  null
+                ]
+              }
+            ]
+          },
+          {
+            "not": {
+              "eq": [
+                "voiceCapability",
+                "silent"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "6.6.290c67ce9e6d.effects": {
+      "effects": [
+        {
+          "type": "set",
+          "key": "astaInformedAt",
+          "value": "6.6",
+          "when": {
+            "all": [
+              {
+                "all": [
+                  {
+                    "eq": [
+                      "astaDisclosure",
+                      "hidden"
+                    ]
+                  },
+                  {
+                    "eq": [
+                      "astaInformedAt",
+                      null
+                    ]
+                  }
+                ]
+              },
+              {
+                "not": {
+                  "eq": [
+                    "voiceCapability",
+                    "silent"
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

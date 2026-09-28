@@ -568,5 +568,85 @@
       "document": "docs/CHARACTERS.md",
       "section": "wounded-soldier"
     }
+  },
+  {
+    "id": "saved-guest",
+    "name": "Спасённый постоялец",
+    "description": "Эпизодический собеседник кампании «Последний носитель».",
+    "appearance": "A recovered inn guest, adult about 42, slender oval face, olive brown skin, long uneven nose, tired hazel eyes, short wavy brown hair swept back, healed mark below right cheekbone. Simple dark travel linen with a loose slightly torn folded collar. Wary but relieved expression.",
+    "portrait": {
+      "src": "/characters/saved-guest-v1.png",
+      "facing": "left"
+    },
+    "portraitSource": "asset",
+    "dialogueSide": "right",
+    "source": {
+      "document": "docs/CHARACTERS.md",
+      "section": "saved-guest"
+    }
+  },
+  {
+    "id": "townsperson",
+    "name": "Горожанин",
+    "description": "Эпизодический собеседник кампании «Последний носитель».",
+    "appearance": "An ordinary town resident about 57, broad rounded Central Asian face, warm medium skin, prominent ears, grey close-cut hair, uneven eyebrows, deep horizontal forehead wrinkles. Simple charcoal wool with a small overlapping standing collar. Measured attentive expression.",
+    "portrait": {
+      "src": "/characters/townsperson-v1.png",
+      "facing": "left"
+    },
+    "portraitSource": "asset",
+    "dialogueSide": "right",
+    "source": {
+      "document": "docs/CHARACTERS.md",
+      "section": "townsperson"
+    }
+  },
+  {
+    "id": "inn-maid",
+    "name": "Служанка",
+    "description": "Эпизодический собеседник кампании «Последний носитель».",
+    "appearance": "An adult inn maid about 32, southeast Asian features, rounded cheeks, small mole near nose, dark tired eyes, black hair drawn back with a plain small dark linen tie, irregular loose strands. Worn grey-brown linen with narrow gathered neckline, no ornaments, guarded steady expression.",
+    "portrait": {
+      "src": "/characters/inn-maid-v1.png",
+      "facing": "left"
+    },
+    "portraitSource": "asset",
+    "dialogueSide": "right",
+    "source": {
+      "document": "docs/CHARACTERS.md",
+      "section": "inn-maid"
+    }
+  },
+  {
+    "id": "shelter-attendant",
+    "name": "Служитель",
+    "description": "Эпизодический собеседник кампании «Последний носитель».",
+    "appearance": "A refuge medical attendant about 63, dark brown skin, narrow face, high forehead, fine silver tightly curled hair, wrinkles and small pigmentation variations. Plain bone grey linen mantle over a dark high folded neckline, modest and practical, calm observant expression.",
+    "portrait": {
+      "src": "/characters/shelter-attendant-v1.png",
+      "facing": "left"
+    },
+    "portraitSource": "asset",
+    "dialogueSide": "right",
+    "source": {
+      "document": "docs/CHARACTERS.md",
+      "section": "shelter-attendant"
+    }
+  },
+  {
+    "id": "market-trader",
+    "name": "Торговец",
+    "description": "Эпизодический собеседник кампании «Последний носитель».",
+    "appearance": "A travelling market trader about 47, pale freckled skin, broad asymmetrical nose, slightly heavy eyelids, receding dark copper hair cut short, clean shaven; faded dark ochre coarse linen with a broad asymmetric fold at collar and worn seams. Shrewd but ordinary human expression.",
+    "portrait": {
+      "src": "/characters/market-trader-v1.png",
+      "facing": "left"
+    },
+    "portraitSource": "asset",
+    "dialogueSide": "right",
+    "source": {
+      "document": "docs/CHARACTERS.md",
+      "section": "market-trader"
+    }
   }
 ]

@@ -1,4 +1,5 @@
 extends SceneTree
+const ModalDialog = preload("res://ui/modal_dialog.gd")
 const Details = preload("res://ui/combat_details.gd")
 var checks = 0
 var failures: Array = []
@@ -37,6 +38,7 @@ func run():
 	root.gui_embed_subwindows = true
 	if not OS.get_cmdline_user_args().is_empty(): output = OS.get_cmdline_user_args()[0]
 	ui = load("res://scenes/main.tscn").instantiate()
+	ui.session = preload("res://tests/campaign_driver.gd").new(ui.data)
 	root.add_child(ui)
 	await frame()
 	root.size = Vector2i(432, 1008)
@@ -61,11 +63,29 @@ func run():
 	check(blind.cost.remaining == 7 and blind.cells.all(func(c): return c.enemy.is_empty()), "Blind guard reserves cost without leaking enemy cells")
 	check(Details.new(ui.data).cell_text(blind.cells[0]).contains("скрыта"), "Preparation explains uncertainty")
 	check(JSON.stringify(g) == original and combat.rng.state == rng, "Forecast does not mutate game or RNG")
+	var first = combat.forecast(g, [move(attack.id)])
+	check(first.estimate.enemy.damage == 6 and first.estimate.enemy.staminaLoss == 3 and first.cells[0].previewDamage == 6, "Preparation immediately estimates unopposed damage")
+	check(first.estimate.player.damage == 0 and first.cost.remaining == 5, "Blind forecast shows own cost, not hidden incoming damage")
+	ui.show_game()
+	ui.place_card(attack.id, 0, 0)
+	check(ui.combat_view.header.bars[2].forecast_change == -6 and ui.combat_view.header.bars[2].forecast_label.text == "−6", "Placement immediately updates health forecast without approximation symbol")
+	check(ui.board.damage_rows(ui.board.damage_cells[0], "enemy")[0].value == 6, "Placed attacking figure immediately displays damage")
+	await snapshot("forecast-preparation")
+	var concealed = g.clashPlan.enemyPlaced.duplicate(true)
+	g.clashPlan.enemyPlaced = [move(guard.id)]
+	check(combat.forecast(g, [move(attack.id)]) == first, "Hidden guard cannot change or leak into preparation estimate")
+	g.clashPlan.enemyPlaced = concealed
+	ui.remove_card(attack.id)
+	check(ui.combat_view.header.bars[2].forecast_change == 0, "Removing preparation figure clears estimate immediately")
+	check(JSON.stringify(g) == original and combat.rng.state == rng, "Preparation UI preserves game and RNG")
 	g.clashPlan.stage = "reaction"
 	g.clashPlan.preparer = "enemy"
 	g.clashPlan.reactor = "player"
 	var block = combat.forecast(g, [move(guard.id)])
 	check(block.calculation.player.damage == 0 and block.calculation.player.staminaLoss == 0 and block.cost.remaining == 7, "Known block cancels both losses and pays one cell")
+	var blocked_rows = ui.board.damage_rows(block.cells[0], "player")
+	check(blocked_rows.size() == 2 and blocked_rows.all(func(row): return row.value == 0), "Blocked enemy attack keeps both zero damage counters")
+	check(ui.board.damage_rows(block.cells[0], "enemy").is_empty(), "Defensive figure does not gain zero damage counters")
 	check(combat.forecast(g, [move(guard.id, 1)]).cost.remaining == 8, "Unopposed block is free")
 	var counter = attack.duplicate(true)
 	counter.category = "defense"
@@ -75,6 +95,7 @@ func run():
 	var calc = combat.forecast(g, [move(counter.id)])
 	check(calc.cells[0].enemyDamage == 6, "Counter uses full damage against attack")
 	check(combat.forecast(g, [move(counter.id, 1)]).cells[1].enemyDamage == 0, "Counter cannot attack empty cell")
+	check(ui.board.damage_rows(combat.forecast(g, [move(counter.id, 1)]).cells[1], "enemy").size() == 2, "Inactive damaging counter retains its zero counters")
 	var evade = guard.duplicate(true)
 	evade.erase("blocks")
 	evade.evades = true
@@ -82,6 +103,16 @@ func run():
 	g.player.deck.hand.append(evade)
 	calc = combat.forecast(g, [move(evade.id)])
 	check(calc.cells[0].playerDamage == 0 and calc.cells[0].playerStaminaDamage == 0, "Evade cancels health and stamina loss")
+	check(ui.board.damage_rows(calc.cells[0], "player").all(func(row): return row.value == 0), "Evaded attack retains zero damage")
+	var health_only = attack.duplicate(true)
+	health_only.id = "test-health-only"
+	health_only.staminaDamagePerCell = 0
+	g.player.deck.hand.append(health_only)
+	g.clashPlan.enemyPlaced = [move(guard.id)]
+	var blocked_hit = combat.forecast(g, [move(health_only.id)])
+	var health_rows = ui.board.damage_rows(blocked_hit.cells[0], "enemy")
+	check(health_rows.size() == 1 and health_rows[0].kind == "health" and health_rows[0].value == 0, "Blocked health-only hit has one zero, no stamina counter")
+	g.clashPlan.enemyPlaced = [move(attack.id)]
 	# Reveal always uses the committed moves, never a stale UI draft.
 	g.clashPlan.stage = "reveal"
 	g.clashPlan.playerPlaced = [move(guard.id)]
@@ -115,11 +146,10 @@ func run():
 	var cell_point = screen.board.get_global_rect().position + Vector2.ONE * screen.board.size.x / 6
 	var draft_before = ui.draft.duplicate(true)
 	touch(cell_point, true)
-	await create_timer(0.6).timeout
 	touch(cell_point, false)
 	await frame()
-	var reports = ui.get_children().filter(func(c): return c is AcceptDialog and c.visible)
-	check(reports.size() == 1 and reports[0].title.begins_with("Клетка 1"), "Long hold opens cell report")
+	var reports = ui.get_children().filter(func(c): return c is ModalDialog and c.visible)
+	check(reports.size() == 1 and reports[0].title.begins_with("Клетка 1"), "Tap opens cell report")
 	if not reports.is_empty():
 		check(reports[0].report.text.contains("половина") and reports[0].report.text.contains("−3 здоровья"), "Cell report explains contact and actual losses")
 		check(reports[0].size.x <= ui.size.x and reports[0].size.y <= ui.size.y, "Report fits narrow viewport")
@@ -131,9 +161,9 @@ func run():
 	if not reports.is_empty(): check(reports[0].size.x <= ui.size.x and reports[0].size.y <= ui.size.y, "Report adapts on unfold")
 	ui._notification(Control.NOTIFICATION_WM_GO_BACK_REQUEST)
 	await frame()
-	check(ui.screen == "game" and ui.get_children().filter(func(c): return c is AcceptDialog and c.visible).is_empty(), "Back closes only cell report")
+	check(ui.screen == "game" and ui.get_children().filter(func(c): return c is ModalDialog and c.visible).is_empty(), "Back closes only cell report")
 	await snapshot("forecast-inner")
-	ui.place_selected(0)
+	ui.remove_card(attack.id)
 	check(screen.header.bars[2].forecast_change == 0, "Removing figure clears outgoing damage preview")
 	# A lethal multi-cell hit is capped and its rounded cells still sum exactly.
 	var heavy = attack.duplicate(true)

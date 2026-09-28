@@ -9,6 +9,12 @@ var failures: Array = []
 func _initialize():
 	var data = Catalog.new()
 	var art = FigureArt.new(data, Combat.new(data))
+	var retired_hero = {"portraitId": "character-01-ash"}
+	var before_hero = retired_hero.duplicate(true)
+	var default_portrait = data.image(data.portraits[0].src)
+	check(default_portrait != null, "Current default portrait exists")
+	check(data.portrait(retired_hero) == default_portrait, "Retired portrait uses current catalog fallback")
+	check(retired_hero == before_hero, "Portrait fallback preserves saved hero")
 	for figure in data.base:
 		if figure.get("art", ""): saved_card(art, {"id": "base:" + figure.id + "#2"}, figure.art)
 	for species in data.creatures:

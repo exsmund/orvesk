@@ -34,15 +34,14 @@ func dialog():
 	return null
 
 func reward_grid():
-	for child in ui.content.get_children():
-		if child.has_signal("inspected"): return child
-	return null
+	return ui.victory_view.rewards
 
 func run():
 	root.gui_embed_subwindows = true
 	root.size = Vector2i(432,1008)
 	if not OS.get_cmdline_user_args().is_empty(): output = OS.get_cmdline_user_args()[0]
 	ui = load("res://scenes/main.tscn").instantiate()
+	ui.session = preload("res://tests/campaign_driver.gd").new(ui.data)
 	ui.saves = MemorySaves.new()
 	root.add_child(ui)
 	await settle()
@@ -78,13 +77,13 @@ func run():
 	ui.place_card(battle.cards[0].card_id, 0, 0)
 	check(not battle.cards[0].visible and battle.cards.filter(func(c): return c.visible).size() == 3, "Placed figure removed from choice")
 	check(ui.session.game.player.deck.hand == hand_before, "Hiding a figure does not discard it from the saved hand")
-	ui.place_selected(0)
+	ui.remove_card(battle.cards[0].card_id)
 	check(battle.cards[0].visible and battle.cards.filter(func(c): return c.visible).size() == 4, "Removing from board restores choice")
 	ui.place_card(battle.cards[0].card_id, 0, 0)
 	ui.place_card(battle.cards[1].card_id, 6, 0)
 	await shot("combat-cover")
 	var cell = {"known":true,"playerDamage":0,"playerStaminaDamage":0}
-	check(ui.board.damage_rows(cell, "player").is_empty(), "No zero damage counters")
+	check(ui.board.damage_rows(cell, "player").is_empty(), "Empty cell has no zero damage counters")
 	cell.playerDamage = 2
 	check(ui.board.damage_rows(cell, "player").size() == 1 and ui.board.damage_rows(cell,"player")[0].kind == "health", "Health-only damage has no stamina counter")
 	cell.playerStaminaDamage = 1
@@ -120,7 +119,10 @@ func run():
 	inspection.confirmed.emit()
 	inspection.confirmed.emit()
 	await settle()
-	check(ui.session.game.phase == "ready" and ui.session.game.souls == victory.souls, "Explicit claim succeeds once and never credits shards again")
+	check(ui.session.game.phase == "victory" and ui.session.game.victoryReward.progressionPending and ui.session.game.rewardOptions.is_empty() and ui.session.game.souls == victory.souls, "Explicit claim succeeds once, preserves shards and offers an affordable upgrade")
+	ui.victory_view.continue_button.pressed.emit()
+	await settle()
+	check(ui.session.game.phase == "ready", "Continue leaves the upgrade offer for the journey")
 	# Every reward kind uses the same claim path; full skill slots defer mutation.
 	for i in victory.rewardOptions.size():
 		if victory.rewardOptions[i].kind == "souls": continue
@@ -131,7 +133,10 @@ func run():
 		if entry.eligible:
 			dialog().confirmed.emit()
 			await settle()
-			check(ui.session.game.phase == "ready", "Claim item/skill returns to journey")
+			check(ui.session.game.victoryReward.progressionPending, "Claim item/skill offers an affordable upgrade")
+			ui.victory_view.continue_button.pressed.emit()
+			await settle()
+			check(ui.session.game.phase == "ready", "Continue after item/skill returns to journey")
 		else:
 			check(dialog().get_ok_button().disabled, "Unusable item can be inspected, not claimed")
 			dialog().canceled.emit()

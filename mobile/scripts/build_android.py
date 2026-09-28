@@ -35,7 +35,7 @@ def main():
     run([executable, '--headless', '--editor', '--path', str(MOBILE), '--import', '--quit'], env)
     if not args.skip_tests:
         run([str(ROOT/'node_modules/.bin/tsx'), str(MOBILE/'scripts/reference-fixtures.ts')], env)
-        for script in ['run.gd', 'rewards.gd', 'ui_smoke.gd', 'adaptive_layout.gd', 'home_settings.gd', 'combat_ui.gd', 'combat_forecast.gd', 'ui_design.gd', 'ui_refinement.gd', 'reward_ui.gd', 'character_window.gd', 'inspection.gd']:
+        for script in ['campaign.gd', 'journey_levels.gd', 'story_ui.gd', 'run.gd', 'rewards.gd', 'ui_smoke.gd', 'adaptive_layout.gd', 'home_settings.gd', 'creation_ui.gd', 'heroes_ui.gd', 'modal_ui.gd', 'combat_ui.gd', 'combat_forecast.gd', 'combat_feedback.gd', 'ui_design.gd', 'ui_refinement.gd', 'reward_ui.gd', 'character_window.gd', 'inspection.gd', 'debug_tools.gd', 'game_header.gd']:
             run([executable, '--headless', '--path', str(MOBILE), '--script', 'res://tests/'+script], env)
         balance_report = MOBILE/'build/first-map-balance.json'
         balance_report.parent.mkdir(parents=True, exist_ok=True)

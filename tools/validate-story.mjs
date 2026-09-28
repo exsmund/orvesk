@@ -1,3 +1,4 @@
+import { validateMapPoints } from './validate-map-points.mjs';
 import { readFileSync, existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { resolve, dirname } from 'node:path';
@@ -8,9 +9,27 @@ export function validateStory(root, suppliedStory) {
   const check = (ok, message) => { if (!ok) errors.push(message); };
   const read = (name) => JSON.parse(readFileSync(resolve(root, name), 'utf8'));
   const story = suppliedStory ?? read('data/story.json');
+  errors.push(...validateMapPoints(root, story).errors);
   const characters = new Map(read('data/story-characters.json').map(x => [x.id, x]));
   const creatures = new Map(read('data/creatures.json').map(x => [x.id, x]));
-  const maps = new Set(read('data/journey-maps.json').map(x => x.id));
+  const mapPresets = read('data/journey-maps.json');
+  const maps = new Set(mapPresets.map(x => x.id));
+  const preview = read('data/story-preview.json');
+  check(maps.size === mapPresets.length, 'Duplicate journey map ID');
+  check(preview.mapsCatalog === 'data/journey-maps.json', 'Missing preview map catalog');
+  for (const m of mapPresets) {
+    for (const field of ['background', 'battleBackground']) {
+      const asset = m[field];
+      if (typeof asset !== 'string' || !/^\/ui\/journey\/maps\/[a-z0-9-]+\.png$/.test(asset)) { check(false, `Invalid map asset ${m.id}/${field}`); continue; }
+      const path = resolve(root, 'public' + asset);
+      if (!existsSync(path)) { check(false, `Missing map asset ${m.id}/${field}`); continue; }
+      const b = readFileSync(path);
+      if (b.length < 33 || b.subarray(0, 8).toString('hex') !== '89504e470d0a1a0a') { check(false, `Invalid map PNG ${m.id}/${field}`); continue; }
+      const width = b.readUInt32BE(16), height = b.readUInt32BE(20);
+      check(width > height && height > 0, `Map artwork must be landscape ${m.id}/${field}`);
+      if (field === 'background') check(width === m.width && height === m.height, `Map dimensions disagree with PNG ${m.id}`);
+    }
+  }
   const ids = new Set(), stages = new Map();
   const scenes = story.scenes ?? {};
   const blockTypes = new Set(['dialogue', 'narration', 'choice', 'action', 'instruction', 'interfaceInstruction', 'conditionalInstruction', 'choiceInstruction', 'encounterInstruction']);
@@ -120,7 +139,10 @@ export function validateStory(root, suppliedStory) {
     check(chapter.number === ci+1 && chapter.expedition === ci+1, `Wrong chapter mapping ${chapter.id}`);
     check(chapter.introScene in scenes, `Missing intro ${chapter.id}`);
     check(chapter.stages.length === 9, `Expected nine stages ${chapter.id}`);
-    if (chapter.mapBinding?.mapId) check(maps.has(chapter.mapBinding.mapId), `Unknown map ${chapter.id}`);
+    const binding = chapter.mapBinding;
+    check(binding?.policy === 'fixedChapterMap' && binding?.selection === 'fixedMapId' && binding?.catalog === 'data/journey-maps.json', `Chapter requires fixed map binding ${chapter.id}`);
+    check(maps.has(binding?.mapId), `Missing or unknown map ${chapter.id}`);
+    check(preview.chapterMaps?.[String(chapter.number)] === binding?.mapId, `Preview chapter map mismatch ${chapter.id}`);
     for (const [i, st] of chapter.stages.entries()) {
       check(!stages.has(st.id), `Duplicate stage ${st.id}`); stages.set(st.id, st);
       const n=Math.floor(i/2)+1, stop=i%2===1;

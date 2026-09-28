@@ -5,6 +5,12 @@ var data
 func _init(catalog):
 	data = catalog
 
+func shards(player: Dictionary, is_boss: bool) -> int:
+	var next_upgrade_cost = data.level(player) + 2
+	if is_boss: return ceili(next_upgrade_cost * 1.5)
+	# Two successive upgrades cost C + (C + 1); three ordinary wins fund both.
+	return ceili((2 * next_upgrade_cost + 1) / 3.0)
+
 func count(player: Dictionary, enemy: Dictionary) -> int:
 	return 1 if data.level(enemy) < data.level(player) else 2
 
@@ -69,21 +75,4 @@ func roll(player: Dictionary, enemy: Dictionary, rng: RandomNumberGenerator) -> 
 	if count(player, enemy) == 2:
 		var second = pick(all.filter(func(option): return compatible(option, result)), rng)
 		if not second.is_empty(): result.append(second)
-	return result
-
-func migrate(options: Array, player: Dictionary, enemy: Dictionary, rng_state: int) -> Array:
-	# Preserve compatible old offers first. Any necessary fallback is deterministic
-	# and never consumes the live combat/journey generator.
-	var local_rng = RandomNumberGenerator.new()
-	local_rng.seed = rng_state
-	var pool = options.filter(func(option): return valid(option, player))
-	pool.append_array(roll(player, enemy, local_rng))
-	var ready = pool.filter(func(option): return usable(option, player))
-	if ready.is_empty(): return []
-	var result: Array = [ready[0].duplicate(true)]
-	if count(player, enemy) == 2:
-		for option in pool:
-			if compatible(option, result):
-				result.append(option.duplicate(true))
-				break
 	return result

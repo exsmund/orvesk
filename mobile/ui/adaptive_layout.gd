@@ -3,9 +3,25 @@ extends RefCounted
 const WIDE_AT = 640.0
 const GUTTER = 18.0
 const PADDING = 18
+const HEADER_HEIGHT = 132.0
+const CONTENT_GAP = 12.0
+const COMBAT_FOOTER_HEIGHT = 78.0
 
 static func columns(width: float) -> int:
 	return 2 if width >= WIDE_AT else 1
+
+static func battle_body_height(height: float) -> float:
+	return maxf(0, height - HEADER_HEIGHT - COMBAT_FOOTER_HEIGHT - CONTENT_GAP * 2)
+
+static func content_width(available: Vector2) -> float:
+	if columns(available.x) == 1: return available.x
+	# The same two square lanes as combat, with room for its header and footer.
+	# Retain the wide breakpoint even in unusually short embedded windows.
+	return minf(available.x, maxf(WIDE_AT, battle_body_height(available.y) * 2 + CONTENT_GAP))
+
+static func content_rect(available: Vector2) -> Rect2:
+	var width = floorf(content_width(available))
+	return Rect2(Vector2(floorf((available.x - width) / 2), 0), Vector2(width, available.y))
 
 static func board_extent(width: float, height: float, remaining_height: float = -1.0) -> float:
 	var lane = (width - GUTTER) / 2.0 if columns(width) == 2 else width

@@ -8,19 +8,19 @@
   "runtimeEnabled": false,
   "source": {
     "document": "docs/STORY.md",
-    "sha256": "aad9692f42225a7c347bfeb73eb682cd8fa2dcb542590308e93d236afec662f6",
+    "sha256": "171a673e0eb2b599d8656c421db10e23ca2f22394fd51e240882dcd7331e9266",
     "dependencies": [
       {
         "document": "data/story-characters.json",
-        "sha256": "0d4a2be6f28835cf343c6a5cc52582adfa41f43f9c66078d7967119522e6d83d"
+        "sha256": "1193b11547c52a94a1d72841a45589d8cf160e11ef02356f7e225e5ff4681e67"
       },
       {
         "document": "data/creatures.json",
-        "sha256": "80488bf9b6009554ec1cc4d30fb3bf2b4adcaef82afde16c149a36983ebf44eb"
+        "sha256": "248c6e06d2c86b067c870ad1b38ec2914f6ed5b67237ae5e14d460a8f4d04cfc"
       },
       {
         "document": "data/journey-maps.json",
-        "sha256": "b85d6b0829842c8cab71072363a4809ad5081bd71e3933b290af469072eed98f"
+        "sha256": "2d371e92c353044d2e3c8860f6e050a1efbee404a271dca67a391707d3e04fb0"
       },
       {
         "document": "data/journey-encounters.json",
@@ -52,11 +52,15 @@
       },
       {
         "document": "docs/CHARACTERS.md",
-        "sha256": "0b34d4159e5b0b47a30d52883ae6886316b406c4b22190f86b5abdf203ae1676"
+        "sha256": "8214f680ce38a05a3b5dd32ac53c09210d8e35d7481223e825e4de2ad8449af8"
       },
       {
         "document": "docs/LORE.md",
         "sha256": "badb8f65d68a81357ed367885e9d50e3c90e50b321dba4df9b2e26a8edbcb99d"
+      },
+      {
+        "document": "data/map-points.json",
+        "sha256": "8fc308deb72153c0245e1e0ed485a36905e1f42bfc649939ecf7b84b503efb30"
       }
     ]
   },
@@ -434,6 +438,7 @@
     "voiceThresholds": null,
     "largeFillThreshold": null,
     "voiceCapabilityValues": [
+      "silent",
       "fragmentary",
       "coherent"
     ],
@@ -443,7 +448,8 @@
       "justifications",
       "claimedIntimacy",
       "selfPreservation"
-    ]
+    ],
+    "tuningCatalog": "data/story-gameplay.json#/voice"
   },
   "chapters": [
     {
@@ -485,7 +491,8 @@
             ],
             "trigger": "beforeCombat",
             "requiresAdapter": true
-          }
+          },
+          "mapPointType": "combat"
         },
         {
           "id": "1.2",
@@ -499,14 +506,16 @@
               "label": "Костёр",
               "effectBinding": "existingCampfire",
               "availability": "whenRouteExists",
-              "route": "camp"
+              "route": "camp",
+              "mapPointType": "campfire"
             },
             {
               "id": "forge",
               "label": "Кузница",
               "effectBinding": "existingForge",
               "availability": "whenRouteExists",
-              "route": "forge"
+              "route": "forge",
+              "mapPointType": "forge"
             }
           ],
           "activitySelection": {
@@ -558,7 +567,8 @@
             ],
             "trigger": "beforeCombat",
             "requiresAdapter": true
-          }
+          },
+          "mapPointType": "combat"
         },
         {
           "id": "1.4",
@@ -572,14 +582,16 @@
               "label": "Костёр",
               "effectBinding": "existingCampfire",
               "availability": "whenRouteExists",
-              "route": "camp"
+              "route": "camp",
+              "mapPointType": "campfire"
             },
             {
               "id": "forge",
               "label": "Кузница",
               "effectBinding": "existingForge",
               "availability": "whenRouteExists",
-              "route": "forge"
+              "route": "forge",
+              "mapPointType": "forge"
             }
           ],
           "activitySelection": {
@@ -630,7 +642,8 @@
             ],
             "trigger": "beforeCombat",
             "requiresAdapter": true
-          }
+          },
+          "mapPointType": "combat"
         },
         {
           "id": "1.6",
@@ -644,14 +657,16 @@
               "label": "Костёр",
               "effectBinding": "existingCampfire",
               "availability": "whenRouteExists",
-              "route": "camp"
+              "route": "camp",
+              "mapPointType": "campfire"
             },
             {
               "id": "forge",
               "label": "Кузница",
               "effectBinding": "existingForge",
               "availability": "whenRouteExists",
-              "route": "forge"
+              "route": "forge",
+              "mapPointType": "forge"
             }
           ],
           "activitySelection": {
@@ -703,7 +718,8 @@
             ],
             "trigger": "beforeCombat",
             "requiresAdapter": true
-          }
+          },
+          "mapPointType": "combat"
         },
         {
           "id": "1.8",
@@ -717,14 +733,16 @@
               "label": "Костёр",
               "effectBinding": "existingCampfire",
               "availability": "whenRouteExists",
-              "route": "camp"
+              "route": "camp",
+              "mapPointType": "campfire"
             },
             {
               "id": "forge",
               "label": "Кузница",
               "effectBinding": "existingForge",
               "availability": "whenRouteExists",
-              "route": "forge"
+              "route": "forge",
+              "mapPointType": "forge"
             }
           ],
           "activitySelection": {
@@ -769,14 +787,16 @@
             ],
             "trigger": "beforeCombat",
             "requiresAdapter": true
-          }
+          },
+          "mapPointType": "boss"
         }
       ],
       "expedition": 1,
       "mapBinding": {
-        "policy": "existingMapCatalog",
-        "selection": "existingJourneyMapSelection",
-        "catalog": "data/journey-maps.json"
+        "policy": "fixedChapterMap",
+        "selection": "fixedMapId",
+        "catalog": "data/journey-maps.json",
+        "mapId": "ravaged-lands"
       }
     },
     {
@@ -813,7 +833,8 @@
             ],
             "trigger": "beforeCombat",
             "requiresAdapter": true
-          }
+          },
+          "mapPointType": "combat"
         },
         {
           "id": "2.2",
@@ -827,20 +848,23 @@
               "label": "Костёр",
               "effectBinding": "existingCampfire",
               "availability": "whenRouteExists",
-              "route": "camp"
+              "route": "camp",
+              "mapPointType": "campfire"
             },
             {
               "id": "forge",
               "label": "Кузница",
               "effectBinding": "existingForge",
               "availability": "whenRouteExists",
-              "route": "forge"
+              "route": "forge",
+              "mapPointType": "forge"
             },
             {
               "id": "activity-3",
               "label": "Лечебница",
               "effectBinding": null,
-              "availability": "requiresStoryActivityAdapter"
+              "availability": "requiresStoryActivityAdapter",
+              "mapPointType": "healer"
             }
           ],
           "activitySelection": {
@@ -886,7 +910,8 @@
             ],
             "trigger": "beforeCombat",
             "requiresAdapter": true
-          }
+          },
+          "mapPointType": "combat"
         },
         {
           "id": "2.4",
@@ -900,26 +925,30 @@
               "label": "Костёр",
               "effectBinding": "existingCampfire",
               "availability": "whenRouteExists",
-              "route": "camp"
+              "route": "camp",
+              "mapPointType": "campfire"
             },
             {
               "id": "forge",
               "label": "Кузница",
               "effectBinding": "existingForge",
               "availability": "whenRouteExists",
-              "route": "forge"
+              "route": "forge",
+              "mapPointType": "forge"
             },
             {
               "id": "activity-3",
               "label": "Рынок",
               "effectBinding": null,
-              "availability": "requiresStoryActivityAdapter"
+              "availability": "requiresStoryActivityAdapter",
+              "mapPointType": "market"
             },
             {
               "id": "activity-4",
               "label": "Площадь",
               "effectBinding": null,
-              "availability": "requiresStoryActivityAdapter"
+              "availability": "requiresStoryActivityAdapter",
+              "mapPointType": "square"
             }
           ],
           "activitySelection": {
@@ -965,7 +994,8 @@
             ],
             "trigger": "beforeCombat",
             "requiresAdapter": true
-          }
+          },
+          "mapPointType": "combat"
         },
         {
           "id": "2.6",
@@ -979,20 +1009,23 @@
               "label": "Костёр",
               "effectBinding": "existingCampfire",
               "availability": "whenRouteExists",
-              "route": "camp"
+              "route": "camp",
+              "mapPointType": "campfire"
             },
             {
               "id": "forge",
               "label": "Кузница",
               "effectBinding": "existingForge",
               "availability": "whenRouteExists",
-              "route": "forge"
+              "route": "forge",
+              "mapPointType": "forge"
             },
             {
               "id": "activity-3",
               "label": "Таверна",
               "effectBinding": null,
-              "availability": "requiresStoryActivityAdapter"
+              "availability": "requiresStoryActivityAdapter",
+              "mapPointType": "tavern"
             }
           ],
           "activitySelection": {
@@ -1038,7 +1071,8 @@
             ],
             "trigger": "beforeCombat",
             "requiresAdapter": true
-          }
+          },
+          "mapPointType": "combat"
         },
         {
           "id": "2.8",
@@ -1052,14 +1086,16 @@
               "label": "Костёр",
               "effectBinding": "existingCampfire",
               "availability": "whenRouteExists",
-              "route": "camp"
+              "route": "camp",
+              "mapPointType": "campfire"
             },
             {
               "id": "forge",
               "label": "Кузница",
               "effectBinding": "existingForge",
               "availability": "whenRouteExists",
-              "route": "forge"
+              "route": "forge",
+              "mapPointType": "forge"
             }
           ],
           "activitySelection": {
@@ -1104,14 +1140,16 @@
             ],
             "trigger": "beforeCombat",
             "requiresAdapter": true
-          }
+          },
+          "mapPointType": "boss"
         }
       ],
       "expedition": 2,
       "mapBinding": {
-        "policy": "existingMapCatalog",
-        "selection": "existingJourneyMapSelection",
-        "catalog": "data/journey-maps.json"
+        "policy": "fixedChapterMap",
+        "selection": "fixedMapId",
+        "catalog": "data/journey-maps.json",
+        "mapId": "perevalets"
       }
     },
     {
@@ -1147,7 +1185,8 @@
             ],
             "trigger": "beforeCombat",
             "requiresAdapter": true
-          }
+          },
+          "mapPointType": "combat"
         },
         {
           "id": "3.2",
@@ -1161,20 +1200,23 @@
               "label": "Костёр",
               "effectBinding": "existingCampfire",
               "availability": "whenRouteExists",
-              "route": "camp"
+              "route": "camp",
+              "mapPointType": "campfire"
             },
             {
               "id": "forge",
               "label": "Кузница",
               "effectBinding": "existingForge",
               "availability": "whenRouteExists",
-              "route": "forge"
+              "route": "forge",
+              "mapPointType": "forge"
             },
             {
               "id": "activity-3",
               "label": "Лесная встреча",
               "effectBinding": null,
-              "availability": "requiresStoryActivityAdapter"
+              "availability": "requiresStoryActivityAdapter",
+              "mapPointType": "forest-meeting"
             }
           ],
           "activitySelection": {
@@ -1249,7 +1291,8 @@
             ],
             "trigger": "beforeCombat",
             "requiresAdapter": true
-          }
+          },
+          "mapPointType": "combat"
         },
         {
           "id": "3.4",
@@ -1263,20 +1306,23 @@
               "label": "Костёр",
               "effectBinding": "existingCampfire",
               "availability": "whenRouteExists",
-              "route": "camp"
+              "route": "camp",
+              "mapPointType": "campfire"
             },
             {
               "id": "forge",
               "label": "Кузница",
               "effectBinding": "existingForge",
               "availability": "whenRouteExists",
-              "route": "forge"
+              "route": "forge",
+              "mapPointType": "forge"
             },
             {
               "id": "activity-3",
               "label": "Встреча с феей",
               "effectBinding": null,
-              "availability": "requiresStoryActivityAdapter"
+              "availability": "requiresStoryActivityAdapter",
+              "mapPointType": "fairy-meeting"
             }
           ],
           "activitySelection": {
@@ -1321,7 +1367,8 @@
             ],
             "trigger": "beforeCombat",
             "requiresAdapter": true
-          }
+          },
+          "mapPointType": "combat"
         },
         {
           "id": "3.6",
@@ -1335,14 +1382,16 @@
               "label": "Костёр",
               "effectBinding": "existingCampfire",
               "availability": "whenRouteExists",
-              "route": "camp"
+              "route": "camp",
+              "mapPointType": "campfire"
             },
             {
               "id": "forge",
               "label": "Кузница",
               "effectBinding": "existingForge",
               "availability": "whenRouteExists",
-              "route": "forge"
+              "route": "forge",
+              "mapPointType": "forge"
             }
           ],
           "activitySelection": {
@@ -1387,7 +1436,8 @@
             ],
             "trigger": "beforeCombat",
             "requiresAdapter": true
-          }
+          },
+          "mapPointType": "combat"
         },
         {
           "id": "3.8",
@@ -1401,20 +1451,23 @@
               "label": "Костёр",
               "effectBinding": "existingCampfire",
               "availability": "whenRouteExists",
-              "route": "camp"
+              "route": "camp",
+              "mapPointType": "campfire"
             },
             {
               "id": "forge",
               "label": "Кузница",
               "effectBinding": "existingForge",
               "availability": "whenRouteExists",
-              "route": "forge"
+              "route": "forge",
+              "mapPointType": "forge"
             },
             {
               "id": "activity-3",
               "label": "Разговор с феей",
               "effectBinding": null,
-              "availability": "requiresStoryActivityAdapter"
+              "availability": "requiresStoryActivityAdapter",
+              "mapPointType": "fairy-meeting"
             }
           ],
           "activitySelection": {
@@ -1459,14 +1512,16 @@
             ],
             "trigger": "beforeCombat",
             "requiresAdapter": true
-          }
+          },
+          "mapPointType": "boss"
         }
       ],
       "expedition": 3,
       "mapBinding": {
-        "policy": "existingMapCatalog",
-        "selection": "existingJourneyMapSelection",
-        "catalog": "data/journey-maps.json"
+        "policy": "fixedChapterMap",
+        "selection": "fixedMapId",
+        "catalog": "data/journey-maps.json",
+        "mapId": "forest"
       }
     },
     {
@@ -1502,7 +1557,8 @@
             ],
             "trigger": "beforeCombat",
             "requiresAdapter": true
-          }
+          },
+          "mapPointType": "combat"
         },
         {
           "id": "4.2",
@@ -1516,20 +1572,23 @@
               "label": "Костёр",
               "effectBinding": "existingCampfire",
               "availability": "whenRouteExists",
-              "route": "camp"
+              "route": "camp",
+              "mapPointType": "campfire"
             },
             {
               "id": "forge",
               "label": "Кузница",
               "effectBinding": "existingForge",
               "availability": "whenRouteExists",
-              "route": "forge"
+              "route": "forge",
+              "mapPointType": "forge"
             },
             {
               "id": "activity-3",
               "label": "Беседа с Теей",
               "effectBinding": null,
-              "availability": "requiresStoryActivityAdapter"
+              "availability": "requiresStoryActivityAdapter",
+              "mapPointType": "hermit-meeting"
             }
           ],
           "activitySelection": {
@@ -1574,7 +1633,8 @@
             ],
             "trigger": "beforeCombat",
             "requiresAdapter": true
-          }
+          },
+          "mapPointType": "combat"
         },
         {
           "id": "4.4",
@@ -1588,20 +1648,23 @@
               "label": "Костёр",
               "effectBinding": "existingCampfire",
               "availability": "whenRouteExists",
-              "route": "camp"
+              "route": "camp",
+              "mapPointType": "campfire"
             },
             {
               "id": "forge",
               "label": "Кузница",
               "effectBinding": "existingForge",
               "availability": "whenRouteExists",
-              "route": "forge"
+              "route": "forge",
+              "mapPointType": "forge"
             },
             {
               "id": "activity-3",
               "label": "Помочь пленнику",
               "effectBinding": null,
-              "availability": "requiresStoryActivityAdapter"
+              "availability": "requiresStoryActivityAdapter",
+              "mapPointType": "aid"
             }
           ],
           "activitySelection": {
@@ -1646,7 +1709,8 @@
             ],
             "trigger": "beforeCombat",
             "requiresAdapter": true
-          }
+          },
+          "mapPointType": "combat"
         },
         {
           "id": "4.6",
@@ -1660,20 +1724,23 @@
               "label": "Костёр",
               "effectBinding": "existingCampfire",
               "availability": "whenRouteExists",
-              "route": "camp"
+              "route": "camp",
+              "mapPointType": "campfire"
             },
             {
               "id": "forge",
               "label": "Кузница",
               "effectBinding": "existingForge",
               "availability": "whenRouteExists",
-              "route": "forge"
+              "route": "forge",
+              "mapPointType": "forge"
             },
             {
               "id": "activity-3",
               "label": "Разговор с Нимой",
               "effectBinding": null,
-              "availability": "requiresStoryActivityAdapter"
+              "availability": "requiresStoryActivityAdapter",
+              "mapPointType": "fairy-meeting"
             }
           ],
           "activitySelection": {
@@ -1719,7 +1786,8 @@
             ],
             "trigger": "beforeCombat",
             "requiresAdapter": true
-          }
+          },
+          "mapPointType": "combat"
         },
         {
           "id": "4.8",
@@ -1733,14 +1801,16 @@
               "label": "Костёр",
               "effectBinding": "existingCampfire",
               "availability": "whenRouteExists",
-              "route": "camp"
+              "route": "camp",
+              "mapPointType": "campfire"
             },
             {
               "id": "forge",
               "label": "Кузница",
               "effectBinding": "existingForge",
               "availability": "whenRouteExists",
-              "route": "forge"
+              "route": "forge",
+              "mapPointType": "forge"
             }
           ],
           "activitySelection": {
@@ -1785,14 +1855,16 @@
             ],
             "trigger": "beforeCombat",
             "requiresAdapter": true
-          }
+          },
+          "mapPointType": "boss"
         }
       ],
       "expedition": 4,
       "mapBinding": {
-        "policy": "existingMapCatalog",
-        "selection": "existingJourneyMapSelection",
-        "catalog": "data/journey-maps.json"
+        "policy": "fixedChapterMap",
+        "selection": "fixedMapId",
+        "catalog": "data/journey-maps.json",
+        "mapId": "mire"
       }
     },
     {
@@ -1828,7 +1900,8 @@
             ],
             "trigger": "beforeCombat",
             "requiresAdapter": true
-          }
+          },
+          "mapPointType": "combat"
         },
         {
           "id": "5.2",
@@ -1842,20 +1915,23 @@
               "label": "Костёр",
               "effectBinding": "existingCampfire",
               "availability": "whenRouteExists",
-              "route": "camp"
+              "route": "camp",
+              "mapPointType": "campfire"
             },
             {
               "id": "forge",
               "label": "Кузница",
               "effectBinding": "existingForge",
               "availability": "whenRouteExists",
-              "route": "forge"
+              "route": "forge",
+              "mapPointType": "forge"
             },
             {
               "id": "activity-3",
               "label": "Рынок",
               "effectBinding": null,
-              "availability": "requiresStoryActivityAdapter"
+              "availability": "requiresStoryActivityAdapter",
+              "mapPointType": "market"
             }
           ],
           "activitySelection": {
@@ -1900,7 +1976,8 @@
             ],
             "trigger": "beforeCombat",
             "requiresAdapter": true
-          }
+          },
+          "mapPointType": "combat"
         },
         {
           "id": "5.4",
@@ -1914,14 +1991,16 @@
               "label": "Костёр",
               "effectBinding": "existingCampfire",
               "availability": "whenRouteExists",
-              "route": "camp"
+              "route": "camp",
+              "mapPointType": "campfire"
             },
             {
               "id": "forge",
               "label": "Кузница",
               "effectBinding": "existingForge",
               "availability": "whenRouteExists",
-              "route": "forge"
+              "route": "forge",
+              "mapPointType": "forge"
             }
           ],
           "activitySelection": {
@@ -1966,7 +2045,8 @@
             ],
             "trigger": "beforeCombat",
             "requiresAdapter": true
-          }
+          },
+          "mapPointType": "combat"
         },
         {
           "id": "5.6",
@@ -1980,14 +2060,16 @@
               "label": "Костёр",
               "effectBinding": "existingCampfire",
               "availability": "whenRouteExists",
-              "route": "camp"
+              "route": "camp",
+              "mapPointType": "campfire"
             },
             {
               "id": "forge",
               "label": "Кузница",
               "effectBinding": "existingForge",
               "availability": "whenRouteExists",
-              "route": "forge"
+              "route": "forge",
+              "mapPointType": "forge"
             }
           ],
           "activitySelection": {
@@ -2062,7 +2144,8 @@
             ],
             "trigger": "beforeCombat",
             "requiresAdapter": true
-          }
+          },
+          "mapPointType": "combat"
         },
         {
           "id": "5.8",
@@ -2076,14 +2159,16 @@
               "label": "Костёр",
               "effectBinding": "existingCampfire",
               "availability": "whenRouteExists",
-              "route": "camp"
+              "route": "camp",
+              "mapPointType": "campfire"
             },
             {
               "id": "forge",
               "label": "Кузница",
               "effectBinding": "existingForge",
               "availability": "whenRouteExists",
-              "route": "forge"
+              "route": "forge",
+              "mapPointType": "forge"
             }
           ],
           "activitySelection": {
@@ -2128,14 +2213,16 @@
             ],
             "trigger": "beforeCombat",
             "requiresAdapter": true
-          }
+          },
+          "mapPointType": "boss"
         }
       ],
       "expedition": 5,
       "mapBinding": {
-        "policy": "existingMapCatalog",
-        "selection": "existingJourneyMapSelection",
-        "catalog": "data/journey-maps.json"
+        "policy": "fixedChapterMap",
+        "selection": "fixedMapId",
+        "catalog": "data/journey-maps.json",
+        "mapId": "warlands"
       }
     },
     {
@@ -2171,7 +2258,8 @@
             ],
             "trigger": "beforeCombat",
             "requiresAdapter": true
-          }
+          },
+          "mapPointType": "combat"
         },
         {
           "id": "6.2",
@@ -2185,20 +2273,23 @@
               "label": "Костёр",
               "effectBinding": "existingCampfire",
               "availability": "whenRouteExists",
-              "route": "camp"
+              "route": "camp",
+              "mapPointType": "campfire"
             },
             {
               "id": "forge",
               "label": "Кузница",
               "effectBinding": "existingForge",
               "availability": "whenRouteExists",
-              "route": "forge"
+              "route": "forge",
+              "mapPointType": "forge"
             },
             {
               "id": "activity-3",
               "label": "Лечебница",
               "effectBinding": null,
-              "availability": "requiresStoryActivityAdapter"
+              "availability": "requiresStoryActivityAdapter",
+              "mapPointType": "healer"
             }
           ],
           "activitySelection": {
@@ -2244,7 +2335,8 @@
             ],
             "trigger": "beforeCombat",
             "requiresAdapter": true
-          }
+          },
+          "mapPointType": "combat"
         },
         {
           "id": "6.4",
@@ -2258,20 +2350,23 @@
               "label": "Костёр",
               "effectBinding": "existingCampfire",
               "availability": "whenRouteExists",
-              "route": "camp"
+              "route": "camp",
+              "mapPointType": "campfire"
             },
             {
               "id": "forge",
               "label": "Кузница",
               "effectBinding": "existingForge",
               "availability": "whenRouteExists",
-              "route": "forge"
+              "route": "forge",
+              "mapPointType": "forge"
             },
             {
               "id": "activity-3",
               "label": "Разговор с Нимой",
               "effectBinding": null,
-              "availability": "requiresStoryActivityAdapter"
+              "availability": "requiresStoryActivityAdapter",
+              "mapPointType": "fairy-meeting"
             }
           ],
           "activitySelection": {
@@ -2316,7 +2411,8 @@
             ],
             "trigger": "beforeCombat",
             "requiresAdapter": true
-          }
+          },
+          "mapPointType": "combat"
         },
         {
           "id": "6.6",
@@ -2330,14 +2426,16 @@
               "label": "Костёр",
               "effectBinding": "existingCampfire",
               "availability": "whenRouteExists",
-              "route": "camp"
+              "route": "camp",
+              "mapPointType": "campfire"
             },
             {
               "id": "forge",
               "label": "Кузница",
               "effectBinding": "existingForge",
               "availability": "whenRouteExists",
-              "route": "forge"
+              "route": "forge",
+              "mapPointType": "forge"
             }
           ],
           "activitySelection": {
@@ -2382,7 +2480,8 @@
             ],
             "trigger": "beforeCombat",
             "requiresAdapter": true
-          }
+          },
+          "mapPointType": "combat"
         },
         {
           "id": "6.8",
@@ -2396,14 +2495,16 @@
               "label": "Костёр",
               "effectBinding": "existingCampfire",
               "availability": "whenRouteExists",
-              "route": "camp"
+              "route": "camp",
+              "mapPointType": "campfire"
             },
             {
               "id": "forge",
               "label": "Кузница",
               "effectBinding": "existingForge",
               "availability": "whenRouteExists",
-              "route": "forge"
+              "route": "forge",
+              "mapPointType": "forge"
             }
           ],
           "activitySelection": {
@@ -2450,14 +2551,16 @@
             ],
             "trigger": "beforeCombat",
             "requiresAdapter": true
-          }
+          },
+          "mapPointType": "boss"
         }
       ],
       "expedition": 6,
       "mapBinding": {
-        "policy": "existingMapCatalog",
-        "selection": "existingJourneyMapSelection",
-        "catalog": "data/journey-maps.json"
+        "policy": "fixedChapterMap",
+        "selection": "fixedMapId",
+        "catalog": "data/journey-maps.json",
+        "mapId": "limestone-valley"
       }
     }
   ],
@@ -3405,13 +3508,13 @@
           "options": [
             {
               "id": "2.2.7dd470f32ad8",
-              "label": "Рядом с камнем я слышу чужие мысли.",
+              "label": "У моста мне показалось, будто камень дышит.",
               "selectionType": "speech",
               "responsePlan": [
                 {
                   "type": "dialogue",
                   "speakerRole": "Жрица",
-                  "text": "В наполненном аттракторе может складываться сознание. Если оно заговорит знакомым голосом, это ещё не значит, что к тебе вернулся Севран.",
+                  "text": "В наполненном аттракторе может складываться сознание. Возможно, ты почувствовал его присутствие. Если услышишь голос, не спеши верить ему.",
                   "speakerId": "city-priestess",
                   "id": "2.2.node.ab96ecee34f7"
                 },
@@ -3422,7 +3525,7 @@
                   "id": "2.2.node.34b7aefb5422"
                 }
               ],
-              "sourceText": "- «Рядом с камнем я слышу чужие мысли.» → **Жрица:** «В наполненном аттракторе может складываться сознание. Если оно заговорит знакомым голосом, это ещё не значит, что к тебе вернулся Севран.» → Отметить откровенность.",
+              "sourceText": "- «У моста мне показалось, будто камень дышит.» → **Жрица:** «В наполненном аттракторе может складываться сознание. Возможно, ты почувствовал его присутствие. Если услышишь голос, не спеши верить ему.» → Отметить откровенность.",
               "effects": [
                 {
                   "type": "set",
@@ -3445,12 +3548,12 @@
                 },
                 {
                   "type": "instruction",
-                  "text": "О голосе герой умалчивает.",
+                  "text": "О странном ощущении герой умалчивает.",
                   "display": false,
                   "id": "2.2.node.b01c3335839c"
                 }
               ],
-              "sourceText": "- «Скажите, как найти Асту.» → **Жрица:** «За западными воротами начинается лес. Поищи в городе проводника, который знает путь через него.» → О голосе герой умалчивает.",
+              "sourceText": "- «Скажите, как найти Асту.» → **Жрица:** «За западными воротами начинается лес. Поищи в городе проводника, который знает путь через него.» → О странном ощущении герой умалчивает.",
               "effects": [
                 {
                   "type": "set",
@@ -8349,31 +8452,10 @@
     "extraMandatoryFinalBattle": false,
     "endingDutyDisablesFurtherAttractorUpgrades": true
   },
-  "unresolvedBindings": [
-    {
-      "id": "voiceAndFillThresholds",
-      "reason": "Сценарий не задаёт начальное наполнение и числовые пороги."
-    },
-    {
-      "id": "storyRewardAmounts",
-      "reason": "Суммы и подбор предметов должны быть согласованы с балансом; повторная выдача запрещена."
-    },
-    {
-      "id": "optionalActivityBenefits",
-      "reason": "Польза лечебницы, рынка и дополнительных занятий ещё не определена."
-    },
-    {
-      "id": "storyActionGraph",
-      "reason": "Авторские инструкции ещё должны быть преобразованы в граф с явными границами условий, событий, наград и необязательных разговоров; runtime-экспорт запрещён."
-    },
-    {
-      "id": "engineAdapter",
-      "reason": "Нужны адаптер встреч и остановок, хранение сюжетного состояния, учёт наполнения, воспроизведение окон и завершение кампании. engineContract перечисляет точки подключения."
-    }
-  ],
+  "unresolvedBindings": [],
   "authoringReferences": {
-    "decisions": "Эти состояния — сценарные заметки для будущей реализации. Они не вводят отдельную шкалу морали или новые числовые характеристики.\n\n| Решение | Ближайшее последствие | Позднее последствие |\n|---|---|---|\n| 1.4: отпустить пленника / передать дозору | Условный знак / записанные показания | Разный способ распознать посредника в 2.1–2.4 |\n| 2.2: рассказать о голосе | Предупреждение жрицы | Более раннее понимание природы искушения; при молчании объяснение даст Тея |\n| 2.4: вернуть лекарства / продать | Доверие и свидетель / материальная выгода | Разговор с Мартой и вариант памятной награды в 5.8, городской эпилог |\n| 2.6: дневной разговор / ночная встреча | Подготовка вампира к схватке | Разная обстановка одного босса 2.9 |\n| 3.2: уважить границу / угрожать | Доверие / настороженность | Противник узла 3.3: налётчик / фавн |\n| 3.4: вернуть семена / присвоить | Доверие леса / возможность продажи | Обращение к Ниме и широта предупреждения в концовке Б |\n| 3.6: пощадить пленного / убить | Сведения и доверие / усиление и отчуждение | Реплики Теи, Элиана и камня; память поступка в эпилоге |\n| 4.4: признаться Тее / скрыть | Откровенность / дистанция | Личный или общий разговор в 4.8 |\n| 5.4: обнародовать приказы / скрыть | Уход одного наёмника / сохранение его верности | Противник узла 5.7: доспех / наёмник |\n| 6.2: рассказать Асте / скрыть | Подготовленность / настороженность | Содержание отчёта о доставке |\n| 6.8: предварительное намерение | Ответ аттрактора | Не блокирует пересмотр после босса |\n| После 6.9: судьба аттрактора | Передача / разрушение / сохранение | Одна из трёх концовок |\n\nДоверие леса обновляется последними существенными поступками: возврат семян способен исправить первую угрозу, но убийство беспомощного пленника вновь вызывает отчуждение. Так состояния не противоречат друг другу. Ни одно из них не закрывает базовый путь к финалу или необходимые услуги.",
-    "voice": "Разумность зависит прежде всего от накопленных внутри аттрактора осколков, переданных при усилении, а не от номера карты или текущего доступного запаса героя. Груз уже наполнен до начала игры, поэтому слабый голос возможен даже у героя, который не добавляет новых осколков. Дополнительное наполнение делает речь яснее и сложнее. Если игрок почти не кормит камень, поздние реплики нужно сокращать до обрывков и повторов; обязательные сведения сообщают живые персонажи.\n\n| Состояние | Манера речи | Пример |\n|---|---|---|\n| Едва различимое присутствие | Чужой импульс, отдельное слово | «Ещё.» |\n| Первые обещания | Короткая практическая подсказка с выгодой для камня | «Сильнее — значит безопаснее». |\n| Поиск оправданий | Использует слова самого героя | «Ты ведь сказал, что тебе некуда возвращаться». |\n| Присвоение близости | Называет себя единственным постоянным спутником | «Они останутся здесь. Я пойду с тобой». |\n| Борьба за сохранение | Подменяет выбор героя страхом потери | «Без меня всё это было зря». |\n\nКамень предлагает зло, но не управляет кнопками игрока, не принуждает к убийству в текстовом окне и не внезапно оказывается добрым наставником. Он может сказать правду о чужом лицемерии, чтобы склонить к жестокому выводу. Его наличие не освобождает героя от ответственности.",
+    "decisions": "Эти состояния — сценарные заметки для будущей реализации. Они не вводят отдельную шкалу морали или новые числовые характеристики.\n\n| Решение | Ближайшее последствие | Позднее последствие |\n|---|---|---|\n| 1.4: отпустить пленника / передать дозору | Условный знак / записанные показания | Разный способ распознать посредника в 2.1–2.4 |\n| 2.2: рассказать об ощущении у моста | Предупреждение жрицы | Предупреждение о возможном сознании камня; герой ещё не утверждает, что слышал его речь |\n| 2.4: вернуть лекарства / продать | Доверие и свидетель / материальная выгода | Разговор с Мартой и вариант памятной награды в 5.8, городской эпилог |\n| 2.6: дневной разговор / ночная встреча | Подготовка вампира к схватке | Разная обстановка одного босса 2.9 |\n| 3.2: уважить границу / угрожать | Доверие / настороженность | Противник узла 3.3: налётчик / фавн |\n| 3.4: вернуть семена / присвоить | Доверие леса / возможность продажи | Обращение к Ниме и широта предупреждения в концовке Б |\n| 3.6: пощадить пленного / убить | Сведения и доверие / усиление и отчуждение | Реплики Теи, Элиана и камня; память поступка в эпилоге |\n| 4.4: признаться Тее / скрыть | Откровенность / дистанция | Личный или общий разговор в 4.8 |\n| 5.4: обнародовать приказы / скрыть | Уход одного наёмника / сохранение его верности | Противник узла 5.7: доспех / наёмник |\n| 6.2: рассказать Асте / скрыть | Подготовленность / настороженность | Содержание отчёта о доставке |\n| 6.8: предварительное намерение | Ответ аттрактора | Не блокирует пересмотр после босса |\n| После 6.9: судьба аттрактора | Передача / разрушение / сохранение | Одна из трёх концовок |\n\nДоверие леса обновляется последними существенными поступками: возврат семян способен исправить первую угрозу, но убийство беспомощного пленника вновь вызывает отчуждение. Так состояния не противоречат друг другу. Ни одно из них не закрывает базовый путь к финалу или необходимые услуги.",
+    "voice": "Разумность зависит прежде всего от накопленных внутри аттрактора осколков, переданных при усилении, а не от номера карты или текущего доступного запаса героя. В начале аттрактор не разговаривает с героем. Его голос появляется лишь после первой передачи осколков при усилении характеристик; дополнительные передачи делают речь яснее и сложнее. Уже запертые в грузе сущности сами по себе не дают начального голоса. Непотраченные награды и оплата торговцу голос не развивают. Если игрок почти не кормит камень, поздние реплики нужно сокращать до обрывков и повторов; обязательные сведения сообщают живые персонажи.\n\n| Состояние | Манера речи | Пример |\n|---|---|---|\n| Едва различимое присутствие | Чужой импульс, отдельное слово | «Ещё.» |\n| Первые обещания | Короткая практическая подсказка с выгодой для камня | «Сильнее — значит безопаснее». |\n| Поиск оправданий | Использует слова самого героя | «Ты ведь сказал, что тебе некуда возвращаться». |\n| Присвоение близости | Называет себя единственным постоянным спутником | «Они останутся здесь. Я пойду с тобой». |\n| Борьба за сохранение | Подменяет выбор героя страхом потери | «Без меня всё это было зря». |\n\nКамень предлагает зло, но не управляет кнопками игрока, не принуждает к убийству в текстовом окне и не внезапно оказывается добрым наставником. Он может сказать правду о чужом лицемерии, чтобы склонить к жестокому выводу. Его наличие не освобождает героя от ответственности.",
     "integrity": "- Носитель — обычный человек. Работа с аттрактором не делает его магом или жрецом; он не начинает сам путешествовать по планам.\n- Нападение у моста уничтожает именно исходный отряд. Позднее появляющиеся Марта, Элиан, Тея и Аста не оказываются забытыми выжившими из него.\n- Вейр узнаёт путь постепенно: конвой, городские посредники, преследователи, схождение дорог у крепости, след героя в долине. Он не знает тайное захоронение заранее.\n- Голос — сознание камня, а не свободно гуляющие наружу заключённые демоны. Внешние существа возле захоронения не свидетельствуют об автоматической утечке из аттракторов.\n- Нима остаётся единственной показанной силой, способной разрушить камень. Ни кузница, ни камнедроб, ни Вейр не заменяют её умение.\n- Сёстры не отождествляются с болотницами, эльфы — с феями, вампиры — с демонами, а живые доспехи — с людьми в броне.\n- Окончательное решение предлагается после финального боя и не скрывается за моральным порогом. Прежние поступки определяют доверие, реплики и последствия, а не право игрока увидеть выбор.\n- Ни одна концовка не требует внезапного второго босса. Риск Слитника остаётся реальным последствием разрушения, показанным в эпилоге.\n- Документ предлагает сюжет для последующей реализации. Он сам не меняет конфигурацию существ, боёв, наград или карты в проекте."
   },
   "conditions": {
@@ -8403,7 +8485,8 @@
     "jewelry": "data/jewelry.json",
     "skills": "data/skills.json",
     "baseActions": "data/base-figures.json",
-    "balance": "data/combat-balance.json"
+    "balance": "data/combat-balance.json",
+    "mapPoints": "data/map-points.json"
   },
   "speakers": {
     "convoy-driver": {
@@ -8705,10 +8788,55 @@
       },
       "portraitSide": "right",
       "facing": "left"
+    },
+    "saved-guest": {
+      "name": "Спасённый постоялец",
+      "portrait": {
+        "kind": "character",
+        "id": "saved-guest"
+      },
+      "portraitSide": "right",
+      "facing": "left"
+    },
+    "townsperson": {
+      "name": "Горожанин",
+      "portrait": {
+        "kind": "character",
+        "id": "townsperson"
+      },
+      "portraitSide": "right",
+      "facing": "left"
+    },
+    "inn-maid": {
+      "name": "Служанка",
+      "portrait": {
+        "kind": "character",
+        "id": "inn-maid"
+      },
+      "portraitSide": "right",
+      "facing": "left"
+    },
+    "shelter-attendant": {
+      "name": "Служитель",
+      "portrait": {
+        "kind": "character",
+        "id": "shelter-attendant"
+      },
+      "portraitSide": "right",
+      "facing": "left"
+    },
+    "market-trader": {
+      "name": "Торговец",
+      "portrait": {
+        "kind": "character",
+        "id": "market-trader"
+      },
+      "portraitSide": "right",
+      "facing": "left"
     }
   },
   "engineContract": {
-    "status": "adapterRequired",
+    "status": "implemented",
     "runtimeFormat": "authoringInstructionsNotExecutable",
     "references": {
       "journey": "src/game/journey/journey.ts",
@@ -8732,17 +8860,56 @@
     "introductoryPolicy": "firstMapEmptyEquipment; introductoryCreatureFiguresWhenAvailable; neverSubstituteStorySpeciesToSatisfyRandomPool",
     "stateStorage": {
       "requiredField": "Game.story",
-      "implemented": false,
-      "saveMigrationRequired": true
+      "implemented": true,
+      "saveMigrationRequired": false,
+      "policy": "mobileVersion6; removeRecognizedOlderHeroesOnStartup; noLegacyMode"
     },
     "fillTracking": {
       "event": "successfulAttributeUpgrade",
       "amount": "actualSpentShards",
       "atomicWithUpgrade": true,
-      "implemented": false
+      "implemented": true
     },
-    "mapArtwork": "existing backgrounds are generic; they do not assert a bespoke city, swamp or burial-site illustration",
+    "mapArtwork": "mobile: chapter.mapBinding.mapId; retain on defeat and revisits. Browser integration remains separate.",
     "campaignCompletion": "allThreeEndingsTerminal; doNotStartExpedition7; dutyDisablesAttractorUpgrades",
-    "runtimeExport": "rejectInstructionsUnresolvedBindingsAndMissingAdapter; neverEnableByFlippingRuntimeEnabled"
-  }
+    "runtimeExport": "rejectInstructionsUnresolvedBindingsAndMissingAdapter; neverEnableByFlippingRuntimeEnabled",
+    "clients": {
+      "mobile": {
+        "adapter": "mobile/game/campaign.gd",
+        "compiledBy": "tools/compile-story.py",
+        "sourceGraph": "data/story-preview.json",
+        "rules": "data/story-gameplay.json"
+      },
+      "browser": {
+        "status": "notIntegrated"
+      }
+    }
+  },
+  "resolvedBindings": [
+    {
+      "id": "voiceAndFillThresholds",
+      "reason": "Сценарий не задаёт начальное наполнение и числовые пороги.",
+      "resolvedIn": "data/story-gameplay.json#/voice"
+    },
+    {
+      "id": "storyRewardAmounts",
+      "reason": "Суммы и подбор предметов должны быть согласованы с балансом; повторная выдача запрещена.",
+      "resolvedIn": "data/story-gameplay.json#/storyRewards"
+    },
+    {
+      "id": "optionalActivityBenefits",
+      "reason": "Польза лечебницы, рынка и дополнительных занятий ещё не определена.",
+      "resolvedIn": "data/story-gameplay.json#/activities"
+    },
+    {
+      "id": "storyActionGraph",
+      "reason": "Авторские инструкции ещё должны быть преобразованы в граф с явными границами условий, событий, наград и необязательных разговоров; runtime-экспорт запрещён.",
+      "resolvedIn": "tools/compile-story.py + data/story-preview.json"
+    },
+    {
+      "id": "engineAdapter",
+      "reason": "Нужны адаптер встреч и остановок, хранение сюжетного состояния, учёт наполнения, воспроизведение окон и завершение кампании. engineContract перечисляет точки подключения.",
+      "resolvedIn": "mobile/game/campaign.gd + mobile/game/session.gd"
+    }
+  ]
 }

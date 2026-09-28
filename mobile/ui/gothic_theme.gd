@@ -6,6 +6,15 @@ const BUTTON = preload("res://content/ui/button-slate-v1.png")
 static var cropped: Dictionary = {}
 static var regions: Dictionary = {}
 
+static func button_text_size(design_size: float = 18) -> int:
+	return maxi(10, roundi(design_size * 0.85))
+
+static func fit_button_text(button: Button, width: float, design_size: float = 18):
+	var fitted = button_text_size(design_size)
+	var available = width - button.get_theme_stylebox("normal").get_minimum_size().x
+	while fitted > 10 and button.get_theme_font("font").get_string_size(button.text, HORIZONTAL_ALIGNMENT_LEFT, -1, fitted).x > available: fitted -= 1
+	button.add_theme_font_size_override("font_size", fitted)
+
 static func visible_region(texture: Texture2D) -> Rect2i:
 	var key = texture.get_instance_id()
 	if not regions.has(key):
@@ -47,7 +56,8 @@ static func make(data) -> Theme:
 	for kind in ["Label", "Button", "LineEdit", "CheckButton", "RichTextLabel"]:
 		theme.set_color("font_color" if kind != "RichTextLabel" else "default_color", kind, data.color("text-primary"))
 	theme.set_font("font", "Button", DISPLAY_FONT)
-	theme.set_font_size("font_size", "Button", 18)
+	theme.set_font_size("font_size", "Button", button_text_size())
+	theme.set_font_size("font_size", "CheckButton", button_text_size())
 	var texture_region = visible_region(BUTTON)
 	for state in ["normal", "hover", "pressed", "disabled"]:
 		var style = StyleBoxTexture.new()

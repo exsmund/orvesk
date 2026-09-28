@@ -10,12 +10,16 @@ import {
   portrait,
 } from "@/game/characters/portraits";
 
-test("35 unique portrait options are backed by public image files", async () => {
-  assert.equal(PORTRAITS.length, 35);
+test("25 unique portrait options use only the current hero series", async () => {
+  assert.equal(PORTRAITS.length, 25);
+  assert.equal(
+    PORTRAITS.filter((p) => p.src.startsWith("/portraits/heroes-v2/")).length,
+    25,
+  );
   assert.equal(new Set(PORTRAITS.map((p) => p.id)).size, PORTRAITS.length);
   assert.equal(new Set(PORTRAITS.map((p) => p.src)).size, PORTRAITS.length);
   for (const p of PORTRAITS) {
-    assert.match(p.src, /^\/portraits\/character-[a-z0-9-]+\.png$/);
+    assert.match(p.src, /^\/portraits\/heroes-v2\/character-[a-z0-9-]+\.png$/);
     await access(new URL(`../../public${p.src}`, import.meta.url));
   }
 });
@@ -41,11 +45,14 @@ test("unknown IDs and path injection are rejected; old saves get a display fallb
     "../../refs/image1.png",
     "/portraits/other.png",
     "fake",
+    "character-01-ash",
+    "character-35-lichen",
     17,
     null,
   ])
     assert.equal(isPortraitId(bad), false);
   assert.throws(() => createGame("Лицо", () => 0.5, "fake"), /портрет/);
+  assert.equal(portrait("character-01-ash").id, DEFAULT_PORTRAIT_ID);
   const game = createGame("Старый");
   delete game.player.portraitId;
   assert.equal(portrait(game.player.portraitId).id, DEFAULT_PORTRAIT_ID);

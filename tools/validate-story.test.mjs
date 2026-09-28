@@ -1,3 +1,4 @@
+import { validateMapPoints } from './validate-map-points.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -61,4 +62,39 @@ test('dialogue punctuation and cargo secrecy are protected', () => {
   rejects(s=>{s.defeat.selection.second.when={eq:['deathReveals',1]};}, /requires cargo knowledge/);
   rejects(s=>{s.defeat.selection.random.variants[0].when={all:[]};}, /requires cargo knowledge/);
   rejects(s=>{s.scenes['1.2'].script.find(b=>b.id==='1.2.cargo-explanation').effects=[];}, /Missing cargo knowledge effect/);
+});
+
+
+test('story map point types and activity labels remain synchronized', () => {
+  rejects(s => { delete s.chapters[0].stages[0].mapPointType; }, /Wrong combat map point type/);
+  rejects(s => { s.chapters[0].stages[1].activities[0].mapPointType = 'missing'; }, /Unknown activity map point type/);
+  rejects(s => { s.chapters[0].stages[1].activities[0].label = 'Рынок'; }, /Wrong activity map point label/);
+});
+
+
+test('map catalog rejects duplicate IDs, missing images and broken preview links', () => {
+  const catalog = () => JSON.parse(readFileSync(resolve(root, 'data/map-points.json'), 'utf8'));
+  let c = catalog(); c.points[1].id = c.points[0].id;
+  assert.ok(validateMapPoints(root, undefined, c).errors.some(e => /Duplicate map point ID/.test(e)));
+  c = catalog(); c.points[0].icon.src = '/ui/map-points/v1/missing.png';
+  assert.ok(validateMapPoints(root, undefined, c).errors.some(e => /Missing map point image/.test(e)));
+  const preview = JSON.parse(readFileSync(resolve(root, 'data/story-preview.json'), 'utf8'));
+  preview.nodes['1.2.activity.campfire'].mapPointType = 'market';
+  assert.ok(validateMapPoints(root, undefined, undefined, preview).errors.some(e => /Preview map point mismatch/.test(e)));
+});
+
+
+test('chapter artwork is fixed, valid and synchronized with the preview', () => {
+  rejects(s => { delete s.chapters[0].mapBinding.mapId; }, /Missing or unknown map/);
+  rejects(s => { s.chapters[0].mapBinding.mapId = 'missing'; }, /Missing or unknown map/);
+  rejects(s => { s.chapters[0].mapBinding.selection = 'existingJourneyMapSelection'; }, /requires fixed map binding/);
+  rejects(s => { s.chapters[0].mapBinding.mapId = s.chapters[1].mapBinding.mapId; }, /Preview chapter map mismatch/);
+});
+
+
+test('integrated map catalog requires an existing adapter and rules', () => {
+  const catalog=JSON.parse(readFileSync(resolve(root,'data/map-points.json'),'utf8'));
+  assert.deepEqual(validateMapPoints(root,undefined,catalog).errors,[]);
+  catalog.integration.adapter='mobile/missing.gd';
+  assert.ok(validateMapPoints(root,undefined,catalog).errors.some(e=>/implemented adapter/.test(e)));
 });

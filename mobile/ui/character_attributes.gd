@@ -11,6 +11,7 @@ var baseline: Dictionary
 var initial_shards: int
 var divider = preload("res://ui/textured_divider.gd").new()
 var locked = false
+var locked_reason = ""
 signal applied
 
 func configure(owner_ui):
@@ -19,7 +20,8 @@ func configure(owner_ui):
 	divider.configure(host.data)
 	baseline = host.session.game.player.stats.duplicate(true)
 	initial_shards = int(host.session.game.souls)
-	locked = host.session.game.phase == "combat"
+	locked_reason = host.session.attribute_quote({}).error
+	locked = not locked_reason.is_empty()
 	canvas.add_child(shards)
 	canvas.add_child(price)
 	shards.alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -33,9 +35,10 @@ func configure(owner_ui):
 		entry.configure(host.data, host.data.STAT_NAMES[stat], locked)
 		entry.changed.connect(func(delta): change(stat, delta))
 		rows[stat] = entry
-	warning = label("", 17)
+	warning = preload("res://ui/action_hint.gd").new()
+	canvas.add_child(warning)
+	warning.configure(host.data)
 	warning.size = Vector2(336, 62)
-	warning.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	canvas.add_child(confirm)
 	confirm.text = "Подтвердить"
 	confirm.pressed.connect(commit)
@@ -58,7 +61,7 @@ func refresh():
 	for stat in rows:
 		rows[stat].refresh(int(baseline[stat]), int(pending.get(stat, 0)), quote.remaining >= quote.nextCost and not quote.error)
 	confirm.disabled = locked or quote.points == 0 or not quote.error.is_empty()
-	if locked: warning.text = "Недоступно во время боя"
+	if locked: warning.text = locked_reason
 	arrange()
 
 func commit():
@@ -87,13 +90,13 @@ func layout_content():
 		put(shards, 40, 2, 280, 46)
 		put(price, 376, 7, 304, 38)
 		for i in host.data.STATS.size(): put(rows[host.data.STATS[i]], 2 + (i % 2) * 360,  60 + (i / 2) * 78, 356, 70)
-		put(divider, 8, 220, 704, divider.THICKNESS)
-		put(warning, 12, 234, 336, 76)
-		put(confirm, 382, 247, 316, ACTION_HEIGHT)
+		put(divider, 2, 57, 716, divider.THICKNESS)
+		put(warning, 180, 217, 360, 36)
+		put(confirm, 202, 254, 316, ACTION_HEIGHT)
 	else:
 		put(shards, 8, 8, 344, 52)
 		put(price, 8, 60, 344, 36)
 		for i in host.data.STATS.size(): put(rows[host.data.STATS[i]], 4, 114 + i * 77, 352, 68)
-		put(divider, 8, 429, 344, divider.THICKNESS)
-		put(warning, 12, 438, 336, 62)
+		put(divider, 4, 111, 352, divider.THICKNESS)
+		put(warning, 12, 473, 336, 36)
 		put(confirm, 18, 512, 324, ACTION_HEIGHT)

@@ -1,0 +1,40 @@
+{
+  "date": "2026-09-27",
+  "catalogPresets": 8,
+  "newLocations": [
+    "ravaged-lands",
+    "perevalets",
+    "mire",
+    "warlands",
+    "limestone-valley"
+  ],
+  "assetRequests": 16,
+  "allAssetRequestsSucceeded": true,
+  "desktopSize": [
+    1080,
+    880
+  ],
+  "mobileSize": [
+    320,
+    900
+  ],
+  "iconSizes": [
+    48,
+    64,
+    96
+  ],
+  "mobileHorizontalOverflow": false,
+  "backgroundSelector": true,
+  "pageErrors": [],
+  "visualReview": "Reviewed all ten original images and all five new maps with icons: terrain recognizable, shared frames remain readable on dark marsh water and pale limestone.",
+  "originalsPreserved": true,
+  "mobileCopiesVerified": 10,
+  "godotImport": "Not run: Godot executable was not found.",
+  "checks": {
+    "storyValidator": "passed",
+    "storyUnitTests": 13,
+    "storyPreviewTests": 19,
+    "journeyTests": 29,
+    "sharedTypes": "passed"
+  }
+}

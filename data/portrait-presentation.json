@@ -1,0 +1,5 @@
+{
+  "source": "docs/ART_DIRECTION.md#единое-положение-головы",
+  "rectangle": {"fit": "contain"},
+  "circle": {"fit": "cover", "position": {"x": 0.5, "y": 0.25}}
+}

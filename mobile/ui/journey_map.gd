@@ -22,9 +22,7 @@ func configure(controller):
 	arrange()
 
 func icon_for(node: Dictionary) -> Texture2D:
-	var kind = node.kind
-	if kind == "fight": kind = "champion" if node.stage == 5 else "battle"
-	return GothicTheme.trim_texture(host.data.image("/ui/journey/%s-v1.png" % kind))
+	return host.data.image(host.data.point_for_node(node).get("icon", {}).get("src", ""))
 
 func point(node: Dictionary) -> Vector2:
 	var inset = radius + 5
@@ -32,13 +30,14 @@ func point(node: Dictionary) -> Vector2:
 
 func arrange():
 	if not host or not is_inside_tree(): return
-	radius = clampf(minf(size.x / 12, size.y / 19), 22, 32)
+	radius = clampf(minf(size.x / 12, size.y / 19), host.data.map_points.presentation.minimumDisplaySize / 2.0, 32)
 	var available = host.session.available_nodes()
 	for node in host.session.game.journey.map.nodes:
 		var marker = markers[node.id]
 		marker.position = point(node) - Vector2.ONE * radius
 		marker.size = Vector2.ONE * radius * 2
-		marker.modulate = Color.WHITE if node.id == selected or node.id in available or node.id in host.session.game.journey.path else Color(0.6, 0.6, 0.55)
+		# State is drawn outside the canonical icon, never by darkening the artwork.
+		marker.modulate = Color.WHITE
 	queue_redraw()
 
 func _draw():

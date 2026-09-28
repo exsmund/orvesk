@@ -4,6 +4,11 @@ signal continue_requested(id: String)
 signal create_requested
 signal heroes_requested
 signal settings_requested
+signal bestiary_requested
+signal equipment_requested
+signal map_requested
+const Flags = preload("res://game/feature_flags.gd")
+const GothicTheme = preload("res://ui/gothic_theme.gd")
 const DISPLAY_FONT = preload("res://content/fonts/Prata-Regular.ttf")
 var kicker = Label.new()
 var title = Label.new()
@@ -13,7 +18,7 @@ var divider: GradientTexture2D
 var divider_color: Color
 var layout_queued = false
 
-func configure(data, latest: Dictionary, failed: bool):
+func configure(data, latest: Dictionary, failed: bool, has_hero: bool = false):
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	for node in [kicker, title, status]:
@@ -34,6 +39,12 @@ func configure(data, latest: Dictionary, failed: bool):
 	add_action("Новая игра", func(): create_requested.emit(), data)
 	add_action("Герои", func(): heroes_requested.emit(), data)
 	add_action("Настройки", func(): settings_requested.emit(), data)
+	if Flags.enabled(Flags.DEBUG_TOOLS):
+		add_action("Бестиарий", func(): bestiary_requested.emit(), data)
+		add_action("Экипировка", func(): equipment_requested.emit(), data)
+		var jump = add_action("Перейти карту…", func(): map_requested.emit(), data)
+		jump.disabled = not has_hero
+		if not has_hero: jump.tooltip_text = "Сначала начните или продолжите игру"
 	divider_color = data.color("text-muted")
 	divider = GradientTexture2D.new()
 	divider.width = 256
@@ -70,6 +81,7 @@ func add_action(text: String, callback: Callable, data):
 	node.pressed.connect(callback)
 	add_child(node)
 	menu_buttons.append(node)
+	return node
 
 func arrange():
 	layout_queued = false
@@ -83,10 +95,16 @@ func arrange():
 	var button_size = clampi(int(size.x * 0.092), 32, 54)
 	var button_width = minf(size.x * 0.92, 460)
 	var button_height = maxf(58, button_size * 1.55)
+	var menu_top = maxf(title.position.y + title.size.y + 30, size.y * 0.36)
+	var menu_step = (size.y * 0.89 - menu_top) / maxf(1, menu_buttons.size())
+	if menu_buttons.size() > 4:
+		button_height = minf(button_height, menu_step - 6)
+		button_size = mini(button_size, int(button_height / 1.55))
 	for i in menu_buttons.size():
 		var node = menu_buttons[i]
-		node.add_theme_font_size_override("font_size", button_size)
+		GothicTheme.fit_button_text(node, button_width, button_size)
 		var center = lerpf(0.435, 0.80, float(i) / (menu_buttons.size() - 1)) * size.y
+		if menu_buttons.size() > 4: center = menu_top + menu_step * (i + 0.5)
 		node.position = Vector2((size.x - button_width) / 2, center - button_height / 2)
 		node.size = Vector2(button_width, button_height)
 	status.position = Vector2(0, size.y * 0.92)

@@ -60,6 +60,11 @@ func configure(catalog, renderer, presenter, definition: Dictionary):
 	text(entry.description, 14, false, true)
 	text(entry.metadata, 15, false, true)
 	separator()
+	if entry.has("stats"):
+		text("Базовый профиль без экипировки", 15, false, true)
+		text("Здоровье: %s · Выносливость: %s" % [presenter.number(data.max_hp(entry.fighter)), presenter.number(data.balance.stamina.max)], 15)
+		for stat in data.STATS:
+			text("%s: %d" % [data.STAT_NAMES[stat], entry.stats[stat]], 15)
 	if not entry.requirements.is_empty():
 		text("Требования", 15, false, true)
 		for stat in entry.requirements:

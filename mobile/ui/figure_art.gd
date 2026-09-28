@@ -1,5 +1,6 @@
 extends RefCounted
 ## Shared canvas renderer for the hand, board layers and full-size drag ghost.
+const CELL_GAP = 3.0
 var data
 var combat
 var textures: Dictionary = {}
@@ -28,6 +29,9 @@ func bounds(points_list: Array) -> Vector2:
 	var extent = Vector2.ONE
 	for point in points_list: extent = extent.max(point + Vector2.ONE)
 	return extent
+
+func pixel_extent(points_list: Array, pitch: float) -> Vector2:
+	return bounds(points_list) * pitch - Vector2.ONE * CELL_GAP
 
 func box(bg: String, border: String, radius: int = 3) -> StyleBoxFlat:
 	var style = StyleBoxFlat.new()
@@ -98,7 +102,7 @@ func piece(canvas: CanvasItem, card: Dictionary, fighter: Dictionary, rotation: 
 	var hp = damage(fighter, card) * card.shape.size() / cells.size()
 	var stamina = card.get("staminaDamagePerCell", 0) * float(card.shape.size()) / cells.size()
 	for point in cells:
-		var rect = Rect2(origin + point * pitch, Vector2.ONE * (pitch - 3))
+		var rect = Rect2(origin + point * pitch, Vector2.ONE * (pitch - CELL_GAP))
 		canvas.draw_texture_rect(tile, rect, false)
 		canvas.draw_style_box(outline("border-action-figures-2" if selected else "border-action-figures"), rect.grow(-1))
 		source(canvas, rect.grow(-2), card)

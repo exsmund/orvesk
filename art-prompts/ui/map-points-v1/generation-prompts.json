@@ -1,0 +1,161 @@
+{
+  "generator": "builtin",
+  "date": "2026-09-27",
+  "transparentBackground": true,
+  "referenceReview": [
+    "docs/ART_DIRECTION.md",
+    "docs/MAP_ART_DIRECTION.md",
+    "refs/image1.png",
+    "refs/image2.png",
+    "refs/image3.png",
+    "public/ui/journey/maps/forest-v3.png",
+    "public/ui/journey/maps/steppe-v3.png",
+    "public/ui/journey/maps/ruins-v3.png"
+  ],
+  "assembly": "Unchanged generated PNG layers composed by browser UI: opaque circular CSS backing from presentation.backing, shared frame at 100%, symbol box from data/map-points.json; transparent element screenshot at 512px. No repainting or independent frame generation per type.",
+  "outputs": [
+    {
+      "id": "frame",
+      "name": "Общая рамка",
+      "subject": "A single empty perfectly circular dark fantasy game map medallion base, straight-on view. Circular outer edge fits inside 90 percent of a square canvas, perfectly centered. Continuous thick aged pale silver pewter rim with a very subtle warm bronze inner lip, only four small embedded rivets at cardinal directions, all INSIDE the circle: no spikes, no crest. Bright continuous outer bevel visibly separates the dark nearly black outline from a map. Inside disk is solid opaque near-black charcoal #111513 with faint matte hammered iron texture, extremely calm and evenly dark, no emblem. Evenly round geometry. Top-front-left key light. Transparent outside the circle. No symbol, text, hole, cutout inside, letters, numerals, jewels or ornate decorations. Designed to remain readable as 48px UI. Render at 1024x1024.",
+      "prompt": "Use case: stylized-concept. Asset type: shared backing and frame for game map point icons. A single empty perfectly circular dark fantasy game map medallion base, straight-on view. Circular outer edge fits inside 90 percent of a square canvas, perfectly centered. Continuous thick aged pale silver pewter rim with a very subtle warm bronze inner lip, only four small embedded rivets at cardinal directions, all INSIDE the circle: no spikes, no crest. Bright continuous outer bevel visibly separates the dark nearly black outline from a map. Inside disk is solid opaque near-black charcoal #111513 with faint matte hammered iron texture, extremely calm and evenly dark, no emblem. Evenly round geometry. Top-front-left key light. Transparent outside the circle. No symbol, text, hole, cutout inside, letters, numerals, jewels or ornate decorations. Designed to remain readable as 48px UI. Render at 1024x1024.",
+      "original": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-4ebd7a3c-6fe8-4500-bd2c-6fa9c349f925.png",
+      "destination": "public/ui/map-points/v1/frame.png",
+      "sha256": "6c416d408aa420ecfe9b20f3b0bc17b19a97f84c7f88436d222e8f42c2d98f36",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "id": "combat",
+      "name": "Бой",
+      "subject": "Two broad short medieval steel blades crossed in a bold X, old ivory-silver metal with very dark worn handles. Simple thick readable silhouette, only two objects, no hands, no blood.",
+      "prompt": "Use case: stylized-concept. Asset type: foreground symbol for a layered circular map-point badge in the dark gothic fantasy game Heroes of Orvesk. Generate ONE separate square PNG with genuine alpha transparency, 1024x1024. Symbol only: absolutely NO frame, medallion, disk, circle, landscape, background, text, letters or numerals. The UI will put this over a shared near-black round disk and rim later. Occupy about 78 percent of canvas with generous clear margins. Bright aged ivory and pale silver main masses, graphite deepest shadows, very restrained warm bronze or sage accent as specified. Sculptural fantasy painted realism, crisp big shapes, minimal coarse weathering, upper-front-left lighting, no fine ornamental clutter. Readable at 32 pixels symbol size, not a detailed miniature scene. Whole object completely inside canvas, centered and balanced. No floor shadow or rectangular glow. Subject: Two broad short medieval steel blades crossed in a bold X, old ivory-silver metal with very dark worn handles. Simple thick readable silhouette, only two objects, no hands, no blood.",
+      "original": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-4fd6a30b-d4dd-4622-b080-18b2426e8580.png",
+      "destination": "public/ui/map-points/v1/symbols/combat.png",
+      "sha256": "b1f915d34aa9f7a67b785ad33a480d031a3d7762730af4cd2d364ab2f7073873",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "id": "boss",
+      "name": "Босс",
+      "subject": "One imposing aged ivory skull with a low dark iron crown of three broad triangular points, compact bold symmetric silhouette. Stylized sculptural old fantasy relief, no blood, no jaw hanging, no weapons.",
+      "prompt": "Use case: stylized-concept. Asset type: foreground symbol for a layered circular map-point badge in the dark gothic fantasy game Heroes of Orvesk. Generate ONE separate square PNG with genuine alpha transparency, 1024x1024. Symbol only: absolutely NO frame, medallion, disk, circle, landscape, background, text, letters or numerals. The UI will put this over a shared near-black round disk and rim later. Occupy about 78 percent of canvas with generous clear margins. Bright aged ivory and pale silver main masses, graphite deepest shadows, very restrained warm bronze or sage accent as specified. Sculptural fantasy painted realism, crisp big shapes, minimal coarse weathering, upper-front-left lighting, no fine ornamental clutter. Readable at 32 pixels symbol size, not a detailed miniature scene. Whole object completely inside canvas, centered and balanced. No floor shadow or rectangular glow. Subject: One imposing aged ivory skull with a low dark iron crown of three broad triangular points, compact bold symmetric silhouette. Stylized sculptural old fantasy relief, no blood, no jaw hanging, no weapons.",
+      "original": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-12dbf226-258d-4427-8023-53236ed99852.png",
+      "destination": "public/ui/map-points/v1/symbols/boss.png",
+      "sha256": "b0e5115300949ee9a13128b8e5ff31dd8a9227fefd3e61e4eb777e84cef4c99a",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "id": "campfire",
+      "name": "Костёр",
+      "subject": "A compact campfire: one large ivory-yellow to warm amber flame above two chunky crossed charred logs, broad distinct flame silhouette. No sparks scattered around or ground.",
+      "prompt": "Use case: stylized-concept. Asset type: foreground symbol for a layered circular map-point badge in the dark gothic fantasy game Heroes of Orvesk. Generate ONE separate square PNG with genuine alpha transparency, 1024x1024. Symbol only: absolutely NO frame, medallion, disk, circle, landscape, background, text, letters or numerals. The UI will put this over a shared near-black round disk and rim later. Occupy about 78 percent of canvas with generous clear margins. Bright aged ivory and pale silver main masses, graphite deepest shadows, very restrained warm bronze or sage accent as specified. Sculptural fantasy painted realism, crisp big shapes, minimal coarse weathering, upper-front-left lighting, no fine ornamental clutter. Readable at 32 pixels symbol size, not a detailed miniature scene. Whole object completely inside canvas, centered and balanced. No floor shadow or rectangular glow. Subject: A compact campfire: one large ivory-yellow to warm amber flame above two chunky crossed charred logs, broad distinct flame silhouette. No sparks scattered around or ground.",
+      "original": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-52e16e4b-9f51-4a39-acd6-ad00b83837ef.png",
+      "destination": "public/ui/map-points/v1/symbols/campfire.png",
+      "sha256": "86f0ded72a0c059aa7bbede2376ec57182ecd5b44b70f71d8dc14969c4bc6a63",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "id": "forge",
+      "name": "Кузница",
+      "subject": "A heavy old silver-gray blacksmith anvil in side view with a single broad hammer angled over it, pale lit surfaces. Compact easily recognized silhouette, no sparks or scenery.",
+      "prompt": "Use case: stylized-concept. Asset type: foreground symbol for a layered circular map-point badge in the dark gothic fantasy game Heroes of Orvesk. Generate ONE separate square PNG with genuine alpha transparency, 1024x1024. Symbol only: absolutely NO frame, medallion, disk, circle, landscape, background, text, letters or numerals. The UI will put this over a shared near-black round disk and rim later. Occupy about 78 percent of canvas with generous clear margins. Bright aged ivory and pale silver main masses, graphite deepest shadows, very restrained warm bronze or sage accent as specified. Sculptural fantasy painted realism, crisp big shapes, minimal coarse weathering, upper-front-left lighting, no fine ornamental clutter. Readable at 32 pixels symbol size, not a detailed miniature scene. Whole object completely inside canvas, centered and balanced. No floor shadow or rectangular glow. Subject: A heavy old silver-gray blacksmith anvil in side view with a single broad hammer angled over it, pale lit surfaces. Compact easily recognized silhouette, no sparks or scenery.",
+      "original": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-c0b6b85a-78a1-4d94-90a2-6c09d6b69fef.png",
+      "destination": "public/ui/map-points/v1/symbols/forge.png",
+      "sha256": "6657c868bc60fdc25335a508db00b8cdbe7046f131e1c1a7ff968deb866c4f0b",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "id": "healer",
+      "name": "Лечебница",
+      "subject": "A broad pale worn stone apothecary mortar with a short pestle diagonally inside and two large muted sage leaves at one side. Big clear bowl silhouette, no vials, crosses or medical logos.",
+      "prompt": "Use case: stylized-concept. Asset type: foreground symbol for a layered circular map-point badge in the dark gothic fantasy game Heroes of Orvesk. Generate ONE separate square PNG with genuine alpha transparency, 1024x1024. Symbol only: absolutely NO frame, medallion, disk, circle, landscape, background, text, letters or numerals. The UI will put this over a shared near-black round disk and rim later. Occupy about 78 percent of canvas with generous clear margins. Bright aged ivory and pale silver main masses, graphite deepest shadows, very restrained warm bronze or sage accent as specified. Sculptural fantasy painted realism, crisp big shapes, minimal coarse weathering, upper-front-left lighting, no fine ornamental clutter. Readable at 32 pixels symbol size, not a detailed miniature scene. Whole object completely inside canvas, centered and balanced. No floor shadow or rectangular glow. Subject: A broad pale worn stone apothecary mortar with a short pestle diagonally inside and two large muted sage leaves at one side. Big clear bowl silhouette, no vials, crosses or medical logos.",
+      "original": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-3af53746-5bc6-494b-b4c2-eaec9eb71fe1.png",
+      "destination": "public/ui/map-points/v1/symbols/healer.png",
+      "sha256": "c1e0a4af29f78854a1a6ea5b28873e598bb3ac05dd841c7e24091db21dea42fe",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "id": "market",
+      "name": "Рынок",
+      "subject": "One tiny medieval merchant stall emblem: a simple broad ivory linen awning with three scallops over two chunky dark wooden posts and one counter. Minimal bold silhouette, empty counter, no lettering, wares or scene.",
+      "prompt": "Use case: stylized-concept. Asset type: foreground symbol for a layered circular map-point badge in the dark gothic fantasy game Heroes of Orvesk. Generate ONE separate square PNG with genuine alpha transparency, 1024x1024. Symbol only: absolutely NO frame, medallion, disk, circle, landscape, background, text, letters or numerals. The UI will put this over a shared near-black round disk and rim later. Occupy about 78 percent of canvas with generous clear margins. Bright aged ivory and pale silver main masses, graphite deepest shadows, very restrained warm bronze or sage accent as specified. Sculptural fantasy painted realism, crisp big shapes, minimal coarse weathering, upper-front-left lighting, no fine ornamental clutter. Readable at 32 pixels symbol size, not a detailed miniature scene. Whole object completely inside canvas, centered and balanced. No floor shadow or rectangular glow. Subject: One tiny medieval merchant stall emblem: a simple broad ivory linen awning with three scallops over two chunky dark wooden posts and one counter. Minimal bold silhouette, empty counter, no lettering, wares or scene.",
+      "original": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-7a961dce-71e0-4541-bb9c-47820b60ac1a.png",
+      "destination": "public/ui/map-points/v1/symbols/market.png",
+      "sha256": "d9a6e8a5d1d502df5e27b819e46317799169c66a59c9e861ff7563135f8f1db9",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "id": "square",
+      "name": "Площадь",
+      "subject": "A single pale weathered stone town bell arch with one large bronze bell inside, front view. Thick squared stone base and one rounded arch, compact monolithic silhouette. No town, stairs or landscape.",
+      "prompt": "Use case: stylized-concept. Asset type: foreground symbol for a layered circular map-point badge in the dark gothic fantasy game Heroes of Orvesk. Generate ONE separate square PNG with genuine alpha transparency, 1024x1024. Symbol only: absolutely NO frame, medallion, disk, circle, landscape, background, text, letters or numerals. The UI will put this over a shared near-black round disk and rim later. Occupy about 78 percent of canvas with generous clear margins. Bright aged ivory and pale silver main masses, graphite deepest shadows, very restrained warm bronze or sage accent as specified. Sculptural fantasy painted realism, crisp big shapes, minimal coarse weathering, upper-front-left lighting, no fine ornamental clutter. Readable at 32 pixels symbol size, not a detailed miniature scene. Whole object completely inside canvas, centered and balanced. No floor shadow or rectangular glow. Subject: A single pale weathered stone town bell arch with one large bronze bell inside, front view. Thick squared stone base and one rounded arch, compact monolithic silhouette. No town, stairs or landscape.",
+      "original": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-2840fbc3-a3e1-4378-805e-5f8647a569ac.png",
+      "destination": "public/ui/map-points/v1/symbols/square.png",
+      "sha256": "d618d919e5f4675496b5e234673019308a01da5f919e75c52b96a056c6d36cbc",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "id": "tavern",
+      "name": "Таверна",
+      "subject": "One chunky old pewter tankard in three-quarter view with a large unmistakable curved handle on the right and tiny ivory rim of foam, high relief silver metal. No other objects.",
+      "prompt": "Use case: stylized-concept. Asset type: foreground symbol for a layered circular map-point badge in the dark gothic fantasy game Heroes of Orvesk. Generate ONE separate square PNG with genuine alpha transparency, 1024x1024. Symbol only: absolutely NO frame, medallion, disk, circle, landscape, background, text, letters or numerals. The UI will put this over a shared near-black round disk and rim later. Occupy about 78 percent of canvas with generous clear margins. Bright aged ivory and pale silver main masses, graphite deepest shadows, very restrained warm bronze or sage accent as specified. Sculptural fantasy painted realism, crisp big shapes, minimal coarse weathering, upper-front-left lighting, no fine ornamental clutter. Readable at 32 pixels symbol size, not a detailed miniature scene. Whole object completely inside canvas, centered and balanced. No floor shadow or rectangular glow. Subject: One chunky old pewter tankard in three-quarter view with a large unmistakable curved handle on the right and tiny ivory rim of foam, high relief silver metal. No other objects.",
+      "original": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-679e50f9-0b33-41d2-886f-fafc3279ceff.png",
+      "destination": "public/ui/map-points/v1/symbols/tavern.png",
+      "sha256": "e91fe7958bc934c08f6adc831a0bb10a37d7efc0dd241e675237e97e3e6600da",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "id": "forest-meeting",
+      "name": "Лесная встреча",
+      "subject": "One ancient tree emblem with thick pale gray trunk splitting into three large limbs and a compact muted sage canopy; two broad curling roots. Bold distinct tree silhouette. No human face, forest background or extra plants.",
+      "prompt": "Use case: stylized-concept. Asset type: foreground symbol for a layered circular map-point badge in the dark gothic fantasy game Heroes of Orvesk. Generate ONE separate square PNG with genuine alpha transparency, 1024x1024. Symbol only: absolutely NO frame, medallion, disk, circle, landscape, background, text, letters or numerals. The UI will put this over a shared near-black round disk and rim later. Occupy about 78 percent of canvas with generous clear margins. Bright aged ivory and pale silver main masses, graphite deepest shadows, very restrained warm bronze or sage accent as specified. Sculptural fantasy painted realism, crisp big shapes, minimal coarse weathering, upper-front-left lighting, no fine ornamental clutter. Readable at 32 pixels symbol size, not a detailed miniature scene. Whole object completely inside canvas, centered and balanced. No floor shadow or rectangular glow. Subject: One ancient tree emblem with thick pale gray trunk splitting into three large limbs and a compact muted sage canopy; two broad curling roots. Bold distinct tree silhouette. No human face, forest background or extra plants.",
+      "original": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-5b46e4fc-e91b-44af-97da-aba4bc81c98f.png",
+      "destination": "public/ui/map-points/v1/symbols/forest-meeting.png",
+      "sha256": "8da338d212c8cc85bb82c5de9f523cc206aca259ddda2a9afea508febfded0af",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "id": "fairy-meeting",
+      "name": "Встреча с феей",
+      "subject": "Three thick pale ivory roots curve upward like an open chalice, cradling one small softly luminous muted pale green wisp. Natural irregular branching root silhouette, simple compact arrangement. No humanoid fairy, wings, runes, circle or jewelry.",
+      "prompt": "Use case: stylized-concept. Asset type: foreground symbol for a layered circular map-point badge in the dark gothic fantasy game Heroes of Orvesk. Generate ONE separate square PNG with genuine alpha transparency, 1024x1024. Symbol only: absolutely NO frame, medallion, disk, circle, landscape, background, text, letters or numerals. The UI will put this over a shared near-black round disk and rim later. Occupy about 78 percent of canvas with generous clear margins. Bright aged ivory and pale silver main masses, graphite deepest shadows, very restrained warm bronze or sage accent as specified. Sculptural fantasy painted realism, crisp big shapes, minimal coarse weathering, upper-front-left lighting, no fine ornamental clutter. Readable at 32 pixels symbol size, not a detailed miniature scene. Whole object completely inside canvas, centered and balanced. No floor shadow or rectangular glow. Subject: Three thick pale ivory roots curve upward like an open chalice, cradling one small softly luminous muted pale green wisp. Natural irregular branching root silhouette, simple compact arrangement. No humanoid fairy, wings, runes, circle or jewelry.",
+      "original": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-58f4abcb-08c3-4532-83be-17a8add5a006.png",
+      "destination": "public/ui/map-points/v1/symbols/fairy-meeting.png",
+      "sha256": "c5502167c9fb5a12e4762408039bce41db2676f25c95520eb4a09f3535f2cdb3",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "id": "hermit-meeting",
+      "name": "Беседа с отшельником",
+      "subject": "An open old book emblem, broad ivory pages and dark brown binding, with one short thick beeswax candle behind its center and a tiny flame. Bold readable scholarly contemplation emblem. No letters on pages, magical glyphs, bookstand or other objects.",
+      "prompt": "Use case: stylized-concept. Asset type: foreground symbol for a layered circular map-point badge in the dark gothic fantasy game Heroes of Orvesk. Generate ONE separate square PNG with genuine alpha transparency, 1024x1024. Symbol only: absolutely NO frame, medallion, disk, circle, landscape, background, text, letters or numerals. The UI will put this over a shared near-black round disk and rim later. Occupy about 78 percent of canvas with generous clear margins. Bright aged ivory and pale silver main masses, graphite deepest shadows, very restrained warm bronze or sage accent as specified. Sculptural fantasy painted realism, crisp big shapes, minimal coarse weathering, upper-front-left lighting, no fine ornamental clutter. Readable at 32 pixels symbol size, not a detailed miniature scene. Whole object completely inside canvas, centered and balanced. No floor shadow or rectangular glow. Subject: An open old book emblem, broad ivory pages and dark brown binding, with one short thick beeswax candle behind its center and a tiny flame. Bold readable scholarly contemplation emblem. No letters on pages, magical glyphs, bookstand or other objects.",
+      "original": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-4f335512-f0d3-429a-bca5-70211058d00f.png",
+      "destination": "public/ui/map-points/v1/symbols/hermit-meeting.png",
+      "sha256": "2d43394d3221922b647905436280ccab30a7575c608301f3d8979d33d4538a9d",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "id": "aid",
+      "name": "Помощь",
+      "subject": "A single open weathered human hand palm upward, in pale warm ivory tones, gently supporting one large roll of linen bandage. Side view, compact broad silhouette; only five natural fingers. No wound, blood, body or background.",
+      "prompt": "Use case: stylized-concept. Asset type: foreground symbol for a layered circular map-point badge in the dark gothic fantasy game Heroes of Orvesk. Generate ONE separate square PNG with genuine alpha transparency, 1024x1024. Symbol only: absolutely NO frame, medallion, disk, circle, landscape, background, text, letters or numerals. The UI will put this over a shared near-black round disk and rim later. Occupy about 78 percent of canvas with generous clear margins. Bright aged ivory and pale silver main masses, graphite deepest shadows, very restrained warm bronze or sage accent as specified. Sculptural fantasy painted realism, crisp big shapes, minimal coarse weathering, upper-front-left lighting, no fine ornamental clutter. Readable at 32 pixels symbol size, not a detailed miniature scene. Whole object completely inside canvas, centered and balanced. No floor shadow or rectangular glow. Subject: A single open weathered human hand palm upward, in pale warm ivory tones, gently supporting one large roll of linen bandage. Side view, compact broad silhouette; only five natural fingers. No wound, blood, body or background.",
+      "original": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-a87c3907-5796-44b1-a9e2-b4b16b166336.png",
+      "destination": "public/ui/map-points/v1/symbols/aid.png",
+      "sha256": "f68d5eb23941774ae34518d9aed0cc7f8a890bb8fdc20fef74b2305ef0afdd02",
+      "width": 1254,
+      "height": 1254
+    }
+  ]
+}

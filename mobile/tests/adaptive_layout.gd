@@ -60,12 +60,11 @@ func run():
 	check(Layout.safe_margins(Vector2(800, 480), Rect2(0, 0, 1800, 1080), Rect2(90, 0, 1620, 1080)) == {"left": 48, "right": 48, "top": 18, "bottom": 18}, "Landscape side cutouts are respected")
 	check(Layout.safe_margins(Vector2(480, 800), Rect2(300, 0, 1080, 1800), Rect2(0, 0, 2400, 1800)) == {"left": 18, "right": 18, "top": 18, "bottom": 18}, "Window-local insets in multiwindow")
 	ui = load("res://scenes/main.tscn").instantiate()
+	ui.session = preload("res://tests/campaign_driver.gd").new(ui.data)
 	root.add_child(ui)
 	await process_frame
 	ui.show_create()
-	var name_input
-	for child in ui.content.get_children():
-		if child is LineEdit: name_input = child
+	var name_input = ui.creation_view.identity.name_input
 	name_input.text = "Имя при раскрытии"
 	name_input.text_changed.emit(name_input.text)
 	ui.create_stats.strength = 3
@@ -81,7 +80,7 @@ func run():
 	var card = ui.session.game.player.deck.hand[0]
 	ui.selected = card.id
 	ui.card_rotation = 1
-	ui.place_selected(0)
+	ui.place_card(card.id, 0, ui.card_rotation)
 	check(ui.draft.size() == 1, "Draft placed before resizing")
 	var board_before = ui.board
 	var state = JSON.stringify(ui.session.game)
@@ -93,6 +92,7 @@ func run():
 		[Vector2i(896, 800), "inner-combat", 2],
 		[Vector2i(800, 896), "inner-rotated", 2],
 		[Vector2i(1008, 432), "landscape-combat", 2],
+		[Vector2i(2240, 900), "ultrawide-combat", 2],
 		[Vector2i(320, 640), "small-window", 1],
 		[Vector2i(432, 1008), "refolded-combat", 1]
 	]:
@@ -101,7 +101,7 @@ func run():
 		check(JSON.stringify(ui.session.game) == state and ui.session.combat.rng.state == rng_state, spec[1] + ": no game/RNG mutation")
 		check(ui.draft == draft and ui.selected == card.id and ui.card_rotation == 1, spec[1] + ": draft, selection and rotation retained")
 	# Input still targets the same logical cells after a complete fold cycle.
-	ui.place_selected(0)
+	ui.remove_card(card.id)
 	check(ui.draft.is_empty(), "Can remove a figure after folding back")
 	ui.session.game.journey.battleMode = "expendable"
 	ui.confirm_finish()

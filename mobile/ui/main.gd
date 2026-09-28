@@ -12,12 +12,17 @@ const ResourceBar = preload("res://ui/resource_bar.gd")
 const CombatScreen = preload("res://ui/combat_screen.gd")
 const FigureArt = preload("res://ui/figure_art.gd")
 const CombatDetails = preload("res://ui/combat_details.gd")
+const CombatDamage = preload("res://ui/combat_damage.gd")
 const RULES_TEXT = "Размещайте карты на поле 3×3. Свои фигуры не пересекаются; фигуры противника можно перекрывать.\n\nАтака против атаки: обе наносят половину урона. Блок и уклонение отменяют входящий урон. Парирование наносит встречный удар.\n\nБлок расходует 1 силу за перекрытую клетку атаки. При первом ходе резервируется полная стоимость блока.\n\nПустое поле восстанавливает силы после удара противника, если герой выжил. Обычно каждый следующий ход даёт +2 силы.\n\nЗа победу осколки начисляются сразу. Затем получите одну награду: за более слабого противника — одно предложение, за равного или сильного — два. Предмет на вырост можно открыть и повысить нужные характеристики за осколки прямо в его карточке. У костра здоровье восстанавливается. В кузнице можно заменить предмет.\n\nИгра сохраняет каждое действие на устройстве. Интернет не требуется."
 const CharacterWindow = preload("res://ui/character_window.gd")
 const SquareButton = preload("res://ui/square_button.gd")
+const ModalDialog = preload("res://ui/modal_dialog.gd")
 const CombatReport = preload("res://ui/combat_report_dialog.gd")
 const InspectionWindow = preload("res://ui/inspection_window.gd")
 const InspectionModel = preload("res://ui/inspection_model.gd")
+const Flags = preload("res://game/feature_flags.gd")
+const DebugActions = preload("res://game/debug_actions.gd")
+const DebugCatalog = preload("res://ui/debug_catalog.gd")
 var data = Catalog.new()
 var session = Session.new(data)
 var saves = SaveStore.new()
@@ -34,7 +39,8 @@ var notice: Label
 var backdrop = TextureRect.new()
 var overlay = ColorRect.new()
 var margin = MarginContainer.new()
-var create_stats = {"strength": 1, "agility": 1, "vitality": 1, "intelligence": 1}
+var screen_frame = preload("res://ui/screen_frame.gd").new()
+var create_stats = session.initial_creation_stats()
 var create_name = ""
 var create_portrait = 0
 var board
@@ -45,8 +51,17 @@ var layout_queued = false
 var layout_timer: Timer
 var home_view
 var journey_view
+var story_view
+var victory_view
+var creation_view
+var heroes_view
 var character_window
 var inspection_window
+var debug_catalog
+var map_dialog
+var damage_feedback
+var page = VBoxContainer.new()
+var page_header_view
 var page_padding = MarginContainer.new()
 
 func _ready():
@@ -66,9 +81,13 @@ func _ready():
 	add_child(margin)
 	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	for side in ["left", "right", "top", "bottom"]: margin.add_theme_constant_override("margin_" + side, 18)
+	margin.add_child(screen_frame)
+	screen_frame.add_child(page)
+	page.add_theme_constant_override("separation", AdaptiveLayout.CONTENT_GAP)
 	scroll = ScrollContainer.new()
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	margin.add_child(scroll)
+	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	page.add_child(scroll)
 	content = VBoxContainer.new()
 	content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	content.add_theme_constant_override("separation", 12)
@@ -98,25 +117,24 @@ func queue_layout():
 	apply_layout.call_deferred()
 
 func available_content_width() -> float:
-	var gutters = margin.get_theme_constant("margin_left") + margin.get_theme_constant("margin_right")
 	var scrollbar_width = scroll.get_v_scroll_bar().get_combined_minimum_size().x if scroll.get_v_scroll_bar().visible else 0.0
-	return maxf(0, size.x - gutters - scrollbar_width)
+	return maxf(0, AdaptiveLayout.content_rect(screen_frame.size).size.x - scrollbar_width)
 
 func apply_layout():
 	layout_queued = false
 	if not is_instance_valid(content): return
 	update_safe_area()
-	var inset = maxi(0, int((scroll.size.x - 620) / 2)) if screen != "home" else 0
-	page_padding.add_theme_constant_override("margin_left", inset)
-	page_padding.add_theme_constant_override("margin_right", inset)
+	if is_instance_valid(victory_view):
+		var message_height = notice.size.y + content.get_theme_constant("separation") if notice.visible else 0
+		victory_view.custom_minimum_size.y = maxf(220, scroll.size.y - message_height)
 	if is_instance_valid(home_view):
 		home_view.custom_minimum_size.y = maxf(600, scroll.size.y - (notice.size.y + 12 if notice.visible else 0))
 	if is_instance_valid(character_window): character_window.arrange()
 	if is_instance_valid(inspection_window): inspection_window.arrange()
 	# Keep modal dialogs usable when the available window becomes narrower.
 	for child in get_children():
-		if child is AcceptDialog and child.visible:
-			child.popup_centered(Vector2i(mini(430, int(size.x) - 36), mini(child.size.y, int(size.y) - 48)))
+		if child is ModalDialog and child.visible:
+			child.arrange()
 
 func update_safe_area():
 	if OS.get_name() != "Android" or not is_instance_valid(content): return
@@ -128,23 +146,49 @@ func update_safe_area():
 
 
 func clear(title: String, subtitle: String = ""):
+	for i in range(get_child_count() - 1, -1, -1):
+		var child = get_child(i)
+		if child is ModalDialog: child.close()
+	if is_instance_valid(damage_feedback):
+		damage_feedback.queue_free()
+		damage_feedback = null
 	if is_instance_valid(inspection_window) and not busy: inspection_window.close()
 	if is_instance_valid(character_window): character_window.close()
+	if is_instance_valid(page_header_view):
+		page.remove_child(page_header_view)
+		page_header_view.queue_free()
+	page_header_view = null
 	for child in content.get_children():
 		content.remove_child(child)
 		child.queue_free()
 	board = null
 	if is_instance_valid(combat_view):
-		margin.remove_child(combat_view)
+		screen_frame.remove_child(combat_view)
 		combat_view.queue_free()
 	combat_view = null
 	if is_instance_valid(journey_view):
-		margin.remove_child(journey_view)
+		screen_frame.remove_child(journey_view)
 		journey_view.queue_free()
 	journey_view = null
+	if is_instance_valid(story_view):
+		screen_frame.remove_child(story_view)
+		story_view.queue_free()
+	story_view = null
+	if is_instance_valid(creation_view):
+		creation_view.dismiss_keyboard()
+		screen_frame.remove_child(creation_view)
+		creation_view.queue_free()
+	creation_view = null
+	if is_instance_valid(heroes_view):
+		screen_frame.remove_child(heroes_view)
+		heroes_view.queue_free()
+	heroes_view = null
+	victory_view = null
+	page.show()
 	scroll.show()
 	scroll.scroll_vertical = 0
 	home_view = null
+	debug_catalog = null
 	overlay.material = null
 	queue_layout()
 	if not title.is_empty():
@@ -195,8 +239,10 @@ func row(parent = null) -> HBoxContainer:
 	return node
 
 func message(text: String):
+	if is_instance_valid(heroes_view): heroes_view.set_notice(text)
 	if is_instance_valid(combat_view): combat_view.set_notice(text)
 	if is_instance_valid(journey_view): journey_view.set_notice(text)
+	if is_instance_valid(story_view): story_view.set_notice(text)
 	notice.text = text
 	notice.visible = not text.is_empty()
 
@@ -219,17 +265,60 @@ func act(callback: Callable) -> bool:
 		busy = false
 		return false
 	var previous_draft = draft.duplicate(true)
+	var previous_selected = selected
 	draft = []
 	selected = ""
 	if not persist():
 		session.game = previous
 		session.combat.rng.state = previous_rng
 		draft = previous_draft
+		selected = previous_selected
 		busy = false
 		return false
-	show_game()
+	present_action(previous)
 	busy = false
 	return true
+
+func present_action(previous: Dictionary):
+	var g = session.game
+	var result = g.get("log", [])
+	var resolved = previous.get("phase") == "combat" and int(g.get("round", 0)) == int(previous.get("round", 0)) + 1 and not result.is_empty() and int(result[0].round) == int(previous.get("round", 0))
+	if not resolved or not is_instance_valid(combat_view):
+		show_game()
+		return
+	var summary = result[0].summary
+	if summary.player.damage <= 0 and summary.enemy.damage <= 0:
+		show_game()
+		return
+	var ending = g.phase != "combat"
+	if ending:
+		# The saved result is already committed. Keep its avatars visible briefly
+		# so a lethal hit floats over the defeated fighter before the reward screen.
+		var snapshot = previous.duplicate(true)
+		for side in ["player", "enemy"]:
+			snapshot[side].hp = summary[side].hpAfter
+			snapshot[side].stamina = summary[side].staminaAfter
+		combat_view.header.configure(data, snapshot, animated)
+		combat_view.header.title.text = "Ход %d · Итог" % result[0].round
+		combat_view.header.layout()
+		var placed = result[0].placements
+		combat_view.board.configure(combat_view.art, session.combat.layer(snapshot.player, placed.playerPlaced, placed.playerModifiers), session.combat.layer(snapshot.enemy, placed.enemyPlaced, placed.enemyModifiers), false, snapshot.player, snapshot.enemy, placed.playerModifiers, placed.enemyModifiers)
+		combat_view.board.damage_cells = summary.cells
+		combat_view.board.queue_redraw()
+	else:
+		show_game()
+	var view = combat_view
+	if is_instance_valid(damage_feedback): damage_feedback.queue_free()
+	var feedback = CombatDamage.new()
+	damage_feedback = feedback
+	add_child(feedback)
+	feedback.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	feedback.configure(view.header, summary, data, ending)
+	feedback.finished.connect(func():
+		if damage_feedback != feedback: return
+		damage_feedback = null
+		feedback.queue_free()
+		if ending and is_instance_valid(view) and combat_view == view and screen == "game": show_game())
 
 func show_home():
 	screen = "home"
@@ -243,13 +332,94 @@ func show_home():
 	overlay.material = shading
 	var entries = saves.list_heroes()
 	home_view = HomeScreen.new()
-	home_view.configure(data, latest_hero(entries), entries.any(func(entry): return entry.payload.is_empty()))
+	home_view.configure(data, latest_hero(entries), entries.any(func(entry): return entry.payload.is_empty()), not session.game.is_empty())
 	home_view.continue_requested.connect(load_hero)
 	home_view.create_requested.connect(start_create)
 	home_view.heroes_requested.connect(show_heroes)
 	home_view.settings_requested.connect(show_settings)
+	home_view.bestiary_requested.connect(func(): show_debug_catalog(true))
+	home_view.equipment_requested.connect(func(): show_debug_catalog(false))
+	home_view.map_requested.connect(show_debug_map_dialog)
 	content.add_child(home_view)
 	scroll.scroll_vertical = 0
+
+func show_debug_catalog(creatures: bool):
+	if not Flags.enabled(Flags.DEBUG_TOOLS): return
+	screen = "bestiary" if creatures else "equipment_catalog"
+	clear("Бестиарий" if creatures else "Экипировка")
+	button("Назад", show_home)
+	debug_catalog = DebugCatalog.new()
+	content.add_child(debug_catalog)
+	debug_catalog.configure(self, creatures)
+
+func show_catalog_entry(id: String, creatures: bool):
+	if not Flags.enabled(Flags.DEBUG_TOOLS): return
+	if data.lookup(data.creatures if creatures else data.items, id).is_empty(): return
+	var baseline = session.fighter("Базовый профиль", {"strength":1, "agility":1, "vitality":1, "intelligence":1})
+	var model = InspectionModel.new(data, session.combat)
+	if creatures:
+		open_inspection([[model.creature(id, baseline)]], {"title":"Существо"})
+	else:
+		var player = baseline if session.game.is_empty() else session.game.player
+		open_inspection([[model.item(id, player)]], {"title":"Оружие" if data.item(id).kind == "weapon" else "Экипировка"})
+
+func debug_win():
+	if not Flags.enabled(Flags.DEBUG_TOOLS): return
+	act(func(): return DebugActions.win(session))
+
+func show_debug_map_dialog():
+	if not Flags.enabled(Flags.DEBUG_TOOLS) or session.game.is_empty() or is_instance_valid(map_dialog): return
+	var dialog = ModalDialog.new()
+	map_dialog = dialog
+	dialog.title = "Перейти карту…"
+	dialog.ok_button_text = "Перейти"
+	dialog.cancel_button_text = "Отмена"
+	dialog.dialog_hide_on_ok = false
+	var box = VBoxContainer.new()
+	box.add_theme_constant_override("separation", 12)
+	box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	dialog.content.add_child(box)
+	label("Номер карты", 18, "text-home", box).autowrap_mode = TextServer.AUTOWRAP_OFF
+	var number = LineEdit.new()
+	number.name = "MapNumber"
+	number.text = str(int(session.game.journey.expedition))
+	number.virtual_keyboard_type = LineEdit.KEYBOARD_TYPE_NUMBER
+	number.max_length = 10
+	number.custom_minimum_size.y = 52
+	box.add_child(number)
+	# Fixed text areas avoid a wrapped Label giving the native dialog an enormous
+	# minimum height before its first layout has established the content width.
+	var note = RichTextLabel.new()
+	note.text = "Откроется новая карта с первого противника. Здоровье и выносливость восстановятся."
+	note.custom_minimum_size.y = 72
+	note.scroll_active = false
+	note.add_theme_font_size_override("normal_font_size", 14)
+	note.add_theme_color_override("default_color", data.color("text-muted"))
+	box.add_child(note)
+	var error = RichTextLabel.new()
+	error.custom_minimum_size.y = 60
+	error.scroll_active = false
+	error.add_theme_font_size_override("normal_font_size", 14)
+	error.add_theme_color_override("default_color", data.color("text-danger"))
+	box.add_child(error)
+	error.hide()
+	var actor = hero_id
+	var submit = func():
+		if dialog.is_queued_for_deletion(): return
+		if hero_id != actor: dialog.close(); return
+		if act(func(): return DebugActions.go_to_map(session, number.text)):
+			dialog.close()
+		else:
+			error.text = notice.text
+			error.show()
+	dialog.confirmed.connect(submit)
+	number.text_submitted.connect(func(_text): submit.call())
+	dialog.canceled.connect(dialog.close)
+	add_child(dialog)
+	dialog.theme = theme
+	dialog.popup_centered(Vector2i(mini(430, int(size.x) - 36), 300))
+	number.grab_focus()
+	number.select_all()
 
 func latest_hero(entries: Array) -> Dictionary:
 	var latest: Dictionary = {}
@@ -261,24 +431,54 @@ func latest_hero(entries: Array) -> Dictionary:
 	return latest
 
 func start_create():
-	create_stats = {"strength": 1, "agility": 1, "vitality": 1, "intelligence": 1}
+	create_stats = session.initial_creation_stats()
 	create_name = ""
 	create_portrait = 0
 	show_create()
 
 func show_heroes():
 	screen = "heroes"
-	clear("Герои", "Выберите историю, которую хотите продолжить.")
-	var entries = saves.list_heroes()
-	if entries.is_empty(): label("Пока нет героев. Начните новую историю.", 18, "text-muted")
-	for entry in entries:
-		if entry.payload.is_empty():
-			button("Повреждённое сохранение", func(): message("Сохранение оставлено на устройстве для восстановления."))
-		else:
-			var g = entry.payload.game
-			button("%s · уровень %d\nКруг %d · %s" % [g.player.name, data.level(g.player), g.journey.expedition, phase_name(g.phase)], func(): load_hero(entry.id))
-	button("Новая игра", start_create)
-	button("Назад", show_home)
+	clear("")
+	page.hide()
+	scroll.hide()
+	heroes_view = preload("res://ui/heroes_screen.gd").new()
+	screen_frame.add_child(heroes_view)
+	heroes_view.configure(self)
+	heroes_view.continued.connect(load_hero)
+	heroes_view.removal_requested.connect(confirm_hero_removal)
+	heroes_view.create_requested.connect(start_create)
+	heroes_view.back_requested.connect(show_home)
+
+func confirm_hero_removal(id: String, hero_name: String):
+	if not is_instance_valid(heroes_view) or get_children().any(func(node): return node is ModalDialog and node.visible): return
+	var view = heroes_view
+	var dialog = ModalDialog.new()
+	dialog.title = "Удалить героя?"
+	dialog.destructive = true
+	dialog.dialog_text = "Весь прогресс героя «%s» будет потерян.\nЭто действие нельзя отменить." % hero_name
+	dialog.ok_button_text = "Удалить"
+	dialog.cancel_button_text = "Отмена"
+	dialog.theme = theme
+	dialog.confirmed.connect(func():
+		dialog.close()
+		if heroes_view != view or busy: return
+		if not saves.remove(id):
+			view.set_notice(saves.error)
+			return
+		if hero_id == id:
+			# Prevent pause/quit autosave from recreating the removed hero.
+			hero_id = ""
+			session = Session.new(data)
+			draft.clear()
+			rotations.clear()
+			selected = ""
+		if preferences.last_hero == id:
+			preferences.last_hero = ""
+			preferences.write()
+		view.refresh(saves.list_heroes()))
+	dialog.canceled.connect(dialog.close)
+	add_child(dialog)
+	dialog.popup_centered(Vector2i(mini(430, int(size.x) - 36), 220))
 
 func set_resource_animation(enabled: bool) -> bool:
 	var previous = preferences.animated
@@ -312,7 +512,7 @@ func show_settings():
 	button("Назад", show_home)
 
 func phase_name(phase: String) -> String:
-	return {"ready": "Путешествие", "combat": "Бой", "victory": "Награда", "defeat": "Поражение", "draw": "Ничья"}.get(phase, phase)
+	return {"ready": "Путешествие", "combat": "Бой", "victory": "Награда", "defeat": "Поражение", "draw": "Ничья", "story": "Диалог", "ended": "История завершена"}.get(phase, phase)
 
 func load_hero(id: String):
 	var payload = saves.read(id)
@@ -333,46 +533,49 @@ func load_hero(id: String):
 
 func show_create():
 	screen = "create"
-	clear("Новый герой", "Распределите 3 очка. Живучесть увеличивает здоровье.")
-	var portrait = TextureRect.new()
-	portrait.texture = data.image(data.portraits[create_portrait].src)
-	portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	portrait.custom_minimum_size.y = 220
-	content.add_child(portrait)
-	var navigation = row()
-	button("←", func(): create_portrait = posmod(create_portrait - 1, data.portraits.size()); show_create(), navigation)
-	label(data.portraits[create_portrait].label, 18, "text-highlight", navigation).size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	button("→", func(): create_portrait = (create_portrait + 1) % data.portraits.size(); show_create(), navigation)
-	var name_input = LineEdit.new()
-	name_input.placeholder_text = "Имя героя"
-	name_input.max_length = 24
-	name_input.text = create_name
-	name_input.custom_minimum_size.y = 52
-	name_input.text_changed.connect(func(value): create_name = value)
-	content.add_child(name_input)
-	var total = 0
-	for value in create_stats.values(): total += int(value)
-	var stats_box = section("Осталось очков: %d" % (7 - total))
-	for stat in data.STATS:
-		var controls = row(stats_box)
-		label("%s: %d" % [data.STAT_NAMES[stat], create_stats[stat]], 18, "text-primary", controls).size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		button("−", func(): create_stats[stat] -= 1; show_create(), controls, create_stats[stat] <= 1)
-		button("+", func(): create_stats[stat] += 1; show_create(), controls, total >= 7)
-	button("Начать путешествие", func():
-		var error = session.create(create_name, create_stats, data.portraits[create_portrait].id)
-		if error: message(error); return
-		hero_id = Crypto.new().generate_random_bytes(12).hex_encode()
-		draft = []
-		if persist():
-			preferences.last_hero = hero_id
-			preferences.write()
-			show_game(), null, total != 7)
-	button("Назад", show_home)
+	clear("")
+	page.hide()
+	scroll.hide()
+	creation_view = preload("res://ui/creation_screen.gd").new()
+	screen_frame.add_child(creation_view)
+	creation_view.configure(self)
+
+func finish_creation():
+	if busy or not is_instance_valid(creation_view) or creation_view.step != 1: return
+	busy = true
+	# Commit a new hero only after its first save succeeds. A canceled/failed draft
+	# must not replace the currently loaded hero or consume that hero's RNG.
+	var candidate = Session.new(data)
+	var error = candidate.create(create_name, create_stats, data.portraits[create_portrait].id)
+	if error:
+		creation_view.show_error(error)
+		busy = false
+		return
+	var id = Crypto.new().generate_random_bytes(12).hex_encode()
+	if not saves.write(id, candidate, []):
+		creation_view.show_error(saves.error)
+		busy = false
+		return
+	session = candidate
+	hero_id = id
+	draft = []
+	selected = ""
+	preferences.last_hero = id
+	preferences.write()
+	show_game()
+	busy = false
 
 func show_game():
 	screen = "game"
 	var g = session.game
+	if g.phase in ["story", "ended"]:
+		clear("")
+		page.hide()
+		scroll.hide()
+		story_view = preload("res://ui/story_dialogue.gd").new()
+		screen_frame.add_child(story_view)
+		story_view.configure(self)
+		return
 	if g.phase == "combat":
 		clear("")
 		show_combat()
@@ -381,26 +584,25 @@ func show_game():
 		show_journey()
 		return
 	clear("")
-	page_header()
+	page_header(g.get("victoryReward", {}).get("title", "Победа") if g.phase == "victory" else phase_name(g.phase))
 	match g.phase:
 		"victory": show_rewards()
 		"defeat", "draw":
-			var heading = label(phase_name(g.phase), 32, "text-home")
-			heading.add_theme_font_override("font", GothicTheme.DISPLAY_FONT)
-			heading.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 			show_last_result()
 			label("Непотраченные осколки остались у противника. Победите его, чтобы вернуть их." if g.phase == "defeat" else "Силы оказались равны.")
 			button("Начать карту заново" if g.phase == "defeat" else "Повторить бой", func(): act(session.restart))
 			button("Главное меню", func(): if persist(): show_home())
 
-func page_header():
-	var header = Header.new()
-	header.custom_minimum_size.y = 88
-	content.add_child(header)
-	header.configure_journey(data, session.game, animated)
-	header.player_requested.connect(show_character)
-	header.menu_requested.connect(show_journey_menu)
-	content.move_child(header, 0)
+func page_header(title: String = ""):
+	# Keep the common header outside the bounded, clipping body scroll container.
+	page_header_view = Header.new()
+	page_header_view.custom_minimum_size.y = Header.HEIGHT
+	page_header_view.title_override = title
+	page.add_child(page_header_view)
+	page.move_child(page_header_view, 0)
+	page_header_view.configure_journey(data, session.game, animated)
+	page_header_view.player_requested.connect(show_character)
+	page_header_view.menu_requested.connect(show_journey_menu)
 
 func section(title: String) -> VBoxContainer:
 	var panel = PanelContainer.new()
@@ -447,9 +649,10 @@ func fighter_panel(f: Dictionary, parent, compact: bool = false):
 		bar.configure(data, "Здоровье" if kind == "health" else "Силы", f.hp if kind == "health" else f.stamina, data.max_hp(f) if kind == "health" else data.balance.stamina.max, kind, animated)
 
 func show_combat():
+	page.hide()
 	scroll.hide()
 	combat_view = CombatScreen.new()
-	margin.add_child(combat_view)
+	screen_frame.add_child(combat_view)
 	combat_view.configure(self)
 	board = combat_view.board
 	overlay.color = Color(data.color("background-page"), 0.56)
@@ -488,16 +691,16 @@ func place_card(id: String, index: int, rotation: int):
 	rotations[id] = rotation
 	combat_view.refresh()
 
-func place_selected(index: int):
-	if session.game.clashPlan.stage == "reveal" or index < 0: return
-	var own = session.combat.layer(session.game.player, draft, session.game.clashPlan.playerModifiers)
-	if not own[index].is_empty():
-		var previous = draft.duplicate(true)
-		var id = own[index].id
-		draft = draft.filter(func(move): return move.id != id)
-		if not persist(): draft = previous; return
-		combat_view.refresh()
-	elif not selected.is_empty(): place_card(selected, index, rotation_for(selected))
+func remove_card(id: String):
+	if session.game.clashPlan.stage == "reveal": return
+	var next = draft.filter(func(move): return move.id != id)
+	if next.size() == draft.size(): return
+	var previous = draft.duplicate(true)
+	var rotation = rotation_for(id)
+	draft = next
+	if not persist(): draft = previous; return
+	rotations[id] = rotation
+	combat_view.refresh()
 
 func rotate_card(id: String):
 	if session.game.clashPlan.stage == "reveal": return
@@ -532,10 +735,6 @@ func show_info(title: String, text: String):
 	add_child(dialog)
 	dialog.theme = theme
 	dialog.configure(title, text, data)
-	# Preserve the accessible/native description, while long content gets bounded scrolling.
-	dialog.get_label().autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	dialog.dialog_text = text
-	dialog.get_label().hide()
 	var width = mini(430, int(size.x) - 36)
 	var lines = text.count("\n") + int(text.length() / maxf(1, width / 9.0)) + 1
 	var height = clampi(lines * 23 + 110, 220, mini(560, int(size.y) - 80))
@@ -564,35 +763,37 @@ func show_enemy_details():
 	show_info(f.name, "\n".join(lines))
 
 func show_battle_menu():
-	var dialog = AcceptDialog.new()
+	var dialog = ModalDialog.new()
 	dialog.title = "Свободное поле" if session.game.journey.battleMode == "free" else "Единственный шанс"
 	dialog.ok_button_text = "Вернуться в бой"
 	var box = VBoxContainer.new()
 	box.add_theme_constant_override("separation", 8)
-	dialog.add_child(box)
+	dialog.content.add_child(box)
+	if Flags.enabled(Flags.DEBUG_TOOLS):
+		button("Перейти карту…", func(): dialog.close(); show_debug_map_dialog(), box)
 	label("Сброшенные фигуры возвращаются в колоду." if session.game.journey.battleMode == "free" else "Каждая фигура используется один раз за бой.", 16, "text-muted", box)
-	button("Герой", func(): dialog.queue_free(); show_character(), box)
+	button("Герой", func(): dialog.close(); show_character(), box)
 	button("Главное меню", func():
-		if persist(): dialog.queue_free(); show_home(), box)
+		if persist(): dialog.close(); show_home(), box)
 	if session.game.clashPlan.stage != "reveal":
 		button("Очистить поле", func():
 			var previous = draft.duplicate(true)
 			draft = []
 			if not persist(): draft = previous; return
-			dialog.queue_free()
+			dialog.close()
 			combat_view.refresh(), box, draft.is_empty())
 		if data.item(session.game.player.gear.get("amulet")).get("charmEffect", "") == "compress":
-			button("Сжать выбранную фигуру", func(): dialog.queue_free(); act(func(): return session.compress(selected)), box, selected.is_empty())
+			button("Сжать выбранную фигуру", func(): dialog.close(); act(func(): return session.compress(selected)), box, selected.is_empty())
 		if session.game.journey.battleMode == "expendable":
-			button("Завершить действия", func(): dialog.queue_free(); confirm_finish(), box)
+			button("Завершить действия", func(): dialog.close(); confirm_finish(), box)
 	if not session.game.get("log", []).is_empty():
 		var record = session.game.log[0]
 		label("Последний ход: вы потеряли %s HP, противник — %s HP." % [str(record.summary.player.damage), str(record.summary.enemy.damage)], 14, "text-muted", box)
-		button("Разбор последнего хода", func(): dialog.queue_free(); show_last_clash_details(), box)
+		button("Разбор последнего хода", func(): dialog.close(); show_last_clash_details(), box)
 	add_child(dialog)
 	dialog.theme = theme
-	dialog.confirmed.connect(dialog.queue_free)
-	dialog.canceled.connect(dialog.queue_free)
+	dialog.confirmed.connect(dialog.close)
+	dialog.canceled.connect(dialog.close)
 	dialog.popup_centered(Vector2i(mini(430, int(size.x) - 36), 0))
 
 func show_last_result():
@@ -604,9 +805,8 @@ func show_last_result():
 func show_journey():
 	var g = session.game
 	clear("")
-	if session.current_node().begins_with("forge") and not g.journey.get("forgeResolved", false):
-		page_header()
-		label("Кузница", 30, "text-home").add_theme_font_override("font", GothicTheme.DISPLAY_FONT)
+	if g.journey.has("service"):
+		page_header(data.map_point(g.journey.service.type).name)
 		label("Выберите замену экипировки", 16, "text-muted")
 		for reference in g.journey.offers:
 			var equipment = data.item(reference)
@@ -617,29 +817,33 @@ func show_journey():
 			tile.configure(data,data.image(data.art.get(equipment.templateId, "")))
 			tile.tooltip_text = equipment.name
 			tile.pressed.connect(func(): show_forge_details(reference))
-			button(equipment.name,func(): show_forge_details(reference))
+			var price = int(g.journey.service.prices.get(reference,0))
+			button(equipment.name + (" · " + shard_amount(price) if price > 0 else ""),func(): show_forge_details(reference))
 		button("Пройти мимо", func(): act(session.forge))
 		return
+	page.hide()
 	scroll.hide()
 	journey_view = JourneyScreen.new()
-	margin.add_child(journey_view)
+	screen_frame.add_child(journey_view)
 	journey_view.configure(self)
 	overlay.color = Color(data.color("background-page"), 0.35)
 
 func show_journey_menu():
-	var dialog = AcceptDialog.new()
+	var dialog = ModalDialog.new()
 	dialog.title = "Путешествие"
 	dialog.ok_button_text = "Вернуться"
 	var box = VBoxContainer.new()
 	box.add_theme_constant_override("separation", 12)
-	dialog.add_child(box)
-	button("Герой", func(): dialog.queue_free(); show_character(), box)
+	dialog.content.add_child(box)
+	button("Герой", func(): dialog.close(); show_character(), box)
+	if Flags.enabled(Flags.DEBUG_TOOLS):
+		button("Перейти карту…", func(): dialog.close(); show_debug_map_dialog(), box)
 	button("Главное меню", func():
-		if persist(): dialog.queue_free(); show_home(), box)
+		if persist(): dialog.close(); show_home(), box)
 	add_child(dialog)
 	dialog.theme = theme
-	dialog.confirmed.connect(dialog.queue_free)
-	dialog.canceled.connect(dialog.queue_free)
+	dialog.confirmed.connect(dialog.close)
+	dialog.canceled.connect(dialog.close)
 	dialog.popup_centered(Vector2i(mini(430, int(size.x) - 36), 0))
 
 func item_text(equipment: Dictionary) -> String:
@@ -683,21 +887,15 @@ func shard_counter(prefix: String, amount: int, font_size: int):
 	return counter
 
 func show_rewards():
-	label("Победа", 32, "text-home").add_theme_font_override("font", GothicTheme.DISPLAY_FONT)
 	var receipt = session.game.get("victoryReward", {})
-	shard_counter("Получено: ", int(receipt.get("shards", 0)), 18)
-	if receipt.get("recoveredShards", 0) > 0:
-		shard_counter("Возвращено: ", int(receipt.recoveredShards), 16)
-	show_last_result()
-	if session.game.rewardOptions.is_empty():
-		label("Новых предметов и навыков нет.", 18)
-		button("Продолжить", func(): act(session.complete_reward))
-		return
-	label("Выберите одну награду" if session.game.rewardOptions.size() > 1 else "Ваша награда", 18)
-	var rewards = preload("res://ui/reward_grid.gd").new()
-	content.add_child(rewards)
-	rewards.configure(session.game.rewardOptions.map(reward_entry))
-	rewards.inspected.connect(show_reward_details)
+	victory_view = preload("res://ui/victory_rewards.gd").new()
+	content.add_child(victory_view)
+	victory_view.configure(data, receipt, session.game.rewardOptions.map(reward_entry))
+	victory_view.refresh_progression(session.can_upgrade_attributes())
+	victory_view.inspected.connect(show_reward_details)
+	victory_view.continued.connect(func(): act(session.complete_reward))
+	victory_view.declined.connect(func(): act(session.skip_reward))
+	victory_view.upgrade_requested.connect(func(): show_character(1))
 
 func open_inspection(entries: Array, settings: Dictionary):
 	if is_instance_valid(inspection_window): inspection_window.close()
@@ -728,14 +926,18 @@ func offered_item(reference: String) -> Dictionary:
 	return {"entries":entries,"settings":{"title":title,"action":"Заменить" if entries.size() > 1 else "Получить", "eligible":eligible,"hint":hint,"hint_danger":not eligible}}
 
 func show_forge_details(reference: String):
-	if session.game.phase != "ready" or not session.current_node().begins_with("forge") or session.game.journey.get("forgeResolved",false) or reference not in session.game.journey.offers: return
+	if session.game.phase != "ready" or not session.game.journey.has("service") or session.game.journey.get("forgeResolved",false) or reference not in session.game.journey.offers: return
 	var node_id = session.current_node()
 	var actor = hero_id
 	var request = offered_item(reference)
+	var price = int(session.game.journey.service.prices.get(reference,0))
+	if price > 0:
+		request.settings.action = "Купить · " + shard_amount(price)
+		request.settings.eligible = request.settings.eligible and session.game.souls >= price
 	var dialog = open_inspection(request.entries,request.settings)
 	dialog.confirmed.connect(func():
 		if dialog.closing: return
-		if hero_id != actor or session.current_node() != node_id or session.game.phase != "ready" or session.game.journey.get("forgeResolved",false) or reference not in session.game.journey.offers:
+		if hero_id != actor or session.current_node() != node_id or session.game.phase != "ready" or not session.game.journey.has("service") or session.game.journey.get("forgeResolved",false) or reference not in session.game.journey.offers:
 			dialog.close()
 			return
 		if act(func(): return session.forge(reference)): dialog.close()
@@ -801,22 +1003,24 @@ func show_skill_replacement(index: int, slot: int):
 		if act(func(): return session.reward(index,slot)): dialog.close()
 		else: dialog.show_error(notice.text))
 
-func show_character():
+func show_character(tab: int = 0):
 	if session.game.is_empty() or is_instance_valid(character_window): return
 	character_window = CharacterWindow.new()
 	add_child(character_window)
 	character_window.configure(self)
+	character_window.select_tab(tab)
 
 func refresh_character_header():
+	if is_instance_valid(story_view): story_view.header.configure_journey(data, session.game, animated)
 	if is_instance_valid(journey_view):
 		journey_view.header.configure_journey(data, session.game, animated)
 		journey_view.select_node(journey_view.selected)
 	if is_instance_valid(combat_view): combat_view.refresh()
-	for node in content.get_children():
-		if node.get_script() == Header: node.configure_journey(data, session.game, animated)
+	if is_instance_valid(page_header_view): page_header_view.configure_journey(data, session.game, animated)
+	if is_instance_valid(victory_view): victory_view.refresh_progression(session.can_upgrade_attributes())
 
 func confirm_finish():
-	var dialog = ConfirmationDialog.new()
+	var dialog = ModalDialog.new()
 	dialog.title = "Завершить действия?"
 	dialog.dialog_text = "Оставшиеся карты будут сброшены. Противник доиграет свои карты."
 	dialog.ok_button_text = "Завершить"
@@ -824,7 +1028,7 @@ func confirm_finish():
 	add_child(dialog)
 	dialog.theme = theme
 	dialog.confirmed.connect(func():
-		dialog.queue_free()
+		dialog.close()
 		act(func():
 			session.game.player.actionsFinished = true
 			session.game.player.deck.hand = []
@@ -834,7 +1038,7 @@ func confirm_finish():
 				var error = session.submit([])
 				if error: return error
 			return "Противник не завершил действия."))
-	dialog.canceled.connect(dialog.queue_free)
+	dialog.canceled.connect(dialog.close)
 	dialog.popup_centered(Vector2i(380, 220))
 
 func show_rules():
@@ -849,12 +1053,15 @@ func _notification(what):
 	elif what == NOTIFICATION_APPLICATION_RESUMED:
 		queue_layout()
 	elif what == NOTIFICATION_WM_GO_BACK_REQUEST:
+		var dialogs = get_children().filter(func(child): return child is ModalDialog and child.visible)
+		if not dialogs.is_empty():
+			dialogs.back().cancel()
+			return
+		if is_instance_valid(creation_view):
+			creation_view.back()
+			return
 		if is_instance_valid(inspection_window):
 			inspection_window.close()
-			return
-		var dialogs = get_children().filter(func(child): return child is AcceptDialog and child.visible)
-		if not dialogs.is_empty():
-			dialogs.back().queue_free()
 			return
 		if is_instance_valid(character_window):
 			character_window.back()

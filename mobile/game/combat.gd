@@ -282,6 +282,9 @@ func forecast(g: Dictionary, draft: Array) -> Dictionary:
 		var calc = calculate(g, {"player": moves, "enemy": plan.enemyPlaced}, {"player": plan.playerModifiers, "enemy": plan.enemyModifiers}, true)
 		return {"known": true, "cost": expense, "calculation": calc, "cells": calc.cells}
 	var own = layer(g.player, moves, plan.playerModifiers)
+	# Public, provisional damage against open cells. Reuse armor, compression,
+	# rounding and resource caps; never inspect the hidden placement or roll AI.
+	var estimate = calculate(g, {"player": moves, "enemy": []}, {"player": plan.playerModifiers, "enemy": {}}, true)
 	var result: Array = []
 	for n in 9:
 		var card = own[n]
@@ -290,8 +293,9 @@ func forecast(g: Dictionary, draft: Array) -> Dictionary:
 		if is_strike(card):
 			for part in parts(g.player, card): potential += part.value * multiplier
 		result.append({"index": n, "known": false, "player": card, "enemy": {}, "potential": potential,
-			"potentialStamina": card.get("staminaDamagePerCell", 0) * multiplier if is_strike(card) else 0})
-	return {"known": false, "cost": expense, "calculation": {}, "cells": result}
+			"potentialStamina": card.get("staminaDamagePerCell", 0) * multiplier if is_strike(card) else 0,
+			"previewDamage": estimate.cells[n].enemyDamage, "previewStaminaDamage": estimate.cells[n].enemyStaminaDamage})
+	return {"known": false, "cost": expense, "calculation": {}, "estimate": estimate, "cells": result}
 
 func options(card: Dictionary, used: Array, mod: Dictionary) -> Array:
 	var result: Array = []

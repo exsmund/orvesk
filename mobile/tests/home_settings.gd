@@ -51,6 +51,7 @@ func run():
 	if not args.is_empty(): output = args[0]
 	var settings_path = "user://home-test-" + Crypto.new().generate_random_bytes(8).hex_encode() + ".cfg"
 	ui = load("res://scenes/main.tscn").instantiate()
+	ui.session = preload("res://tests/campaign_driver.gd").new(ui.data)
 	ui.preferences = Preferences.new(settings_path)
 	ui.saves = MemorySaves.new()
 	root.add_child(ui)

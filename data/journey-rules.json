@@ -1,0 +1,15 @@
+{
+  "enemyBalanceVersion": 2,
+  "fightsPerMap": 5,
+  "bossStage": 5,
+  "firstMap": {"expedition": 1, "regularRank": 0, "bossRank": 0},
+  "rankOffsets": [-2, -2, -1, -1, 0],
+  "minimumRank": 1,
+  "battleModes": ["free", "expendable"],
+  "forgeBranches": {"min": 0, "max": 2},
+  "styles": [
+    {"id": "berserker", "stats": {"strength": 6, "agility": 1, "vitality": 3, "intelligence": 1}, "slots": {"shield": 2, "body": 4, "feet": 2, "ring": 1, "amulet": 1}},
+    {"id": "duelist", "stats": {"strength": 1, "agility": 6, "vitality": 2, "intelligence": 1}, "slots": {"shield": 2, "body": 4, "feet": 2, "ring": 1, "amulet": 1}},
+    {"id": "warden", "stats": {"strength": 2, "agility": 1, "vitality": 6, "intelligence": 1}, "slots": {"shield": 6, "body": 4, "feet": 2, "ring": 1, "amulet": 1}}
+  ]
+}

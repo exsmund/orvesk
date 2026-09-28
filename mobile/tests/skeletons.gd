@@ -1,6 +1,6 @@
 extends SceneTree
 const Catalog = preload("res://game/catalog.gd")
-const Session = preload("res://game/session.gd")
+const Session = preload("res://tests/campaign_driver.gd")
 var failures: Array = []
 
 func check(ok: bool, message: String):

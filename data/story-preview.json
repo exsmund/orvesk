@@ -6,15 +6,23 @@
   "sources": [
     {
       "path": "data/story.json",
-      "sha256": "4eac7a92d4f4d4519fdc854ced59e3700ecb00ae764ef47e2d8a7d5096eb470f"
+      "sha256": "33ffd28de8cbed0bf68c9919e80a7df454e3d859e2c5d4e2284d37b5d2600a10"
     },
     {
       "path": "docs/STORY.md",
-      "sha256": "aad9692f42225a7c347bfeb73eb682cd8fa2dcb542590308e93d236afec662f6"
+      "sha256": "171a673e0eb2b599d8656c421db10e23ca2f22394fd51e240882dcd7331e9266"
     },
     {
       "path": "data/story-characters.json",
-      "sha256": "0d4a2be6f28835cf343c6a5cc52582adfa41f43f9c66078d7967119522e6d83d"
+      "sha256": "1193b11547c52a94a1d72841a45589d8cf160e11ef02356f7e225e5ff4681e67"
+    },
+    {
+      "path": "data/map-points.json",
+      "sha256": "8fc308deb72153c0245e1e0ed485a36905e1f42bfc649939ecf7b84b503efb30"
+    },
+    {
+      "path": "data/journey-maps.json",
+      "sha256": "2d371e92c353044d2e3c8860f6e050a1efbee404a271dca67a391707d3e04fb0"
     }
   ],
   "speakers": {
@@ -281,38 +289,33 @@
     },
     "saved-guest": {
       "name": "Спасённый постоялец",
-      "portrait": {
-        "kind": "unassigned"
-      },
-      "portraitSide": "right"
+      "characterId": "saved-guest",
+      "portraitSide": "right",
+      "facing": "left"
     },
     "townsperson": {
       "name": "Горожанин",
-      "portrait": {
-        "kind": "unassigned"
-      },
-      "portraitSide": "right"
+      "characterId": "townsperson",
+      "portraitSide": "right",
+      "facing": "left"
     },
     "inn-maid": {
       "name": "Служанка",
-      "portrait": {
-        "kind": "unassigned"
-      },
-      "portraitSide": "right"
+      "characterId": "inn-maid",
+      "portraitSide": "right",
+      "facing": "left"
     },
     "shelter-attendant": {
       "name": "Служитель",
-      "portrait": {
-        "kind": "unassigned"
-      },
-      "portraitSide": "right"
+      "characterId": "shelter-attendant",
+      "portraitSide": "right",
+      "facing": "left"
     },
     "market-trader": {
       "name": "Торговец",
-      "portrait": {
-        "kind": "unassigned"
-      },
-      "portraitSide": "right"
+      "characterId": "market-trader",
+      "portraitSide": "right",
+      "facing": "left"
     }
   },
   "state": {
@@ -784,7 +787,8 @@
       "next": "1.1.ac29ddd25c6c",
       "label": "Победа — продолжить",
       "defeat": "death-first",
-      "replayNext": "1.2.da48e63ee306"
+      "replayNext": "1.2.da48e63ee306",
+      "mapPointType": "combat"
     },
     "1.1.f4ebea8b769c": {
       "id": "1.1.f4ebea8b769c",
@@ -837,7 +841,8 @@
       "text": "Костёр",
       "description": null,
       "next": "1.3.1042ab831314",
-      "choiceId": "1.2.be53e741326e"
+      "choiceId": "1.2.be53e741326e",
+      "mapPointType": "campfire"
     },
     "1.2.activity.forge": {
       "id": "1.2.activity.forge",
@@ -846,7 +851,8 @@
       "text": "Кузница",
       "description": null,
       "next": "1.3.1042ab831314",
-      "choiceId": "1.2.be53e741326e"
+      "choiceId": "1.2.be53e741326e",
+      "mapPointType": "forge"
     },
     "1.2.6c2e8d8745e8": {
       "id": "1.2.6c2e8d8745e8",
@@ -1032,7 +1038,8 @@
       "next": "1.3.40c1ccb5fe46",
       "label": "Победа — продолжить",
       "defeat": "death-first",
-      "replayNext": "1.4.7f6accfd3738"
+      "replayNext": "1.4.7f6accfd3738",
+      "mapPointType": "combat"
     },
     "1.3.656cc0b70e68": {
       "id": "1.3.656cc0b70e68",
@@ -1087,7 +1094,8 @@
       "text": "Костёр",
       "description": null,
       "next": "1.5.0ef84ad0c27c",
-      "choiceId": "1.4.b2f81c4cac44"
+      "choiceId": "1.4.b2f81c4cac44",
+      "mapPointType": "campfire"
     },
     "1.4.activity.forge": {
       "id": "1.4.activity.forge",
@@ -1096,7 +1104,8 @@
       "text": "Кузница",
       "description": null,
       "next": "1.5.0ef84ad0c27c",
-      "choiceId": "1.4.b2f81c4cac44"
+      "choiceId": "1.4.b2f81c4cac44",
+      "mapPointType": "forge"
     },
     "1.4.386f7a10784d": {
       "id": "1.4.386f7a10784d",
@@ -1252,7 +1261,8 @@
       "next": "1.5.261f79d51655",
       "label": "Победа — продолжить",
       "defeat": "death-first",
-      "replayNext": "1.6.dfcd67ca92dc"
+      "replayNext": "1.6.dfcd67ca92dc",
+      "mapPointType": "combat"
     },
     "1.5.dfdbf89fa934": {
       "id": "1.5.dfdbf89fa934",
@@ -1329,7 +1339,8 @@
       "text": "Костёр",
       "description": null,
       "next": "1.6.96a203118a7f",
-      "choiceId": "1.6.5690847ae5dd"
+      "choiceId": "1.6.5690847ae5dd",
+      "mapPointType": "campfire"
     },
     "1.6.activity.forge": {
       "id": "1.6.activity.forge",
@@ -1338,7 +1349,8 @@
       "text": "Кузница",
       "description": null,
       "next": "1.7.77b3ca340e68",
-      "choiceId": "1.6.5690847ae5dd"
+      "choiceId": "1.6.5690847ae5dd",
+      "mapPointType": "forge"
     },
     "1.6.1bf435ebbfdc": {
       "id": "1.6.1bf435ebbfdc",
@@ -1419,7 +1431,8 @@
       "next": "1.7.81c4eea9f308",
       "label": "Победа — продолжить",
       "defeat": "death-first",
-      "replayNext": "1.8.7f2981b172d3"
+      "replayNext": "1.8.7f2981b172d3",
+      "mapPointType": "combat"
     },
     "1.7.f32d141b58b8": {
       "id": "1.7.f32d141b58b8",
@@ -1490,7 +1503,8 @@
       "text": "Костёр",
       "description": null,
       "next": "1.8.b50b686cb52b",
-      "choiceId": "1.8.e994ca2a283e"
+      "choiceId": "1.8.e994ca2a283e",
+      "mapPointType": "campfire"
     },
     "1.8.activity.forge": {
       "id": "1.8.activity.forge",
@@ -1499,7 +1513,8 @@
       "text": "Кузница",
       "description": null,
       "next": "1.8.b50b686cb52b",
-      "choiceId": "1.8.e994ca2a283e"
+      "choiceId": "1.8.e994ca2a283e",
+      "mapPointType": "forge"
     },
     "1.8.ba0f3b56dde7": {
       "id": "1.8.ba0f3b56dde7",
@@ -1605,7 +1620,8 @@
       "next": "1.9.d0e76f94eeac",
       "label": "Победа — продолжить",
       "defeat": "death-first",
-      "replayNext": "chapter-2.intro.aedc1860f21a"
+      "replayNext": "chapter-2.intro.aedc1860f21a",
+      "mapPointType": "boss"
     },
     "1.9.4389d0c2d475": {
       "id": "1.9.4389d0c2d475",
@@ -1709,7 +1725,8 @@
       "next": "2.1.4d617ea06871",
       "label": "Победа — продолжить",
       "defeat": "death-first",
-      "replayNext": "2.2.94c593fa89b6"
+      "replayNext": "2.2.94c593fa89b6",
+      "mapPointType": "combat"
     },
     "2.1.df2628083ec0": {
       "id": "2.1.df2628083ec0",
@@ -1765,7 +1782,8 @@
       "text": "Костёр",
       "description": null,
       "next": "2.3.554cd9d46578",
-      "choiceId": "2.2.99b76bae4951"
+      "choiceId": "2.2.99b76bae4951",
+      "mapPointType": "campfire"
     },
     "2.2.activity.forge": {
       "id": "2.2.activity.forge",
@@ -1774,7 +1792,8 @@
       "text": "Кузница",
       "description": null,
       "next": "2.3.554cd9d46578",
-      "choiceId": "2.2.99b76bae4951"
+      "choiceId": "2.2.99b76bae4951",
+      "mapPointType": "forge"
     },
     "2.2.activity.activity-3.response.0": {
       "id": "2.2.activity.activity-3.response.0",
@@ -1791,7 +1810,8 @@
       "text": "Лечебница",
       "description": null,
       "next": "2.2.activity.activity-3.response.0",
-      "choiceId": "2.2.99b76bae4951"
+      "choiceId": "2.2.99b76bae4951",
+      "mapPointType": "healer"
     },
     "2.2.e4ee12deb8a4": {
       "id": "2.2.e4ee12deb8a4",
@@ -1831,7 +1851,7 @@
       "id": "2.2.node.ab96ecee34f7",
       "scene": "2.2",
       "kind": "dialogue",
-      "text": "В наполненном аттракторе может складываться сознание. Если оно заговорит знакомым голосом, это ещё не значит, что к тебе вернулся Севран.",
+      "text": "В наполненном аттракторе может складываться сознание. Возможно, ты почувствовал его присутствие. Если услышишь голос, не спеши верить ему.",
       "next": "2.2.7dd470f32ad8.effects",
       "speaker": "city-priestess",
       "speakerName": "Жрица"
@@ -1840,7 +1860,7 @@
       "id": "2.2.7dd470f32ad8.response.0",
       "scene": "2.2",
       "kind": "dialogue",
-      "text": "Рядом с камнем я слышу чужие мысли.",
+      "text": "У моста мне показалось, будто камень дышит.",
       "next": "2.2.node.ab96ecee34f7",
       "speaker": "hero"
     },
@@ -1848,7 +1868,7 @@
       "id": "2.2.7dd470f32ad8",
       "scene": "2.2",
       "kind": "option",
-      "text": "Рядом с камнем я слышу чужие мысли.",
+      "text": "У моста мне показалось, будто камень дышит.",
       "description": null,
       "next": "2.2.7dd470f32ad8.response.0",
       "choiceId": "2.2.095e53fd78e4"
@@ -1966,7 +1986,8 @@
       "next": "2.3.c757b17d9552",
       "label": "Победа — продолжить",
       "defeat": "death-first",
-      "replayNext": "2.4.3453d05b504d"
+      "replayNext": "2.4.3453d05b504d",
+      "mapPointType": "combat"
     },
     "2.3.1f6917e11da4": {
       "id": "2.3.1f6917e11da4",
@@ -2024,7 +2045,8 @@
       "text": "Костёр",
       "description": null,
       "next": "2.5.dda3320dc273",
-      "choiceId": "2.4.534c10eaa64e"
+      "choiceId": "2.4.534c10eaa64e",
+      "mapPointType": "campfire"
     },
     "2.4.activity.forge": {
       "id": "2.4.activity.forge",
@@ -2033,7 +2055,8 @@
       "text": "Кузница",
       "description": null,
       "next": "2.5.dda3320dc273",
-      "choiceId": "2.4.534c10eaa64e"
+      "choiceId": "2.4.534c10eaa64e",
+      "mapPointType": "forge"
     },
     "2.4.activity.activity-3": {
       "id": "2.4.activity.activity-3",
@@ -2042,7 +2065,8 @@
       "text": "Рынок",
       "description": null,
       "next": "2.5.dda3320dc273",
-      "choiceId": "2.4.534c10eaa64e"
+      "choiceId": "2.4.534c10eaa64e",
+      "mapPointType": "market"
     },
     "2.4.activity.activity-4.response.0": {
       "id": "2.4.activity.activity-4.response.0",
@@ -2059,7 +2083,8 @@
       "text": "Площадь",
       "description": null,
       "next": "2.4.activity.activity-4.response.0",
-      "choiceId": "2.4.534c10eaa64e"
+      "choiceId": "2.4.534c10eaa64e",
+      "mapPointType": "square"
     },
     "2.4.9c29b3c11ed0": {
       "id": "2.4.9c29b3c11ed0",
@@ -2235,7 +2260,8 @@
       "next": "2.5.9fbfdbfa088b",
       "label": "Победа — продолжить",
       "defeat": "death-first",
-      "replayNext": "2.6.7e5f7c6c1169"
+      "replayNext": "2.6.7e5f7c6c1169",
+      "mapPointType": "combat"
     },
     "2.5.7ac36bfc7325": {
       "id": "2.5.7ac36bfc7325",
@@ -2289,7 +2315,8 @@
       "text": "Костёр",
       "description": null,
       "next": "2.7.4574ef9b4a8a",
-      "choiceId": "2.6.c2744dfa067d"
+      "choiceId": "2.6.c2744dfa067d",
+      "mapPointType": "campfire"
     },
     "2.6.activity.forge": {
       "id": "2.6.activity.forge",
@@ -2298,7 +2325,8 @@
       "text": "Кузница",
       "description": null,
       "next": "2.7.4574ef9b4a8a",
-      "choiceId": "2.6.c2744dfa067d"
+      "choiceId": "2.6.c2744dfa067d",
+      "mapPointType": "forge"
     },
     "2.6.activity.activity-3.response.0": {
       "id": "2.6.activity.activity-3.response.0",
@@ -2315,7 +2343,8 @@
       "text": "Таверна",
       "description": null,
       "next": "2.6.activity.activity-3.response.0",
-      "choiceId": "2.6.c2744dfa067d"
+      "choiceId": "2.6.c2744dfa067d",
+      "mapPointType": "tavern"
     },
     "2.6.9748f2fc8b03": {
       "id": "2.6.9748f2fc8b03",
@@ -2484,7 +2513,8 @@
       "next": "2.7.87f6504ac0f9",
       "label": "Победа — продолжить",
       "defeat": "death-first",
-      "replayNext": "2.8.749a8ac68e73"
+      "replayNext": "2.8.749a8ac68e73",
+      "mapPointType": "combat"
     },
     "2.7.5e2c1c68340c": {
       "id": "2.7.5e2c1c68340c",
@@ -2537,7 +2567,8 @@
       "text": "Костёр",
       "description": null,
       "next": "2.9.bc5790cdf7c5",
-      "choiceId": "2.8.d3aabbe5a7ed"
+      "choiceId": "2.8.d3aabbe5a7ed",
+      "mapPointType": "campfire"
     },
     "2.8.activity.forge": {
       "id": "2.8.activity.forge",
@@ -2546,7 +2577,8 @@
       "text": "Кузница",
       "description": null,
       "next": "2.9.bc5790cdf7c5",
-      "choiceId": "2.8.d3aabbe5a7ed"
+      "choiceId": "2.8.d3aabbe5a7ed",
+      "mapPointType": "forge"
     },
     "2.8.55ec28036132": {
       "id": "2.8.55ec28036132",
@@ -2664,7 +2696,8 @@
       "next": "2.9.ad214e22e811",
       "label": "Победа — продолжить",
       "defeat": "death-first",
-      "replayNext": "chapter-3.intro.ef87ce0f0797"
+      "replayNext": "chapter-3.intro.ef87ce0f0797",
+      "mapPointType": "boss"
     },
     "2.9.8dfa3442f8a4.0": {
       "id": "2.9.8dfa3442f8a4.0",
@@ -2778,7 +2811,8 @@
       "next": "3.1.aab125a6835b",
       "label": "Победа — продолжить",
       "defeat": "death-first",
-      "replayNext": "3.2.44b3ad05ed2a"
+      "replayNext": "3.2.44b3ad05ed2a",
+      "mapPointType": "combat"
     },
     "3.1.56c42aca6ff4": {
       "id": "3.1.56c42aca6ff4",
@@ -2823,7 +2857,8 @@
       "text": "Костёр",
       "description": null,
       "next": "3.3.fadc0dd9a1c5",
-      "choiceId": "3.2.521cd05b6c1a"
+      "choiceId": "3.2.521cd05b6c1a",
+      "mapPointType": "campfire"
     },
     "3.2.activity.forge": {
       "id": "3.2.activity.forge",
@@ -2832,7 +2867,8 @@
       "text": "Кузница",
       "description": null,
       "next": "3.3.fadc0dd9a1c5",
-      "choiceId": "3.2.521cd05b6c1a"
+      "choiceId": "3.2.521cd05b6c1a",
+      "mapPointType": "forge"
     },
     "3.2.activity.activity-3.response.0": {
       "id": "3.2.activity.activity-3.response.0",
@@ -2849,7 +2885,8 @@
       "text": "Лесная встреча",
       "description": null,
       "next": "3.2.activity.activity-3.response.0",
-      "choiceId": "3.2.521cd05b6c1a"
+      "choiceId": "3.2.521cd05b6c1a",
+      "mapPointType": "forest-meeting"
     },
     "3.2.73dadf2b4e00": {
       "id": "3.2.73dadf2b4e00",
@@ -3114,7 +3151,8 @@
           },
           "text": "Фавн."
         }
-      ]
+      ],
+      "mapPointType": "combat"
     },
     "3.3.c7e04e0f32f3": {
       "id": "3.3.c7e04e0f32f3",
@@ -3217,7 +3255,8 @@
       "text": "Костёр",
       "description": null,
       "next": "3.5.e77c48da7f17",
-      "choiceId": "3.4.ac30d95955ee"
+      "choiceId": "3.4.ac30d95955ee",
+      "mapPointType": "campfire"
     },
     "3.4.activity.forge": {
       "id": "3.4.activity.forge",
@@ -3226,7 +3265,8 @@
       "text": "Кузница",
       "description": null,
       "next": "3.5.e77c48da7f17",
-      "choiceId": "3.4.ac30d95955ee"
+      "choiceId": "3.4.ac30d95955ee",
+      "mapPointType": "forge"
     },
     "3.4.activity.activity-3.response.0": {
       "id": "3.4.activity.activity-3.response.0",
@@ -3243,7 +3283,8 @@
       "text": "Встреча с феей",
       "description": null,
       "next": "3.4.activity.activity-3.response.0",
-      "choiceId": "3.4.ac30d95955ee"
+      "choiceId": "3.4.ac30d95955ee",
+      "mapPointType": "fairy-meeting"
     },
     "3.4.862fac6a4e2f": {
       "id": "3.4.862fac6a4e2f",
@@ -3399,7 +3440,8 @@
       "next": "3.5.3701fe294611",
       "label": "Победа — продолжить",
       "defeat": "death-first",
-      "replayNext": "3.6.9838d4d2edc0"
+      "replayNext": "3.6.9838d4d2edc0",
+      "mapPointType": "combat"
     },
     "3.5.372f73d194a2": {
       "id": "3.5.372f73d194a2",
@@ -3451,7 +3493,8 @@
       "text": "Костёр",
       "description": null,
       "next": "3.7.65d0cf59acd6",
-      "choiceId": "3.6.b1e6547a387c"
+      "choiceId": "3.6.b1e6547a387c",
+      "mapPointType": "campfire"
     },
     "3.6.activity.forge": {
       "id": "3.6.activity.forge",
@@ -3460,7 +3503,8 @@
       "text": "Кузница",
       "description": null,
       "next": "3.7.65d0cf59acd6",
-      "choiceId": "3.6.b1e6547a387c"
+      "choiceId": "3.6.b1e6547a387c",
+      "mapPointType": "forge"
     },
     "3.6.7be58ccefd46": {
       "id": "3.6.7be58ccefd46",
@@ -3651,7 +3695,8 @@
       "next": "3.7.91fbda390535",
       "label": "Победа — продолжить",
       "defeat": "death-first",
-      "replayNext": "3.8.312c2d03e712"
+      "replayNext": "3.8.312c2d03e712",
+      "mapPointType": "combat"
     },
     "3.7.1929b6fa9abf": {
       "id": "3.7.1929b6fa9abf",
@@ -3714,7 +3759,8 @@
       "text": "Костёр",
       "description": null,
       "next": "3.9.407d190a016d",
-      "choiceId": "3.8.886e67ba8475"
+      "choiceId": "3.8.886e67ba8475",
+      "mapPointType": "campfire"
     },
     "3.8.activity.forge": {
       "id": "3.8.activity.forge",
@@ -3723,7 +3769,8 @@
       "text": "Кузница",
       "description": null,
       "next": "3.9.407d190a016d",
-      "choiceId": "3.8.886e67ba8475"
+      "choiceId": "3.8.886e67ba8475",
+      "mapPointType": "forge"
     },
     "3.8.activity.activity-3.response.1": {
       "id": "3.8.activity.activity-3.response.1",
@@ -3748,7 +3795,8 @@
       "text": "Разговор с феей",
       "description": null,
       "next": "3.8.activity.activity-3.response.0",
-      "choiceId": "3.8.886e67ba8475"
+      "choiceId": "3.8.886e67ba8475",
+      "mapPointType": "fairy-meeting"
     },
     "3.8.a4e92719f1e8.0": {
       "id": "3.8.a4e92719f1e8.0",
@@ -3890,7 +3938,8 @@
       "next": "3.9.2ab72f5f1dc0.0",
       "label": "Победа — продолжить",
       "defeat": "death-first",
-      "replayNext": "chapter-4.intro.3a49107fa3e9"
+      "replayNext": "chapter-4.intro.3a49107fa3e9",
+      "mapPointType": "boss"
     },
     "3.9.0446da8f2f32": {
       "id": "3.9.0446da8f2f32",
@@ -3973,7 +4022,8 @@
       "next": "4.1.eb3020cc9727",
       "label": "Победа — продолжить",
       "defeat": "death-first",
-      "replayNext": "4.2.decc7a480b81"
+      "replayNext": "4.2.decc7a480b81",
+      "mapPointType": "combat"
     },
     "4.1.9e6876d3b0d4": {
       "id": "4.1.9e6876d3b0d4",
@@ -4018,7 +4068,8 @@
       "text": "Костёр",
       "description": null,
       "next": "4.3.d0a7ec9ecfe4",
-      "choiceId": "4.2.560159b9851e"
+      "choiceId": "4.2.560159b9851e",
+      "mapPointType": "campfire"
     },
     "4.2.activity.forge": {
       "id": "4.2.activity.forge",
@@ -4027,7 +4078,8 @@
       "text": "Кузница",
       "description": null,
       "next": "4.3.d0a7ec9ecfe4",
-      "choiceId": "4.2.560159b9851e"
+      "choiceId": "4.2.560159b9851e",
+      "mapPointType": "forge"
     },
     "4.2.activity.activity-3.response.1": {
       "id": "4.2.activity.activity-3.response.1",
@@ -4052,7 +4104,8 @@
       "text": "Беседа с Теей",
       "description": null,
       "next": "4.2.activity.activity-3.response.0",
-      "choiceId": "4.2.560159b9851e"
+      "choiceId": "4.2.560159b9851e",
+      "mapPointType": "hermit-meeting"
     },
     "4.2.4fe38e492cec": {
       "id": "4.2.4fe38e492cec",
@@ -4196,7 +4249,8 @@
       "next": "4.3.b31dea7a3b45",
       "label": "Победа — продолжить",
       "defeat": "death-first",
-      "replayNext": "4.4.d15970643697"
+      "replayNext": "4.4.d15970643697",
+      "mapPointType": "combat"
     },
     "4.3.f21c809a335f": {
       "id": "4.3.f21c809a335f",
@@ -4251,7 +4305,8 @@
       "text": "Костёр",
       "description": null,
       "next": "4.5.44664319c715",
-      "choiceId": "4.4.15a340ac39ca"
+      "choiceId": "4.4.15a340ac39ca",
+      "mapPointType": "campfire"
     },
     "4.4.activity.forge": {
       "id": "4.4.activity.forge",
@@ -4260,7 +4315,8 @@
       "text": "Кузница",
       "description": null,
       "next": "4.5.44664319c715",
-      "choiceId": "4.4.15a340ac39ca"
+      "choiceId": "4.4.15a340ac39ca",
+      "mapPointType": "forge"
     },
     "4.4.activity.activity-3.response.1": {
       "id": "4.4.activity.activity-3.response.1",
@@ -4285,7 +4341,8 @@
       "text": "Помочь пленнику",
       "description": null,
       "next": "4.4.activity.activity-3.response.0",
-      "choiceId": "4.4.15a340ac39ca"
+      "choiceId": "4.4.15a340ac39ca",
+      "mapPointType": "aid"
     },
     "4.4.9819d1810d65": {
       "id": "4.4.9819d1810d65",
@@ -4473,7 +4530,8 @@
       "next": "4.5.eb8beb8f4219",
       "label": "Победа — продолжить",
       "defeat": "death-first",
-      "replayNext": "4.6.f14780a822c5"
+      "replayNext": "4.6.f14780a822c5",
+      "mapPointType": "combat"
     },
     "4.5.018493e96068": {
       "id": "4.5.018493e96068",
@@ -4525,7 +4583,8 @@
       "text": "Костёр",
       "description": null,
       "next": "4.7.3dcb989cc37c",
-      "choiceId": "4.6.979301eae3c0"
+      "choiceId": "4.6.979301eae3c0",
+      "mapPointType": "campfire"
     },
     "4.6.activity.forge": {
       "id": "4.6.activity.forge",
@@ -4534,7 +4593,8 @@
       "text": "Кузница",
       "description": null,
       "next": "4.7.3dcb989cc37c",
-      "choiceId": "4.6.979301eae3c0"
+      "choiceId": "4.6.979301eae3c0",
+      "mapPointType": "forge"
     },
     "4.6.activity.activity-3.response.1": {
       "id": "4.6.activity.activity-3.response.1",
@@ -4559,7 +4619,8 @@
       "text": "Разговор с Нимой",
       "description": null,
       "next": "4.6.activity.activity-3.response.0",
-      "choiceId": "4.6.979301eae3c0"
+      "choiceId": "4.6.979301eae3c0",
+      "mapPointType": "fairy-meeting"
     },
     "4.6.9e381eee700a": {
       "id": "4.6.9e381eee700a",
@@ -4754,7 +4815,8 @@
       "next": "4.7.d8da9a717f90",
       "label": "Победа — продолжить",
       "defeat": "death-first",
-      "replayNext": "4.8.5ff8e1459f11"
+      "replayNext": "4.8.5ff8e1459f11",
+      "mapPointType": "combat"
     },
     "4.7.3559bff1db51": {
       "id": "4.7.3559bff1db51",
@@ -4809,7 +4871,8 @@
       "text": "Костёр",
       "description": null,
       "next": "4.9.c52b3825fc5d",
-      "choiceId": "4.8.a4f19b2aaec8"
+      "choiceId": "4.8.a4f19b2aaec8",
+      "mapPointType": "campfire"
     },
     "4.8.activity.forge": {
       "id": "4.8.activity.forge",
@@ -4818,7 +4881,8 @@
       "text": "Кузница",
       "description": null,
       "next": "4.9.c52b3825fc5d",
-      "choiceId": "4.8.a4f19b2aaec8"
+      "choiceId": "4.8.a4f19b2aaec8",
+      "mapPointType": "forge"
     },
     "4.8.c3dc934bd057.0": {
       "id": "4.8.c3dc934bd057.0",
@@ -5126,7 +5190,8 @@
       "next": "4.9.812ff501d1c4",
       "label": "Победа — продолжить",
       "defeat": "death-first",
-      "replayNext": "chapter-5.intro.45cf62bb1772"
+      "replayNext": "chapter-5.intro.45cf62bb1772",
+      "mapPointType": "boss"
     },
     "4.9.2619276ee20f": {
       "id": "4.9.2619276ee20f",
@@ -5214,7 +5279,8 @@
       "next": "5.1.d812e474241d",
       "label": "Победа — продолжить",
       "defeat": "death-first",
-      "replayNext": "5.2.049842da2377"
+      "replayNext": "5.2.049842da2377",
+      "mapPointType": "combat"
     },
     "5.1.633da4dbdcf4": {
       "id": "5.1.633da4dbdcf4",
@@ -5259,7 +5325,8 @@
       "text": "Костёр",
       "description": null,
       "next": "5.3.a4fb4ab8780d",
-      "choiceId": "5.2.5d117252d356"
+      "choiceId": "5.2.5d117252d356",
+      "mapPointType": "campfire"
     },
     "5.2.activity.forge": {
       "id": "5.2.activity.forge",
@@ -5268,7 +5335,8 @@
       "text": "Кузница",
       "description": null,
       "next": "5.3.a4fb4ab8780d",
-      "choiceId": "5.2.5d117252d356"
+      "choiceId": "5.2.5d117252d356",
+      "mapPointType": "forge"
     },
     "5.2.activity.activity-3.response.0": {
       "id": "5.2.activity.activity-3.response.0",
@@ -5301,7 +5369,8 @@
       "text": "Рынок",
       "description": null,
       "next": "5.2.activity.activity-3.response.0",
-      "choiceId": "5.2.5d117252d356"
+      "choiceId": "5.2.5d117252d356",
+      "mapPointType": "market"
     },
     "5.2.bc867420be14.0": {
       "id": "5.2.bc867420be14.0",
@@ -5386,7 +5455,8 @@
       "next": "5.3.c1b34ae209ab",
       "label": "Победа — продолжить",
       "defeat": "death-first",
-      "replayNext": "5.4.cf2d7ff18976"
+      "replayNext": "5.4.cf2d7ff18976",
+      "mapPointType": "combat"
     },
     "5.3.23dfae00be56": {
       "id": "5.3.23dfae00be56",
@@ -5437,7 +5507,8 @@
       "text": "Костёр",
       "description": null,
       "next": "5.5.6e29ac175751",
-      "choiceId": "5.4.5690847ae5dd"
+      "choiceId": "5.4.5690847ae5dd",
+      "mapPointType": "campfire"
     },
     "5.4.activity.forge": {
       "id": "5.4.activity.forge",
@@ -5446,7 +5517,8 @@
       "text": "Кузница",
       "description": null,
       "next": "5.5.6e29ac175751",
-      "choiceId": "5.4.5690847ae5dd"
+      "choiceId": "5.4.5690847ae5dd",
+      "mapPointType": "forge"
     },
     "5.4.702d9e0dd491": {
       "id": "5.4.702d9e0dd491",
@@ -5592,7 +5664,8 @@
       "next": "5.5.80a523fa52a5",
       "label": "Победа — продолжить",
       "defeat": "death-first",
-      "replayNext": "5.6.d6e71c066b35"
+      "replayNext": "5.6.d6e71c066b35",
+      "mapPointType": "combat"
     },
     "5.5.0638713a3669": {
       "id": "5.5.0638713a3669",
@@ -5636,7 +5709,8 @@
       "text": "Костёр",
       "description": null,
       "next": "5.7.5578a81262e3",
-      "choiceId": "5.6.fdbce0d50213"
+      "choiceId": "5.6.fdbce0d50213",
+      "mapPointType": "campfire"
     },
     "5.6.activity.forge": {
       "id": "5.6.activity.forge",
@@ -5645,7 +5719,8 @@
       "text": "Кузница",
       "description": null,
       "next": "5.7.5578a81262e3",
-      "choiceId": "5.6.fdbce0d50213"
+      "choiceId": "5.6.fdbce0d50213",
+      "mapPointType": "forge"
     },
     "5.6.7863e3fde8ca": {
       "id": "5.6.7863e3fde8ca",
@@ -5845,7 +5920,8 @@
           },
           "text": "Наёмник."
         }
-      ]
+      ],
+      "mapPointType": "combat"
     },
     "5.7.31086ccdc70c": {
       "id": "5.7.31086ccdc70c",
@@ -5959,7 +6035,8 @@
       "text": "Костёр",
       "description": null,
       "next": "5.9.b136f67eb90e",
-      "choiceId": "5.8.7bbc288ba4d3"
+      "choiceId": "5.8.7bbc288ba4d3",
+      "mapPointType": "campfire"
     },
     "5.8.activity.forge": {
       "id": "5.8.activity.forge",
@@ -5968,7 +6045,8 @@
       "text": "Кузница",
       "description": null,
       "next": "5.9.b136f67eb90e",
-      "choiceId": "5.8.7bbc288ba4d3"
+      "choiceId": "5.8.7bbc288ba4d3",
+      "mapPointType": "forge"
     },
     "5.8.9d36f10b5bab.0": {
       "id": "5.8.9d36f10b5bab.0",
@@ -6074,7 +6152,8 @@
       "next": "5.9.0524d41481ee",
       "label": "Победа — продолжить",
       "defeat": "death-first",
-      "replayNext": "chapter-6.intro.391284eab50f"
+      "replayNext": "chapter-6.intro.391284eab50f",
+      "mapPointType": "boss"
     },
     "5.9.a04159970d97": {
       "id": "5.9.a04159970d97",
@@ -6130,7 +6209,8 @@
       "next": "6.1.a3286873b6df",
       "label": "Победа — продолжить",
       "defeat": "death-first",
-      "replayNext": "6.2.051c47c5488c"
+      "replayNext": "6.2.051c47c5488c",
+      "mapPointType": "combat"
     },
     "6.1.910318982f42": {
       "id": "6.1.910318982f42",
@@ -6175,7 +6255,8 @@
       "text": "Костёр",
       "description": null,
       "next": "6.3.c9fce4e7730f",
-      "choiceId": "6.2.99b76bae4951"
+      "choiceId": "6.2.99b76bae4951",
+      "mapPointType": "campfire"
     },
     "6.2.activity.forge": {
       "id": "6.2.activity.forge",
@@ -6184,7 +6265,8 @@
       "text": "Кузница",
       "description": null,
       "next": "6.3.c9fce4e7730f",
-      "choiceId": "6.2.99b76bae4951"
+      "choiceId": "6.2.99b76bae4951",
+      "mapPointType": "forge"
     },
     "6.2.activity.activity-3.response.0": {
       "id": "6.2.activity.activity-3.response.0",
@@ -6201,7 +6283,8 @@
       "text": "Лечебница",
       "description": null,
       "next": "6.2.activity.activity-3.response.0",
-      "choiceId": "6.2.99b76bae4951"
+      "choiceId": "6.2.99b76bae4951",
+      "mapPointType": "healer"
     },
     "6.2.2e253b6035db": {
       "id": "6.2.2e253b6035db",
@@ -6359,7 +6442,8 @@
       "next": "6.3.104619707af5",
       "label": "Победа — продолжить",
       "defeat": "death-first",
-      "replayNext": "6.4.642501b8b473"
+      "replayNext": "6.4.642501b8b473",
+      "mapPointType": "combat"
     },
     "6.3.b3562e1479b3": {
       "id": "6.3.b3562e1479b3",
@@ -6415,7 +6499,8 @@
       "text": "Костёр",
       "description": null,
       "next": "6.5.9fcb76cc0bb5",
-      "choiceId": "6.4.979301eae3c0"
+      "choiceId": "6.4.979301eae3c0",
+      "mapPointType": "campfire"
     },
     "6.4.activity.forge": {
       "id": "6.4.activity.forge",
@@ -6424,7 +6509,8 @@
       "text": "Кузница",
       "description": null,
       "next": "6.5.9fcb76cc0bb5",
-      "choiceId": "6.4.979301eae3c0"
+      "choiceId": "6.4.979301eae3c0",
+      "mapPointType": "forge"
     },
     "6.4.activity.activity-3.response.1": {
       "id": "6.4.activity.activity-3.response.1",
@@ -6449,7 +6535,8 @@
       "text": "Разговор с Нимой",
       "description": null,
       "next": "6.4.activity.activity-3.response.0",
-      "choiceId": "6.4.979301eae3c0"
+      "choiceId": "6.4.979301eae3c0",
+      "mapPointType": "fairy-meeting"
     },
     "6.4.33d08aac420d": {
       "id": "6.4.33d08aac420d",
@@ -6657,7 +6744,8 @@
       "next": "6.5.4923d17447f5",
       "label": "Победа — продолжить",
       "defeat": "death-first",
-      "replayNext": "6.6.fadc969b4d03"
+      "replayNext": "6.6.fadc969b4d03",
+      "mapPointType": "combat"
     },
     "6.5.3e99b0a8d88c": {
       "id": "6.5.3e99b0a8d88c",
@@ -6709,7 +6797,8 @@
       "text": "Костёр",
       "description": null,
       "next": "6.7.fd40435522d9",
-      "choiceId": "6.6.c090929976b7"
+      "choiceId": "6.6.c090929976b7",
+      "mapPointType": "campfire"
     },
     "6.6.activity.forge": {
       "id": "6.6.activity.forge",
@@ -6718,7 +6807,8 @@
       "text": "Кузница",
       "description": null,
       "next": "6.7.fd40435522d9",
-      "choiceId": "6.6.c090929976b7"
+      "choiceId": "6.6.c090929976b7",
+      "mapPointType": "forge"
     },
     "6.6.8d5e34797a30": {
       "id": "6.6.8d5e34797a30",
@@ -6958,7 +7048,8 @@
       "next": "6.7.66e0b407b0f4",
       "label": "Победа — продолжить",
       "defeat": "death-first",
-      "replayNext": "6.8.7e7809189ca7"
+      "replayNext": "6.8.7e7809189ca7",
+      "mapPointType": "combat"
     },
     "6.7.1d45ab4ebb7c": {
       "id": "6.7.1d45ab4ebb7c",
@@ -7010,7 +7101,8 @@
       "text": "Костёр",
       "description": null,
       "next": "6.9.24afba0dcaf0",
-      "choiceId": "6.8.379629c5e3ca"
+      "choiceId": "6.8.379629c5e3ca",
+      "mapPointType": "campfire"
     },
     "6.8.activity.forge": {
       "id": "6.8.activity.forge",
@@ -7019,7 +7111,8 @@
       "text": "Кузница",
       "description": null,
       "next": "6.9.24afba0dcaf0",
-      "choiceId": "6.8.379629c5e3ca"
+      "choiceId": "6.8.379629c5e3ca",
+      "mapPointType": "forge"
     },
     "6.8.0227041ed019": {
       "id": "6.8.0227041ed019",
@@ -7343,7 +7436,8 @@
       "next": "6.9.00abf7f07944",
       "label": "Победа — продолжить",
       "defeat": "death-first",
-      "replayNext": "final-choice.6b172c3490c1"
+      "replayNext": "final-choice.6b172c3490c1",
+      "mapPointType": "boss"
     },
     "6.9.8270edcf40ab.1": {
       "id": "6.9.8270edcf40ab.1",
@@ -13244,5 +13338,15 @@
     "Голос и наполнение переключаются вручную: сюжет не задаёт числовые пороги.",
     "Портреты неназначенных персонажей показаны нейтральными заглушками."
   ],
-  "revision": 5
+  "revision": 11,
+  "mapPointsCatalog": "data/map-points.json",
+  "mapsCatalog": "data/journey-maps.json",
+  "chapterMaps": {
+    "1": "ravaged-lands",
+    "2": "perevalets",
+    "3": "forest",
+    "4": "mire",
+    "5": "warlands",
+    "6": "limestone-valley"
+  }
 }

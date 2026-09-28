@@ -1,20 +1,40 @@
 extends RefCounted
 ## Independent mobile format. Never reads or changes browser/Express saves.
 const VERSION = 1
+const GAME_VERSION = 6
 const DIRECTORY = "user://heroes"
 var error = ""
+var folder = DIRECTORY
 
-func _init():
-	DirAccess.make_dir_recursive_absolute(DIRECTORY)
+func _init(directory: String = DIRECTORY):
+	folder = directory
+	DirAccess.make_dir_recursive_absolute(folder)
+	remove_legacy(folder)
+
+func remove_legacy(folder: String) -> int:
+	# This prototype intentionally starts a new campaign. Never delete unknown or
+	# damaged files, or a newer format; only recognized pre-campaign hero payloads.
+	var directory = DirAccess.open(folder)
+	var removed = 0
+	if directory == null: return removed
+	for filename in directory.get_files():
+		if not (filename.ends_with(".json") or filename.ends_with(".json.bak") or filename.ends_with(".json.tmp")): continue
+		var file_path = folder.path_join(filename)
+		var parsed = JSON.parse_string(FileAccess.get_file_as_string(file_path))
+		if parsed is Dictionary and parsed.get("format") == VERSION and parsed.get("game") is Dictionary:
+			var old_version = int(parsed.game.get("version", 0))
+			if old_version > 0 and old_version < GAME_VERSION and DirAccess.remove_absolute(file_path) == OK: removed += 1
+	return removed
 
 func path(id: String) -> String:
-	return DIRECTORY + "/" + id.validate_filename() + ".json"
+	return folder + "/" + id.validate_filename() + ".json"
 
 func valid(payload) -> bool:
 	if not payload is Dictionary or payload.get("format", 0) != VERSION: return false
 	var g = payload.get("game", {})
-	if not g is Dictionary or g.get("version", 0) != 5: return false
-	if g.get("phase", "") not in ["ready", "combat", "victory", "defeat", "draw"]: return false
+	if not g is Dictionary or g.get("version", 0) != GAME_VERSION: return false
+	if not g.get("story") is Dictionary: return false
+	if g.get("phase", "") not in ["ready", "combat", "victory", "defeat", "draw", "story", "ended"]: return false
 	for side in ["player", "enemy"]:
 		if not g.get(side) is Dictionary: return false
 		for key in ["name", "stats", "gear", "hp", "stamina"]:
@@ -73,10 +93,25 @@ func write(id: String, session, draft: Array = []) -> bool:
 
 func list_heroes() -> Array:
 	var result: Array = []
-	var directory = DirAccess.open(DIRECTORY)
+	var directory = DirAccess.open(folder)
+	if directory == null: return result
 	for filename in directory.get_files():
 		if not filename.ends_with(".json"): continue
 		var id = filename.trim_suffix(".json")
 		var payload = read(id)
 		result.append({"id": id, "payload": payload})
 	return result
+
+func remove(id: String) -> bool:
+	error = ""
+	if id.is_empty() or id != id.validate_filename():
+		error = "Некорректный идентификатор сохранения."
+		return false
+	# Main file is removed last. A failed backup removal leaves a loadable hero,
+	# and a successful removal cannot resurrect the hero from its backup.
+	for suffix in [".bak", ".tmp", ""]:
+		var target = path(id) + suffix
+		if FileAccess.file_exists(target) and DirAccess.remove_absolute(target) != OK:
+			error = "Не удалось удалить сохранение. Попробуйте ещё раз."
+			return false
+	return true

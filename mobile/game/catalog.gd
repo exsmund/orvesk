@@ -10,6 +10,11 @@ var creatures: Array = []
 var portraits: Array = []
 var maps: Array = []
 var encounters: Array = []
+var story: Dictionary
+var characters: Array = []
+var map_points: Dictionary
+var journey_rules: Dictionary
+var portrait_presentation: Dictionary
 var base: Array = []
 var balance: Dictionary
 var palette: Dictionary
@@ -27,6 +32,11 @@ func _init():
 	balance = read_json("combat-balance")
 	palette = read_json("palette")
 	art = read_json("item-art")
+	story = read_json("story-runtime")
+	characters = read_json("story-characters")
+	map_points = read_json("map-points")
+	journey_rules = read_json("journey-rules")
+	portrait_presentation = read_json("portrait-presentation")
 
 func read_json(name: String):
 	return JSON.parse_string(FileAccess.get_file_as_string(ROOT + name + ".json"))
@@ -62,9 +72,11 @@ func creature_figures(f: Dictionary) -> Array:
 	return species.variants[f.creatureVariant].figures if f.get("creatureVariant", "") else species.figures
 
 func item(reference) -> Dictionary:
-	var parts = str(reference if reference else items[0].id).split("@")
+	var parts = str(reference if reference else unarmed().id).split("@")
 	var template = lookup(items, parts[0])
-	if template.is_empty(): template = items[0]
+	if template.is_empty():
+		push_error("Неизвестный предмет: " + str(reference))
+		return {}
 	var scales = false
 	for figure in template.figures:
 		if not figure.get("healthDamage", {}).get("stats", []).is_empty(): scales = true
@@ -114,6 +126,32 @@ func image(path: String) -> Texture2D:
 	return load(full) if not path.is_empty() and ResourceLoader.exists(full) else null
 
 func portrait(f: Dictionary) -> Texture2D:
+	if f.get("characterId", ""):
+		return image(lookup(characters, f.characterId).get("portrait", {}).get("src", ""))
 	if f.get("creatureId", ""):
 		return image(lookup(creatures, f.creatureId).get("portrait", {}).get("src", ""))
-	return image(lookup(portraits, f.get("portraitId", "")).get("src", ""))
+	var selected = lookup(portraits, f.get("portraitId", ""))
+	if selected.is_empty() and not portraits.is_empty(): selected = portraits[0]
+	return image(selected.get("src", ""))
+
+func unarmed() -> Dictionary:
+	for equipment in items:
+		if equipment.get("unarmed", false): return equipment
+	assert(false, "В каталоге не задано оружие без экипировки")
+	return {}
+
+func map_point(id: String) -> Dictionary:
+	return lookup(map_points.points, id)
+
+func point_for_node(node: Dictionary) -> Dictionary:
+	return map_point(node.get("mapPointType", ""))
+
+func speaker(id: String, player: Dictionary) -> Dictionary:
+	var binding: Dictionary = story.speakers.get(id, {})
+	var person = lookup(characters, binding.get("characterId", ""))
+	if person.get("portraitSource", "") == "player":
+		return {"name": player.name, "texture": portrait(player), "side": person.dialogueSide}
+	if not person.is_empty():
+		return {"name": binding.get("name", person.name), "texture": image(person.get("portrait", {}).get("src", "")), "side": person.dialogueSide}
+	var creature = lookup(creatures, binding.get("portrait", {}).get("id", ""))
+	return {"name": binding.get("name", ""), "texture": image(creature.get("portrait", {}).get("src", "")), "side": binding.get("portraitSide", "right")}

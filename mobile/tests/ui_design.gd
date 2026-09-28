@@ -1,4 +1,5 @@
 extends SceneTree
+const ModalDialog = preload("res://ui/modal_dialog.gd")
 const SquareButton = preload("res://ui/square_button.gd")
 ## Interaction/state regressions for the shared visual system; no real saves are touched.
 var ui
@@ -29,6 +30,8 @@ func check_buttons(node):
 			check(node.get_theme_stylebox("normal").texture == SquareButton.NORMAL, "Shared square button skin")
 		elif is_instance_valid(ui.home_view) and node.get_parent() == ui.home_view:
 			check(node.get_theme_stylebox("normal") is StyleBoxEmpty, "Home has text-only buttons")
+		elif is_instance_valid(ui.creation_view) and node == ui.creation_view.back_button:
+			check(node.get_theme_stylebox("normal") is StyleBoxEmpty, "Creation Back is a text action as in the mockup")
 		else:
 			check(node.get_theme_stylebox("normal") == ui.theme.get_stylebox("normal", "Button"), "Shared button skin: " + node.text)
 	for child in node.get_children(): check_buttons(child)
@@ -37,6 +40,7 @@ func run():
 	root.gui_embed_subwindows = true
 	if not OS.get_cmdline_user_args().is_empty(): output = OS.get_cmdline_user_args()[0]
 	ui = load("res://scenes/main.tscn").instantiate()
+	ui.session = preload("res://tests/campaign_driver.gd").new(ui.data)
 	root.add_child(ui)
 	await settle()
 	ui.session.combat.rng.seed = 43
@@ -61,7 +65,7 @@ func run():
 		check(ui.journey_view == journey and journey.selected == "fight-1", "Folding keeps selection and view")
 		check(not ui.scroll.visible, "Map has no screen scrolling")
 		var area = journey.get_global_rect().grow(1)
-		for control in [journey.header, journey.title, journey.subtitle, journey.map_view, journey.detail, journey.action]:
+		for control in [journey.header, journey.title, journey.map_view, journey.detail, journey.action]:
 			check(area.encloses(control.get_global_rect()), "Map component fits %s: %s" % [pixels, control.get_class()])
 		for marker in journey.map_view.markers.values():
 			check(journey.map_view.get_global_rect().grow(1).encloses(marker.get_global_rect()), "Route marker fits map")
@@ -70,7 +74,7 @@ func run():
 	var counter = journey.header.shards
 	check(counter.amount == 125 and not journey.header.enemy_portrait.visible, "Journey header replaces enemy with shards")
 	if DisplayServer.get_name() != "headless":
-		check(counter.icon_rect.size.y > 0 and is_equal_approx(counter.icon_rect.size.y, counter.number_rect.size.y * 1.24) and is_equal_approx(counter.icon_rect.get_center().y, counter.number_rect.get_center().y), "Visible shard icon is slightly taller and vertically centered")
+		check(counter.icon_rect.size.y > 0 and is_equal_approx(counter.icon_rect.size.y, counter.number_rect.size.y * counter.icon_scale) and is_equal_approx(counter.icon_rect.get_center().y, counter.number_rect.get_center().y), "Visible shard icon is slightly taller and vertically centered")
 		check(counter.icon_rect.position.x > counter.number_rect.end.x, "Counter order is number then icon")
 	await shot("journey-cover")
 	journey.action.pressed.emit()
@@ -104,17 +108,18 @@ func run():
 	ui.show_info("Блок руками", "Блокирует входящий урон. Защита расходует силы за перекрытые клетки.")
 	await shot("description-cover")
 	for dialog in ui.get_children():
-		if dialog is AcceptDialog:
-			check(dialog.size.x <= ui.size.x - 32 and dialog.size.y <= ui.size.y - 48, "Description remains bounded by the viewport")
+		if dialog is ModalDialog:
+			check(dialog.panel.size.x <= ui.size.x - 32 and dialog.panel.size.y <= ui.size.y - 36, "Description remains bounded by the viewport")
 	check_buttons(ui)
 	for child in ui.get_children():
-		if child is AcceptDialog: child.queue_free()
+		if child is ModalDialog: child.queue_free()
 	ui.session.game.phase = "victory"
 	ui.session.finish_battle()
 	ui.show_game()
 	check_buttons(ui)
 	await shot("rewards-cover")
 	ui.session.reward(0)
+	if ui.session.game.get("victoryReward", {}).get("progressionPending", false): ui.session.complete_reward()
 	ui.show_game()
 	ui.journey_view.select_node("camp-1")
 	before = JSON.stringify(ui.session.game)
@@ -126,7 +131,7 @@ func run():
 	var forge = {}
 	for seed_value in range(1, 15):
 		ui.session.combat.rng.seed = seed_value
-		ui.session.new_journey(1)
+		ui.session.map_fixture(1)
 		for node in ui.session.game.journey.map.nodes:
 			if node.kind == "forge": forge = node; break
 		if not forge.is_empty(): break
@@ -136,6 +141,7 @@ func run():
 	ui.session.game.journey.forgeResolved = false
 	# Use a real usable item from the catalog instead of depending on an equipment ID.
 	ui.session.game.journey.offers = [ui.data.items.filter(func(item): return item.slot == "weapon" and not item.get("unarmed", false))[0].id]
+	ui.session.service_fixture(forge, ui.session.game.journey.offers)
 	ui.show_game()
 	check(ui.scroll.visible and not is_instance_valid(ui.journey_view), "Unresolved forge opens equipment choices")
 	check_buttons(ui)

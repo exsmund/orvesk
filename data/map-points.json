@@ -1,0 +1,316 @@
+{
+  "version": 1,
+  "id": "journey-point-types",
+  "integration": {
+    "status": "integrated",
+    "runtimeEnabled": true,
+    "clients": [
+      "mobile"
+    ],
+    "adapter": "mobile/game/campaign.gd",
+    "rules": "data/story-gameplay.json",
+    "note": "Godot использует весь каталог. Браузер пока сохраняет прежние четыре значка."
+  },
+  "artDirection": "docs/MAP_POINT_ART_DIRECTION.md",
+  "presentation": {
+    "shape": "circle",
+    "frame": "/ui/map-points/v1/frame.png",
+    "symbolBox": {
+      "x": 0.19,
+      "y": 0.19,
+      "width": 0.62,
+      "height": 0.62
+    },
+    "exportSize": 512,
+    "displaySizes": [
+      48,
+      64,
+      96
+    ],
+    "minimumDisplaySize": 48,
+    "shadow": "0 2px 3px #000b",
+    "labelPolicy": "showNameOrStoryLabel; tooltipAndAccessibleNameRequired",
+    "statePolicy": "sameIconWithExternalStateMarker; neverTintWholeIconOrReduceOpacity",
+    "unknownPolicy": "doNotShowHiddenCharacterIdentityOrContentsOfCargo",
+    "backing": {
+      "color": "#111513",
+      "inset": 0.08
+    }
+  },
+  "points": [
+    {
+      "id": "combat",
+      "name": "Бой",
+      "category": "combat",
+      "description": "Столкновение с обычным противником. Причину боя, собеседника и вид врага задаёт сцена.",
+      "symbolDescription": "Скрещённые клинки — условный знак боя, а не назначенная врагу экипировка.",
+      "storyLabels": [],
+      "actionLabel": "Начать бой",
+      "icon": {
+        "src": "/ui/map-points/v1/combat.png",
+        "symbol": "/ui/map-points/v1/symbols/combat.png",
+        "alt": "Бой"
+      },
+      "engineBinding": {
+        "status": "existingMechanic",
+        "route": "fight",
+        "effectBinding": "existingCombat",
+        "isBoss": false
+      },
+      "availability": "whenRouteExists"
+    },
+    {
+      "id": "boss",
+      "name": "Босс",
+      "category": "combat",
+      "description": "Заключительный бой карты. После победы выполняются события главы; в финале кампании открывается выбор судьбы аттрактора.",
+      "symbolDescription": "Череп с короной обозначает опасность этапа, а не вид противника.",
+      "storyLabels": [],
+      "actionLabel": "Сразиться с боссом",
+      "icon": {
+        "src": "/ui/map-points/v1/boss.png",
+        "symbol": "/ui/map-points/v1/symbols/boss.png",
+        "alt": "Босс"
+      },
+      "engineBinding": {
+        "status": "existingMechanic",
+        "route": "fight",
+        "effectBinding": "existingBossCombat",
+        "isBoss": true
+      },
+      "availability": "whenRouteExists"
+    },
+    {
+      "id": "campfire",
+      "name": "Костёр",
+      "category": "rest",
+      "description": "Отдых и подготовка к следующему бою. Место может быть костром под навесом, в караулке или у подворья.",
+      "symbolDescription": "Пламя над двумя поленьями.",
+      "storyLabels": [
+        "Костёр"
+      ],
+      "actionLabel": "Отдохнуть",
+      "icon": {
+        "src": "/ui/map-points/v1/campfire.png",
+        "symbol": "/ui/map-points/v1/symbols/campfire.png",
+        "alt": "Костёр"
+      },
+      "engineBinding": {
+        "status": "existingMechanic",
+        "route": "camp",
+        "effectBinding": "existingCampfire",
+        "isBoss": null
+      },
+      "availability": "whenRouteExists"
+    },
+    {
+      "id": "forge",
+      "name": "Кузница",
+      "category": "service",
+      "description": "Работа со снаряжением по действующим правилам кузницы. В глуши это мастерская или переносная наковальня, а не обязательно отдельное здание.",
+      "symbolDescription": "Наковальня с молотом.",
+      "storyLabels": [
+        "Кузница"
+      ],
+      "actionLabel": "Открыть кузницу",
+      "icon": {
+        "src": "/ui/map-points/v1/forge.png",
+        "symbol": "/ui/map-points/v1/symbols/forge.png",
+        "alt": "Кузница"
+      },
+      "engineBinding": {
+        "status": "existingMechanic",
+        "route": "forge",
+        "effectBinding": "existingForge",
+        "isBoss": null
+      },
+      "availability": "whenRouteExists"
+    },
+    {
+      "id": "healer",
+      "name": "Лечебница",
+      "category": "service",
+      "description": "Помощь больным и разговор со служителями приёмного дома или приюта хранителей. Численная польза услуги ещё не назначена.",
+      "symbolDescription": "Ступка, пестик и листья лечебных трав.",
+      "storyLabels": [
+        "Лечебница"
+      ],
+      "actionLabel": "Войти в лечебницу",
+      "icon": {
+        "src": "/ui/map-points/v1/healer.png",
+        "symbol": "/ui/map-points/v1/symbols/healer.png",
+        "alt": "Лечебница"
+      },
+      "engineBinding": {
+        "status": "requiresStoryActivityAdapter",
+        "route": null,
+        "effectBinding": null,
+        "isBoss": null
+      },
+      "availability": "onlyWhenDeclaredByStory"
+    },
+    {
+      "id": "market",
+      "name": "Рынок",
+      "category": "service",
+      "description": "Встреча с торговцами и предусмотренные сценарием предложения. Продажа семян зависит от прежнего решения героя; общий инвентарь не вводится.",
+      "symbolDescription": "Торговый прилавок под светлым навесом.",
+      "storyLabels": [
+        "Рынок"
+      ],
+      "actionLabel": "Посетить рынок",
+      "icon": {
+        "src": "/ui/map-points/v1/market.png",
+        "symbol": "/ui/map-points/v1/symbols/market.png",
+        "alt": "Рынок"
+      },
+      "engineBinding": {
+        "status": "requiresStoryActivityAdapter",
+        "route": null,
+        "effectBinding": null,
+        "isBoss": null
+      },
+      "availability": "onlyWhenDeclaredByStory"
+    },
+    {
+      "id": "square",
+      "name": "Площадь",
+      "category": "encounter",
+      "description": "Городские слухи и свидетельства жителей. В Перевальце здесь можно услышать о постояльцах «Тихой двери».",
+      "symbolDescription": "Городской колокол в каменной арке.",
+      "storyLabels": [
+        "Площадь"
+      ],
+      "actionLabel": "Выслушать горожан",
+      "icon": {
+        "src": "/ui/map-points/v1/square.png",
+        "symbol": "/ui/map-points/v1/symbols/square.png",
+        "alt": "Площадь"
+      },
+      "engineBinding": {
+        "status": "requiresStoryActivityAdapter",
+        "route": null,
+        "effectBinding": null,
+        "isBoss": null
+      },
+      "availability": "onlyWhenDeclaredByStory"
+    },
+    {
+      "id": "tavern",
+      "name": "Таверна",
+      "category": "encounter",
+      "description": "Необязательный разговор с обитателями гостиницы или трактира. В главе II служанка сообщает о странных исчезновениях.",
+      "symbolDescription": "Оловянная кружка с крупной ручкой.",
+      "storyLabels": [
+        "Таверна"
+      ],
+      "actionLabel": "Зайти в таверну",
+      "icon": {
+        "src": "/ui/map-points/v1/tavern.png",
+        "symbol": "/ui/map-points/v1/symbols/tavern.png",
+        "alt": "Таверна"
+      },
+      "engineBinding": {
+        "status": "requiresStoryActivityAdapter",
+        "route": null,
+        "effectBinding": null,
+        "isBoss": null
+      },
+      "availability": "onlyWhenDeclaredByStory"
+    },
+    {
+      "id": "forest-meeting",
+      "name": "Лесная встреча",
+      "category": "encounter",
+      "description": "Разговор с лесным проводником и знакомство с жителями леса. Отношения учитывают поступки героя; новая ветка карты не создаётся сама собой.",
+      "symbolDescription": "Один древний ветвистый ствол с компактной кроной.",
+      "storyLabels": [
+        "Лесная встреча"
+      ],
+      "actionLabel": "Поговорить с проводником",
+      "icon": {
+        "src": "/ui/map-points/v1/forest-meeting.png",
+        "symbol": "/ui/map-points/v1/symbols/forest-meeting.png",
+        "alt": "Лесная встреча"
+      },
+      "engineBinding": {
+        "status": "requiresStoryActivityAdapter",
+        "route": null,
+        "effectBinding": null,
+        "isBoss": null
+      },
+      "availability": "onlyWhenDeclaredByStory"
+    },
+    {
+      "id": "fairy-meeting",
+      "name": "Встреча с феей",
+      "category": "encounter",
+      "description": "Встреча с феей её местности: лесной или подземной. Обязательные сведения Нимы сообщаются до выбора занятия; дополнительный разговор не заменяет финального решения.",
+      "symbolDescription": "Светлый корень, охватывающий огонёк; без портрета конкретной феи.",
+      "storyLabels": [
+        "Встреча с феей",
+        "Разговор с феей",
+        "Разговор с Нимой"
+      ],
+      "actionLabel": "Поговорить с феей",
+      "icon": {
+        "src": "/ui/map-points/v1/fairy-meeting.png",
+        "symbol": "/ui/map-points/v1/symbols/fairy-meeting.png",
+        "alt": "Встреча с феей"
+      },
+      "engineBinding": {
+        "status": "requiresStoryActivityAdapter",
+        "route": null,
+        "effectBinding": null,
+        "isBoss": null
+      },
+      "availability": "onlyWhenDeclaredByStory"
+    },
+    {
+      "id": "hermit-meeting",
+      "name": "Беседа с отшельником",
+      "category": "encounter",
+      "description": "Необязательная беседа с созерцателем. В этой истории — с Теей из сестёр Млечного познания о её учении.",
+      "symbolDescription": "Раскрытая книга и свеча как знак созерцания.",
+      "storyLabels": [
+        "Беседа с Теей"
+      ],
+      "actionLabel": "Продолжить беседу",
+      "icon": {
+        "src": "/ui/map-points/v1/hermit-meeting.png",
+        "symbol": "/ui/map-points/v1/symbols/hermit-meeting.png",
+        "alt": "Беседа с отшельником"
+      },
+      "engineBinding": {
+        "status": "requiresStoryActivityAdapter",
+        "route": null,
+        "effectBinding": null,
+        "isBoss": null
+      },
+      "availability": "onlyWhenDeclaredByStory"
+    },
+    {
+      "id": "aid",
+      "name": "Помощь",
+      "category": "encounter",
+      "description": "Помощь спасённому человеку после обязательной сцены. В подворье Теи герой поддерживает освобождённого пленника.",
+      "symbolDescription": "Открытая ладонь с перевязочным полотном.",
+      "storyLabels": [
+        "Помочь пленнику"
+      ],
+      "actionLabel": "Помочь",
+      "icon": {
+        "src": "/ui/map-points/v1/aid.png",
+        "symbol": "/ui/map-points/v1/symbols/aid.png",
+        "alt": "Помощь"
+      },
+      "engineBinding": {
+        "status": "requiresStoryActivityAdapter",
+        "route": null,
+        "effectBinding": null,
+        "isBoss": null
+      },
+      "availability": "onlyWhenDeclaredByStory"
+    }
+  ]
+}

@@ -1,6 +1,8 @@
 extends ScrollContainer
 ## Only the menu is allowed to scroll, including its settings/rules subpages.
 const CharacterPage = preload("res://ui/character_page.gd")
+const GothicTheme = preload("res://ui/gothic_theme.gd")
+const Flags = preload("res://game/feature_flags.gd")
 var host
 var owner_window
 var content = VBoxContainer.new()
@@ -49,6 +51,7 @@ func show_menu():
 	action("Продолжить игру", owner_window.close)
 	action("Настройки", show_settings)
 	action("Правила", show_rules)
+	if Flags.enabled(Flags.DEBUG_TOOLS): action("Перейти карту…", host.show_debug_map_dialog)
 	action("Главное меню", func():
 		if host.persist():
 			owner_window.close()
@@ -99,4 +102,4 @@ func arrange():
 	for button in content.get_children():
 		if button is Button:
 			button.custom_minimum_size.y = height
-			button.add_theme_font_size_override("font_size", maxi(12, int(18 * unit)))
+			GothicTheme.fit_button_text(button, width, 18 * unit)

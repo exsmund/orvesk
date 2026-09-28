@@ -22,6 +22,7 @@ func run():
 	var args = OS.get_cmdline_user_args()
 	if not args.is_empty(): output = args[0]
 	ui = load("res://scenes/main.tscn").instantiate()
+	ui.session = preload("res://tests/campaign_driver.gd").new(ui.data)
 	root.add_child(ui)
 	await process_frame
 	await snapshot("home")
@@ -36,10 +37,10 @@ func run():
 	await snapshot("combat")
 	var card = ui.session.game.player.deck.hand[0]
 	ui.selected = card.id
-	ui.place_selected(0)
-	verify(ui.draft.size() == 1, "Tap places card")
-	ui.place_selected(0)
-	verify(ui.draft.is_empty(), "Tap removes card")
+	ui.place_card(card.id, 0, 0)
+	verify(ui.draft.size() == 1, "Places card")
+	ui.remove_card(card.id)
+	verify(ui.draft.is_empty(), "Removes card")
 	ui.selected = card.id
 	ui.board.card_dropped.emit(card.id, 0)
 	verify(ui.draft.size() == 1, "Drop places card")
@@ -50,6 +51,7 @@ func run():
 	ui.show_game()
 	await snapshot("reward")
 	ui.session.reward(0)
+	if ui.session.game.get("victoryReward", {}).get("progressionPending", false): ui.session.complete_reward()
 	ui.session.travel("camp-1")
 	ui.show_game()
 	await snapshot("camp")

@@ -49,6 +49,18 @@ func copy_counts(fighter: Dictionary) -> Dictionary:
 	for card in combat.build_deck(fighter): result[card.templateId] = result.get(card.templateId, 0) + 1
 	return result
 
+func creature(id: String, fighter: Dictionary) -> Dictionary:
+	var definition = data.lookup(data.creatures, id)
+	var preview = fighter.duplicate(true)
+	preview.creatureId = id
+	preview.name = definition.name
+	var metadata = "Встречается с карты %d" % definition.encounter.minExpedition if definition.encounter.combat else "Не участвует в боях"
+	return {"kind":"creature", "reference":id, "title":definition.name, "status":"",
+		"texture":data.portrait(preview), "metadata":metadata,
+		"requirements":{}, "defense":{}, "description":definition.description,
+		"stats":preview.stats, "figures":combat.figures(preview), "fighter":preview,
+		"copies":copy_counts(preview), "eligible":true}
+
 func replaced_items(reference: String, player: Dictionary) -> Array:
 	var equipment = data.item(reference)
 	var slots = [equipment.slot]
