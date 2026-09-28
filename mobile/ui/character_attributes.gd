@@ -70,10 +70,12 @@ func commit():
 	var error = host.session.upgrade_attributes(pending, baseline, initial_shards)
 	if error:
 		warning.text = error
+		warning.fit()
 		return
 	if not host.persist():
 		host.session.game = previous
 		warning.text = host.saves.error
+		warning.fit()
 		return
 	baseline = host.session.game.player.stats.duplicate(true)
 	initial_shards = int(host.session.game.souls)
@@ -100,3 +102,5 @@ func layout_content():
 		put(divider, 4, 111, 352, divider.THICKNESS)
 		put(warning, 12, 473, 336, 36)
 		put(confirm, 18, 512, 324, ACTION_HEIGHT)
+
+	warning.fit()

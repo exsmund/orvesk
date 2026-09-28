@@ -83,6 +83,8 @@ func popup_centered(dimensions: Vector2i = Vector2i.ZERO):
 		message.add_theme_font_override("font", GothicTheme.DISPLAY_FONT)
 		message.add_theme_font_size_override("font_size", 18)
 		message.add_theme_color_override("font_color", host.data.color("text-home"))
+		for button in [primary, secondary]:
+			button.add_theme_stylebox_override("focus", theme.get_stylebox("hover", "Button"))
 		configured = true
 	requested_size = Vector2(dimensions) if dimensions.x > 0 else Vector2(430, 0)
 	header.title.text = title

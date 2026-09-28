@@ -26,6 +26,7 @@ func arrange(panel_size: Vector2) -> float:
 	position = Vector2(0, panel_size.y - size.y)
 	hint.position = Vector2(x, 0)
 	hint.size = Vector2(width, hint_height)
+	if hint.visible: hint.fit()
 	primary.position = Vector2(x, hint_height)
 	primary.size = Vector2(width, primary_height)
 	back.position = Vector2(x, hint_height + primary_height + 10 * unit)
