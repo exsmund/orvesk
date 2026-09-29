@@ -2,6 +2,9 @@
 """Check the exported graph contract without running a Godot UI."""
 import copy
 import importlib.util
+import json
+import shutil
+import tempfile
 import sys
 import unittest
 from pathlib import Path
@@ -37,6 +40,25 @@ class ExportTest(unittest.TestCase):
                     self.assertEqual(node['scene'], stage['id'])
                     if node['kind'] == 'battleReward': continue
                     pending += [x for x in [node.get('next'), *node.get('options', [])] if x]
+
+    def test_compile_from_json_without_manuscript(self):
+        # A clean data-only checkout must compile, including edits to dialogue text.
+        files = ['story', 'story-preview', 'story-gameplay', 'characters',
+                 'map-points', 'maps', 'creatures']
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / 'data').mkdir()
+            for name in files:
+                shutil.copy2(compiler.ROOT / 'data' / (name + '.json'), root / 'data' / (name + '.json'))
+            path = root / 'data/story-preview.json'
+            preview = json.loads(path.read_text())
+            ident = next(key for key, node in preview['nodes'].items() if node['kind'] == 'dialogue')
+            preview['nodes'][ident]['text'] = 'Проверочная реплика из JSON.'
+            path.write_text(json.dumps(preview, ensure_ascii=False))
+            with patch.object(compiler, 'ROOT', root):
+                graph = compiler.compile_story()
+            self.assertEqual(graph['nodes'][ident]['text'], 'Проверочная реплика из JSON.')
+            self.assertEqual(len(graph['chapters']), 6)
 
     def rejected(self, file, mutate):
         read = compiler.read

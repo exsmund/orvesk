@@ -1,0 +1,52 @@
+{
+  "asset": "images/maps/warlands/map.png",
+  "sha256": "bb6d74f8b2474ed1edd60838fd39f32a04e1ae81441cc73475b0f2c0db9901b2",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "date": "2026-09-27",
+      "prompt": "Use case: stylized-concept. Game environment art for Heroes of Orvesk, dark gothic fantasy painted realism. Natural large masses and convincing volume, restrained textured brushwork, aged materials, muted earth/olive/charcoal/stone palette, upper-left daylight, readable middle-dark values, atmospheric depth without washed-out whitening. Never photorealistic drone photography, flat vector art, cute cartoon, plastic 3D, neon, modern objects, sci-fi, heroic saturated colors. No characters, creatures, text, labels, UI, markers, circles, graph nodes, frames, watermarks or vignette. Full-bleed opaque image; fill every edge with environment, no black fades. Asset type: travel map backdrop. Create ONE landscape image, requested exact 3000 x 2400 pixels, 5:4 aspect ratio. High bird's-eye near-top-down terrain view with only a slight tilt, NO horizon or sky; a readable continuous region viewed from above. Large irregular grouped terrain/architecture features with natural variation, no repetitive tiny tiling. No emphasized central active zone, blank arena or flat reserved panel. Do NOT draw an itinerary, connecting paths, winding adventure road, staged clearings, circular platforms or board-game layout. Crop-safe environment everywhere. Scene: War-torn dry lowlands surrounding an old occupied fortress: trampled brown-grey fields, ragged earthworks without a connected route, scorched patches, collapsed farm outbuildings, broken wooden siege frames and overturned supply wagons sparsely among uneven ground. One squat damaged medieval stone fortress on a low ridge, with battered square towers and dark smoke; peripheral small camp tents and low stone walls. Muted ochre grass and charcoal stone, old iron and dark timber, sparse leafless trees, smoke from recent siege. This is an active human war zone after its armies passed, not a field of tall gothic cathedral ruins. No soldiers, no bodies, no emblems, no readable banners.",
+      "transparentBackground": false,
+      "references": [
+        {
+          "path": "docs/ART_DIRECTION.md",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "docs/ART_DIRECTION.md",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/forest/map.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/forest/scene.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/steppe/map.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/steppe/scene.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/ruins/map.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/ruins/scene.png",
+          "role": "Reviewed visually"
+        }
+      ],
+      "output": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-460ddf39-b57d-40cc-97f1-a1799a72fd5f.png",
+      "sha256": "bb6d74f8b2474ed1edd60838fd39f32a04e1ae81441cc73475b0f2c0db9901b2",
+      "notes": [
+        "Exact copies of generated originals. Map outputs were 1402x1122 rather than requested 3000x2400; actual dimensions recorded in the catalog. No stretching, cropping or repainting. Mobile delivery copies are produced by the existing sync_content.py pipeline.",
+        "Accepted: location matches chapter, no UI or itinerary, opaque, map and battle view share palette and materials."
+      ]
+    }
+  ]
+}

@@ -13,6 +13,8 @@ func dialogues() -> String:
 
 func create(name: String, stats: Dictionary, portrait_id: String) -> String:
 	var error = super.create(name, stats, portrait_id)
+	# Unrelated UI fixtures start with the tutorial dismissed. Dedicated help tests opt in.
+	if not error: game.player.combatHelpHidden = true
 	return error if error else dialogues()
 
 func travel(id: String) -> String:

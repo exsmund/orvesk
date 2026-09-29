@@ -4,6 +4,11 @@ const GothicTheme = preload("res://ui/gothic_theme.gd")
 var prefix = ""
 var alignment = HORIZONTAL_ALIGNMENT_RIGHT
 var amount = 0
+# Presentation only; amount always remains the committed balance.
+var displayed_amount: int = 0:
+	set(value):
+		displayed_amount = value
+		queue_redraw()
 var icon: Texture2D
 var tint = Color.WHITE
 var font_size = 28
@@ -20,7 +25,8 @@ func _init():
 
 func configure(data, value: int):
 	amount = value
-	icon = GothicTheme.trim_texture(data.image("/ui/logos-shards-v3.png"))
+	displayed_amount = value
+	icon = GothicTheme.trim_texture(data.image("/ui/logos-shards.png"))
 	tint = data.color("text-home")
 	tooltip_text = "Осколки: %d" % amount
 	queue_redraw()
@@ -28,10 +34,10 @@ func configure(data, value: int):
 func _draw():
 	if not icon: return
 	var font = GothicTheme.DISPLAY_FONT
-	var digits = str(amount)
+	var digits = str(displayed_amount)
 	if group_digits:
 		var end = digits.length() - 3
-		while end > (1 if amount < 0 else 0):
+		while end > (1 if displayed_amount < 0 else 0):
 			digits = digits.insert(end, " ")
 			end -= 3
 	var text = prefix + digits

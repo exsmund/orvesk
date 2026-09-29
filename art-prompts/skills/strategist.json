@@ -1,0 +1,36 @@
+{
+  "asset": "images/skills/strategist.png",
+  "sha256": "dbdfbacb9c9e19dcee7141a69ff86e2510fd701c1e575de829a20acf9f3f65c3",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "date": "2026-09-28",
+      "prompt": "Create exactly ONE original skill icon for dark Gothic fantasy game Heroes of Orvesk. Square 1024x1024 PNG RGBA, genuine transparent background including all openings, no painted backdrop, no floor or cast shadow, no frame, lettering, numbers, UI, watermark, or extra objects. Central compact object/gesture entirely inside canvas with 8 percent clear margin, readable at 48 pixels. Sculptural volume, rough hand-painted dry brush fantasy illustration, selective etched texture, aged materials, deep chiaroscuro, dominant charcoal and old iron with muted ivory and brown leather. Directional light from upper front LEFT. No photography, smooth 3D render, neon or cartoon. Material guidance: heavy dark metal with thin broken highlights; layered old linen with deep folds; matte worn leather. A leather-gloved hand carefully holding a single carved ivory rook chess piece between thumb and forefinger, one small dark carved pawn beside it as subordinate element. Suspended compact gesture with no board or table. Thoughtful patience, deliberate timing. Entire wrist and pieces within canvas.",
+      "transparentBackground": true,
+      "references": [
+        {
+          "path": "refs/image1.png",
+          "role": "Reviewed visually; not supplied: aged metal, material weight"
+        },
+        {
+          "path": "refs/image2.png",
+          "role": "Reviewed visually; not supplied: cold Gothic steel"
+        },
+        {
+          "path": "refs/image3.png",
+          "role": "Reviewed visually; not supplied: old linen and ivory"
+        },
+        {
+          "path": "images/skills/parry.png",
+          "role": "Reviewed visually; not supplied: existing skill readability comparison"
+        }
+      ],
+      "output": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-9f28b6bd-fe1d-4585-aa3f-7bb39cf3591e.png",
+      "sha256": "dbdfbacb9c9e19dcee7141a69ff86e2510fd701c1e575de829a20acf9f3f65c3",
+      "notes": [
+        "Model: tool default; version/seed not exposed",
+        "Inspected full image, light/dark UI surfaces at small sizes, and real mobile skill catalog/cards; upper-left light, materials and distinct silhouettes retained."
+      ]
+    }
+  ]
+}

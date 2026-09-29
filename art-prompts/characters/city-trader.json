@@ -1,0 +1,69 @@
+{
+  "asset": "images/characters/city-trader.png",
+  "sha256": "db6db91522bbec62be8207945537deac4879c396d93c193703eaf27f343d1314",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "date": "2026-09-28",
+      "prompt": "Use case: identity-preserve. Edit Image 1 into a square transparent dialogue bust portrait for dark gothic game. Preserve the SAME recognizable person, face, age, skin, hair, expression, LEFTWARD three-quarter gaze and identical garment. Outpaint both complete shoulders and upper arms. Images 2,3,4 are materials only: aged warm metal, cold gothic material, cloth/bone; do not copy their characters or accessories.\nCRITICAL matched series framing: square canvas, head small enough: hair crown at 10% height, eyes at 30%, anatomical chin at 50%, head width 36–38%. Head horizontal center 50%. Both shoulders completely visible with generous transparent side margins, silhouette inside x8–92%. Same camera distance for every portrait. Bust to upper chest, lower torso cropped only by bottom. Do not crop sides, zoom into face, or auto-trim transparency. No waist, hands, new props. Preserve natural proportions. Head size consistency more important than filling canvas.\nFine dry-brush gothic painting, sculptural volume, matte skin, grouped hair, coarse worn cloth, subtle irregular strokes following form; deep chiaroscuro, light upper front-left. Muted earth charcoal bone colors. Not photograph, glossy 3D or cartoon.\nActual transparent PNG alpha outside silhouette, no black or white background, painted checkerboard, frame, labels, halo. Keep dark clothing and internal shadows opaque. One square portrait.\nImage 5 is ONLY the series camera-distance/layout reference. MATCH its anatomical head height, eye-line and chin position closely; do NOT copy its face, skin, hair, clothing or shoulder width. Subject identity comes exclusively from image1. Every portrait in this series must have the same apparent camera distance. Preserve each person's natural build.",
+      "transparentBackground": true,
+      "references": [
+        {
+          "path": "images/characters/city-trader.png",
+          "role": "Earlier opaque version at this path; now replaced"
+        },
+        {
+          "path": "refs/image1.png",
+          "role": "Material reference only"
+        },
+        {
+          "path": "refs/image2.png",
+          "role": "Material reference only"
+        },
+        {
+          "path": "refs/image3.png",
+          "role": "Material reference only"
+        },
+        {
+          "path": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-71520f10-243c-425d-a8b3-c6a6ba636c4d.png",
+          "role": "Camera distance / framing only"
+        }
+      ],
+      "output": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-c86685ad-fa06-44c6-94e8-60ffd0958f82.png",
+      "sha256": "390dcd6a205dcc7b1db598c7eb700937a30b864537fc578cc9bb0f1e50e971f0",
+      "instructions": [
+        "IMPORTANT retain exact garment construction from image1. Do not add frayed layered shoulder cape from image5. Clothing ONLY from image1."
+      ]
+    },
+    {
+      "tool": "image_gen",
+      "date": "2026-09-28",
+      "prompt": "Edit FIRST image: substantially ZOOM OUT the entire trader by 25%. Face must be noticeably smaller. Show her complete shoulders and more torso. Highest headscarf at 10% canvas height, pupils at 29%, chin at 48%. Overall figure occupies CENTRAL 75% canvas WIDTH only, empty transparent side columns 12.5% each. Do not auto trim canvas. Preserve exact elderly woman's identity, gray hair, brown headscarf, linen shirt, dark vest, leftward gaze, painterly rendering. SECOND image gives head scale and framing ONLY, never copy face or costume. Remaining images materials only. Square transparent PNG, no backdrop/frame/text, fully visible shoulder outlines. Torso extends down to bottom.",
+      "transparentBackground": true,
+      "references": [
+        {
+          "path": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-c86685ad-fa06-44c6-94e8-60ffd0958f82.png",
+          "role": "Edit target",
+          "sha256": "390dcd6a205dcc7b1db598c7eb700937a30b864537fc578cc9bb0f1e50e971f0"
+        },
+        {
+          "path": "refs/image1.png",
+          "role": "Material reference only"
+        },
+        {
+          "path": "refs/image2.png",
+          "role": "Material reference only"
+        },
+        {
+          "path": "refs/image3.png",
+          "role": "Material reference only"
+        }
+      ],
+      "output": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-3a945f0f-781a-493b-ba9d-78e58af4dcfa.png",
+      "sha256": "db6db91522bbec62be8207945537deac4879c396d93c193703eaf27f343d1314",
+      "notes": [
+        "Framing targets were reviewed visually, not asserted as measured landmarks. The exact framing guide path was not recorded."
+      ]
+    }
+  ]
+}

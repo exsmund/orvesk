@@ -1,0 +1,13 @@
+{
+  "asset": "images/weapons/bog-stinger.png",
+  "sha256": "94e1e070567e5862fd34bee00b62870634c84501cac2f9b248ce2002dc6c7949",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "date": "2026-09-27",
+      "prompt": "Use case: stylized-concept. Create ONE square 1024x1024 PNG game inventory/action illustration on a TRUE TRANSPARENT RGBA background. Completely empty alpha outside the subject and in all gaps and holes. No black or colored backdrop, no gradient rectangle, no checkerboard, no floor, no shadow plane, no UI tile, no frame, no text or numbers. This will overlay textured combat cells: the cell texture MUST show everywhere around the object.\nArt direction: dark gothic fantasy, sculptural volume, tactile finely painted aged materials, strong chiaroscuro but readable midtone surfaces and narrow upper-left edge highlights. Muted iron grey, old brown leather, ivory linen, ochre accents; no plastic, cartoon, neon, flat vector or glossy 3D. A strong simple silhouette readable at 40px. Whole object fully visible, centered with about 8% transparent margin. No unintended accessories. Do not create a sheet of variations.\nSubject: Шип трясины (bog-stinger). Духовая трубка из тёмного полого стебля с костяным мундштуком и связкой тонких дротиков в закрытом футляре. Оружие болотных охотников и скрытных убийц. Яд для дротиков готовят знахари и алхимики; связь с сёстрами Млечного познания не предполагается.\n\n.\nType weapon. Designed for 1 hand(s); depict the item alone, no person holding it. Long weapons diagonal bottom-left handle to upper-right tip. Boots/greaves are a matched pair; other items one object. Bow shown alone without quiver, weapons without scabbards. A fist is an anatomical action symbol, not a weapon held by a person.",
+      "transparentBackground": true,
+      "output": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-6799197c-3cbd-43ab-bcb7-2eed69e3d1a1.png"
+    }
+  ]
+}

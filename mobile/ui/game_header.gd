@@ -101,7 +101,7 @@ func configure(catalog, game: Dictionary, animated: bool, forecast: Dictionary =
 	shards.visible = journey_mode
 	enemy_bars.visible = not journey_mode
 	enemy_portrait.visible = not journey_mode
-	portrait_frame = GothicTheme.trim_texture(data.image("/ui/portrait-frame-round-v1.png"))
+	portrait_frame = GothicTheme.trim_texture(data.image("/ui/portrait-frame-round.png"))
 	for border in frames: border.texture = portrait_frame
 	for separator in separators: separator.configure(data, true)
 	shading.set_shader_parameter("shade", data.color("base-black"))
@@ -110,10 +110,12 @@ func configure(catalog, game: Dictionary, animated: bool, forecast: Dictionary =
 	var crop: Dictionary = data.portrait_presentation.circle.position
 	for portrait in [player_portrait, enemy_portrait]:
 		portrait.material.set_shader_parameter("object_position", Vector2(crop.x, crop.y))
+		var square: Dictionary = data.portrait_presentation.circle.squareCrop
+		portrait.material.set_shader_parameter("square_crop", Vector4(square.x, square.y, square.width, square.height))
 	player_portrait.tooltip_text = game.player.name
 	enemy_portrait.tooltip_text = game.enemy.name
-	mode_icon.texture_normal = GothicTheme.trim_texture(data.image("/ui/battle-modes/%s-v1.png" % game.journey.battleMode))
-	mode_icon.tooltip_text = ("Свободное поле" if game.journey.battleMode == "free" else "Единственный шанс") + (" · Меню путешествия" if journey_mode else " · Меню боя")
+	mode_icon.texture_normal = GothicTheme.trim_texture(data.image("/ui/battle-modes/free.png"))
+	mode_icon.tooltip_text = "Свободное поле" + (" · Меню путешествия" if journey_mode else " · Меню боя")
 	map_number.text = str(int(game.journey.expedition))
 	map_number.tooltip_text = "Карта %s" % map_number.text
 	for label in [map_number, title]: label.add_theme_color_override("font_color", data.color("text-home"))
@@ -129,7 +131,7 @@ func configure(catalog, game: Dictionary, animated: bool, forecast: Dictionary =
 		var available = forecast.get("cost", {}).get("remaining", f.stamina) if side == 0 else summary.get("available", f.stamina)
 		var estimate = not forecast.get("known", true)
 		bars[side * 2].configure(data, "", f.hp, data.max_hp(f), "health", animated, -summary.get("damage", 0.0), estimate)
-		bars[side * 2 + 1].configure(data, "", available, data.balance.stamina.max, "stamina", animated, -summary.get("staminaLoss", 0.0), estimate)
+		bars[side * 2 + 1].configure(data, "", available, data.max_stamina(f), "stamina", animated, -summary.get("staminaLoss", 0.0), estimate)
 	layout()
 
 func configure_journey(catalog, game: Dictionary, animated: bool):
@@ -193,7 +195,7 @@ func layout_shadow():
 	# Fade to transparent before the viewport edge, including asymmetric safe areas.
 	# The header itself never sits in a clipping scroll container.
 	var viewport = get_global_transform().affine_inverse() * get_viewport_rect()
-	var bounds = Rect2(-24, -24, size.x + 48, size.y + 60).intersection(viewport)
+	var bounds = Rect2(-36, -36, size.x + 72, size.y + 90).intersection(viewport)
 	shadow.position = bounds.position
 	shadow.size = bounds.size
 	shading.set_shader_parameter("panel_size", shadow.size)

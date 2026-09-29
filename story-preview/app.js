@@ -7,13 +7,14 @@ let config,run,catalog,creatures,portraits,heroPortrait;let treeButtons=new Map(
 const storage='duelyant-story-preview-v1';
 function act(fn){try{$('error').textContent='';fn();render();}catch(e){$('error').textContent=e.message;}}
 function save(){try{localStorage.setItem(storage,JSON.stringify({fingerprint:{sources:config.sources,revision:config.revision},run,heroPortrait}));}catch{$('error').textContent='Не удалось сохранить проверку в браузере.';}}
+function creatureDialoguePortrait(id){const c=creatures.find(c=>c.id===id);return c?.dialoguePortrait||c?.portrait;}
 function speakerInfo(node){
  const binding=config.speakers[node.speaker];if(!binding)return null;
  const char=binding.characterId?catalog.find(c=>c.id===binding.characterId):binding;
  let portrait=char?.portrait;let side=char?.dialogueSide||binding.portraitSide||'right';
  if(char?.portraitSource==='player'){portrait={src:heroPortrait};side='left';}
- if(portrait?.kind==='creature')portrait=creatures.find(c=>c.id===portrait.id)?.portrait;
- if(char?.portraitSource==='creature'&&char.creatureId)portrait=creatures.find(c=>c.id===char.creatureId)?.portrait;
+ if(portrait?.kind==='creature')portrait=creatureDialoguePortrait(portrait.id);
+ if(char?.portraitSource==='creature'&&char.creatureId)portrait=creatureDialoguePortrait(char.creatureId);
  return {name:node.speakerName||binding.name||char?.name,side,src:portrait?.src,subtitle:binding.subtitle||char?.subtitle};
 }
 function render(){
@@ -67,7 +68,7 @@ function buildInspector(){
 function reset(){run=initialRun(config);run.visited.push(run.node);$('search').value='';filterTree('');}
 function filterTree(value){const query=value.toLocaleLowerCase();for(const d of $('tree').children){let any=false;for(const li of d.querySelectorAll('li')){const hit=!query||li.textContent.toLocaleLowerCase().includes(query);li.hidden=!hit;if(hit)any=true;}d.hidden=!any;if(query&&any)d.open=true;}}
 try{
- [config,catalog,creatures,portraits]=await Promise.all(['story-preview.json','story-characters.json','creatures.json','portraits.json'].map(get));
+ [config,catalog,creatures,portraits]=await Promise.all(['story-preview.json','characters.json','creatures.json','hero-portraits.json'].map(get));
  const errors=validate(config);if(errors.length)throw Error(errors.join('\n'));
  run=initialRun(config);heroPortrait=portraits[0]?.src;run.visited.push(run.node);
  try{const cached=JSON.parse(localStorage.getItem(storage));if(cached&&JSON.stringify(cached.fingerprint)===JSON.stringify({sources:config.sources,revision:config.revision})&&config.nodes[cached.run?.node]){run=cached.run;heroPortrait=cached.heroPortrait||heroPortrait;}}catch{}

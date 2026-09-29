@@ -59,7 +59,11 @@ func refresh():
 	price.configure(host.data, quote.nextCost)
 	price.tooltip_text = "Цена следующего повышения характеристики на 1: %d осколков" % quote.nextCost
 	for stat in rows:
-		rows[stat].refresh(int(baseline[stat]), int(pending.get(stat, 0)), quote.remaining >= quote.nextCost and not quote.error)
+		var bonus = host.data.effective_stat(host.session.game.player, stat) - int(host.session.game.player.stats[stat])
+		rows[stat].caption.text = host.data.STAT_NAMES[stat] + (" (+%d)" % bonus if bonus else "")
+		rows[stat].caption.add_theme_font_size_override("font_size", 14 if bonus else 18)
+		rows[stat].tooltip_text = "База: %d. Бонус навыков: %+d. Уровень и цена прокачки считаются по базе." % [baseline[stat], bonus]
+		rows[stat].refresh(int(baseline[stat]) + bonus, int(pending.get(stat, 0)), quote.remaining >= quote.nextCost and not quote.error)
 	confirm.disabled = locked or quote.points == 0 or not quote.error.is_empty()
 	if locked: warning.text = locked_reason
 	arrange()
@@ -89,12 +93,12 @@ func commit():
 func layout_content():
 	if rows.is_empty(): return
 	if wide:
-		put(shards, 40, 2, 280, 46)
-		put(price, 376, 7, 304, 38)
-		for i in host.data.STATS.size(): put(rows[host.data.STATS[i]], 2 + (i % 2) * 360,  60 + (i / 2) * 78, 356, 70)
-		put(divider, 2, 57, 716, divider.THICKNESS)
-		put(warning, 180, 217, 360, 36)
-		put(confirm, 202, 254, 316, ACTION_HEIGHT)
+		for i in host.data.STATS.size(): put(rows[host.data.STATS[i]], 2, 8 + i * 77, 356, 68)
+		put(divider, 2, 5, 356, divider.THICKNESS)
+		put(shards, 390, 35, 304, 52)
+		put(price, 390, 96, 304, 38)
+		put(warning, 384, 203, 316, 40)
+		put(confirm, 384, 254, 316, ACTION_HEIGHT)
 	else:
 		put(shards, 8, 8, 344, 52)
 		put(price, 8, 60, 344, 36)

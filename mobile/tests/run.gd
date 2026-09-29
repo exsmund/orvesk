@@ -33,7 +33,15 @@ func _initialize():
 	var data = Catalog.new()
 	var combat = Combat.new(data)
 	combat.rng.seed = 73129
-	var oracle = JSON.parse_string(FileAccess.get_file_as_string("res://tests/generated/reference.json"))
+	var oracle = JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/combat-reference.json"))
+	if not oracle is Dictionary or oracle.get("version") != 1 or not oracle.get("decks") is Array or not oracle.get("cases") is Array:
+		printerr("FAIL: Invalid combat reference fixture")
+		quit(1)
+		return
+	if oracle.decks.is_empty() or oracle.cases.is_empty():
+		printerr("FAIL: Combat reference fixture must contain decks and clashes")
+		quit(1)
+		return
 	for n in oracle.decks.size():
 		var fixture = oracle.decks[n]
 		var actual = combat.build_deck(fixture.fighter)
@@ -105,7 +113,7 @@ func _initialize():
 			check(session.game.player.hp == hp, "Reward preserves HP")
 			check(session.travel("camp-%d" % stage).is_empty(), "Camp visit")
 			check(session.travel("camp-%d" % stage) != "", "Cannot replay camp")
-	check(session.game.journey.expedition == 2 and session.game.journey.battleMode == "expendable", "Next map mode")
+	check(session.game.journey.expedition == 2 and session.game.journey.battleMode == "free", "Next map mode")
 	var enemies = session.game.journey.enemies.duplicate(true)
 	session.game.phase = "defeat"
 	session.finish_battle()

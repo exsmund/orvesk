@@ -109,7 +109,32 @@ func check_shard_balance():
 			session.game.rewardOptions = []
 			check(session.complete_reward().is_empty(), "Finish final ordinary/boss reward")
 
+func check_reward_weights():
+	var rewards = make_session().rewards
+	var rng = RandomNumberGenerator.new()
+	rng.seed = 80420
+	# Unequal catalog sizes must not turn the type weights into per-entry weights.
+	for item_count in [1, 8]:
+		var pool: Array = []
+		for i in item_count: pool.append({"kind": "item", "itemId": "item-%d" % i})
+		for i in (9 - item_count): pool.append({"kind": "skill", "skillId": "skill-%d" % i})
+		var items = 0
+		for _i in 10000:
+			if rewards.pick(pool, rng).kind == "item": items += 1
+		check(absf(items / 10000.0 - 0.8) < 0.02, "Items receive 80% regardless of catalog sizes")
+		print("REWARD_WEIGHTS: %d items / 10000 offers (%d item candidates)" % [items, item_count])
+		for kind in ["item", "skill"]:
+			var only_kind = pool.filter(func(option): return option.kind == kind)
+			for _i in 20: check(rewards.pick(only_kind, rng).kind == kind, "Unavailable type never produces an empty offer")
+	check(rewards.pick([], rng).is_empty(), "An exhausted reward pool stays empty")
+	var configured_weights = data.balance.loot.rewardKindWeights.duplicate(true)
+	data.balance.loot.rewardKindWeights = {"item": 0, "skill": 100}
+	var pair = [{"kind": "item", "itemId": "item"}, {"kind": "skill", "skillId": "skill"}]
+	for _i in 20: check(rewards.pick(pair, rng).kind == "skill", "Reward type weights come from the catalog")
+	data.balance.loot.rewardKindWeights = configured_weights
+
 func _initialize():
+	check_reward_weights()
 	check_reward_progression()
 	check_shard_balance()
 	var seen = {"skill": false, "item": false, "twoItems": false, "mixed": false, "future": false}
@@ -205,17 +230,22 @@ func _initialize():
 	var full_cost = quote.totalCost
 	var initial = session.game.duplicate(true)
 	check(not session.reward(0).is_empty() and session.game == initial, "Locked item cannot be equipped")
-	check(not session.upgrade_reward_requirement(0, "invalid", 1).is_empty(), "Only required stats can be raised from the card")
-	while not quote.steps.is_empty():
-		var step = quote.steps[0]
-		var price = data.level(session.game.player) + 2
-		var balance = session.game.souls
-		check(step.cost == price and session.upgrade_reward_requirement(0, step.stat, step.current).is_empty(), "Required stat uses current progression price")
-		check(session.game.souls == balance - price and session.game.player.stats[step.stat] == step.current + 1, "Upgrade deducts exactly one price")
-		check(not session.upgrade_reward_requirement(0, step.stat, step.current).is_empty(), "Duplicate stale upgrade is rejected")
-		check(session.game.phase == "victory" and session.game.rewardOptions == initial.rewardOptions, "Upgrading neither claims nor rerolls")
-		quote = session.reward_requirements(0)
-	check(session.game.souls == 100 - full_cost, "Full quote includes rising costs across stats")
+	var points = 0
+	for increment in quote.increments.values(): points += increment
+	var expected_cost = 0
+	for point in points: expected_cost += data.level(session.game.player) + 2 + point
+	check(full_cost == expected_cost, "Full quote includes rising costs across all missing stats")
+	var stale = quote.duplicate(true)
+	stale.stats.strength += 1
+	check(not session.upgrade_item_requirements(future_item.id, stale).is_empty() and session.game == initial, "Changed stats reject a stale bulk request without payment")
+	stale = quote.duplicate(true)
+	stale.balance += 1
+	check(not session.upgrade_item_requirements(future_item.id, stale).is_empty() and session.game == initial, "Changed balance rejects a stale bulk request")
+	check(session.upgrade_item_requirements(future_item.id, quote).is_empty(), "Buy all missing item requirements in one transaction")
+	check(session.game.souls == 100 - full_cost and quote.steps.all(func(step): return session.game.player.stats[step.stat] == step.required), "Bulk upgrade spends the exact total and meets every requirement")
+	var upgraded = session.game.duplicate(true)
+	check(not session.upgrade_item_requirements(future_item.id, quote).is_empty() and session.game == upgraded, "Duplicate bulk request is rejected without a second payment")
+	check(session.game.phase == "victory" and session.game.rewardOptions == initial.rewardOptions and session.game.player.gear == initial.player.gear, "Bulk upgrade neither equips nor claims nor rerolls")
 	var upgraded_payload = payload(session)
 	loaded.restore(upgraded_payload)
 	check(loaded.reward_requirements(0).steps.is_empty() and loaded.game.souls == session.game.souls, "Purchased upgrades survive reward-screen reload")
@@ -223,8 +253,14 @@ func _initialize():
 	session.game = initial.duplicate(true)
 	session.game.souls = 0
 	var poor = session.game.duplicate(true)
-	var missing = session.reward_requirements(0).steps[0]
-	check(not session.upgrade_reward_requirement(0, missing.stat, missing.current).is_empty() and session.game == poor, "Insufficient shards never change stats")
+	check(not session.upgrade_item_requirements(future_item.id, session.reward_requirements(0)).is_empty() and session.game == poor, "Insufficient shards never change stats")
+	session.game = initial.duplicate(true)
+	session.game.souls = full_cost - 1
+	poor = session.game.duplicate(true)
+	check(not session.upgrade_item_requirements(future_item.id, session.reward_requirements(0)).is_empty() and session.game == poor, "Being one shard short never purchases partial requirements")
+	session.game.souls = full_cost
+	check(session.upgrade_item_requirements(future_item.id, session.reward_requirements(0)).is_empty() and session.game.souls == 0, "Exact full price buys all requirements")
+	poor = session.game.duplicate(true)
 	# A catalog with no valid reward must still allow leaving the result screen.
 	session.game.rewardOptions = []
 	check(session.complete_reward().is_empty() and session.game.souls == poor.souls, "Empty exhausted pool can continue without losing shards")

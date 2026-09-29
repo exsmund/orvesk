@@ -8,7 +8,7 @@ Asset: `equipment-mannequin-v2.png`.
 Original: `/Users/exsmund/.codex/generated_images/01a0dfd8-247d-7662-9197-dc693b1f8781/exec-86ffca94-9741-436d-be78-743519a3c739.png`.
 Actual RGBA, transparent exterior and limb gaps. The generator's preview can display RGB hidden under zero alpha; the app uses alpha.
 
-References: `public/ui/equipment-silhouette-neutral.png` for clothing and pose; approved five-tab mockup `exec-f2bff64d-a4f6-4bb6-9f53-5d2e8a0811cb.png`; all three `refs/image1.png`, `image2.png`, `image3.png` for material/style. This is a UI mannequin, not a new hero portrait or approved character identity.
+References: `images/ui/equipment-silhouette-neutral.png` for clothing and pose; approved five-tab mockup `exec-f2bff64d-a4f6-4bb6-9f53-5d2e8a0811cb.png`; all three `refs/image1.png`, `image2.png`, `image3.png` for material/style. This is a UI mannequin, not a new hero portrait or approved character identity.
 
 Prompt:
 

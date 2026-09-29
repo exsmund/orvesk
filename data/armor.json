@@ -3,52 +3,182 @@
     "id": "robe",
     "name": "Хламида странника",
     "kind": "armor",
+    "defenseScalesWithLevel": true,
     "slot": "body",
     "tier": 0,
     "requirements": {
       "intelligence": 1
     },
     "defense": {
-      "magic": 4
+      "pierce": 1,
+      "slash": 2,
+      "blunt": 1,
+      "frost": 4,
+      "fire": 3,
+      "wind": 4,
+      "magic": 6,
+      "poison": 3
     },
-    "description": "Простая ткань с древними знаками. Снижает магический урон на 30%.",
+    "description": "Плотная ткань с древними защитными знаками. Удерживает тепло, ослабляет ветер и чужие заклинания, но плохо останавливает остриё и тяжёлые удары.",
     "figures": []
   },
   {
     "id": "rags",
     "name": "Обмотки паломника",
     "kind": "armor",
+    "defenseScalesWithLevel": true,
     "slot": "body",
     "tier": 0,
     "requirements": {
       "strength": 1
     },
     "defense": {
-      "slash": 1
+      "pierce": 2,
+      "slash": 2,
+      "blunt": 4,
+      "frost": 4,
+      "fire": 2,
+      "wind": 2
     },
-    "description": "Плотная ткань смягчает режущие удары.",
+    "description": "Многослойный лён с войлочным подбоем. Смягчает удары и сохраняет тепло. Дешёвая дорожная одежда без защиты от магии и ядов.",
     "figures": []
   },
   {
     "id": "leather",
     "name": "Куртка следопыта",
     "kind": "armor",
+    "defenseScalesWithLevel": true,
     "slot": "body",
     "tier": 1,
     "requirements": {
       "agility": 1
     },
     "defense": {
-      "pierce": 1,
-      "slash": 1
+      "pierce": 3,
+      "slash": 4,
+      "blunt": 3,
+      "frost": 3,
+      "fire": 1,
+      "wind": 3,
+      "poison": 3
     },
-    "description": "Выделанная кожа для лёгкого бойца.",
+    "description": "Гибкая выделанная кожа с мягкой подкладкой и пропиткой против ядовитого сока. Хороша для лесной дороги, но уязвима перед огнём и магией.",
     "figures": []
   },
   {
     "id": "chainmail",
     "name": "Кольчуга дозорного",
     "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "body",
+    "tier": 2,
+    "requirements": {
+      "strength": 1
+    },
+    "defense": {
+      "pierce": 6,
+      "slash": 6,
+      "blunt": 1,
+      "frost": 3,
+      "fire": 3,
+      "wind": 2,
+      "poison": 3
+    },
+    "description": "Частые клёпаные кольца поверх утеплённой, обработанной против ядов подкладки. Задерживает остриё и лезвие, но передаёт телу силу удара молота.",
+    "figures": []
+  },
+  {
+    "id": "plate",
+    "name": "Панцирь полого рыцаря",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "body",
+    "tier": 3,
+    "requirements": {
+      "strength": 1
+    },
+    "defense": {
+      "pierce": 5,
+      "slash": 5,
+      "blunt": 5,
+      "frost": 2,
+      "fire": 3,
+      "wind": 4
+    },
+    "description": "Стальные пластины на толстом поддоспешнике. Принимает физические удары, прикрывает от ветра и краткого пламени. От заклинаний и ядов не защищает.",
+    "figures": []
+  },
+  {
+    "id": "ash-mantle",
+    "name": "Мантия пепла",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "body",
+    "tier": 2,
+    "requirements": {
+      "intelligence": 1
+    },
+    "defense": {
+      "pierce": 1,
+      "slash": 2,
+      "blunt": 1,
+      "frost": 3,
+      "fire": 6,
+      "wind": 4,
+      "magic": 5,
+      "poison": 2
+    },
+    "description": "Тяжёлая ткань с минеральной пропиткой и закреплёнными заклинаниями. Её готовили для работы среди последствий боевой магии; обычное оружие остаётся опасным.",
+    "figures": []
+  },
+  {
+    "id": "bridge-warden-jacket",
+    "name": "Куртка мостового стража",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "body",
+    "tier": 2,
+    "requirements": {
+      "strength": 1
+    },
+    "defense": {
+      "pierce": 6,
+      "slash": 5,
+      "blunt": 4,
+      "frost": 3,
+      "fire": 2,
+      "wind": 4
+    },
+    "description": "Под потёртой кожей скрываются перекрывающиеся стальные пластины. Стражники переправ укрепляли прежде всего грудь: первый выстрел часто предшествовал первому вопросу.",
+    "figures": []
+  },
+  {
+    "id": "old-convoy-mail",
+    "name": "Кольчуга старого конвоя",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "body",
+    "tier": 2,
+    "requirements": {
+      "strength": 1
+    },
+    "defense": {
+      "pierce": 5,
+      "slash": 6,
+      "blunt": 1,
+      "frost": 3,
+      "fire": 2,
+      "wind": 3,
+      "poison": 4
+    },
+    "description": "Мелкие кольца покрывают дорожную рубаху с алхимической пропиткой. Охрана обозов опасалась не только клинков, но и отравленных стрел.",
+    "figures": []
+  },
+  {
+    "id": "stonecutter-gambeson",
+    "name": "Стёганка каменотёса",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
     "slot": "body",
     "tier": 2,
     "requirements": {
@@ -56,16 +186,479 @@
     },
     "defense": {
       "pierce": 1,
-      "slash": 2,
-      "blunt": 1
+      "slash": 4,
+      "blunt": 6,
+      "frost": 3,
+      "fire": 3,
+      "wind": 3,
+      "poison": 4
     },
-    "description": "Потемневшие кольца помнят сотню ударов.",
+    "description": "Толстый войлок и мягкое волокно смягчают удары. Минеральная обработка и плотный воротник защищают от едкой пыли; остриё легко проходит между стежками.",
     "figures": []
   },
   {
-    "id": "plate",
-    "name": "Панцирь полого рыцаря",
+    "id": "charcoal-burner-kaftan",
+    "name": "Кафтан углежога",
     "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "body",
+    "tier": 2,
+    "requirements": {
+      "intelligence": 1
+    },
+    "defense": {
+      "pierce": 1,
+      "slash": 2,
+      "blunt": 4,
+      "frost": 1,
+      "fire": 6,
+      "wind": 3,
+      "magic": 3,
+      "poison": 4
+    },
+    "description": "Грубая ткань пропитана глиняным составом с защитой от жара и едких испарений. На морозе пропитка дубеет, а складки становятся хрупкими.",
+    "figures": []
+  },
+  {
+    "id": "faun-watch-sheepskin",
+    "name": "Шуба фавньего дозора",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "body",
+    "tier": 2,
+    "requirements": {
+      "agility": 1
+    },
+    "defense": {
+      "pierce": 1,
+      "slash": 3,
+      "blunt": 4,
+      "frost": 6,
+      "fire": 1,
+      "wind": 5,
+      "magic": 2,
+      "poison": 2
+    },
+    "description": "Овчина с плотным подбоем и охранными узлами. Фавны передают такие шубы проводникам, которым доверяют зимние тропы у своих рощ. Боится огня и острых наконечников.",
+    "figures": []
+  },
+  {
+    "id": "high-nest-vestment",
+    "name": "Облачение высокого гнезда",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "body",
+    "tier": 2,
+    "requirements": {
+      "agility": 1
+    },
+    "defense": {
+      "pierce": 1,
+      "slash": 3,
+      "blunt": 1,
+      "frost": 4,
+      "fire": 3,
+      "wind": 6,
+      "magic": 4,
+      "poison": 2
+    },
+    "description": "Сброшенные гарпиями перья вплетены в многослойную ткань. Эльфийская обработка отводит порывы ветра и рассеянные чары, но не заменяет твёрдую броню.",
+    "figures": []
+  },
+  {
+    "id": "scattered-sign-mantle",
+    "name": "Мантия рассеянного знака",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "body",
+    "tier": 3,
+    "requirements": {
+      "intelligence": 1
+    },
+    "defense": {
+      "pierce": 1,
+      "slash": 3,
+      "blunt": 1,
+      "frost": 3,
+      "fire": 4,
+      "wind": 4,
+      "magic": 6,
+      "poison": 2
+    },
+    "description": "Серые нити образуют незамкнутые узоры. Эльфийские исследователи направляли через разрывы рисунка избыточное воздействие чужих заклинаний. Ткань плохо держит прямые удары.",
+    "figures": []
+  },
+  {
+    "id": "bitter-reed-robe",
+    "name": "Ряса горького тростника",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "body",
+    "tier": 2,
+    "requirements": {
+      "intelligence": 1
+    },
+    "defense": {
+      "pierce": 1,
+      "slash": 2,
+      "blunt": 3,
+      "frost": 4,
+      "fire": 1,
+      "wind": 3,
+      "magic": 4,
+      "poison": 6
+    },
+    "description": "Волокна вымочены в настоях, нейтрализующих яды, и прошиты охранными нитями. Такие рясы носят отшельницы Млечного познания, работающие с болотными составами.",
+    "figures": []
+  },
+  {
+    "id": "forest-border-armor",
+    "name": "Доспех лесной границы",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "body",
+    "tier": 2,
+    "requirements": {
+      "agility": 1
+    },
+    "defense": {
+      "pierce": 5,
+      "slash": 5,
+      "blunt": 1,
+      "frost": 3,
+      "fire": 1,
+      "wind": 2,
+      "magic": 2,
+      "poison": 5
+    },
+    "description": "Кожаные полосы и тонкие пластины защищают эльфийского дозорного от стрел, клинков и ядовитых зарослей. Гибкие соединения плохо распределяют тяжёлые удары.",
+    "figures": []
+  },
+  {
+    "id": "island-ferryman-kaftan",
+    "name": "Кафтан островного перевозчика",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "body",
+    "tier": 2,
+    "requirements": {
+      "agility": 1
+    },
+    "defense": {
+      "pierce": 1,
+      "slash": 3,
+      "blunt": 5,
+      "frost": 5,
+      "fire": 2,
+      "wind": 5,
+      "poison": 3
+    },
+    "description": "Промасленная ткань, утеплённые плечи и мягкие вставки на рёбрах. Одежда тех, кто доставляет грузы к острову Света через холодную, неспокойную воду.",
+    "figures": []
+  },
+  {
+    "id": "stone-bearer-vestment",
+    "name": "Облачение носителя камня",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "body",
+    "tier": 3,
+    "requirements": {
+      "intelligence": 1
+    },
+    "defense": {
+      "pierce": 4,
+      "slash": 4,
+      "blunt": 4,
+      "frost": 2,
+      "fire": 2,
+      "wind": 1,
+      "magic": 6,
+      "poison": 1
+    },
+    "description": "Под жреческой тканью спрятаны пластины и защитная вышивка. Чары берегут носителя аттрактора от чужого воздействия, но широкие полы плохо противостоят ветру.",
+    "figures": []
+  },
+  {
+    "id": "underroot-workshop-cover",
+    "name": "Покров подкоренной мастерской",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "body",
+    "tier": 3,
+    "requirements": {
+      "intelligence": 1
+    },
+    "defense": {
+      "pierce": 1,
+      "slash": 3,
+      "blunt": 5,
+      "frost": 1,
+      "fire": 3,
+      "wind": 2,
+      "magic": 4,
+      "poison": 5
+    },
+    "description": "Корневые волокна, минеральные чешуйки и защита от ядов и магии. Первый покров, по преданию, изготовили при участии подземной феи. Боится промерзания и острых ударов.",
+    "figures": []
+  },
+  {
+    "id": "glass-furnace-cuirass",
+    "name": "Панцирь стекольного горна",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "body",
+    "tier": 3,
+    "requirements": {
+      "strength": 1
+    },
+    "defense": {
+      "pierce": 4,
+      "slash": 4,
+      "blunt": 3,
+      "frost": 1,
+      "fire": 6,
+      "wind": 3,
+      "magic": 2,
+      "poison": 1
+    },
+    "description": "Пластины покрыты огнеупорной глазурью, под ними лежит минеральный войлок. Бывшие работники стекольных мастерских приспособили защитную одежду для войны.",
+    "figures": []
+  },
+  {
+    "id": "ice-crossing-cuirass",
+    "name": "Кираса ледяной переправы",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "body",
+    "tier": 3,
+    "requirements": {
+      "strength": 1
+    },
+    "defense": {
+      "pierce": 4,
+      "slash": 3,
+      "blunt": 1,
+      "frost": 6,
+      "fire": 1,
+      "wind": 4,
+      "magic": 3,
+      "poison": 2
+    },
+    "description": "Составные пластины на утеплённой основе несут знаки против холода. Броню делали для стражи зимних переправ; её защитный состав плохо переносит огонь.",
+    "figures": []
+  },
+  {
+    "id": "storm-catcher-jacket",
+    "name": "Куртка ловчего бурь",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "body",
+    "tier": 2,
+    "requirements": {
+      "agility": 1
+    },
+    "defense": {
+      "pierce": 2,
+      "slash": 3,
+      "blunt": 5,
+      "frost": 2,
+      "fire": 1,
+      "wind": 6,
+      "poison": 5
+    },
+    "description": "Мягкие накладки принимают удары обломков, клапаны закрывают швы, а пропитка нейтрализует едкую пыль. Одежда сборщиков материалов после магических бурь.",
+    "figures": []
+  },
+  {
+    "id": "bitter-herb-cloak",
+    "name": "Плащ сборщика горьких трав",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "body",
+    "tier": 2,
+    "requirements": {
+      "intelligence": 1
+    },
+    "defense": {
+      "pierce": 1,
+      "slash": 1,
+      "blunt": 2,
+      "frost": 5,
+      "fire": 3,
+      "wind": 2,
+      "magic": 4,
+      "poison": 6
+    },
+    "description": "Утеплённая ткань с нейтрализующими составами и защитными стежками. Позволяет работать среди морозных испарений и ядовитых растений, но плохо держит острое оружие.",
+    "figures": []
+  },
+  {
+    "id": "last-outpost-brigandine",
+    "name": "Бригантина последней заставы",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "body",
+    "tier": 2,
+    "requirements": {
+      "strength": 1
+    },
+    "defense": {
+      "pierce": 4,
+      "slash": 5,
+      "blunt": 3,
+      "frost": 4,
+      "fire": 3,
+      "wind": 3,
+      "magic": 1,
+      "poison": 1
+    },
+    "description": "Стальные пластины вшиты между кожей и утеплённой подкладкой с охранными знаками. Застава давно пуста, но её доспехи продолжают службу в чужих отрядах.",
+    "figures": []
+  },
+  {
+    "id": "bear-ford-vest",
+    "name": "Безрукавка медвежьего брода",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "body",
+    "tier": 2,
+    "requirements": {
+      "strength": 1
+    },
+    "defense": {
+      "pierce": 2,
+      "slash": 5,
+      "blunt": 5,
+      "frost": 5,
+      "fire": 1,
+      "wind": 3,
+      "magic": 1,
+      "poison": 2
+    },
+    "description": "Толстые шкуры укреплены варёной кожей и мягким подбоем. Охотники северных бродов ценят защиту от когтей, ударов и холода, хотя у костра держатся осторожно.",
+    "figures": []
+  },
+  {
+    "id": "serpent-molt-cuirass",
+    "name": "Панцирь змеиного линя",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "body",
+    "tier": 2,
+    "requirements": {
+      "agility": 1
+    },
+    "defense": {
+      "pierce": 5,
+      "slash": 4,
+      "blunt": 1,
+      "frost": 1,
+      "fire": 4,
+      "wind": 2,
+      "magic": 2,
+      "poison": 5
+    },
+    "description": "Чешуйки гигантской змеи закреплены на коже и обработаны против яда. Держат лезвие и жар, но трескаются от тяжёлого удара и сильного холода.",
+    "figures": []
+  },
+  {
+    "id": "quiet-belfry-vestment",
+    "name": "Облачение тихой звонницы",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "body",
+    "tier": 3,
+    "requirements": {
+      "intelligence": 1
+    },
+    "defense": {
+      "pierce": 2,
+      "slash": 1,
+      "blunt": 4,
+      "frost": 3,
+      "fire": 3,
+      "wind": 6,
+      "magic": 4,
+      "poison": 1
+    },
+    "description": "Тяжёлая стёганая ткань с керамическими вставками и воздушными печатями. Её носили смотрители высоких колоколен; после их гибели печати всё ещё удерживают натиск ветра.",
+    "figures": []
+  },
+  {
+    "id": "river-watch-lamellar",
+    "name": "Ламелляр речного караула",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "body",
+    "tier": 2,
+    "requirements": {
+      "agility": 1
+    },
+    "defense": {
+      "pierce": 6,
+      "slash": 3,
+      "blunt": 2,
+      "frost": 5,
+      "fire": 1,
+      "wind": 4,
+      "magic": 1,
+      "poison": 2
+    },
+    "description": "Костяные и роговые пластины перекрываются поверх тёплой кожи. Речной караул собирал такие доспехи вдали от кузниц: против стрел они надёжнее, чем против пламени.",
+    "figures": []
+  },
+  {
+    "id": "broken-seal-robe",
+    "name": "Риза разбитой печати",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "body",
+    "tier": 3,
+    "requirements": {
+      "intelligence": 1
+    },
+    "defense": {
+      "pierce": 3,
+      "slash": 1,
+      "blunt": 3,
+      "frost": 4,
+      "fire": 4,
+      "wind": 2,
+      "magic": 6,
+      "poison": 1
+    },
+    "description": "Кожаные полосы несут обожжённые защитные знаки. Маги восстанавливали их после испытаний, оставляя старые трещины видимыми. Чары крепки, но соединительные швы легко рассечь.",
+    "figures": []
+  },
+  {
+    "id": "salt-infirmary-coat",
+    "name": "Кожух соляной лечебницы",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "body",
+    "tier": 2,
+    "requirements": {
+      "intelligence": 1
+    },
+    "defense": {
+      "pierce": 2,
+      "slash": 2,
+      "blunt": 4,
+      "frost": 1,
+      "fire": 5,
+      "wind": 3,
+      "magic": 1,
+      "poison": 6
+    },
+    "description": "Плотная одежда пропитана минеральным составом против ядов и жара. В ней очищали заражённые помещения и работали у печей; на морозе защитная корка становится ломкой.",
+    "figures": []
+  },
+  {
+    "id": "burnt-grove-armor",
+    "name": "Доспех выжженной рощи",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
     "slot": "body",
     "tier": 3,
     "requirements": {
@@ -73,165 +666,15 @@
     },
     "defense": {
       "pierce": 3,
-      "slash": 3,
-      "blunt": 2
-    },
-    "description": "Тяжёлая сталь. Защищает тело, но не душу.",
-    "figures": []
-  },
-  {
-    "id": "ash-mantle",
-    "name": "Мантия пепла",
-    "kind": "armor",
-    "slot": "body",
-    "tier": 2,
-    "requirements": {
-      "intelligence": 1
-    },
-    "defense": {
-      "fire": 2,
+      "slash": 4,
+      "blunt": 4,
       "frost": 1,
-      "magic": 4,
-      "wind": 2
+      "fire": 6,
+      "wind": 1,
+      "magic": 3,
+      "poison": 2
     },
-    "description": "Пропитана пеплом и обрывками заклинаний.",
+    "description": "Пластины обугленной коры скреплены кожей и защитными узлами. Лесные мастера сохраняют стойкость дерева к жару, но щели между пластинами пропускают ветер и холод.",
     "figures": []
-  },
-  {
-    "id": "iron-boots",
-    "name": "Ботинки с железным носком",
-    "kind": "armor",
-    "slot": "feet",
-    "tier": 0,
-    "requirements": {
-      "strength": 1
-    },
-    "defense": {},
-    "description": "Шанс сбить с равновесия пинком: 10% вместо 5%.",
-    "figures": [
-      {
-        "id": "kick",
-        "name": "Пинок",
-        "shape": [
-          [
-            0,
-            0
-          ],
-          [
-            1,
-            0
-          ]
-        ],
-        "category": "attack",
-        "copies": 2,
-        "staminaCost": 2,
-        "blockCost": 0,
-        "staminaDamagePerCell": 1,
-        "healthDamage": {
-          "base": 1,
-          "stats": [
-            "strength"
-          ],
-          "types": {
-            "blunt": 1
-          }
-        },
-        "description": "Урон указан за клетку. При столкновении атак обе наносят половину урона.",
-        "art": "/items/iron-boots-transparent-v2.png"
-      }
-    ]
-  },
-  {
-    "id": "wanderer-boots",
-    "name": "Сапоги скитальца",
-    "kind": "armor",
-    "slot": "feet",
-    "tier": 1,
-    "requirements": {
-      "agility": 1
-    },
-    "defense": {
-      "frost": 1
-    },
-    "description": "Защищают от холода забытой земли.",
-    "figures": [
-      {
-        "id": "kick",
-        "name": "Пинок",
-        "shape": [
-          [
-            0,
-            0
-          ],
-          [
-            1,
-            0
-          ]
-        ],
-        "category": "attack",
-        "copies": 2,
-        "staminaCost": 2,
-        "blockCost": 0,
-        "staminaDamagePerCell": 1,
-        "healthDamage": {
-          "base": 1,
-          "stats": [
-            "agility"
-          ],
-          "types": {
-            "blunt": 1
-          }
-        },
-        "description": "Урон указан за клетку. При столкновении атак обе наносят половину урона.",
-        "art": "/items/wanderer-boots-transparent-v2.png"
-      }
-    ]
-  },
-  {
-    "id": "greaves",
-    "name": "Поножи бастиона",
-    "kind": "armor",
-    "slot": "feet",
-    "tier": 2,
-    "requirements": {
-      "strength": 1
-    },
-    "defense": {
-      "slash": 1,
-      "blunt": 1
-    },
-    "description": "Сталь на голени и носке. +5% к потере равновесия от пинка.",
-    "figures": [
-      {
-        "id": "kick",
-        "name": "Пинок",
-        "shape": [
-          [
-            0,
-            0
-          ],
-          [
-            1,
-            0
-          ]
-        ],
-        "category": "attack",
-        "copies": 2,
-        "staminaCost": 2,
-        "blockCost": 0,
-        "staminaDamagePerCell": 1,
-        "healthDamage": {
-          "base": 1,
-          "stats": [
-            "strength"
-          ],
-          "types": {
-            "blunt": 1
-          }
-        },
-        "description": "Урон указан за клетку. При столкновении атак обе наносят половину урона.",
-        "art": "/items/greaves-transparent-v2.png"
-      }
-    ]
   }
 ]

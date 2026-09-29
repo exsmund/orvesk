@@ -1,0 +1,13 @@
+{
+  "asset": "images/basic-equipment/bare-hands.png",
+  "sha256": "a8071c02a2afdd17fd399f005933b2c50bf96668357953358315e3a2520e1335",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "date": "2026-09-27",
+      "prompt": "Use case: stylized-concept. Create ONE square 1024x1024 PNG game inventory/action illustration on a TRUE TRANSPARENT RGBA background. Completely empty alpha outside the subject and in all gaps and holes. No black or colored backdrop, no gradient rectangle, no checkerboard, no floor, no shadow plane, no UI tile, no frame, no text or numbers. This will overlay textured combat cells: the cell texture MUST show everywhere around the object.\nArt direction: dark gothic fantasy, sculptural volume, tactile finely painted aged materials, strong chiaroscuro but readable midtone surfaces and narrow upper-left edge highlights. Muted iron grey, old brown leather, ivory linen, ochre accents; no plastic, cartoon, neon, flat vector or glossy 3D. A strong simple silhouette readable at 40px. Whole object fully visible, centered with about 8% transparent margin. No unintended accessories. Do not create a sheet of variations.\nSubject: Two organic human forearms crossed in an unmistakable X defensive guard with loosely clenched fists at the top corners. Worn short linen cuffs, bare weathered skin. No torso, no extra hands, no stone or statue. Distinct from a single attacking fist. Entire crossed forearms visible and tapered cuff ends.",
+      "transparentBackground": true,
+      "output": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-66952545-f237-4d3a-b230-4060880823cf.png"
+    }
+  ]
+}

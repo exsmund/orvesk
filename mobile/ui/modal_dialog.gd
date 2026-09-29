@@ -2,6 +2,7 @@ extends Control
 ## Shared application dialog. Story conversations deliberately use their own screen.
 signal confirmed
 signal canceled
+signal alternative_confirmed
 const GothicTheme = preload("res://ui/gothic_theme.gd")
 var title = ""
 var dialog_text = ""
@@ -10,6 +11,7 @@ var ok_button_text = "Закрыть"
 var cancel_button_text = ""
 var dialog_hide_on_ok = true
 var destructive = false
+var secondary_is_action = false
 var closing = false
 var panel = Control.new()
 var header = preload("res://ui/window_header.gd").new()
@@ -46,7 +48,10 @@ func _init():
 	message.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	message.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	primary.pressed.connect(accept)
-	secondary.pressed.connect(cancel)
+	secondary.pressed.connect(func():
+		if closing: return
+		if secondary_is_action: alternative_confirmed.emit()
+		else: cancel())
 	resized.connect(arrange)
 	content.minimum_size_changed.connect(arrange)
 

@@ -1,0 +1,48 @@
+{
+  "asset": "images/map-points/symbols/hermit-meeting.png",
+  "sha256": "2d43394d3221922b647905436280ccab30a7575c608301f3d8979d33d4538a9d",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "date": "2026-09-27",
+      "prompt": "Use case: stylized-concept. Asset type: foreground symbol for a layered circular map-point badge in the dark gothic fantasy game Heroes of Orvesk. Generate ONE separate square PNG with genuine alpha transparency, 1024x1024. Symbol only: absolutely NO frame, medallion, disk, circle, landscape, background, text, letters or numerals. The UI will put this over a shared near-black round disk and rim later. Occupy about 78 percent of canvas with generous clear margins. Bright aged ivory and pale silver main masses, graphite deepest shadows, very restrained warm bronze or sage accent as specified. Sculptural fantasy painted realism, crisp big shapes, minimal coarse weathering, upper-front-left lighting, no fine ornamental clutter. Readable at 32 pixels symbol size, not a detailed miniature scene. Whole object completely inside canvas, centered and balanced. No floor shadow or rectangular glow. Subject: An open old book emblem, broad ivory pages and dark brown binding, with one short thick beeswax candle behind its center and a tiny flame. Bold readable scholarly contemplation emblem. No letters on pages, magical glyphs, bookstand or other objects.",
+      "transparentBackground": true,
+      "references": [
+        {
+          "path": "docs/ART_DIRECTION.md",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "docs/ART_DIRECTION.md",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "refs/image1.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "refs/image2.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "refs/image3.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/forest/map.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/steppe/map.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/ruins/map.png",
+          "role": "Reviewed visually"
+        }
+      ],
+      "output": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-4f335512-f0d3-429a-bca5-70211058d00f.png",
+      "sha256": "2d43394d3221922b647905436280ccab30a7575c608301f3d8979d33d4538a9d"
+    }
+  ]
+}

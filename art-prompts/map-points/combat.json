@@ -1,0 +1,27 @@
+{
+  "asset": "images/map-points/combat.png",
+  "sha256": "de2030a1b0cec58455cc4a50899d9cf6f87a2621d14bf7987b99861cb2f03e87",
+  "steps": [
+    {
+      "tool": "browser composition",
+      "date": "2026-09-27",
+      "references": [
+        {
+          "path": "images/map-points/frame.png",
+          "role": "Shared frame"
+        },
+        {
+          "path": "images/map-points/symbols/combat.png",
+          "role": "Foreground symbol"
+        },
+        {
+          "path": "data/map-points.json",
+          "role": "Presentation / assembly parameters"
+        }
+      ],
+      "notes": [
+        "Unchanged generated PNG layers composed by browser UI: opaque circular CSS backing from presentation.backing, shared frame at 100%, symbol box from data/map-points.json; transparent element screenshot at 512px. No repainting or independent frame generation per type."
+      ]
+    }
+  ]
+}

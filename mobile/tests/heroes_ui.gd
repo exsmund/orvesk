@@ -40,6 +40,17 @@ func shot(name: String):
 	if output and DisplayServer.get_name() != "headless":
 		RenderingServer.force_draw(false)
 		root.get_texture().get_image().save_png(output.path_join(name + ".png"))
+func check_empty_layout(context: String):
+	var view = ui.heroes_view
+	var text_rect = view.empty.get_global_rect()
+	check(view.empty.visible and view.rows.is_empty(), context + ": empty message is visible")
+	check(view.panel.get_global_rect().encloses(text_rect), context + ": empty message stays inside the frame")
+	check(text_rect.position.y > view.header.get_global_rect().end.y, context + ": message starts below the header")
+	check(text_rect.end.y < view.actions.get_global_rect().position.y, context + ": message never overlaps the fixed actions")
+	check(absf(text_rect.get_center().y - view.scroll.get_global_rect().get_center().y) < 1, context + ": message is centered in the roster area")
+	for button in [view.actions.primary, view.actions.back]:
+		check(not button.disabled and view.panel.get_global_rect().encloses(button.get_global_rect()), context + ": navigation remains available")
+
 func click(point: Vector2):
 	for down in [true, false]:
 		var event = InputEventMouseButton.new()
@@ -64,7 +75,18 @@ func run():
 	ui.show_heroes()
 	await settle()
 	check(ui.heroes_view.empty.visible and not ui.heroes_view.actions.primary.disabled, "Empty list offers a new story")
+	check_empty_layout("First opening")
 	shot("heroes-empty")
+	for pixels in [Vector2i(838,922), Vector2i(320,640), Vector2i(896,800), Vector2i(1008,432), Vector2i(2240,900), Vector2i(432,1600)]:
+		root.size = pixels
+		await settle()
+		check_empty_layout("Resize %s" % pixels)
+		ui.show_heroes()
+		await settle()
+		check_empty_layout("Fresh opening %s" % pixels)
+		shot("heroes-empty-%dx%d" % [pixels.x,pixels.y])
+	root.size = Vector2i(432,1008)
+	await settle()
 	ui.heroes_view.actions.primary.pressed.emit()
 	check(ui.screen == "create" and ui.create_name.is_empty(), "New game opens step one")
 	ui.show_heroes()
@@ -148,6 +170,20 @@ func run():
 	view.rows.back().open_button.pressed.emit()
 	check(ui.screen == "heroes" and view.notice.visible, "Unreadable save reports an error inside the roster")
 	shot("heroes-long-list")
+	# Removing the final saved hero must return to the same usable empty layout.
+	ui.saves.entries = [original[0].duplicate(true)]
+	ui.show_heroes()
+	await settle()
+	ui.heroes_view.rows[0].delete_button.pressed.emit()
+	dialog().confirmed.emit()
+	await settle()
+	check(ui.saves.entries.is_empty(), "Final hero removed from the in-memory store")
+	check_empty_layout("After deleting the last hero")
+	shot("heroes-empty-after-delete")
+	click(ui.heroes_view.actions.back.get_global_rect().get_center())
+	await settle()
+	check(ui.screen == "home", "Empty message does not intercept the Back button")
+	ui.show_heroes()
 	ui._notification(Node.NOTIFICATION_WM_GO_BACK_REQUEST)
 	check(ui.screen == "home", "Android Back returns to main menu")
 	# Real deletion is tested only in an isolated temporary store.

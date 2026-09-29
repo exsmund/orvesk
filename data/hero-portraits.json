@@ -1,0 +1,127 @@
+[
+  {
+    "id": "hero-36-alder",
+    "label": "Ольховый",
+    "src": "/hero-portraits/hero-36-alder.png"
+  },
+  {
+    "id": "hero-37-jasper",
+    "label": "Яшмовый",
+    "src": "/hero-portraits/hero-37-jasper.png"
+  },
+  {
+    "id": "hero-38-rime",
+    "label": "Изморозь",
+    "src": "/hero-portraits/hero-38-rime.png"
+  },
+  {
+    "id": "hero-39-sandal",
+    "label": "Сандаловый",
+    "src": "/hero-portraits/hero-39-sandal.png"
+  },
+  {
+    "id": "hero-40-granite",
+    "label": "Гранитный",
+    "src": "/hero-portraits/hero-40-granite.png"
+  },
+  {
+    "id": "hero-41-sedge",
+    "label": "Осоковый",
+    "src": "/hero-portraits/hero-41-sedge.png"
+  },
+  {
+    "id": "hero-42-tamarind",
+    "label": "Тамариндовый",
+    "src": "/hero-portraits/hero-42-tamarind.png"
+  },
+  {
+    "id": "hero-43-agate",
+    "label": "Агатовый",
+    "src": "/hero-portraits/hero-43-agate.png"
+  },
+  {
+    "id": "hero-44-cedar",
+    "label": "Кедровый",
+    "src": "/hero-portraits/hero-44-cedar.png"
+  },
+  {
+    "id": "hero-45-coral",
+    "label": "Коралловый",
+    "src": "/hero-portraits/hero-45-coral.png"
+  },
+  {
+    "id": "hero-46-pearl",
+    "label": "Жемчужный",
+    "src": "/hero-portraits/hero-46-pearl.png"
+  },
+  {
+    "id": "hero-47-ebony",
+    "label": "Эбеновый",
+    "src": "/hero-portraits/hero-47-ebony.png"
+  },
+  {
+    "id": "hero-48-rowan",
+    "label": "Рябиновый",
+    "src": "/hero-portraits/hero-48-rowan.png"
+  },
+  {
+    "id": "hero-49-cumin",
+    "label": "Тминный",
+    "src": "/hero-portraits/hero-49-cumin.png"
+  },
+  {
+    "id": "hero-50-onyx",
+    "label": "Ониксовый",
+    "src": "/hero-portraits/hero-50-onyx.png"
+  },
+  {
+    "id": "hero-51-dune",
+    "label": "Дюнный",
+    "src": "/hero-portraits/hero-51-dune.png"
+  },
+  {
+    "id": "hero-52-teak",
+    "label": "Тиковый",
+    "src": "/hero-portraits/hero-52-teak.png"
+  },
+  {
+    "id": "hero-53-salt",
+    "label": "Солевой",
+    "src": "/hero-portraits/hero-53-salt.png"
+  },
+  {
+    "id": "hero-54-fern",
+    "label": "Папоротниковый",
+    "src": "/hero-portraits/hero-54-fern.png"
+  },
+  {
+    "id": "hero-55-ocean",
+    "label": "Океанический",
+    "src": "/hero-portraits/hero-55-ocean.png"
+  },
+  {
+    "id": "hero-56-alabaster",
+    "label": "Алебастровый",
+    "src": "/hero-portraits/hero-56-alabaster.png"
+  },
+  {
+    "id": "hero-57-iron",
+    "label": "Железный",
+    "src": "/hero-portraits/hero-57-iron.png"
+  },
+  {
+    "id": "hero-58-mahogany",
+    "label": "Махагоновый",
+    "src": "/hero-portraits/hero-58-mahogany.png"
+  },
+  {
+    "id": "hero-59-juniper",
+    "label": "Можжевеловый",
+    "src": "/hero-portraits/hero-59-juniper.png"
+  },
+  {
+    "id": "hero-60-dolomite",
+    "label": "Доломитовый",
+    "src": "/hero-portraits/hero-60-dolomite.png"
+  }
+]

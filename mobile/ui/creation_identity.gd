@@ -13,8 +13,10 @@ var keyboard_visible = false
 func configure(owner_ui):
 	setup(owner_ui)
 	portrait = picture(null)
+	portrait.material = ShaderMaterial.new()
+	portrait.material.shader = preload("res://shaders/portrait_background.gdshader")
 	canvas.add_child(frame)
-	frame.configure(host.data, 24, "/ui/portrait-frame-v1.png")
+	frame.configure(host.data, 24, "/ui/portrait-frame.png")
 	frame.modulate = host.data.color("text-home")
 	for button in [previous, next]: canvas.add_child(button)
 	previous.configure(host.data, "‹")
@@ -39,12 +41,12 @@ func cycle(delta: int):
 
 func refresh():
 	var entry = host.data.portraits[host.create_portrait]
-	portrait.texture = host.data.image(entry.src)
+	portrait.texture = host.data.framed_portrait(host.data.image(entry.src))
 	portrait.tooltip_text = entry.label
 	arrange()
 
 func fit_portrait(area: Rect2):
-	# Keep the complete rectangular portrait, with its own frame outside the image.
+	# Frame the configured 2:3 crop, preserving the original square asset.
 	var inset = 14.0
 	var extent = Vector2(portrait.texture.get_size())
 	var room = area.size - Vector2.ONE * inset * 2

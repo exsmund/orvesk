@@ -18,6 +18,7 @@
     "perStatPoint": 1
   },
   "loot": {
-    "variation": [-1, 0, 1]
+    "variation": [-1, 0, 1],
+    "rewardKindWeights": {"item": 80, "skill": 20}
   }
 }

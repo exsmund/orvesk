@@ -1,0 +1,27 @@
+{
+  "asset": "images/map-points/healer.png",
+  "sha256": "d1c61e8b855ea522a1fc11b1a281fba331983b98940b7a40d1706c067131f0c0",
+  "steps": [
+    {
+      "tool": "browser composition",
+      "date": "2026-09-27",
+      "references": [
+        {
+          "path": "images/map-points/frame.png",
+          "role": "Shared frame"
+        },
+        {
+          "path": "images/map-points/symbols/healer.png",
+          "role": "Foreground symbol"
+        },
+        {
+          "path": "data/map-points.json",
+          "role": "Presentation / assembly parameters"
+        }
+      ],
+      "notes": [
+        "Unchanged generated PNG layers composed by browser UI: opaque circular CSS backing from presentation.backing, shared frame at 100%, symbol box from data/map-points.json; transparent element screenshot at 512px. No repainting or independent frame generation per type."
+      ]
+    }
+  ]
+}

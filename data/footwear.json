@@ -1,0 +1,782 @@
+[
+  {
+    "id": "iron-boots",
+    "name": "Ботинки с железным носком",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "feet",
+    "tier": 0,
+    "requirements": {
+      "strength": 1
+    },
+    "defense": {
+      "pierce": 1,
+      "slash": 1,
+      "blunt": 2,
+      "frost": 1,
+      "fire": 1,
+      "wind": 1
+    },
+    "description": "Крепкая рабочая кожа, железные накладки и плотная подкладка. Защищают стопы от ударов и позволяют наносить тяжёлый пинок.",
+    "figures": [
+      {
+        "id": "kick",
+        "name": "Пинок",
+        "shape": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 1,
+          "stats": [
+            "strength"
+          ],
+          "types": {
+            "blunt": 1
+          }
+        },
+        "description": "Урон указан за клетку. При столкновении атак обе наносят половину урона.",
+        "art": "/footwear/iron-boots.png"
+      }
+    ]
+  },
+  {
+    "id": "wanderer-boots",
+    "name": "Сапоги скитальца",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "feet",
+    "tier": 1,
+    "requirements": {
+      "agility": 1
+    },
+    "defense": {
+      "pierce": 1,
+      "slash": 1,
+      "blunt": 1,
+      "frost": 2,
+      "wind": 2,
+      "poison": 1
+    },
+    "description": "Высокие утеплённые сапоги с обработкой против холода и ядовитой сырости. Много раз чиненные голенища закрывают ноги от ветра.",
+    "figures": [
+      {
+        "id": "kick",
+        "name": "Пинок",
+        "shape": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 1,
+          "stats": [
+            "agility"
+          ],
+          "types": {
+            "blunt": 1
+          }
+        },
+        "description": "Урон указан за клетку. При столкновении атак обе наносят половину урона.",
+        "art": "/footwear/wanderer-boots.png"
+      }
+    ]
+  },
+  {
+    "id": "greaves",
+    "name": "Поножи бастиона",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "feet",
+    "tier": 2,
+    "requirements": {
+      "strength": 1
+    },
+    "defense": {
+      "pierce": 2,
+      "slash": 2,
+      "blunt": 2,
+      "frost": 1,
+      "fire": 1,
+      "wind": 1
+    },
+    "description": "Стальные накладки прикрывают голени и стопы поверх мягкого подбоя. Их собирали для защитников стен, стоявших среди падающей кладки.",
+    "figures": [
+      {
+        "id": "kick",
+        "name": "Пинок",
+        "shape": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 1,
+          "stats": [
+            "strength"
+          ],
+          "types": {
+            "blunt": 1
+          }
+        },
+        "description": "Урон указан за клетку. При столкновении атак обе наносят половину урона.",
+        "art": "/footwear/greaves.png"
+      }
+    ]
+  },
+  {
+    "id": "ice-ford-boots",
+    "name": "Сапоги ледяного брода",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "feet",
+    "tier": 1,
+    "requirements": {
+      "agility": 1
+    },
+    "defense": {
+      "pierce": 1,
+      "slash": 1,
+      "blunt": 1,
+      "frost": 3,
+      "wind": 1,
+      "poison": 1
+    },
+    "description": "Высокая кожа, густой мех и войлочная подошва. Проводники северных переправ обрабатывают швы против промерзания и болотной сырости. Огонь быстро портит подкладку.",
+    "figures": [
+      {
+        "id": "kick",
+        "name": "Пинок",
+        "shape": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 1,
+          "stats": [
+            "agility"
+          ],
+          "types": {
+            "blunt": 1
+          }
+        },
+        "description": "Урон указан за клетку. При столкновении атак обе наносят половину урона.",
+        "art": "/footwear/ice-ford-boots.png"
+      }
+    ]
+  },
+  {
+    "id": "charcoal-master-shoes",
+    "name": "Башмаки угольного мастера",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "feet",
+    "tier": 1,
+    "requirements": {
+      "strength": 1
+    },
+    "defense": {
+      "pierce": 1,
+      "slash": 1,
+      "blunt": 1,
+      "fire": 3,
+      "wind": 1,
+      "magic": 1
+    },
+    "description": "Кожаные башмаки с минеральными накладками и толстой подошвой. Внутри выжжены охранные знаки. В них работают у горнов, но зимой пропитка трескается.",
+    "figures": [
+      {
+        "id": "kick",
+        "name": "Пинок",
+        "shape": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 1,
+          "stats": [
+            "strength"
+          ],
+          "types": {
+            "blunt": 1
+          }
+        },
+        "description": "Урон указан за клетку. При столкновении атак обе наносят половину урона.",
+        "art": "/footwear/charcoal-master-shoes.png"
+      }
+    ]
+  },
+  {
+    "id": "reed-path-boots",
+    "name": "Сапоги тростниковой тропы",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "feet",
+    "tier": 1,
+    "requirements": {
+      "agility": 1
+    },
+    "defense": {
+      "pierce": 1,
+      "slash": 1,
+      "blunt": 1,
+      "frost": 1,
+      "wind": 1,
+      "poison": 3
+    },
+    "description": "Бесшовные голенища покрыты воском и горьким составом. Болотные сборщики ценят защиту от едкой жижи, ядовитого сока и укусов мелкой живности.",
+    "figures": [
+      {
+        "id": "kick",
+        "name": "Пинок",
+        "shape": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 1,
+          "stats": [
+            "agility"
+          ],
+          "types": {
+            "blunt": 1
+          }
+        },
+        "description": "Урон указан за клетку. При столкновении атак обе наносят половину урона.",
+        "art": "/footwear/reed-path-boots.png"
+      }
+    ]
+  },
+  {
+    "id": "high-nest-sandals",
+    "name": "Сандалии высокого гнезда",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "feet",
+    "tier": 2,
+    "requirements": {
+      "agility": 1
+    },
+    "defense": {
+      "slash": 1,
+      "frost": 1,
+      "fire": 1,
+      "wind": 3,
+      "magic": 1,
+      "poison": 1
+    },
+    "description": "Многослойная подошва удерживается широкими обмотками. Эльфийские мастера вплетают сброшенные гарпиями перья и закрепляют защиту от ветра. Стопа почти не защищена от оружия.",
+    "figures": [
+      {
+        "id": "kick",
+        "name": "Пинок",
+        "shape": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 1,
+          "stats": [
+            "agility"
+          ],
+          "types": {
+            "blunt": 1
+          }
+        },
+        "description": "Урон указан за клетку. При столкновении атак обе наносят половину урона.",
+        "art": "/footwear/high-nest-sandals.png"
+      }
+    ]
+  },
+  {
+    "id": "scattered-trail-wraps",
+    "name": "Обмотки рассеянного следа",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "feet",
+    "tier": 2,
+    "requirements": {
+      "intelligence": 1
+    },
+    "defense": {
+      "slash": 1,
+      "frost": 1,
+      "fire": 1,
+      "wind": 1,
+      "magic": 3,
+      "poison": 1
+    },
+    "description": "Мягкая обувь скрыта под лентами с незамкнутыми узорами. Ученики магических мастерских носили её там, где остатки чужих заклинаний оседали даже на полу.",
+    "figures": [
+      {
+        "id": "kick",
+        "name": "Пинок",
+        "shape": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 1,
+          "stats": [
+            "intelligence"
+          ],
+          "types": {
+            "blunt": 1
+          }
+        },
+        "description": "Урон указан за клетку. При столкновении атак обе наносят половину урона.",
+        "art": "/footwear/scattered-trail-wraps.png"
+      }
+    ]
+  },
+  {
+    "id": "stone-vault-shoes",
+    "name": "Башмаки каменного свода",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "feet",
+    "tier": 1,
+    "requirements": {
+      "strength": 1
+    },
+    "defense": {
+      "pierce": 1,
+      "slash": 1,
+      "blunt": 3,
+      "frost": 1,
+      "fire": 1,
+      "wind": 1
+    },
+    "description": "Широкие железные носки, толстая кожа и упругая войлочная набивка. Подземные рабочие передавали башмаки преемникам вместе с инструментами и рассказами об обвалах.",
+    "figures": [
+      {
+        "id": "kick",
+        "name": "Пинок",
+        "shape": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 1,
+          "stats": [
+            "strength"
+          ],
+          "types": {
+            "blunt": 1
+          }
+        },
+        "description": "Урон указан за клетку. При столкновении атак обе наносят половину урона.",
+        "art": "/footwear/stone-vault-shoes.png"
+      }
+    ]
+  },
+  {
+    "id": "needle-guard-greaves",
+    "name": "Наголенники игольной стражи",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "feet",
+    "tier": 2,
+    "requirements": {
+      "strength": 1
+    },
+    "defense": {
+      "pierce": 3,
+      "slash": 1,
+      "blunt": 1,
+      "frost": 1,
+      "fire": 1,
+      "wind": 1
+    },
+    "description": "Узкие стальные пластины перекрывают голень и подъём стопы. Их делали для караульных, которым приходилось пробиваться через копья и простреливаемые проходы.",
+    "figures": [
+      {
+        "id": "kick",
+        "name": "Пинок",
+        "shape": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 1,
+          "stats": [
+            "strength"
+          ],
+          "types": {
+            "blunt": 1
+          }
+        },
+        "description": "Урон указан за клетку. При столкновении атак обе наносят половину урона.",
+        "art": "/footwear/needle-guard-greaves.png"
+      }
+    ]
+  },
+  {
+    "id": "forest-border-boots",
+    "name": "Чешуйчатые сапоги лесной границы",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "feet",
+    "tier": 1,
+    "requirements": {
+      "agility": 1
+    },
+    "defense": {
+      "pierce": 1,
+      "slash": 3,
+      "blunt": 1,
+      "frost": 1,
+      "wind": 1,
+      "poison": 1
+    },
+    "description": "Металлические чешуйки нашиты на гибкую кожу, обработанную против ядовитого сока. Эльфийские дозорные носят их среди колючих зарослей и звериных троп.",
+    "figures": [
+      {
+        "id": "kick",
+        "name": "Пинок",
+        "shape": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 1,
+          "stats": [
+            "agility"
+          ],
+          "types": {
+            "blunt": 1
+          }
+        },
+        "description": "Урон указан за клетку. При столкновении атак обе наносят половину урона.",
+        "art": "/footwear/forest-border-boots.png"
+      }
+    ]
+  },
+  {
+    "id": "salt-shore-boots",
+    "name": "Сапоги соляного берега",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "feet",
+    "tier": 2,
+    "requirements": {
+      "agility": 1
+    },
+    "defense": {
+      "pierce": 1,
+      "slash": 1,
+      "frost": 2,
+      "wind": 1,
+      "magic": 1,
+      "poison": 2
+    },
+    "description": "Утеплённая кожа пропитана нейтрализующим составом, швы прошиты охранной нитью. Их носят у холодных солончаков, где вода обжигает раны, а туман оставляет горечь.",
+    "figures": [
+      {
+        "id": "kick",
+        "name": "Пинок",
+        "shape": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 1,
+          "stats": [
+            "agility"
+          ],
+          "types": {
+            "blunt": 1
+          }
+        },
+        "description": "Урон указан за клетку. При столкновении атак обе наносят половину урона.",
+        "art": "/footwear/salt-shore-boots.png"
+      }
+    ]
+  },
+  {
+    "id": "underroot-master-shoes",
+    "name": "Башмаки подкоренного мастера",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "feet",
+    "tier": 2,
+    "requirements": {
+      "intelligence": 1
+    },
+    "defense": {
+      "slash": 1,
+      "blunt": 2,
+      "fire": 1,
+      "wind": 1,
+      "magic": 1,
+      "poison": 2
+    },
+    "description": "Корневые волокна образуют упругую подошву, минеральная пропитка ослабляет яды. По преданию, плетение выменяли у подземной феи. На морозе волокна становятся ломкими.",
+    "figures": [
+      {
+        "id": "kick",
+        "name": "Пинок",
+        "shape": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 1,
+          "stats": [
+            "intelligence"
+          ],
+          "types": {
+            "blunt": 1
+          }
+        },
+        "description": "Урон указан за клетку. При столкновении атак обе наносят половину урона.",
+        "art": "/footwear/underroot-master-shoes.png"
+      }
+    ]
+  },
+  {
+    "id": "seal-watch-greaves",
+    "name": "Поножи печатного караула",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "feet",
+    "tier": 2,
+    "requirements": {
+      "strength": 1
+    },
+    "defense": {
+      "pierce": 2,
+      "slash": 1,
+      "blunt": 1,
+      "frost": 1,
+      "fire": 1,
+      "magic": 2
+    },
+    "description": "Стальные накладки закреплены поверх ткани с защитными печатями. Их выдавали охране магических хранилищ: металл принимал оружие, вышивка — случайные выбросы чар.",
+    "figures": [
+      {
+        "id": "kick",
+        "name": "Пинок",
+        "shape": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 1,
+          "stats": [
+            "strength"
+          ],
+          "types": {
+            "blunt": 1
+          }
+        },
+        "description": "Урон указан за клетку. При столкновении атак обе наносят половину урона.",
+        "art": "/footwear/seal-watch-greaves.png"
+      }
+    ]
+  },
+  {
+    "id": "ash-crossing-boots",
+    "name": "Сапоги пепельной переправы",
+    "kind": "armor",
+    "defenseScalesWithLevel": true,
+    "slot": "feet",
+    "tier": 2,
+    "requirements": {
+      "agility": 1
+    },
+    "defense": {
+      "pierce": 1,
+      "frost": 1,
+      "fire": 2,
+      "wind": 2,
+      "magic": 1,
+      "poison": 1
+    },
+    "description": "Лёгкие голенища с огнеупорной пропиткой и воздушными узлами. В них переходят равнины с горячей золой. Тонкая кожа плохо держит клинок и тяжёлый удар.",
+    "figures": [
+      {
+        "id": "kick",
+        "name": "Пинок",
+        "shape": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "category": "attack",
+        "copies": 2,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 1,
+          "stats": [
+            "agility"
+          ],
+          "types": {
+            "blunt": 1
+          }
+        },
+        "description": "Урон указан за клетку. При столкновении атак обе наносят половину урона.",
+        "art": "/footwear/ash-crossing-boots.png"
+      }
+    ]
+  }
+]

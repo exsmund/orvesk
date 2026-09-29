@@ -1,0 +1,27 @@
+{
+  "asset": "images/map-points/tavern.png",
+  "sha256": "09d55e71e09270f9c7fca6ce288df979edb88506b69923a70665082d6a7e084e",
+  "steps": [
+    {
+      "tool": "browser composition",
+      "date": "2026-09-27",
+      "references": [
+        {
+          "path": "images/map-points/frame.png",
+          "role": "Shared frame"
+        },
+        {
+          "path": "images/map-points/symbols/tavern.png",
+          "role": "Foreground symbol"
+        },
+        {
+          "path": "data/map-points.json",
+          "role": "Presentation / assembly parameters"
+        }
+      ],
+      "notes": [
+        "Unchanged generated PNG layers composed by browser UI: opaque circular CSS backing from presentation.backing, shared frame at 100%, symbol box from data/map-points.json; transparent element screenshot at 512px. No repainting or independent frame generation per type."
+      ]
+    }
+  ]
+}

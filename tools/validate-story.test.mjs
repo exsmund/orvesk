@@ -39,7 +39,10 @@ test('chapter mapping, persistence and final choice are protected', () => {
   rejects(s=>{s.scenes['final-choice'].script.find(b=>b.type==='choice').options.pop();}, /three endings/);
 });
 test('unreviewed source changes and enabling the authoring file are rejected', () => {
-  rejects(s=>{s.source.sha256='0'.repeat(64);}, /Stale source/);
+  rejects(s=>{s.source.dependencies[0].sha256='0'.repeat(64);}, /Stale source/);
+  rejects(s=>{s.source.dependencies[0].document='data/missing.json';}, /Missing source/);
+  rejects(s=>{delete s.source.dependencies;}, /Missing story dependencies/);
+  rejects(s=>{s.source.document='manuscript.md';}, /external manuscript source/);
   rejects(s=>{s.runtimeEnabled=true;}, /must not be enabled/);
 });
 test('late disclosure uses the same pre-effect guard for both speeches and the update', () => {
@@ -76,7 +79,7 @@ test('map catalog rejects duplicate IDs, missing images and broken preview links
   const catalog = () => JSON.parse(readFileSync(resolve(root, 'data/map-points.json'), 'utf8'));
   let c = catalog(); c.points[1].id = c.points[0].id;
   assert.ok(validateMapPoints(root, undefined, c).errors.some(e => /Duplicate map point ID/.test(e)));
-  c = catalog(); c.points[0].icon.src = '/ui/map-points/v1/missing.png';
+  c = catalog(); c.points[0].icon.src = '/map-points/missing.png';
   assert.ok(validateMapPoints(root, undefined, c).errors.some(e => /Missing map point image/.test(e)));
   const preview = JSON.parse(readFileSync(resolve(root, 'data/story-preview.json'), 'utf8'));
   preview.nodes['1.2.activity.campfire'].mapPointType = 'market';

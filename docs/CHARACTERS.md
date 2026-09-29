@@ -1,24 +1,20 @@
 # Персонажи сценария «Последний носитель»
 
-Анкеты вынесены из [STORY.md](STORY.md). Здесь хранятся роли, ограничения образа и портреты; реплики и последовательность сцен остаются в сценарии. Новые детали внешности — художественное дополнение к прежним анкетам.
+Здесь хранятся роли, ограничения образа и портреты персонажей. Реплики и последовательность сцен находятся в [авторском сценарии](../data/story.json) и [графе диалогов](../data/story-preview.json); порядок редактирования — в [data/STORY.md](../data/STORY.md). Новые детали внешности — художественное дополнение к прежним анкетам.
 
-Машиночитаемый каталог — `data/story-characters.json`. Каталог подключён к мобильным диалогам через сюжетный граф; наличие персонажа само по себе не добавляет случайного врага. Сюжетные персонажи не включены в список выбираемых портретов героя и не дублируют виды в `data/creatures.json`.
+Машиночитаемый каталог — `data/characters.json`. Каталог подключён к мобильным диалогам через сюжетный граф; наличие персонажа само по себе не добавляет случайного врага. Сюжетные персонажи не включены в список выбираемых портретов героя и не дублируют виды в `data/creatures.json`.
 
-## Портреты и использование
+## Портреты
 
-Сюжетные собеседники изображены отдельными портретами и смотрят влево. Свет всегда сверху и спереди-слева относительно изображения; зеркальное отражение запрещено. Портрет героя берётся из текущего персонажа игрока и смотрит вправо. Аттрактор использует существующий портрет камня. Название, изображение и голос скрыты от игрока до объяснения Севрана в сцене 1.2 (`attractorKnown: true`), включая окна поражения. Картинки в `public` не содержат реплик: при текстовой правке проверяются их ссылки и условия показа; сами портреты заменяются при изменении образа персонажа или художественного направления. Чёрный фон, формат 2:3, без рамки, текста и оружия; отображаемая ширина 200 px. Полные требования — [ART_DIRECTION.md](ART_DIRECTION.md).
-
-Все 32 портрета в `public/characters` перегенерированы 2026-09-28 встроенным `image_gen` по обновлённому художественному направлению: живописная фактура кожи, волос и ткани, выраженная светотень и крупный план лица. Сохранены индивидуальная внешность, возраст, одежда и человеческие маски до разоблачения. PNG 1024 × 1536 проверены целиком и в круглом кадре 120 и 180 px (`cover`, `object-position: 50% 25%`).
-
-Точные запросы, роли референсов, итерации и отпечатки выбранных изображений — [генерация серии v2](../art-prompts/story-characters-v2/generation-prompts.json); результаты проверки — [qa.json](../art-prompts/story-characters-v2/qa.json). Существующие имена файлов `*-v1.png` сохранены как адреса ассетов; они содержат новые изображения серии v2. ID и привязки в `data/story-characters.json`, `data/story.json` и `data/story-preview.json` сохраняются. История первоначальных семи образов — [серия v1](../art-prompts/story-characters-v1/generation-prompts.json). Между сценами лицо одного персонажа остаётся узнаваемым.
+Показ диалогов и границы раскрытий — в [RULES.md](RULES.md#диалоги-и-аттрактор). Композиция, ориентация и кадрирование — в [ART_DIRECTION.md](ART_DIRECTION.md#портреты). Изображения читаются из каталога; здесь приведены текущие превью без копирования файлов.
 
 <a id="hero"></a>
 
 ## Герой
 
-**Каталог:** `data/story-characters.json` → `hero`.
+**Каталог:** `data/characters.json` → `hero`.
 
-Используется выбранный игроком портрет из `data/portraits.json`; отдельный сюжетный портрет героя не создаётся. Каталог содержит только [новую серию портретов героя](HERO_PORTRAITS.md) в `public/portraits/heroes-v2/`. Выбор внешности не задаёт пол, возраст или характеристики персонажа в механике игры.
+Используется выбранный игроком портрет из `data/hero-portraits.json`; отдельный сюжетный портрет героя не создаётся. Каталог содержит только [каталог портретов героя](ART_DIRECTION.md#подключённые-портреты) в `images/portraits/`. Выбор внешности не задаёт пол, возраст или характеристики персонажа в механике игры.
 
 **Роль и ограничения:** Обычный человек без заданного имени, пола, болезни или потерянной памяти. В прологе можно выбрать исходное отношение к найму: заработок, желание сделать полезное дело или возможность уйти из разорённых земель. Это влияет на реплики, а не задаёт особые способности. После катастрофы герой продолжает путь по собственной воле.
 
@@ -26,9 +22,9 @@
 
 ## Брат Севран
 
-**Каталог:** `data/story-characters.json` → `sevran`.
+**Каталог:** `data/characters.json` → `sevran`.
 
-<img src="../public/characters/sevran-v1.png" alt="Брат Севран" width="200">
+<img src="../images/characters/sevran.png" alt="Брат Севран" width="200">
 
 **Роль и ограничения:** Жрец Света и первоначальный носитель. Спокойный лекарь, искренне считающий изоляцию разрушительных существ помощью миру. Погибает в конце первой главы. Его слова позже вспоминаются, но сценарий не подтверждает, что его душа находится в камне.
 
@@ -38,9 +34,9 @@
 
 ## Марта
 
-**Каталог:** `data/story-characters.json` → `marta`.
+**Каталог:** `data/characters.json` → `marta`.
 
-<img src="../public/characters/marta-v1.png" alt="Марта" width="200">
+<img src="../images/characters/marta.png" alt="Марта" width="200">
 
 **Роль и ограничения:** Мирская кузнечиха и участница другого торгового каравана. Появляется со второй главы и временами пересекается с героем на больших дорогах. Чинит вещи жрецам, солдатам и беженцам; судит о человеке по поступкам. В лесной и болотной глубинке её заменяют оставленные мастерские и ремонтные места, а не необъяснимое мгновенное перемещение.
 
@@ -50,9 +46,9 @@
 
 ## Элиан
 
-**Каталог:** `data/story-characters.json` → `elian`.
+**Каталог:** `data/characters.json` → `elian`.
 
-<img src="../public/characters/elian-v1.png" alt="Элиан" width="200">
+<img src="../images/characters/elian.png" alt="Элиан" width="200">
 
 **Роль и ограничения:** Эльфийский проводник, выступающий против аттракторов. Помогает защищать лесную границу и хочет, чтобы герой услышал фею до того, как отдаст груз ордену. Не считает любое освобождение безопасным.
 
@@ -62,9 +58,9 @@
 
 ## Сестра Тея
 
-**Каталог:** `data/story-characters.json` → `thea`.
+**Каталог:** `data/characters.json` → `thea`.
 
-<img src="../public/characters/thea-v1.png" alt="Сестра Тея" width="200">
+<img src="../images/characters/thea.png" alt="Сестра Тея" width="200">
 
 **Роль и ограничения:** Отшельница Млечного познания. Убеждена в бесконечности самонаблюдения Логоса. Не превращается в активного борца против ордена Света: беседует, наблюдает и предоставляет убежище, но не отправляется в поход.
 
@@ -74,9 +70,9 @@
 
 ## Нима Подкоренная
 
-**Каталог:** `data/story-characters.json` → `nima`.
+**Каталог:** `data/characters.json` → `nima`.
 
-<img src="../public/characters/nima-v1.png" alt="Нима Подкоренная" width="200">
+<img src="../images/characters/nima.png" alt="Нима Подкоренная" width="200">
 
 **Роль и ограничения:** Тёмная фея, связанная с подземными корневыми полостями. Её местность тянется под болотом до известняковой долины у захоронения. Это локальная территория одной феи, а не способность всех фей являться где угодно. Может разрушить аттрактор, но не обещает безопасного результата.
 
@@ -86,9 +82,9 @@
 
 ## Вейр
 
-**Каталог:** `data/story-characters.json` → `veyr`.
+**Каталог:** `data/characters.json` → `veyr`.
 
-<img src="../public/characters/veyr-v1.png" alt="Вейр" width="200">
+<img src="../images/characters/veyr.png" alt="Вейр" width="200">
 
 **Роль и ограничения:** Бывший боевой маг, объявленный своим командованием дезертиром за нападение на собственный обоз. В сценарии его военная защита официально снята, о чём герой узнаёт в городе. Он не представитель всего жречества или всех магов. Желает захватить камень и принудить других людей добывать для него новые осколки. Использует наёмников и магически созданных стражей; с демонами не заключает удобного взаимовыгодного союза.
 
@@ -98,9 +94,9 @@
 
 ## Хранительница Аста
 
-**Каталог:** `data/story-characters.json` → `asta`.
+**Каталог:** `data/characters.json` → `asta`.
 
-<img src="../public/characters/asta-v1.png" alt="Хранительница Аста" width="200">
+<img src="../images/characters/asta.png" alt="Хранительница Аста" width="200">
 
 **Роль и ограничения:** Жрица Света при тайном захоронении. Принимает раненых служителей и следит за доставленными камнями. Признаёт, что знаний ордена недостаточно, но считает изоляцию менее опасной, чем возвращение разрушительных частиц в мир.
 
@@ -110,28 +106,25 @@
 
 ## Голос аттрактора
 
-**Каталог:** `data/story-characters.json` → `attractor`.
+**Каталог:** `data/characters.json` → `attractor`.
 
-<img src="../public/creatures/portraits/attractor-v1.png" alt="Голос аттрактора" width="200">
+<img src="../images/creatures/dialogue-portraits/attractor.png" alt="Голос аттрактора" width="200">
 
 **Роль и ограничения:** Формирующееся сознание наполненного камня. В этом сценарии герой слышит его внутренне, в том числе на остановках; окружающие не слышат речь напрямую. Это художественное решение, не доказательство чувствительности героя. Голос не всеведущ и не может читать все события за пределами восприятия носителя.
 
-
 ## Эпизодические персонажи и человеческие маски
 
-Все 25 ранее неназначенных образов получили собственные портреты. Связь: `data/story.json` → `speakers[id].portrait` (`kind: character`) → `data/story-characters.json` → файл в `public/characters`. Подпись роли может меняться, но ID и лицо сохраняются. Другие говорящие существа используют существующие портреты бестиария.
+Все 25 ранее неназначенных образов получили собственные портреты. Связь: `data/story.json` → `speakers[id].portrait` (`kind: character`) → `data/characters.json` → файл в `images/characters`. Подпись роли может меняться, но ID и лицо сохраняются. Другие говорящие существа используют существующие портреты бестиария.
 
 Три маски отмечены `portrayal: humanDisguise`: до разоблачения это человеческие лица без признаков демона, вампира или болотницы. После события раскрытия используется `revealedSpeakerId` из сценария. Сюжетные условия раскрытия и реплики не менялись.
-
-Эти 25 портретов входят в обновлённую [серию v2](../art-prompts/story-characters-v2/generation-prompts.json); первоначальные запросы сохранены в [истории эпизодических образов](../art-prompts/story-extras-v1/generation-prompts.json). Все смотрят влево, свет сверху и спереди-слева, холст 1024 × 1536; без оружия и рамок. Изображения доступны в предпросмотре сценария. Подключение сюжетного интерфейса к игровым клиентам остаётся отдельной задачей.
 
 <a id="convoy-driver"></a>
 
 ### Возница
 
-**Каталог:** `data/story-characters.json` → `convoy-driver`. **Сцены:** 1.1, 1.5.
+**Каталог:** `data/characters.json` → `convoy-driver`. **Сцены:** 1.1, 1.5.
 
-<img src="../public/characters/convoy-driver-v1.png" alt="Возница" width="200">
+<img src="../images/characters/convoy-driver.png" alt="Возница" width="200">
 
 **Роль:** Возница исходного обоза; один образ в сценах 1.1 и 1.5.
 
@@ -141,9 +134,9 @@
 
 ### Разбойник — пленник обоза
 
-**Каталог:** `data/story-characters.json` → `convoy-bandit`. **Сцены:** 1.3, 1.4.
+**Каталог:** `data/characters.json` → `convoy-bandit`. **Сцены:** 1.3, 1.4.
 
-<img src="../public/characters/convoy-bandit-v1.png" alt="Разбойник — пленник обоза" width="200">
+<img src="../images/characters/convoy-bandit.png" alt="Разбойник — пленник обоза" width="200">
 
 **Роль:** Разбойник из 1.3, затем тот же пленник в 1.4; смена подписи не меняет лицо.
 
@@ -153,9 +146,9 @@
 
 ### Наёмник у моста
 
-**Каталог:** `data/story-characters.json` → `bridge-mercenary`. **Сцены:** 1.7.
+**Каталог:** `data/characters.json` → `bridge-mercenary`. **Сцены:** 1.7.
 
-<img src="../public/characters/bridge-mercenary-v1.png" alt="Наёмник у моста" width="200">
+<img src="../images/characters/bridge-mercenary.png" alt="Наёмник у моста" width="200">
 
 **Роль:** Противник у моста в 1.7; не тот же человек, что городские и крепостные наёмники.
 
@@ -165,9 +158,9 @@
 
 ### Женщина у двери
 
-**Каталог:** `data/story-characters.json` → `bridge-woman`. **Сцены:** 1.8.
+**Каталог:** `data/characters.json` → `bridge-woman`. **Сцены:** 1.8.
 
-<img src="../public/characters/bridge-woman-v1.png" alt="Женщина у двери" width="200">
+<img src="../images/characters/bridge-woman.png" alt="Женщина у двери" width="200">
 
 **Роль:** Человеческая маска демона до разоблачения; портрет не должен выдавать вид.
 
@@ -177,9 +170,9 @@
 
 ### Городской вымогатель
 
-**Каталог:** `data/story-characters.json` → `city-raider`. **Сцены:** 2.1.
+**Каталог:** `data/characters.json` → `city-raider`. **Сцены:** 2.1.
 
-<img src="../public/characters/city-raider-v1.png" alt="Городской вымогатель" width="200">
+<img src="../images/characters/city-raider.png" alt="Городской вымогатель" width="200">
 
 **Роль:** Вымогатель у входа в город в 2.1.
 
@@ -189,9 +182,9 @@
 
 ### Городской дозорный
 
-**Каталог:** `data/story-characters.json` → `city-watch`. **Сцены:** 2.1.
+**Каталог:** `data/characters.json` → `city-watch`. **Сцены:** 2.1.
 
-<img src="../public/characters/city-watch-v1.png" alt="Городской дозорный" width="200">
+<img src="../images/characters/city-watch.png" alt="Городской дозорный" width="200">
 
 **Роль:** Дозорный, останавливающий стычку в 2.1.
 
@@ -201,9 +194,9 @@
 
 ### Жрица приёмного дома
 
-**Каталог:** `data/story-characters.json` → `city-priestess`. **Сцены:** 2.2, 2.9.
+**Каталог:** `data/characters.json` → `city-priestess`. **Сцены:** 2.2, 2.9.
 
-<img src="../public/characters/city-priestess-v1.png" alt="Жрица приёмного дома" width="200">
+<img src="../images/characters/city-priestess.png" alt="Жрица приёмного дома" width="200">
 
 **Роль:** Жрица Перевальца в 2.2 и 2.9; не Аста и не Тея.
 
@@ -213,9 +206,9 @@
 
 ### Наёмник у зерна
 
-**Каталог:** `data/story-characters.json` → `grain-mercenary`. **Сцены:** 2.3.
+**Каталог:** `data/characters.json` → `grain-mercenary`. **Сцены:** 2.3.
 
-<img src="../public/characters/grain-mercenary-v1.png" alt="Наёмник у зерна" width="200">
+<img src="../images/characters/grain-mercenary.png" alt="Наёмник у зерна" width="200">
 
 **Роль:** Наёмник у отнятого зерна в 2.3.
 
@@ -225,9 +218,9 @@
 
 ### Торговка
 
-**Каталог:** `data/story-characters.json` → `city-trader`. **Сцены:** 2.3, 2.4.
+**Каталог:** `data/characters.json` → `city-trader`. **Сцены:** 2.3, 2.4.
 
-<img src="../public/characters/city-trader-v1.png" alt="Торговка" width="200">
+<img src="../images/characters/city-trader.png" alt="Торговка" width="200">
 
 **Роль:** Торговка Перевальца в 2.3–2.4, связанная с зерном и лекарствами.
 
@@ -237,9 +230,9 @@
 
 ### Скупщик
 
-**Каталог:** `data/story-characters.json` → `city-buyer`. **Сцены:** 2.4.
+**Каталог:** `data/characters.json` → `city-buyer`. **Сцены:** 2.4.
 
-<img src="../public/characters/city-buyer-v1.png" alt="Скупщик" width="200">
+<img src="../images/characters/city-buyer.png" alt="Скупщик" width="200">
 
 **Роль:** Скупщик лекарств в 2.4.
 
@@ -249,9 +242,9 @@
 
 ### Телохранитель гостиницы
 
-**Каталог:** `data/story-characters.json` → `inn-bodyguard`. **Сцены:** 2.5.
+**Каталог:** `data/characters.json` → `inn-bodyguard`. **Сцены:** 2.5.
 
-<img src="../public/characters/inn-bodyguard-v1.png" alt="Телохранитель гостиницы" width="200">
+<img src="../images/characters/inn-bodyguard.png" alt="Телохранитель гостиницы" width="200">
 
 **Роль:** Телохранитель у «Тихой двери» в 2.5.
 
@@ -261,9 +254,9 @@
 
 ### Хозяин гостиницы
 
-**Каталог:** `data/story-characters.json` → `innkeeper-mask`. **Сцены:** 2.5, 2.6.
+**Каталог:** `data/characters.json` → `innkeeper-mask`. **Сцены:** 2.5, 2.6.
 
-<img src="../public/characters/innkeeper-mask-v1.png" alt="Хозяин гостиницы" width="200">
+<img src="../images/characters/innkeeper-mask.png" alt="Хозяин гостиницы" width="200">
 
 **Роль:** Человеческий образ вампира до разоблачения в 2.9; тот же хозяин в 2.5–2.6.
 
@@ -273,9 +266,9 @@
 
 ### Слуга гостиницы
 
-**Каталог:** `data/story-characters.json` → `inn-servant`. **Сцены:** 2.7.
+**Каталог:** `data/characters.json` → `inn-servant`. **Сцены:** 2.7.
 
-<img src="../public/characters/inn-servant-v1.png" alt="Слуга гостиницы" width="200">
+<img src="../images/characters/inn-servant.png" alt="Слуга гостиницы" width="200">
 
 **Роль:** Слуга, преграждающий путь в 2.7.
 
@@ -285,9 +278,9 @@
 
 ### Пленник гостиницы
 
-**Каталог:** `data/story-characters.json` → `inn-prisoner`. **Сцены:** 2.7.
+**Каталог:** `data/characters.json` → `inn-prisoner`. **Сцены:** 2.7.
 
-<img src="../public/characters/inn-prisoner-v1.png" alt="Пленник гостиницы" width="200">
+<img src="../images/characters/inn-prisoner.png" alt="Пленник гостиницы" width="200">
 
 **Роль:** Освобождённый человек из подвала гостиницы в 2.7.
 
@@ -297,9 +290,9 @@
 
 ### Налётчик у лесного рубежа
 
-**Каталог:** `data/story-characters.json` → `border-raider`. **Сцены:** 3.3.
+**Каталог:** `data/characters.json` → `border-raider`. **Сцены:** 3.3.
 
-<img src="../public/characters/border-raider-v1.png" alt="Налётчик у лесного рубежа" width="200">
+<img src="../images/characters/border-raider.png" alt="Налётчик у лесного рубежа" width="200">
 
 **Роль:** Противник в варианте 3.3 при уважении лесной границы.
 
@@ -309,9 +302,9 @@
 
 ### Раненый мародёр
 
-**Каталог:** `data/story-characters.json` → `wounded-marauder`. **Сцены:** 3.6.
+**Каталог:** `data/characters.json` → `wounded-marauder`. **Сцены:** 3.6.
 
-<img src="../public/characters/wounded-marauder-v1.png" alt="Раненый мародёр" width="200">
+<img src="../images/characters/wounded-marauder.png" alt="Раненый мародёр" width="200">
 
 **Роль:** Беспомощный пленник в 3.6; судьба зависит от выбора героя.
 
@@ -321,9 +314,9 @@
 
 ### Старуха в камышах
 
-**Каталог:** `data/story-characters.json` → `reed-crone`. **Сцены:** 4.3.
+**Каталог:** `data/characters.json` → `reed-crone`. **Сцены:** 4.3.
 
-<img src="../public/characters/reed-crone-v1.png" alt="Старуха в камышах" width="200">
+<img src="../images/characters/reed-crone.png" alt="Старуха в камышах" width="200">
 
 **Роль:** Безобидная человеческая маска болотницы до захвата в 4.3.
 
@@ -333,9 +326,9 @@
 
 ### Пленник болотницы
 
-**Каталог:** `data/story-characters.json` → `marsh-prisoner`. **Сцены:** 4.3, 4.9.
+**Каталог:** `data/characters.json` → `marsh-prisoner`. **Сцены:** 4.3, 4.9.
 
-<img src="../public/characters/marsh-prisoner-v1.png" alt="Пленник болотницы" width="200">
+<img src="../images/characters/marsh-prisoner.png" alt="Пленник болотницы" width="200">
 
 **Роль:** Пленник из 4.3, тот же освобождённый человек в 4.9.
 
@@ -345,9 +338,9 @@
 
 ### Преследователь на болотах
 
-**Каталог:** `data/story-characters.json` → `marsh-pursuer`. **Сцены:** 4.7.
+**Каталог:** `data/characters.json` → `marsh-pursuer`. **Сцены:** 4.7.
 
-<img src="../public/characters/marsh-pursuer-v1.png" alt="Преследователь на болотах" width="200">
+<img src="../images/characters/marsh-pursuer.png" alt="Преследователь на болотах" width="200">
 
 **Роль:** Наёмник Вейра в 4.7.
 
@@ -357,9 +350,9 @@
 
 ### Дозорный каравана
 
-**Каталог:** `data/story-characters.json` → `caravan-watch`. **Сцены:** 5.4, 5.7.
+**Каталог:** `data/characters.json` → `caravan-watch`. **Сцены:** 5.4, 5.7.
 
-<img src="../public/characters/caravan-watch-v1.png" alt="Дозорный каравана" width="200">
+<img src="../images/characters/caravan-watch.png" alt="Дозорный каравана" width="200">
 
 **Роль:** Один дозорный в 5.4 и 5.7; помогает распространить приказы.
 
@@ -369,9 +362,9 @@
 
 ### Наёмник крепости
 
-**Каталог:** `data/story-characters.json` → `fortress-mercenary`. **Сцены:** 5.7.
+**Каталог:** `data/characters.json` → `fortress-mercenary`. **Сцены:** 5.7.
 
-<img src="../public/characters/fortress-mercenary-v1.png" alt="Наёмник крепости" width="200">
+<img src="../images/characters/fortress-mercenary.png" alt="Наёмник крепости" width="200">
 
 **Роль:** Противник в варианте 5.7 при скрытых приказах.
 
@@ -381,9 +374,9 @@
 
 ### Связной ордена
 
-**Каталог:** `data/story-characters.json` → `order-courier`. **Сцены:** 5.8.
+**Каталог:** `data/characters.json` → `order-courier`. **Сцены:** 5.8.
 
-<img src="../public/characters/order-courier-v1.png" alt="Связной ордена" width="200">
+<img src="../images/characters/order-courier.png" alt="Связной ордена" width="200">
 
 **Роль:** Связной Света в 5.8; помогает прочитать маршрут к захоронению.
 
@@ -393,9 +386,9 @@
 
 ### Солдат гарнизона
 
-**Каталог:** `data/story-characters.json` → `garrison-soldier`. **Сцены:** 5.9.
+**Каталог:** `data/characters.json` → `garrison-soldier`. **Сцены:** 5.9.
 
-<img src="../public/characters/garrison-soldier-v1.png" alt="Солдат гарнизона" width="200">
+<img src="../images/characters/garrison-soldier.png" alt="Солдат гарнизона" width="200">
 
 **Роль:** Солдат после боя в крепости в 5.9.
 
@@ -405,9 +398,9 @@
 
 ### Охотник Вейра
 
-**Каталог:** `data/story-characters.json` → `veyr-hunter`. **Сцены:** 6.3.
+**Каталог:** `data/characters.json` → `veyr-hunter`. **Сцены:** 6.3.
 
-<img src="../public/characters/veyr-hunter-v1.png" alt="Охотник Вейра" width="200">
+<img src="../images/characters/veyr-hunter.png" alt="Охотник Вейра" width="200">
 
 **Роль:** Наёмный охотник в долине, сцена 6.3.
 
@@ -417,9 +410,9 @@
 
 ### Раненый солдат
 
-**Каталог:** `data/story-characters.json` → `wounded-soldier`. **Сцены:** prologue.
+**Каталог:** `data/characters.json` → `wounded-soldier`. **Сцены:** prologue.
 
-<img src="../public/characters/wounded-soldier-v1.png" alt="Раненый солдат" width="200">
+<img src="../images/characters/wounded-soldier.png" alt="Раненый солдат" width="200">
 
 **Роль:** Солдат, которому Севран помогает в прологе; не солдат гарнизона.
 
@@ -431,7 +424,7 @@
 
 Эпизодический собеседник; ID `saved-guest`. A recovered inn guest, adult about 42, slender oval face, olive brown skin, long uneven nose, tired hazel eyes, short wavy brown hair swept back, healed mark below right cheekbone. Simple dark travel linen with a loose slightly torn folded collar. Wary but relieved expression.
 
-<img src="../public/characters/saved-guest-v1.png" alt="Портрет" width="160">
+<img src="../images/characters/saved-guest.png" alt="Портрет" width="160">
 
 <a id="townsperson"></a>
 
@@ -439,7 +432,7 @@
 
 Эпизодический собеседник; ID `townsperson`. An ordinary town resident about 57, broad rounded Central Asian face, warm medium skin, prominent ears, grey close-cut hair, uneven eyebrows, deep horizontal forehead wrinkles. Simple charcoal wool with a small overlapping standing collar. Measured attentive expression.
 
-<img src="../public/characters/townsperson-v1.png" alt="Портрет" width="160">
+<img src="../images/characters/townsperson.png" alt="Портрет" width="160">
 
 <a id="inn-maid"></a>
 
@@ -447,7 +440,7 @@
 
 Эпизодический собеседник; ID `inn-maid`. An adult inn maid about 32, southeast Asian features, rounded cheeks, small mole near nose, dark tired eyes, black hair drawn back with a plain small dark linen tie, irregular loose strands. Worn grey-brown linen with narrow gathered neckline, no ornaments, guarded steady expression.
 
-<img src="../public/characters/inn-maid-v1.png" alt="Портрет" width="160">
+<img src="../images/characters/inn-maid.png" alt="Портрет" width="160">
 
 <a id="shelter-attendant"></a>
 
@@ -455,7 +448,7 @@
 
 Эпизодический собеседник; ID `shelter-attendant`. A refuge medical attendant about 63, dark brown skin, narrow face, high forehead, fine silver tightly curled hair, wrinkles and small pigmentation variations. Plain bone grey linen mantle over a dark high folded neckline, modest and practical, calm observant expression.
 
-<img src="../public/characters/shelter-attendant-v1.png" alt="Портрет" width="160">
+<img src="../images/characters/shelter-attendant.png" alt="Портрет" width="160">
 
 <a id="market-trader"></a>
 
@@ -463,4 +456,4 @@
 
 Эпизодический собеседник; ID `market-trader`. A travelling market trader about 47, pale freckled skin, broad asymmetrical nose, slightly heavy eyelids, receding dark copper hair cut short, clean shaven; faded dark ochre coarse linen with a broad asymmetric fold at collar and worn seams. Shrewd but ordinary human expression.
 
-<img src="../public/characters/market-trader-v1.png" alt="Портрет" width="160">
+<img src="../images/characters/market-trader.png" alt="Портрет" width="160">

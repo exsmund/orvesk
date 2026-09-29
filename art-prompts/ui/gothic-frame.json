@@ -1,0 +1,24 @@
+{
+  "asset": "images/ui/gothic-frame.png",
+  "sha256": "5e055eab329146137dc303526f15ca9f8758a10e87e0d9ee4ca393f177ec0b9e",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "date": "2026-09-21",
+      "prompt": "Use case: stylized-concept. Asset type: SINGLE square reusable nine-slice UI frame texture, 1024x1024, for dark gothic fantasy oil-painted portrait game. Front-facing flat rectangular frame seen straight on, perfectly square outside silhouette with straight parallel edges. Thin weathered dark iron and antique bronze rails hugging all four canvas edges. Small symmetrical sculpted gothic thorn-leaf corner ornaments confined strictly to the four 120x120 pixel corner squares. Each straight rail stays within the outer 45 pixels. No large central ornaments: straight middle edges must tile/stretch cleanly. Frame outer edges exactly touch canvas edges. Interior from x=128 to896 and y=128 to896 is entirely flat solid near-black #101410, EMPTY with no art, no scene. Embossed old metal texture, warm bone-ivory worn highlights and tarnished ochre edges, rough engraved oil-paint grain, dark recesses, directional upper-left light. Restrained elegant narrow frame like an antique gothic fantasy portrait surround. Sculptural painterly realism, NOT shiny gold or plastic, no gemstones, skulls, faces, lettering, UI symbols, watermark, perspective, drop shadow outside canvas, or extra frames. One frame only. Production border-image asset, decorative corners are the focus.",
+      "references": [
+        {
+          "path": "docs/ART_DIRECTION.md",
+          "role": "Style reference"
+        },
+        {
+          "path": "refs/image2.png",
+          "role": "Style reference"
+        }
+      ],
+      "notes": [
+        "Frame uses CSS nine-slice at 22%, without filling the center."
+      ]
+    }
+  ]
+}

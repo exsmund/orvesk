@@ -28,7 +28,7 @@ func initial() -> Dictionary:
 	return {"version": config.version, "campaignId": config.id, "revision": config.revision,
 		"node": "", "scene": "", "state": values, "entryState": {}, "pendingEntry": "",
 		"completedScenes": [], "decisions": {}, "completedEvents": {}, "claimedStoryRewards": {},
-		"encounterVariants": {}, "battleVisits": {}, "attempt": 0, "replaying": false}
+		"encounterVariants": {}, "battleVisits": {}, "attempt": 0, "replaying": false, "dialogue": {"context": "", "entries": []}}
 
 func run() -> Dictionary:
 	return session.game.story
@@ -41,6 +41,12 @@ func validate_saved(saved: Dictionary) -> String:
 	if not saved.get("completedScenes") is Array or not saved.get("pendingEntry") is String:
 		return "Повреждён маршрут сценария."
 	if saved.pendingEntry and saved.pendingEntry not in config.nodes: return "Неизвестный переход сценария."
+	if not saved.get("dialogue") is Dictionary or not saved.dialogue.get("entries") is Array or not saved.dialogue.get("context") is String:
+		return "Повреждена история диалога."
+	for entry in saved.dialogue.entries:
+		if not entry is Dictionary: return "Повреждена реплика диалога."
+		for field in ["id", "name", "text"]:
+			if not entry.get(field) is String: return "Повреждена реплика диалога."
 	for key in config.state:
 		if not saved.state.has(key): return "В сохранении отсутствует сюжетное поле: " + key
 		var value = saved.state[key]
@@ -99,7 +105,41 @@ func apply_effects(current: Dictionary):
 		if matches(effect.get("when"), before): run().state[effect.key] = effect.value
 	run().completedEvents[token] = true
 
+func record_dialogue():
+	var context = "%s/%s" % [run().scene, run().attempt]
+	if session.game.phase not in ["story", "ended"]:
+		run().dialogue = {"context": "", "entries": []}
+		return
+	if run().get("dialogue", {}).get("context", "") != context:
+		run().dialogue = {"context": context, "entries": []}
+	var current = node()
+	var text = display_text()
+	if current.kind == "choice" or text.is_empty(): return
+	var entries: Array = run().dialogue.entries
+	if not entries.is_empty() and entries.back().id == current.id: return
+	var name = ""
+	if current.get("speaker", ""):
+		name = current.get("speakerName", session.data.speaker(current.speaker, session.game.player).name)
+	entries.append({"id": current.id, "name": name, "text": text})
+	merge_answer_echoes()
+
+func merge_answer_echoes():
+	var entries: Array = run().get("dialogue", {}).get("entries", [])
+	for index in range(entries.size() - 1, 0, -1):
+		var answer: Dictionary = entries[index - 1]
+		var reply: Dictionary = entries[index]
+		var option: Dictionary = config.nodes.get(answer.id, {})
+		# Merge only an option and its own spoken response, never repeated dialogue.
+		if option.get("kind") == "option" and option.get("next") == reply.id and answer.name == reply.name and answer.text == reply.text:
+			reply["optionId"] = answer.id
+			entries.remove_at(index - 1)
+
 func seek(target: String, enter_from_map: bool = false) -> String:
+	var error = seek_node(target, enter_from_map)
+	if not error: record_dialogue()
+	return error
+
+func seek_node(target: String, enter_from_map: bool = false) -> String:
 	var visited: Array = []
 	while not target.is_empty():
 		if target == "$chapterStart":
@@ -177,6 +217,7 @@ func advance(expected: String, option_id: String = "") -> String:
 	if current.kind == "choice":
 		if option_id not in options(): return "Выберите доступный ответ."
 		if current.mode == "single" and run().decisions.has(current.id) and run().decisions[current.id] != option_id: return "Решение уже принято."
+		run().dialogue.entries.append({"id": option_id, "name": session.game.player.name, "text": config.nodes[option_id].text})
 		run().decisions[current.id] = option_id
 		target = config.nodes[option_id].next
 		apply_effects(config.nodes[option_id])
@@ -223,7 +264,7 @@ func travel(id: String) -> String:
 	run().decisions[str(run().attempt) + "/" + node().id] = option_id
 	if activity.handler == "recover":
 		session.game.player.hp = minf(session.data.max_hp(session.game.player), session.game.player.hp + session.data.max_hp(session.game.player) * activity.healthFraction)
-		session.game.player.stamina = minf(session.data.balance.stamina.max, session.game.player.stamina + session.data.balance.stamina.max * activity.staminaFraction)
+		session.game.player.stamina = minf(session.data.max_stamina(session.game.player), session.game.player.stamina + session.data.max_stamina(session.game.player) * activity.staminaFraction)
 	elif activity.handler == "equipment":
 		var offers = equipment_offers(int(activity.offers))
 		var prices = {}
@@ -241,7 +282,7 @@ func equipment_offers(count: int) -> Array:
 	for template in session.data.items:
 		if template.get("unarmed", false) or template.tier > session.data.stat_total(session.game.player) + config.rules.serviceEquipment.maximumTierOffsetFromStatTotal: continue
 		var rank = 999 if not template.requirements.is_empty() else 1
-		for stat in template.requirements: rank = mini(rank, int(session.game.player.stats[stat]))
+		for stat in template.requirements: rank = mini(rank, session.data.effective_stat(session.game.player, stat))
 		var item = session.data.item("%s@%d" % [template.id, rank])
 		if session.data.can_use(session.game.player, item) and item.id not in session.game.player.gear.values(): pool.append(item.id)
 	return session.combat.shuffled(pool).slice(0, count)
@@ -252,6 +293,7 @@ func finish_service(reference: String) -> String:
 	var service: Dictionary = journey.service
 	if reference:
 		if reference not in journey.offers: return "Предложение изменилось."
+		if session.data.item(reference).get("unarmed", false): return "Предмет недоступен."
 		var cost = int(service.prices[reference])
 		if session.game.souls < cost: return "Недостаточно осколков."
 		if not session.data.wear(session.game.player, session.data.item(reference)): return "Предмет недоступен."

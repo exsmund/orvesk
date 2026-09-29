@@ -21,9 +21,9 @@ func figures(f: Dictionary) -> Array:
 	var intrinsic = catalog.creature_figures(f) if f.get("creatureId", "") else catalog.base
 	for definition in intrinsic:
 		var availability = definition.get("availability", "")
-		if availability == "emptyWeapon" and f.gear.weapon: continue
-		if availability == "emptyFeet" and f.gear.feet: continue
-		if availability == "emptyShield" and (f.gear.shield or catalog.item(f.gear.weapon).get("hands", 1) == 2): continue
+		if availability == "emptyWeapon" and catalog.has_equipment(f, "weapon"): continue
+		if availability == "emptyFeet" and catalog.has_equipment(f, "feet"): continue
+		if availability == "emptyShield" and (catalog.has_equipment(f, "shield") or catalog.item(f.gear.weapon).get("hands", 1) == 2): continue
 		var card = definition.duplicate(true)
 		card.id = "base:" + definition.id
 		card.sourceLevel = 1
@@ -31,12 +31,13 @@ func figures(f: Dictionary) -> Array:
 			var stats = card.get("healthDamage", {}).get("stats", [])
 			if not stats.is_empty():
 				card.sourceLevel = 999
-				for stat in stats: card.sourceLevel = mini(card.sourceLevel, f.stats[stat])
+				for stat in stats: card.sourceLevel = mini(card.sourceLevel, catalog.effective_stat(f, stat))
 		result.append(card)
 	for slot in catalog.SLOTS:
 		if not f.gear.get(slot): continue
 		var equipment = catalog.item(f.gear[slot])
-		if equipment.get("charmEffect", ""): continue
+		# Basic items expose the same intrinsic figures, with stable IDs for dealt saves.
+		if equipment.get("charmEffect", "") or equipment.get("unarmed", false): continue
 		for definition in equipment.figures:
 			var card = definition.duplicate(true)
 			card.id = equipment.id + ":" + definition.id
@@ -68,16 +69,15 @@ func fill_hand(f: Dictionary):
 	var deck = f.deck
 	while deck.hand.size() < catalog.balance.handSize:
 		if deck.draw.is_empty():
-			if f.get("battleMode", "free") == "expendable" or deck.discard.is_empty(): break
+			if deck.discard.is_empty(): break
 			deck.draw = shuffled(deck.discard)
 			deck.discard = []
 		deck.hand.append(deck.draw.pop_front())
 
 func start_deck(f: Dictionary):
 	f.deck = {"draw": shuffled(build_deck(f)), "hand": [], "discard": [], "exchanged": false}
-	f.stamina = catalog.balance.stamina.max
+	f.stamina = catalog.max_stamina(f)
 	f.exhausted = false
-	f.actionsFinished = false
 	f.charmsUsed = {"ring": false, "amulet": false}
 	fill_hand(f)
 
@@ -162,7 +162,7 @@ func parts(f: Dictionary, card: Dictionary) -> Array:
 	var profile = card.get("healthDamage", {})
 	if profile.is_empty(): return []
 	var invested = 0
-	for stat in profile.stats: invested += maxi(0, int(f.stats[stat]) - 1)
+	for stat in profile.stats: invested += maxi(0, catalog.effective_stat(f, stat) - 1)
 	var total = maxi(0, roundi(profile.base + invested * catalog.balance.damage.perStatPoint + profile.stats.size() * maxi(0, int(card.get("sourceLevel", 1)) - 1) * catalog.balance.damage.levelPerRequiredStat))
 	var weight = 0.0
 	for n in profile.types.values(): weight += n
@@ -231,11 +231,11 @@ func calculate(fighters: Dictionary, moves: Dictionary, mods: Dictionary, detail
 			for n in indices:
 				var factor = contact(card, layers[target][n]) * concentration
 				damage[target] += per_cell * factor
-				stamina_damage[target] += card.get("staminaDamagePerCell", 0) * factor
+				stamina_damage[target] += stamina_damage_per_cell(fighters[side], card) * factor
 				if details:
 					incoming[target][n] += per_cell * factor
-					incoming_stamina[target][n] += card.get("staminaDamagePerCell", 0) * factor
-					breakdown[side][n] = {"parts": damage_parts, "concentration": concentration, "contact": contact(card, layers[target][n]), "health": per_cell * factor, "stamina": card.get("staminaDamagePerCell", 0) * factor}
+					incoming_stamina[target][n] += stamina_damage_per_cell(fighters[side], card) * factor
+					breakdown[side][n] = {"parts": damage_parts, "concentration": concentration, "contact": contact(card, layers[target][n]), "health": per_cell * factor, "stamina": stamina_damage_per_cell(fighters[side], card) * factor}
 	var result = {}
 	for side in ["player", "enemy"]:
 		var f = fighters[side]
@@ -250,10 +250,10 @@ func calculate(fighters: Dictionary, moves: Dictionary, mods: Dictionary, detail
 		var loss = minf(maxf(0, expense.remaining), stamina_damage[side])
 		var resting = moves[side].is_empty() and hp_after > 0
 		result[side] = {"hpBefore": f.hp, "hpAfter": hp_after, "damage": lost, "healed": healed, "staminaLoss": loss,
-			"staminaAfter": catalog.balance.stamina.max if resting else maxf(0, expense.remaining - loss),
+			"staminaAfter": catalog.max_stamina(f) if resting else maxf(0, expense.remaining - loss),
 			"exhausted": stamina_damage[side] > 0 and expense.remaining - stamina_damage[side] <= 0 and not resting,
 			"staminaBefore": f.stamina, "available": expense.remaining, "attackCost": expense.attacks, "blockCost": expense.blocks,
-			"staminaRecovered": catalog.balance.stamina.max - maxf(0, expense.remaining - loss) if resting else 0.0, "cost": expense.total}
+			"staminaRecovered": catalog.max_stamina(f) - maxf(0, expense.remaining - loss) if resting else 0.0, "cost": expense.total}
 	if details:
 		var health = {}
 		var stamina = {}
@@ -293,7 +293,7 @@ func forecast(g: Dictionary, draft: Array) -> Dictionary:
 		if is_strike(card):
 			for part in parts(g.player, card): potential += part.value * multiplier
 		result.append({"index": n, "known": false, "player": card, "enemy": {}, "potential": potential,
-			"potentialStamina": card.get("staminaDamagePerCell", 0) * multiplier if is_strike(card) else 0,
+			"potentialStamina": stamina_damage_per_cell(g.player, card) * multiplier if is_strike(card) else 0,
 			"previewDamage": estimate.cells[n].enemyDamage, "previewStaminaDamage": estimate.cells[n].enemyStaminaDamage})
 	return {"known": false, "cost": expense, "calculation": {}, "estimate": estimate, "cells": result}
 
@@ -311,7 +311,6 @@ func options(card: Dictionary, used: Array, mod: Dictionary) -> Array:
 
 func plan_ai(g: Dictionary) -> Array:
 	var plan = g.clashPlan
-	if g.enemy.get("actionsFinished", false): return []
 	var known = plan.preparer == "player"
 	var opposing = layer(g.player, plan.playerPlaced, plan.playerModifiers) if known else []
 	var candidates: Array = []
@@ -345,7 +344,7 @@ func plan_ai(g: Dictionary) -> Array:
 
 func prepare(g: Dictionary):
 	if g.phase != "combat" or g.has("clashPlan"): return
-	var reactor = ("enemy" if g.lastReactor == "player" else "player") if g.has("lastReactor") else ("player" if rng.randf() < 0.5 else "enemy")
+	var reactor = turn_reactor(g)
 	var preparer = "enemy" if reactor == "player" else "player"
 	g.lastReactor = reactor
 	g.clashPlan = {"stage": "preparation" if preparer == "player" else "reaction", "preparer": preparer, "reactor": reactor,
@@ -353,6 +352,7 @@ func prepare(g: Dictionary):
 	if preparer == "enemy": g.clashPlan.enemyPlaced = plan_ai(g)
 
 func begin(g: Dictionary):
+	g.erase("combatHelpAcknowledged")
 	g.erase("clashPlan")
 	g.erase("lastReactor")
 	g.erase("victoryReward")
@@ -387,27 +387,13 @@ func submit(g: Dictionary, placed: Array) -> String:
 	if g.player.hp <= 0 and g.enemy.hp <= 0: g.phase = "draw"
 	elif g.enemy.hp <= 0: g.phase = "victory"
 	elif g.player.hp <= 0: g.phase = "defeat"
-	elif g.journey.battleMode == "expendable" and not has_actions(g, "player") and not has_actions(g, "enemy"):
-		g.phase = "victory" if g.player.hp > g.enemy.hp else ("defeat" if g.player.hp < g.enemy.hp else "draw")
 	g.round += 1
 	g.erase("clashPlan")
 	if g.phase == "combat":
 		for side in ["player", "enemy"]:
-			if not g[side].exhausted: g[side].stamina = minf(catalog.balance.stamina.max, g[side].stamina + catalog.balance.stamina.recovery)
+			if not g[side].exhausted: g[side].stamina = minf(catalog.max_stamina(g[side]), g[side].stamina + catalog.balance.stamina.recovery)
 		prepare(g)
 	return ""
-
-func has_actions(g: Dictionary, side: String) -> bool:
-	var f = g[side]
-	if f.get("actionsFinished", false): return false
-	var other = g.enemy if side == "player" else g.player
-	var opposing_strike = false
-	if not other.get("actionsFinished", false):
-		for card in other.deck.hand + other.deck.draw:
-			if is_strike(card): opposing_strike = true
-	for card in f.deck.hand + f.deck.draw:
-		if is_strike(card) or (card.get("counter", false) and opposing_strike) or (card.get("healing", 0) > 0 and f.hp < catalog.max_hp(f)): return true
-	return false
 
 func exchange(g: Dictionary, id: String) -> String:
 	if g.phase != "combat" or g.clashPlan.stage == "reveal": return "Обмен сейчас недоступен."
@@ -416,7 +402,7 @@ func exchange(g: Dictionary, id: String) -> String:
 	var card = card_by_id(f, id)
 	if card.is_empty() or deck.exchanged or f.stamina < catalog.balance.stamina.exchangeCost: return "Нужны карта и 1 выносливости; один обмен за ход."
 	if deck.draw.is_empty():
-		if f.battleMode == "expendable" or deck.discard.is_empty(): return "Стопка пуста."
+		if deck.discard.is_empty(): return "Стопка пуста."
 		deck.draw = shuffled(deck.discard)
 		deck.discard = []
 	var index = deck.hand.find(card)
@@ -426,3 +412,18 @@ func exchange(g: Dictionary, id: String) -> String:
 	deck.exchanged = true
 	f.stamina -= catalog.balance.stamina.exchangeCost
 	return ""
+
+func stamina_damage_per_cell(f: Dictionary, card: Dictionary) -> float:
+	var profile = card.get("staminaDamage", {})
+	if profile.is_empty(): return card.get("staminaDamagePerCell", 0)
+	var invested = 0
+	for stat in profile.stats: invested += maxi(0, catalog.effective_stat(f, stat) - 1)
+	return maxf(0, roundf(profile.base + invested * profile.perStatPoint))
+
+func turn_reactor(g: Dictionary) -> String:
+	var player = catalog.turn_order(g.player)
+	var enemy = catalog.turn_order(g.enemy)
+	if not player.is_empty() and player != enemy: return "enemy" if player == "first" else "player"
+	if not enemy.is_empty() and player != enemy: return "player" if enemy == "first" else "enemy"
+	if g.has("lastReactor"): return "enemy" if g.lastReactor == "player" else "player"
+	return "player" if rng.randf() < 0.5 else "enemy"

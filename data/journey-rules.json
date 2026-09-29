@@ -1,11 +1,12 @@
 {
-  "enemyBalanceVersion": 2,
+  "enemyBalanceVersion": 4,
+  "equipmentBudget": {"base": 1, "perStatPoint": 1, "maximum": 12, "weaponLevelCost": 0.5, "healthPerArmorPoint": 30},
   "fightsPerMap": 5,
   "bossStage": 5,
-  "firstMap": {"expedition": 1, "regularRank": 0, "bossRank": 0},
+  "firstMap": {"expedition": 1, "regularRank": 0, "bossRank": 0, "bossStartingHealthFraction": 0.5},
   "rankOffsets": [-2, -2, -1, -1, 0],
   "minimumRank": 1,
-  "battleModes": ["free", "expendable"],
+  "battleModes": ["free"],
   "forgeBranches": {"min": 0, "max": 2},
   "styles": [
     {"id": "berserker", "stats": {"strength": 6, "agility": 1, "vitality": 3, "intelligence": 1}, "slots": {"shield": 2, "body": 4, "feet": 2, "ring": 1, "amulet": 1}},

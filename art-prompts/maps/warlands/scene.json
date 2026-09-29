@@ -1,0 +1,52 @@
+{
+  "asset": "images/maps/warlands/scene.png",
+  "sha256": "9915de0bbb56c387061d0df3227fe5ad36417e4b6ccc265d7e66e0b06d57a844",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "date": "2026-09-27",
+      "prompt": "Use case: stylized-concept. Game environment art for Heroes of Orvesk, dark gothic fantasy painted realism. Natural large masses and convincing volume, restrained textured brushwork, aged materials, muted earth/olive/charcoal/stone palette, upper-left daylight, readable middle-dark values, atmospheric depth without washed-out whitening. Never photorealistic drone photography, flat vector art, cute cartoon, plastic 3D, neon, modern objects, sci-fi, heroic saturated colors. No characters, creatures, text, labels, UI, markers, circles, graph nodes, frames, watermarks or vignette. Full-bleed opaque image; fill every edge with environment, no black fades. Asset type: separate ground-level combat-screen landscape backdrop of the same region, not an overhead map. Create ONE landscape image, requested exact 1672 x 941 pixels, approximately 16:9. Wide eye-level environmental view. Calm lower-center ground and subdued mid/upper-center backdrop for a separate game interface, but NOT a deliberately flat rectangular empty area. Place most intricate texture at the sides and middle distance; retain recognizable material and architectural features through a narrow center crop too. No painted battlefield grid, empty round combat arena or laid-out path. Scene: Ground-level view on churned earth below the walls of a squat battered medieval fortress. Broken siege timber and an overturned cart near the edges, low smoke, dry grass and worn grey battlements across middle distance. Calm dark earthy foreground, desaturated ochre and charcoal, overcast top-left daylight. No soldiers, bodies, battle action or weapons displayed as protagonists. Regional continuity: War-torn dry lowlands surrounding an old occupied fortress: trampled brown-grey fields, ragged earthworks without a connected route, scorched patches, collapsed farm outbuildings, broken wooden siege frames and overturned supply wagons sparsely among uneven ground. One squat damaged medieval stone fortress on a low ridge, with battered square towers and dark smoke; peripheral small camp tents and low stone walls. Muted ochre grass and charcoal stone, old iron and dark timber, sparse leafless trees, smoke from recent siege. This is an active human war zone after its armies passed, not a field of tall gothic cathedral ruins. No soldiers, no bodies, no emblems, no readable banners.",
+      "transparentBackground": false,
+      "references": [
+        {
+          "path": "docs/ART_DIRECTION.md",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "docs/ART_DIRECTION.md",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/forest/map.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/forest/scene.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/steppe/map.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/steppe/scene.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/ruins/map.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/ruins/scene.png",
+          "role": "Reviewed visually"
+        }
+      ],
+      "output": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-4ec877cf-0453-48d2-8ee9-ee2b8782144d.png",
+      "sha256": "9915de0bbb56c387061d0df3227fe5ad36417e4b6ccc265d7e66e0b06d57a844",
+      "notes": [
+        "Exact copies of generated originals. Map outputs were 1402x1122 rather than requested 3000x2400; actual dimensions recorded in the catalog. No stretching, cropping or repainting. Mobile delivery copies are produced by the existing sync_content.py pipeline.",
+        "Accepted: location matches chapter, no UI or itinerary, opaque, map and battle view share palette and materials."
+      ]
+    }
+  ]
+}

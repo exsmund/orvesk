@@ -1,0 +1,13 @@
+{
+  "asset": "images/shields/kite-shield.png",
+  "sha256": "e605d0352509a723996891b1054416cfd536419b09ac7310cb18e782846afae6",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "date": "2026-09-27",
+      "prompt": "Use case: stylized-concept. Create ONE square 1024x1024 PNG game inventory/action illustration on a TRUE TRANSPARENT RGBA background. Completely empty alpha outside the subject and in all gaps and holes. No black or colored backdrop, no gradient rectangle, no checkerboard, no floor, no shadow plane, no UI tile, no frame, no text or numbers. This will overlay textured combat cells: the cell texture MUST show everywhere around the object.\nArt direction: dark gothic fantasy, sculptural volume, tactile finely painted aged materials, strong chiaroscuro but readable midtone surfaces and narrow upper-left edge highlights. Muted iron grey, old brown leather, ivory linen, ochre accents; no plastic, cartoon, neon, flat vector or glossy 3D. A strong simple silhouette readable at 40px. Whole object fully visible, centered with about 8% transparent margin. No unintended accessories. Do not create a sheet of variations.\nSubject: Щит сумеречного стража (kite-shield). One elongated worn dark iron kite shield with pointed bottom, front view, rivets, restrained gothic design..\nType shield. Designed for 1 hand(s); depict the item alone, no person holding it. Long weapons diagonal bottom-left handle to upper-right tip. Boots/greaves are a matched pair; other items one object. Bow shown alone without quiver, weapons without scabbards. A fist is an anatomical action symbol, not a weapon held by a person.",
+      "transparentBackground": true,
+      "output": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-f22b1920-1da2-4494-ba4b-6804519ecc85.png"
+    }
+  ]
+}

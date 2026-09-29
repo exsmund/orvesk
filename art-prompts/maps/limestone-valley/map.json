@@ -1,0 +1,52 @@
+{
+  "asset": "images/maps/limestone-valley/map.png",
+  "sha256": "ccc290ef58171bcfc9363be1a9d4f933781712d35c67340d7c834c78300bdd96",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "date": "2026-09-27",
+      "prompt": "Use case: stylized-concept. Game environment art for Heroes of Orvesk, dark gothic fantasy painted realism. Natural large masses and convincing volume, restrained textured brushwork, aged materials, muted earth/olive/charcoal/stone palette, upper-left daylight, readable middle-dark values, atmospheric depth without washed-out whitening. Never photorealistic drone photography, flat vector art, cute cartoon, plastic 3D, neon, modern objects, sci-fi, heroic saturated colors. No characters, creatures, text, labels, UI, markers, circles, graph nodes, frames, watermarks or vignette. Full-bleed opaque image; fill every edge with environment, no black fades. Asset type: travel map backdrop. Create ONE landscape image, requested exact 3000 x 2400 pixels, 5:4 aspect ratio. High bird's-eye near-top-down terrain view with only a slight tilt, NO horizon or sky; a readable continuous region viewed from above. Large irregular grouped terrain/architecture features with natural variation, no repetitive tiny tiling. No emphasized central active zone, blank arena or flat reserved panel. Do NOT draw an itinerary, connecting paths, winding adventure road, staged clearings, circular platforms or board-game layout. Crop-safe environment everywhere. Scene: A secluded limestone valley at the end of a long journey: layered weathered pale grey chalk cliffs and stone shelves, fissures dark with old roots, scattered sparse wind-bent grey-green trees and silver grass, dry scree and pockets of mist. An austere tiny stone keeper refuge and a few small closed recessed entrances cut into the cliff, plausibly a hidden repository yet no visible contents. Repeated natural bands of limestone are the major visual identity across center and edges. Restrained bone-grey, slate shadows and muted sage, bleak quiet daylight. No giant temple, no prominent magical artifact, no open black portal, no glowing crystals, no giant chasm, no readable symbols.",
+      "transparentBackground": false,
+      "references": [
+        {
+          "path": "docs/ART_DIRECTION.md",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "docs/ART_DIRECTION.md",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/forest/map.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/forest/scene.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/steppe/map.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/steppe/scene.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/ruins/map.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/ruins/scene.png",
+          "role": "Reviewed visually"
+        }
+      ],
+      "output": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-fd8bc099-6bf3-445f-8ffd-9c82ff535d47.png",
+      "sha256": "ccc290ef58171bcfc9363be1a9d4f933781712d35c67340d7c834c78300bdd96",
+      "notes": [
+        "Exact copies of generated originals. Map outputs were 1402x1122 rather than requested 3000x2400; actual dimensions recorded in the catalog. No stretching, cropping or repainting. Mobile delivery copies are produced by the existing sync_content.py pipeline.",
+        "Accepted: location matches chapter, no UI or itinerary, opaque, map and battle view share palette and materials."
+      ]
+    }
+  ]
+}

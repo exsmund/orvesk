@@ -1,0 +1,51 @@
+{
+  "asset": "images/armor/charcoal-burner-kaftan.png",
+  "sha256": "e4251509425b35dd933169587926903ac812e2d3a74cdc89d7f74f8fe7e0bef7",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "date": "2026-09-28",
+      "prompt": "Use case: stylized-concept. Create one ORIGINAL equipment icon for the dark gothic fantasy game Heroes of Orvesk. Square 1024x1024 PNG RGBA with TRUE transparent background, alpha zero outside the object and in gaps. Sculptural painterly realism with subtle engraved texture, aged iron, creased leather, thick matte fabric, muted charcoal, old bronze, bone and earthy brown palette. Directional light from upper front-left, deep dimensional shadows and narrow broken highlights. One complete item centered, large legible silhouette at 40-56px, about 8% empty margin, nothing cropped. Hollow gender-neutral human clothing: no wearer, mannequin, body, face, hands or feet. Clothes upright, slight three-quarter angle; shoes as ONE matching pair side by side, one slightly behind. No floor, cast shadow on a surface, background color, checkerboard, scene, stand, frame, labels, letters, digits, UI, watermark, helmet, gloves, weapon, pouches or extra equipment. No anime, glossy 3D plastic, neon, large aura or excessive ornament. New asset, not an edit of another item. Subject: Кафтан углежога (charcoal-burner-kaftan). A coarse long charcoal-burner's kaftan with broad sleeves, burnt umber cloth coated in pale cracked refractory clay, soot in seams, tiny dull ochre stitch marks, stiff heavy folded fabric, no flames. Depict only this item, no other items from the series.",
+      "transparentBackground": true,
+      "references": [
+        {
+          "path": "refs/items/robe.png",
+          "role": "Reviewed visually; not supplied to the generator"
+        },
+        {
+          "path": "refs/items/dagger.png",
+          "role": "Reviewed visually; not supplied to the generator"
+        },
+        {
+          "path": "refs/items/buckler.png",
+          "role": "Reviewed visually; not supplied to the generator"
+        },
+        {
+          "path": "images/footwear/greaves.png",
+          "role": "Reviewed visually; not supplied to the generator"
+        }
+      ],
+      "output": "/Users/exsmund/.codex/generated_images/01a0dfd8-247d-7662-9197-dc693b1f8781/exec-086e5ae6-b9c8-4c05-983f-d2ed33f69d47.png",
+      "notes": [
+        "Model: not exposed by built-in tool"
+      ]
+    },
+    {
+      "tool": "image_gen",
+      "date": "2026-09-28",
+      "prompt": "Edit this game equipment asset. Remove the entire pair of boots, feet, trousers and all leg armor below the garment. Keep ONLY the upper body garment, sleeves and its hanging cloth hem or attached skirt panels. It must be one hollow garment on a transparent background with absolutely no human wearer, no legs, no shoes, no detached equipment. Reframe the isolated clothing item larger in the square with approximately 8% clear margin on all sides. Preserve the garment's existing materials, design, dark medieval painterly style and upper-left lighting. Preserve true RGBA transparency including all gaps. No floor, cast shadow, text, border or extra props. Garment design: A coarse long charcoal-burner's kaftan with broad sleeves, burnt umber cloth coated in pale cracked refractory clay, soot in seams, tiny dull ochre stitch marks, stiff heavy folded fabric, no flames.",
+      "transparentBackground": true,
+      "references": [
+        {
+          "path": "/Users/exsmund/.codex/generated_images/01a0dfd8-247d-7662-9197-dc693b1f8781/exec-086e5ae6-b9c8-4c05-983f-d2ed33f69d47.png",
+          "role": "Edit target; original file before replacement"
+        }
+      ],
+      "output": "/Users/exsmund/.codex/generated_images/01a0dfd8-247d-7662-9197-dc693b1f8781/exec-51f572fd-b2f0-40cf-8751-5b383926b2ea.png",
+      "sha256": "e4251509425b35dd933169587926903ac812e2d3a74cdc89d7f74f8fe7e0bef7",
+      "notes": [
+        "isolated garment or footwear pair; no wearer, text, frame or floor"
+      ]
+    }
+  ]
+}

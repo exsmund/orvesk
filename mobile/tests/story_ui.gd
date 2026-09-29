@@ -29,14 +29,26 @@ func inspect(name: String):
 		root.size = pixels
 		await settle()
 		var view = ui.story_view
+		if is_instance_valid(view.current_paragraph):
+			check(view.current_paragraph.position.y - view.text_scroll.scroll_vertical >= view.top_padding.custom_minimum_size.y - 1, "current speech starts below top fade " + name)
+		# Actions are allowed below the viewport until the player scrolls to them.
+		view.text_scroll.scroll_vertical = int(view.text_scroll.get_v_scroll_bar().max_value)
+		await settle()
+		check(not view.scroll_hint.visible, "scroll hint hidden at bottom " + name)
 		var bounds = view.get_global_rect().grow(1)
 		check(bounds.encloses(view.header.get_global_rect()), "shared header fits " + name)
 		check(bounds.encloses(view.controls.get_global_rect()), "answers fit " + name)
-		check(view.words.get_global_rect().end.y <= view.controls.get_global_rect().position.y, "text ends above answers " + name)
+		check(view.controls.get_parent() == view.speech, "actions are part of scrolling text " + name)
 		check(view.words.size.y > 32 and view.text_scroll.size.y > 24, "text remains readable " + name)
 		if view.has_portrait:
 			check(view.portrait.texture != null, "portrait from catalog")
-			check(view.surface.get_global_rect().encloses(view.portrait.get_global_rect()), "portrait fits " + name)
+			var clip: Vector2 = view.portrait.material.get_shader_parameter("horizontal_clip")
+			check(is_equal_approx(view.portrait.position.x + clip.x * view.portrait.size.x, view.surface.position.x + view.surface.frame.corner * 0.33), "portrait clipped at left border " + name)
+			check(is_equal_approx(view.portrait.position.x + clip.y * view.portrait.size.x, view.surface.position.x + view.surface.size.x - view.surface.frame.corner * 0.33), "portrait clipped at right border " + name)
+		check(view.controls.get_global_rect().end.y <= bounds.end.y - 70, "dialogue leaves bottom action zone inert")
+		check(view.speech.alignment == BoxContainer.ALIGNMENT_END, "short transcript is bottom aligned")
+		check(view.name_divider.visible == view.speaker_name.visible, "speaker separator follows heading")
+		check(view.portrait.material != null, "portrait uses fade material")
 		check(not view.text_scroll.get_v_scroll_bar().visible, "no visible scroll bar")
 		if pixels in [Vector2i(432,1008),Vector2i(1008,432)]: await shot(name+"-%dx%d" % [pixels.x,pixels.y])
 
@@ -64,7 +76,15 @@ func run():
 		ui.story_view.controls.get_child(0).pressed.emit()
 	await inspect("choice")
 	check(ui.story_view.controls.get_child_count() == 3, "all motivation choices available")
+	var chosen_text = ui.session.data.story.nodes[ui.session.campaign.options()[1]].text
 	ui.story_view.controls.get_child(1).pressed.emit()
+	check(ui.session.game.story.dialogue.entries.any(func(entry): return entry.text == chosen_text and entry.name == ui.session.game.player.name), "selected answer recorded")
+	var chosen_entries = ui.session.game.story.dialogue.entries.filter(func(entry): return entry.text == chosen_text and entry.name == ui.session.game.player.name)
+	check(chosen_entries.size() == 1, "choice and spoken response appear once")
+	var restored = load("res://game/session.gd").new(ui.data)
+	var payload = JSON.parse_string(JSON.stringify(ui.saves.payload))
+	check(restored.restore(payload).is_empty(), "restore dialogue from serialized save")
+	check(restored.game.story.dialogue == ui.session.game.story.dialogue, "restore exact transcript including chosen branch")
 	for _i in 6:
 		if ui.session.game.story.state.motivation != null: break
 		ui.story_view.controls.get_child(0).pressed.emit()
@@ -76,11 +96,12 @@ func run():
 		if ui.session.game.phase != "story": break
 		ui.story_view.controls.get_child(0).pressed.emit()
 	check(ui.session.game.phase == "ready" and is_instance_valid(ui.journey_view), "prologue leads to map")
+	check(ui.session.game.story.dialogue.entries.is_empty(), "dialogue clears on exit to map")
 	root.size = Vector2i(432,1008)
 	await settle()
 	await shot("story-map")
 	for point in ui.session.game.journey.map.nodes:
-		check(ui.data.point_for_node(point).icon.src.begins_with("/ui/map-points/"), "new configured map icon")
+		check(ui.data.point_for_node(point).icon.src.begins_with("/map-points/"), "new configured map icon")
 	var before_choice = ui.session.game.duplicate(true)
 	ui.session.game.phase = "story"
 	ui.session.game.story.node = "6.4.33d08aac420d"

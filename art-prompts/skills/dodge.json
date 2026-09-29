@@ -1,0 +1,13 @@
+{
+  "asset": "images/skills/dodge.png",
+  "sha256": "681ee75b6c93891f15e8f6015890087635ecb98c4e8aa774b9f804252d1d869f",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "date": "2026-09-27",
+      "prompt": "Use case: stylized-concept. Create ONE square 1024x1024 PNG game inventory/action illustration on a TRUE TRANSPARENT RGBA background. Completely empty alpha outside the subject and in all gaps and holes. No black or colored backdrop, no gradient rectangle, no checkerboard, no floor, no shadow plane, no UI tile, no frame, no text or numbers. This will overlay textured combat cells: the cell texture MUST show everywhere around the object.\nArt direction: dark gothic fantasy, sculptural volume, tactile finely painted aged materials, strong chiaroscuro but readable midtone surfaces and narrow upper-left edge highlights. Muted iron grey, old brown leather, ivory linen, ochre accents; no plastic, cartoon, neon, flat vector or glossy 3D. A strong simple silhouette readable at 40px. Whole object fully visible, centered with about 8% transparent margin. No unintended accessories. Do not create a sheet of variations.\nSubject: A single gender-indeterminate hooded adult ducking and twisting in an unmistakable evasive pose, full compact figure with tattered dark linen cloak, no scenery, no attack weapon, recognizable at tiny size.",
+      "transparentBackground": true,
+      "output": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-12a823aa-e6f1-404d-9c5a-b44b82be773f.png"
+    }
+  ]
+}

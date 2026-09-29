@@ -1,0 +1,51 @@
+{
+  "asset": "images/armor/quiet-belfry-vestment.png",
+  "sha256": "c247d32c9d90b0a00647845fa8e6afd74b23d40375f4c47adcc96624d056f92f",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "date": "2026-09-28",
+      "prompt": "Use case: stylized-concept. Create one ORIGINAL equipment icon for the dark gothic fantasy game Heroes of Orvesk. Square 1024x1024 PNG RGBA with TRUE transparent background, alpha zero outside the object and in gaps. Sculptural painterly realism with subtle engraved texture, aged iron, creased leather, thick matte fabric, muted charcoal, old bronze, bone and earthy brown palette. Directional light from upper front-left, deep dimensional shadows and narrow broken highlights. One complete item centered, large legible silhouette at 40-56px, about 8% empty margin, nothing cropped. Hollow gender-neutral human clothing: no wearer, mannequin, body, face, hands or feet. Clothes upright, slight three-quarter angle; shoes as ONE matching pair side by side, one slightly behind. No floor, cast shadow on a surface, background color, checkerboard, scene, stand, frame, labels, letters, digits, UI, watermark, helmet, gloves, weapon, pouches or extra equipment. No anime, glossy 3D plastic, neon, large aura or excessive ornament. New asset, not an edit of another item. Subject: Облачение тихой звонницы (quiet-belfry-vestment). A long heavy charcoal-grey quilted bellkeeper's vestment with small matte ceramic inserts on chest and ribs, interrupted spiral seam marks suggesting wind seals, wide thick hem, practical layered collar; no bells, ropes or religious emblem. Depict only this item, no other items from the series.",
+      "transparentBackground": true,
+      "references": [
+        {
+          "path": "refs/items/robe.png",
+          "role": "Reviewed visually; not supplied to the generator"
+        },
+        {
+          "path": "refs/items/dagger.png",
+          "role": "Reviewed visually; not supplied to the generator"
+        },
+        {
+          "path": "refs/items/buckler.png",
+          "role": "Reviewed visually; not supplied to the generator"
+        },
+        {
+          "path": "images/footwear/greaves.png",
+          "role": "Reviewed visually; not supplied to the generator"
+        }
+      ],
+      "output": "/Users/exsmund/.codex/generated_images/01a0dfd8-247d-7662-9197-dc693b1f8781/exec-25c310fc-a4de-432d-b0ce-7be29fe704a0.png",
+      "notes": [
+        "Model: not exposed by built-in tool"
+      ]
+    },
+    {
+      "tool": "image_gen",
+      "date": "2026-09-28",
+      "prompt": "Edit this inventory illustration: REMOVE BOTH BOOTS, legs and trousers visible underneath the robe. The entire area underneath the hanging fabric hem must be transparent. Render ONLY ONE hollow robe with its sleeves and attached skirt, no wearer, mannequin, feet, footwear, hands, head or other equipment. Preserve the exact fabric, embroidery, weathering, upper-left light and painterly sculptural dark medieval game style of the robe. Center the robe in the square with 8 percent transparent padding around the complete silhouette. True RGBA transparency in the background and all gaps, no floor, shadow plane, frame or text.",
+      "transparentBackground": true,
+      "references": [
+        {
+          "path": "/Users/exsmund/.codex/generated_images/01a0dfd8-247d-7662-9197-dc693b1f8781/exec-25c310fc-a4de-432d-b0ce-7be29fe704a0.png",
+          "role": "Edit target; original file before replacement"
+        }
+      ],
+      "output": "/Users/exsmund/.codex/generated_images/01a0dfd8-247d-7662-9197-dc693b1f8781/exec-f265d262-eff7-40b4-a76e-a8308b1a0950.png",
+      "sha256": "c247d32c9d90b0a00647845fa8e6afd74b23d40375f4c47adcc96624d056f92f",
+      "notes": [
+        "isolated garment or footwear pair; no wearer, text, frame or floor"
+      ]
+    }
+  ]
+}

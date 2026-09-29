@@ -5,6 +5,5 @@ build/
 *.keystore
 *.jks
 export_credentials.cfg
-tests/generated/
 __pycache__/
 *.pyc

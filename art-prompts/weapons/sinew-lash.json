@@ -1,0 +1,13 @@
+{
+  "asset": "images/weapons/sinew-lash.png",
+  "sha256": "e5269a584e908c38d9dd35262deeb13b9a3e238f644dae8bbde93f07bb8043c9",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "date": "2026-09-27",
+      "prompt": "Use case: stylized-concept. Create ONE square 1024x1024 PNG game inventory/action illustration on a TRUE TRANSPARENT RGBA background. Completely empty alpha outside the subject and in all gaps and holes. No black or colored backdrop, no gradient rectangle, no checkerboard, no floor, no shadow plane, no UI tile, no frame, no text or numbers. This will overlay textured combat cells: the cell texture MUST show everywhere around the object.\nArt direction: dark gothic fantasy, sculptural volume, tactile finely painted aged materials, strong chiaroscuro but readable midtone surfaces and narrow upper-left edge highlights. Muted iron grey, old brown leather, ivory linen, ochre accents; no plastic, cartoon, neon, flat vector or glossy 3D. A strong simple silhouette readable at 40px. Whole object fully visible, centered with about 8% transparent margin. No unintended accessories. Do not create a sheet of variations.\nSubject: Жильный бич (sinew-lash). Короткая рукоять и несколько гибких плетей из обработанных сухожилий с костяными наконечниками. В покое они иногда слабо подёргиваются. Работа дикого мага, соединившего остаточные свойства животных тканей с простым закреплённым действием. Оружие встречается у жестоких наёмников и хозяев подпольных мастерских; в нём не обязательно заключена самостоятельная душа.\n\n.\nType weapon. Designed for 1 hand(s); depict the item alone, no person holding it. Long weapons diagonal bottom-left handle to upper-right tip. Boots/greaves are a matched pair; other items one object. Bow shown alone without quiver, weapons without scabbards. A fist is an anatomical action symbol, not a weapon held by a person.",
+      "transparentBackground": true,
+      "output": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-9a6ced59-f9cf-4fa4-87e0-4eb3154b884a.png"
+    }
+  ]
+}

@@ -8,6 +8,7 @@ func _init():
 	report.bbcode_enabled = false
 	report.scroll_active = false
 	report.fit_content = true
+	report.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	report.add_theme_font_size_override("normal_font_size", 16)
 	report.add_theme_constant_override("line_separation", 4)
 	content.add_child(report)

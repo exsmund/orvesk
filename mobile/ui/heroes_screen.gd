@@ -18,6 +18,7 @@ var grid = GridContainer.new()
 var rows: Array = []
 var empty = Label.new()
 var notice = Label.new()
+var layout_queued = false
 
 func configure(owner_ui):
 	host = owner_ui
@@ -67,7 +68,11 @@ func configure(owner_ui):
 	panel.add_child(frame)
 	frame.configure(host.data, 26)
 	frame.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	resized.connect(arrange)
+	resized.connect(queue_arrange)
+	# Wrapped labels settle their minimum height after the available width changes.
+	# Reflow then, so the initial narrow measurement cannot stretch text over the footer.
+	empty.minimum_size_changed.connect(queue_arrange)
+	notice.minimum_size_changed.connect(queue_arrange)
 	refresh(host.saves.list_heroes())
 
 func refresh(entries: Array):
@@ -108,9 +113,15 @@ func describe(game: Dictionary) -> String:
 func set_notice(text: String):
 	notice.text = text
 	notice.visible = not text.is_empty()
-	arrange()
+	queue_arrange()
+
+func queue_arrange():
+	if layout_queued: return
+	layout_queued = true
+	arrange.call_deferred()
 
 func arrange():
+	layout_queued = false
 	if not host or size.x <= 0 or size.y <= 0: return
 	var wide = size.x > size.y * 1.08
 	panel.size = Vector2(minf(size.x, size.y * 1.65), size.y) if wide else Vector2(minf(560, size.x), minf(920, size.y))

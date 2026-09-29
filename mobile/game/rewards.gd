@@ -40,13 +40,22 @@ func compatible(option: Dictionary, chosen: Array) -> bool:
 
 func pick(pool: Array, rng: RandomNumberGenerator) -> Dictionary:
 	if pool.is_empty(): return {}
-	# Equal chance between available kinds, then between entries of that kind.
+	# Configured weights apply to available kinds, not individual catalog entries.
+	var weights: Dictionary = data.balance.loot.rewardKindWeights
 	var kinds: Array = []
-	for kind in ["item", "skill"]:
-		if pool.any(func(option): return option.kind == kind): kinds.append(kind)
-	var kind = kinds[rng.randi_range(0, kinds.size() - 1)]
-	var candidates = pool.filter(func(option): return option.kind == kind)
-	return candidates[rng.randi_range(0, candidates.size() - 1)]
+	var total = 0
+	for kind in weights:
+		if int(weights[kind]) > 0 and pool.any(func(option): return option.kind == kind):
+			kinds.append(kind)
+			total += int(weights[kind])
+	if kinds.is_empty(): return {}
+	var roll = rng.randi_range(1, total)
+	for kind in kinds:
+		roll -= int(weights[kind])
+		if roll <= 0:
+			var candidates = pool.filter(func(option): return option.kind == kind)
+			return candidates[rng.randi_range(0, candidates.size() - 1)]
+	return {}
 
 func roll(player: Dictionary, enemy: Dictionary, rng: RandomNumberGenerator) -> Array:
 	var available: Array = []
@@ -63,7 +72,7 @@ func roll(player: Dictionary, enemy: Dictionary, rng: RandomNumberGenerator) -> 
 		if valid(option, player): all.append(option)
 		# The guaranteed usable offer may be a lower level of the rolled template.
 		var rank = int(equipment.level)
-		for stat in equipment.requirements: rank = mini(rank, int(player.stats[stat]))
+		for stat in equipment.requirements: rank = mini(rank, data.effective_stat(player, stat))
 		var usable_item = data.item("%s@%d" % [template.id, rank])
 		var ready = {"kind": "item", "itemId": usable_item.id}
 		if usable(ready, player):

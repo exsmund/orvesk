@@ -1,0 +1,52 @@
+{
+  "asset": "images/maps/ravaged-lands/scene.png",
+  "sha256": "c971da4cc8cd0850b814c5d7e1cdd3cea64a9c914aebc0acf5540cbae279e2ae",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "date": "2026-09-27",
+      "prompt": "Use case: stylized-concept. Game environment art for Heroes of Orvesk, dark gothic fantasy painted realism. Natural large masses and convincing volume, restrained textured brushwork, aged materials, muted earth/olive/charcoal/stone palette, upper-left daylight, readable middle-dark values, atmospheric depth without washed-out whitening. Never photorealistic drone photography, flat vector art, cute cartoon, plastic 3D, neon, modern objects, sci-fi, heroic saturated colors. No characters, creatures, text, labels, UI, markers, circles, graph nodes, frames, watermarks or vignette. Full-bleed opaque image; fill every edge with environment, no black fades. Asset type: separate ground-level combat-screen landscape backdrop of the same region, not an overhead map. Create ONE landscape image, requested exact 1672 x 941 pixels, approximately 16:9. Wide eye-level environmental view. Calm lower-center ground and subdued mid/upper-center backdrop for a separate game interface, but NOT a deliberately flat rectangular empty area. Place most intricate texture at the sides and middle distance; retain recognizable material and architectural features through a narrow center crop too. No painted battlefield grid, empty round combat arena or laid-out path. Scene: Ground-level view at an abandoned farmyard near the old stone bridge. Charred cottage walls and dead orchard branches frame a broad uneven muddy foreground; part of the low stone bridge and gatehouse is visible through smoke in the middle distance. Ash-grey sky and a restrained warm left light; not a volcanic landscape. Regional continuity: Ravaged rural frontier before the walled town of Perevalets: burned timber farmhouses on low rough stone foundations, blackened roof beams and dead orchard trees, ash mixed with muddy grey-brown soil, ruined low field walls, patches of muted dry olive grass. A broad grey river enters one side; one worn low medieval stone bridge and its gatehouse survive near it, compact features without a road connected to them. Scattered farm ruins lie throughout the environment, not a single centered landmark. Recent war and abandoned homes, drifting thin smoke, no active fire.",
+      "transparentBackground": false,
+      "references": [
+        {
+          "path": "docs/ART_DIRECTION.md",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "docs/ART_DIRECTION.md",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/forest/map.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/forest/scene.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/steppe/map.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/steppe/scene.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/ruins/map.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/ruins/scene.png",
+          "role": "Reviewed visually"
+        }
+      ],
+      "output": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-36364846-ecae-4bfd-a8e9-36f40961cd87.png",
+      "sha256": "c971da4cc8cd0850b814c5d7e1cdd3cea64a9c914aebc0acf5540cbae279e2ae",
+      "notes": [
+        "Exact copies of generated originals. Map outputs were 1402x1122 rather than requested 3000x2400; actual dimensions recorded in the catalog. No stretching, cropping or repainting. Mobile delivery copies are produced by the existing sync_content.py pipeline.",
+        "Accepted: location matches chapter, no UI or itinerary, opaque, map and battle view share palette and materials."
+      ]
+    }
+  ]
+}

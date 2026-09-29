@@ -3,7 +3,7 @@
   "revision": 1,
   "authoringCatalog": "data/story.json",
   "dialogueGraph": "data/story-preview.json",
-  "saveVersion": 6,
+  "saveVersion": 7,
   "voice": {
     "speakerId": "attractor",
     "depositField": "attractorDeposits",

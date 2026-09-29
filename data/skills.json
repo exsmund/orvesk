@@ -9,10 +9,22 @@
       "id": "skill:dodge",
       "name": "Уворот",
       "shape": [
-        [0, 0],
-        [1, 0],
-        [0, 1],
-        [1, 1]
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ]
       ],
       "evades": true,
       "category": "defense",
@@ -27,7 +39,7 @@
       },
       "description": "Избежать всего урона здоровью и выносливости в четырёх перекрытых клетках."
     },
-    "art": "/skills/dodge-transparent-v2.png"
+    "art": "/skills/dodge.png"
   },
   {
     "id": "sidestep",
@@ -39,8 +51,14 @@
       "id": "skill:sidestep",
       "name": "Шаг в сторону",
       "shape": [
-        [0, 0],
-        [1, 1]
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ]
       ],
       "evades": true,
       "category": "defense",
@@ -55,7 +73,7 @@
       },
       "description": "Избежать всего урона здоровью и выносливости в двух клетках по диагонали."
     },
-    "art": "/skills/sidestep-transparent-v2.png"
+    "art": "/skills/sidestep.png"
   },
   {
     "id": "bandage",
@@ -67,9 +85,18 @@
       "id": "skill:bandage",
       "name": "Перевязка",
       "shape": [
-        [0, 0],
-        [1, 0],
-        [1, 1]
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ]
       ],
       "evades": false,
       "category": "support",
@@ -85,7 +112,7 @@
       "description": "Восстановить до 2 здоровья после подсчёта урона, если вы выжили. Не выше максимума; не защищает от атак и не воскрешает.",
       "healing": 2
     },
-    "art": "/skills/bandage-transparent-v2.png"
+    "art": "/skills/bandage.png"
   },
   {
     "id": "parry",
@@ -96,7 +123,12 @@
     "figure": {
       "id": "skill:parry",
       "name": "Парирование",
-      "shape": [[0, 0]],
+      "shape": [
+        [
+          0,
+          0
+        ]
+      ],
       "category": "defense",
       "copies": 1,
       "staminaCost": 2,
@@ -106,14 +138,16 @@
       "staminaDamagePerCell": 0,
       "healthDamage": {
         "base": 2,
-        "stats": ["agility"],
+        "stats": [
+          "agility"
+        ],
         "types": {
           "pierce": 1
         }
       },
       "description": "Отражает удар и контратакует только при встрече с атакой."
     },
-    "art": "/skills/parry-transparent-v2.png"
+    "art": "/skills/parry.png"
   },
   {
     "id": "attack-training",
@@ -125,18 +159,241 @@
       "category": "attack",
       "factor": 2
     },
-    "art": "/skills/attack-training-transparent-v2.png"
+    "art": "/skills/attack-training.png"
   },
   {
     "id": "defense-training",
     "name": "Защитная подготовка",
     "effect": "passive",
     "amount": 0,
-    "description": "Удваивает количество защитных карт в колоде.",
+    "description": "Удваивает число копий защитных карт в колоде, включая «Шаг назад».",
     "deckMultiplier": {
       "category": "defense",
       "factor": 2
     },
-    "art": "/skills/defense-training-transparent-v2.png"
+    "art": "/skills/defense-training.png"
+  },
+  {
+    "id": "forceful-rebuff",
+    "name": "Силовой отбой",
+    "effect": "evade",
+    "amount": 0,
+    "description": "Отбивает атаку в одной клетке, избегая урона здоровью и выносливости. При встрече с атакой наносит дробящий ответный урон: 2 + (Сила − 1).",
+    "figure": {
+      "id": "skill:forceful-rebuff",
+      "name": "Силовой отбой",
+      "shape": [
+        [
+          0,
+          0
+        ]
+      ],
+      "category": "defense",
+      "copies": 1,
+      "staminaCost": 2,
+      "blockCost": 0,
+      "staminaDamagePerCell": 0,
+      "healthDamage": {
+        "base": 2,
+        "stats": [
+          "strength"
+        ],
+        "types": {
+          "blunt": 1
+        }
+      },
+      "description": "Отбивает атаку в одной клетке, избегая урона здоровью и выносливости. При встрече с атакой наносит дробящий ответный урон: 2 + (Сила − 1).",
+      "evades": true,
+      "counter": true
+    },
+    "art": "/skills/forceful-rebuff.png"
+  },
+  {
+    "id": "calculated-strike",
+    "name": "Расчётливый удар",
+    "effect": "attack",
+    "amount": 0,
+    "description": "Изматывает противника точным ударом: 2 + (Интеллект − 1) урона выносливости в одной клетке. Не наносит урона здоровью. Блок и уклонение останавливают удар; при столкновении с атакой урон уменьшается вдвое.",
+    "figure": {
+      "id": "skill:calculated-strike",
+      "name": "Расчётливый удар",
+      "shape": [
+        [
+          0,
+          0
+        ]
+      ],
+      "category": "attack",
+      "copies": 1,
+      "staminaCost": 2,
+      "blockCost": 0,
+      "staminaDamagePerCell": 0,
+      "healthDamage": {
+        "base": 0,
+        "stats": [],
+        "types": {}
+      },
+      "description": "Изматывает противника точным ударом: 2 + (Интеллект − 1) урона выносливости в одной клетке. Не наносит урона здоровью. Блок и уклонение останавливают удар; при столкновении с атакой урон уменьшается вдвое.",
+      "staminaDamage": {
+        "base": 2,
+        "stats": [
+          "intelligence"
+        ],
+        "perStatPoint": 1
+      }
+    },
+    "art": "/skills/calculated-strike.png"
+  },
+  {
+    "id": "rebound",
+    "name": "Отскок",
+    "effect": "evade",
+    "amount": 0,
+    "description": "Бесплатное уклонение: избегает урона здоровью и выносливости в четырёх клетках S-образного зигзага.",
+    "figure": {
+      "id": "skill:rebound",
+      "name": "Отскок",
+      "shape": [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "category": "defense",
+      "copies": 1,
+      "staminaCost": 0,
+      "blockCost": 0,
+      "staminaDamagePerCell": 0,
+      "healthDamage": {
+        "base": 0,
+        "stats": [],
+        "types": {}
+      },
+      "description": "Бесплатное уклонение: избегает урона здоровью и выносливости в четырёх клетках S-образного зигзага.",
+      "evades": true
+    },
+    "art": "/skills/rebound.png"
+  },
+  {
+    "id": "tireless",
+    "name": "Неутомимость",
+    "effect": "passive",
+    "amount": 0,
+    "description": "Увеличивает максимальную выносливость на 2, пока навык изучен. Не добавляет карту в колоду и не восстанавливает выносливость при изучении.",
+    "passive": {
+      "maxStaminaBonus": 2
+    },
+    "art": "/skills/tireless.png"
+  },
+  {
+    "id": "step-back",
+    "name": "Шаг назад",
+    "effect": "evade",
+    "amount": 0,
+    "description": "Уклонение на всём поле 3 × 3: защищает здоровье и выносливость от всех атак этого хода. Стоит 2 выносливости. Добавляет одну карту в колоду; с «Защитной подготовкой» — две.",
+    "figure": {
+      "id": "skill:step-back",
+      "name": "Шаг назад",
+      "shape": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "category": "defense",
+      "copies": 1,
+      "staminaCost": 2,
+      "blockCost": 0,
+      "staminaDamagePerCell": 0,
+      "healthDamage": {
+        "base": 0,
+        "stats": [],
+        "types": {}
+      },
+      "description": "Уклонение на всём поле 3 × 3: защищает здоровье и выносливость от всех атак этого хода. Стоит 2 выносливости. Добавляет одну карту в колоду; с «Защитной подготовкой» — две.",
+      "evades": true
+    },
+    "art": "/skills/step-back.png"
+  },
+  {
+    "id": "reaction",
+    "name": "Реакция",
+    "effect": "passive",
+    "amount": 0,
+    "description": "На каждом ходу боя герой действует первым. Заменяет «Стратега».",
+    "passive": {
+      "turnOrder": "first"
+    },
+    "art": "/skills/reaction.png",
+    "exclusiveGroup": "turn-order"
+  },
+  {
+    "id": "strategist",
+    "name": "Стратег",
+    "effect": "passive",
+    "amount": 0,
+    "description": "На каждом ходу боя герой действует вторым и видит план противника. Заменяет «Реакцию».",
+    "passive": {
+      "turnOrder": "second"
+    },
+    "art": "/skills/strategist.png",
+    "exclusiveGroup": "turn-order"
+  },
+  {
+    "id": "robust-health",
+    "name": "Крепкое здоровье",
+    "effect": "passive",
+    "amount": 0,
+    "description": "Даёт +2 к живучести, пока навык изучен, повышая максимальное здоровье. Не повышает уровень героя и цену прокачки. Само изучение не лечит раны.",
+    "passive": {
+      "statBonuses": {
+        "vitality": 2
+      }
+    },
+    "art": "/skills/robust-health.png"
   }
 ]

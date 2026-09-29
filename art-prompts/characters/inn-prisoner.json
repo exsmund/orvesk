@@ -1,0 +1,39 @@
+{
+  "asset": "images/characters/inn-prisoner.png",
+  "sha256": "8242d14116eaef067be5697df10de2c59e64c922beccf1721e848da13ace65d8",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "date": "2026-09-28",
+      "prompt": "Use case: identity-preserve. Edit Image 1 into a square transparent dialogue bust portrait for dark gothic game. Preserve the SAME recognizable person, face, age, skin, hair, expression, LEFTWARD three-quarter gaze and identical garment. Outpaint both complete shoulders and upper arms. Images 2,3,4 are materials only: aged warm metal, cold gothic material, cloth/bone; do not copy their characters or accessories.\nCRITICAL matched series framing: square canvas, head small enough: hair crown at 10% height, eyes at 30%, anatomical chin at 50%, head width 36–38%. Head horizontal center 50%. Both shoulders completely visible with generous transparent side margins, silhouette inside x8–92%. Same camera distance for every portrait. Bust to upper chest, lower torso cropped only by bottom. Do not crop sides, zoom into face, or auto-trim transparency. No waist, hands, new props. Preserve natural proportions. Head size consistency more important than filling canvas.\nFine dry-brush gothic painting, sculptural volume, matte skin, grouped hair, coarse worn cloth, subtle irregular strokes following form; deep chiaroscuro, light upper front-left. Muted earth charcoal bone colors. Not photograph, glossy 3D or cartoon.\nActual transparent PNG alpha outside silhouette, no black or white background, painted checkerboard, frame, labels, halo. Keep dark clothing and internal shadows opaque. One square portrait.\nImage 5 is ONLY the series camera-distance/layout reference. MATCH its anatomical head height, eye-line and chin position closely; do NOT copy its face, skin, hair, clothing or shoulder width. Subject identity comes exclusively from image1. Every portrait in this series must have the same apparent camera distance. Preserve each person's natural build.",
+      "transparentBackground": true,
+      "references": [
+        {
+          "path": "images/characters/inn-prisoner.png",
+          "role": "Earlier opaque version at this path; now replaced"
+        },
+        {
+          "path": "refs/image1.png",
+          "role": "Material reference only"
+        },
+        {
+          "path": "refs/image2.png",
+          "role": "Material reference only"
+        },
+        {
+          "path": "refs/image3.png",
+          "role": "Material reference only"
+        },
+        {
+          "path": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-71520f10-243c-425d-a8b3-c6a6ba636c4d.png",
+          "role": "Camera distance / framing only"
+        }
+      ],
+      "output": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-9b28ecd7-8a39-4dd1-9b68-27ee39edf624.png",
+      "sha256": "8242d14116eaef067be5697df10de2c59e64c922beccf1721e848da13ace65d8",
+      "instructions": [
+        "IMPORTANT retain exact garment construction from image1. Do not add frayed layered shoulder cape from image5. Clothing ONLY from image1."
+      ]
+    }
+  ]
+}

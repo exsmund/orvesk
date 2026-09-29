@@ -68,15 +68,20 @@ func run():
 	var state = JSON.stringify(ui.session.game)
 	var rng = ui.session.combat.rng.state
 	check(screen.cards.size() == 4 and not ui.scroll.visible, "Four native figures; no scroll container")
-	# Every cell can be inspected, even while a card is selected. No tap places a card.
+	# Every cell uses the same hold gesture as the hand; a tap does nothing.
 	ui.selected = id
 	for index in 9:
 		var point = cell_center(index)
 		touch(point, true)
 		touch(point, false)
 		await frame()
+		check(not ui.get_children().any(func(c): return c is ModalDialog and c.visible), "Tap does not inspect cell %d" % (index + 1))
+		touch(point, true)
+		ui.board._process(0.51)
+		touch(point, false)
+		await frame()
 		var reports = ui.get_children().filter(func(c): return c is ModalDialog and c.visible)
-		check(reports.size() == 1 and reports[0].title.begins_with("Клетка %d ·" % (index + 1)), "Tap inspects cell %d" % (index + 1))
+		check(reports.size() == 1 and reports[0].title.begins_with("Клетка %d ·" % (index + 1)), "Hold inspects cell %d" % (index + 1))
 		check(ui.draft.is_empty() and JSON.stringify(ui.session.game) == state and ui.session.combat.rng.state == rng, "Cell inspection does not place a selected figure or mutate combat")
 		await close_report()
 	var previous_x = -1.0
@@ -171,9 +176,10 @@ func run():
 		click.position = inspected_point
 		click.pressed = pressed
 		root.push_input(click, true)
+		if pressed: ui.board._process(0.51)
 	await frame()
 	var cell_reports = ui.get_children().filter(func(c): return c is ModalDialog and c.visible)
-	check(cell_reports.size() == 1 and cell_reports[0].title.begins_with("Клетка 2 ·"), "Mouse click on any part of placed figure opens that cell report")
+	check(cell_reports.size() == 1 and cell_reports[0].title.begins_with("Клетка 2 ·"), "Mouse hold on any part of placed figure opens that cell report")
 	check(ui.draft == before_inspection and ui.rotation_for(id) == 0, "Inspecting own figure neither removes nor rotates it")
 	await close_report()
 	await snapshot("combat-cover")
@@ -257,7 +263,7 @@ func run():
 	touch(outside, false)
 	check(ui.draft.is_empty() and ui.board.player_layer.all(func(c): return c.is_empty()) and screen.cards[0].visible, "Outside release removes entire figure and returns it to hand")
 	check(ui.saves.read(ui.hero_id).draft.is_empty(), "Removal is persisted")
-	check(screen.header.bars[1].displayed_value == ui.session.game.player.stamina and screen.action.text == "Восстановить силы", "Removal refreshes resource forecast and action")
+	check(screen.header.bars[1].displayed_value == ui.session.game.player.stamina and screen.action.text == "Подтвердить ход", "Removal refreshes resource forecast and action")
 	check(JSON.stringify(ui.session.game) == state and ui.session.combat.rng.state == rng, "Inspection and relocation/removal preserve deck, combat and RNG")
 	ui.load_hero(ui.hero_id)
 	screen = ui.combat_view
@@ -289,6 +295,7 @@ func run():
 	check(JSON.stringify(ui.session.game) == reveal and ui.draft.is_empty(), "Reveal cannot be rotated or edited")
 	var revealed_point = cell_center(3)
 	touch(revealed_point, true)
+	ui.board._process(0.51)
 	touch(revealed_point, false)
 	await frame()
 	check(ui.get_children().any(func(c): return c is ModalDialog and c.visible and c.title.begins_with("Клетка 4 ·")), "Revealed cells remain inspectable")

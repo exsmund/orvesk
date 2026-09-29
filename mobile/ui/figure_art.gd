@@ -100,7 +100,7 @@ func power(canvas: CanvasItem, rect: Rect2, hp: float, stamina: float):
 func piece(canvas: CanvasItem, card: Dictionary, fighter: Dictionary, rotation: int, mod: Dictionary, origin: Vector2, pitch: float, selected: bool = false, cost_badge: bool = true):
 	var cells = points(card, rotation, mod)
 	var hp = damage(fighter, card) * card.shape.size() / cells.size()
-	var stamina = card.get("staminaDamagePerCell", 0) * float(card.shape.size()) / cells.size()
+	var stamina = combat.stamina_damage_per_cell(fighter, card) * float(card.shape.size()) / cells.size()
 	for point in cells:
 		var rect = Rect2(origin + point * pitch, Vector2.ONE * (pitch - CELL_GAP))
 		canvas.draw_texture_rect(tile, rect, false)

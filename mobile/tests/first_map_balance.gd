@@ -94,7 +94,8 @@ func profiles_and_generation():
 			var definition = session.campaign.stage_for_fight(stage)
 			var enemy = session.game.journey.enemies["fight-%d" % stage]
 			check(enemy.get("creatureId") == definition.encounter.creatureId, "Story keeps authored human/species")
-			check(enemy.stats.values().all(func(v): return v == 1) and enemy.hp == 30, "All five first chapter enemies have base stats")
+			check(enemy.stats.values().all(func(v): return v == 1) and data.max_hp(enemy) == 30, "All five first chapter enemies have base stats and max HP")
+			check(enemy.hp == (15 if stage == 5 else 30), "Only the first boss starts wounded")
 			check(enemy.gear.values().all(func(v): return v == null), "No first chapter enemy gear, including boss")
 			if stage < 5:
 				var species = data.lookup(data.creatures, enemy.get("creatureId", ""))
@@ -147,5 +148,5 @@ func simulate(species: Dictionary, stage: int, seed_value: int, first: String) -
 		if session.game.phase == "combat" and session.game.clashPlan.stage == "reveal":
 			check(session.submit([]).is_empty(), "Resolve control strategy reveal")
 		rounds += 1
-	check(session.game.player.stats == HERO_STATS and session.game.player.gear.values().all(func(v): return v == null) and session.game.player.skills.is_empty(), "Control hero remains unarmed and unupgraded")
+	check(session.game.player.stats == HERO_STATS and session.game.player.gear.values().all(func(v): return v == null or data.item(v).get("unarmed", false)) and session.game.player.skills.is_empty(), "Control hero remains unarmed and unupgraded")
 	return {"creature": species.id, "stage": stage, "seed": seed_value, "first": first, "outcome": session.game.phase, "hp": session.game.player.hp, "rounds": session.game.round - 1}

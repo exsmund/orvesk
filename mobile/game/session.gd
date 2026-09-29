@@ -28,6 +28,13 @@ func restore(payload: Dictionary) -> String:
 		var error = data.creature_variant_error(f)
 		if error: return error
 	game = restored
+	game.journey.battleMode = "free"
+	for f in [game.player, game.enemy] + game.journey.get("enemies", {}).values():
+		f.erase("actionsFinished")
+		if f.has("battleMode"): f.battleMode = "free"
+	# Only fill the hero's vacant slots; dealt cards, reveal, history and RNG stay intact.
+	data.equip_basics(game.player)
+	campaign.merge_answer_echoes()
 	combat.rng.state = int(payload.rngState)
 	refresh_enemy_balance()
 	return ""
@@ -92,6 +99,7 @@ func create(name: String, stats: Dictionary, portrait_id: String) -> String:
 	if data.lookup(data.portraits, portrait_id).is_empty(): return "Выберите портрет."
 	game = {"version": data.story.rules.saveVersion, "player": fighter(name.strip_edges(), stats, portrait_id), "phase": "ready", "souls": 0, "wins": 0, "fight": 1, "round": 1, "log": [], "rewardOptions": []}
 	game.story = campaign.initial()
+	data.equip_basics(game.player)
 	new_journey(1)
 	return campaign.seek(data.story.entry)
 
@@ -135,7 +143,7 @@ func new_journey(expedition: int):
 		if not stage.encounter.has("variants"): campaign.prepare_enemy(data.story.stages[stage.id])
 	game.enemy = game.journey.enemies["fight-1"].duplicate(true)
 	game.player.hp = data.max_hp(game.player)
-	game.player.stamina = data.balance.stamina.max
+	game.player.stamina = data.max_stamina(game.player)
 	game.phase = "ready"
 	game.erase("clashPlan")
 	game.erase("victoryReward")
@@ -169,6 +177,10 @@ func generate_enemy(stage: int, encounter: Dictionary) -> Dictionary:
 	if character_id: f.characterId = character_id
 	f.style = style.id
 	if rank > 0: enemy_gear(f)
+	if j.expedition == first.expedition and stage == int(rules.bossStage):
+		# The configured wound changes starting HP, not vitality or maximum health.
+		var health_fraction = clampf(float(first.get("bossStartingHealthFraction", 1.0)), 0.0, 1.0)
+		f.hp = maxf(1.0, ceilf(data.max_hp(f) * health_fraction))
 	return f
 
 func equipment_score(f: Dictionary, equipment: Dictionary) -> float:
@@ -191,20 +203,36 @@ func choose_equipment(f: Dictionary, pool: Array) -> Dictionary:
 	var eligible = pool.filter(func(i): return equipment_score(f, i) >= best * 0.7)
 	return weighted(eligible, eligible.map(func(i): return equipment_score(f, i)))
 
+func equipment_cost(f: Dictionary, equipment: Dictionary) -> float:
+	var rules = data.journey_rules.equipmentBudget
+	var cost = 1.0 + float(equipment.tier)
+	if equipment.kind == "weapon":
+		cost += maxf(0, equipment.level - 1) * rules.weaponLevelCost
+	var strongest = 0.0
+	for value in equipment.get("defense", {}).values(): strongest = maxf(strongest, value)
+	# Extra effective HP against the best-protected damage type. High vitality
+	# and armor share the budget instead of multiplying survivability for free.
+	cost += data.max_hp(f) * strongest / data.balance.armorK / rules.healthPerArmorPoint
+	return cost
+
 func enemy_gear(f: Dictionary):
 	var growth = data.stat_total(f) - 4
-	var budget = mini(12, 1 + growth)
+	var rules = data.journey_rules.equipmentBudget
+	var budget = minf(rules.maximum, rules.base + growth * rules.perStatPoint)
 	var candidates: Array = []
 	for template in data.items:
 		var rank = 999 if not template.requirements.is_empty() else 1
 		for stat in template.requirements: rank = mini(rank, f.stats[stat])
-		var equipment = data.item("%s@%d" % [template.id, rank])
-		if not equipment.get("unarmed", false) and data.can_use(f, equipment) and equipment.tier <= growth: candidates.append(equipment)
-	var arms = candidates.filter(func(i): return i.kind == "weapon" and i.tier + 1 <= budget)
+		for item_level in range(1, rank + 1):
+			var equipment = data.item("%s@%d" % [template.id, item_level])
+			if equipment.level != item_level: break
+			if not equipment.get("unarmed", false) and data.can_use(f, equipment) and equipment.tier <= growth and equipment_cost(f, equipment) <= budget:
+				candidates.append(equipment)
+	var arms = candidates.filter(func(i): return i.kind == "weapon" and equipment_cost(f, i) <= budget)
 	if not arms.is_empty():
 		var chosen = choose_equipment(f, arms)
-		data.wear(f, chosen)
-		budget -= int(chosen.tier) + 1
+		data.wear(f, chosen, false)
+		budget -= equipment_cost(f, chosen)
 	var skipped_slots: Array = []
 	var species = data.lookup(data.creatures, f.get("creatureId", ""))
 	var chances: Dictionary = species.get("equipment", {}).get("generationSlotChance", {})
@@ -215,14 +243,14 @@ func enemy_gear(f: Dictionary):
 		var weights: Array = []
 		for slot in data.lookup(data.journey_rules.styles, f.style).slots:
 			if slot in skipped_slots or f.gear[slot] or (slot == "shield" and data.item(f.gear.weapon).get("hands", 1) == 2): continue
-			var pool = candidates.filter(func(i): return i.slot == slot and i.tier + 1 <= budget)
+			var pool = candidates.filter(func(i): return i.slot == slot and equipment_cost(f, i) <= budget)
 			if not pool.is_empty():
 				slots.append(pool)
 				weights.append(data.lookup(data.journey_rules.styles, f.style).slots[slot])
 		if slots.is_empty(): break
 		var chosen = choose_equipment(f, weighted(slots, weights))
-		data.wear(f, chosen)
-		budget -= int(chosen.tier) + 1
+		data.wear(f, chosen, false)
+		budget -= equipment_cost(f, chosen)
 
 func current_node() -> String:
 	return game.journey.path.back()
@@ -271,6 +299,14 @@ func submit(placed: Array) -> String:
 	if not error and before == "combat" and game.phase != "combat": return finish_battle()
 	return error
 
+func needs_combat_help() -> bool:
+	return not game.is_empty() and game.phase == "combat" and game.round == 1 and not game.player.get("combatHelpHidden", false) and not game.get("combatHelpAcknowledged", false)
+
+func acknowledge_combat_help(hide_future: bool):
+	if game.phase != "combat": return
+	game.combatHelpAcknowledged = true
+	if hide_future: game.player.combatHelpHidden = true
+
 func reward(index: int, slot: int = -1) -> String:
 	if game.phase != "victory" or index < 0 or index >= game.rewardOptions.size(): return "Награда недоступна."
 	var chosen = game.rewardOptions[index]
@@ -278,11 +314,8 @@ func reward(index: int, slot: int = -1) -> String:
 	if chosen.kind == "item":
 		if not data.wear(game.player, data.item(chosen.itemId)): return "Характеристик недостаточно."
 	else:
-		if chosen.skillId in game.player.skills: return "Навык уже изучен."
-		if game.player.skills.size() >= 3:
-			if slot < 0 or slot > 2: return "Выберите навык для замены."
-			game.player.skills[slot] = chosen.skillId
-		else: game.player.skills.append(chosen.skillId)
+		var error = data.learn_skill(game.player, chosen.skillId, slot)
+		if error: return error
 	game.rewardOptions = []
 	return complete_reward()
 
@@ -302,27 +335,30 @@ func can_upgrade_attributes() -> bool:
 	var quote = attribute_quote({})
 	return quote.error.is_empty() and quote.remaining >= quote.nextCost
 
-func reward_requirements(index: int) -> Dictionary:
-	var result = {"steps": [], "totalCost": 0, "balance": int(game.souls)}
-	if game.phase != "victory" or index < 0 or index >= game.rewardOptions.size(): return result
-	var option = game.rewardOptions[index]
-	if option.kind != "item" or not rewards.valid(option, game.player): return result
-	var equipment = data.item(option.itemId)
-	var future = game.player.duplicate(true)
+func item_requirements(reference: String) -> Dictionary:
+	var equipment = data.item(reference)
+	var result = {"reference": equipment.id, "steps": [], "increments": {}, "stats": game.player.stats.duplicate(true), "totalCost": 0, "balance": int(game.souls), "error": ""}
 	for stat in data.STATS:
-		var current = int(game.player.stats[stat])
+		var current = data.effective_stat(game.player, stat)
 		var required = int(equipment.requirements.get(stat, 0))
 		if current >= required: continue
-		result.steps.append({"stat": stat, "current": current, "required": required, "cost": data.level(game.player) + 2})
-		for _point in range(current, required):
-			result.totalCost += data.level(future) + 2
-			future.stats[stat] += 1
+		result.steps.append({"stat": stat, "current": current, "required": required})
+		result.increments[stat] = required - current
+	var quote = attribute_quote(result.increments)
+	result.totalCost = quote.cost
+	result.error = quote.error
 	return result
 
-func upgrade_reward_requirement(index: int, stat: String, expected_value: int) -> String:
-	var quote = reward_requirements(index)
-	if not quote.steps.any(func(step): return step.stat == stat and step.current == expected_value): return "Требования предмета изменились."
-	return upgrade(stat)
+func reward_requirements(index: int) -> Dictionary:
+	if game.phase != "victory" or index < 0 or index >= game.rewardOptions.size(): return {}
+	var option = game.rewardOptions[index]
+	if option.kind != "item" or not rewards.valid(option, game.player): return {}
+	return item_requirements(option.itemId)
+
+func upgrade_item_requirements(reference: String, expected: Dictionary) -> String:
+	var quote = item_requirements(reference)
+	if quote != expected or quote.steps.is_empty(): return "Требования предмета, характеристики или баланс изменились."
+	return upgrade_attributes(quote.increments, quote.stats, quote.balance)
 
 func attribute_quote(increments: Dictionary) -> Dictionary:
 	var result = {"error": "", "cost": 0, "points": 0, "remaining": int(game.souls), "nextCost": data.level(game.player) + 2}
@@ -363,14 +399,14 @@ func restart() -> String:
 	if game.phase not in ["defeat", "draw"]: return "Повтор сейчас недоступен."
 	if game.phase == "defeat": return campaign.start_defeat()
 	game.player.hp = data.max_hp(game.player)
-	game.player.stamina = data.balance.stamina.max
+	game.player.stamina = data.max_stamina(game.player)
 	game.enemy = game.journey.enemies["fight-%d" % game.journey.stage].duplicate(true)
 	combat.begin(game)
 	return ""
 
 func reset_chapter():
 	game.player.hp = data.max_hp(game.player)
-	game.player.stamina = data.balance.stamina.max
+	game.player.stamina = data.max_stamina(game.player)
 	game.journey.stage = 1
 	game.journey.cleared = 0
 	game.journey.path = ["fight-1"]

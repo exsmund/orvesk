@@ -8,8 +8,16 @@ var failures: Array = []
 
 func _initialize():
 	var data = Catalog.new()
+	var source_palette = JSON.parse_string(FileAccess.get_file_as_string("res://content/palette.json"))
+	check(source_palette is Dictionary and not source_palette.is_empty(), "Canonical mobile palette exists")
+	check(source_palette == data.palette, "Delivered palette preserves every canonical color")
+	for token in data.palette:
+		var value: String = data.palette[token]
+		check(value == "transparent" or Color.html_is_valid(value), "Valid palette color: " + token)
+		var expected = Color.TRANSPARENT if value == "transparent" else Color.html(value)
+		check(data.color(token.trim_prefix("color-")) == expected, "Palette color lookup: " + token)
 	var art = FigureArt.new(data, Combat.new(data))
-	var retired_hero = {"portraitId": "character-01-ash"}
+	var retired_hero = {"portraitId": "hero-01-ash"}
 	var before_hero = retired_hero.duplicate(true)
 	var default_portrait = data.image(data.portraits[0].src)
 	check(default_portrait != null, "Current default portrait exists")

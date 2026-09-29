@@ -39,7 +39,7 @@ func _init():
 		icon.clip_contents = true
 		add_child(icon)
 		icons.append(icon)
-	tapped.connect(func(point): cell_chosen.emit(index_at(point - global_position)))
+	held.connect(func(point): cell_chosen.emit(index_at(point - global_position)))
 
 func configure(renderer, own: Array, opposing: Array, hidden: bool, hero: Dictionary, opponent: Dictionary, own_mod: Dictionary = {}, opposing_mod: Dictionary = {}):
 	art = renderer
@@ -114,7 +114,7 @@ func damage_rows(cell: Dictionary, side: String) -> Array:
 	for spec in [["health", "Damage"], ["stamina", "StaminaDamage"]]:
 		var key = ("previewDamage" if spec[0] == "health" else "previewStaminaDamage") if estimated else side + spec[1]
 		var value = float(cell.get(key, 0))
-		var has_damage = not source.get("healthDamage", {}).is_empty() if spec[0] == "health" else source.get("staminaDamagePerCell", 0) > 0
+		var has_damage = not source.get("healthDamage", {}).is_empty() if spec[0] == "health" else source.get("staminaDamagePerCell", 0) > 0 or source.has("staminaDamage")
 		if value > 0 or (attacks and has_damage): rows.append({"kind": spec[0], "value": value})
 	return rows
 

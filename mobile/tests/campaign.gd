@@ -165,10 +165,10 @@ func persistence_checks():
 	var folder = "user://campaign-cleanup-test"
 	DirAccess.make_dir_recursive_absolute(folder)
 	var store = Store.new()
-	for version in [5,6,7]:
+	for version in [6,7,8]:
 		var file = FileAccess.open(folder.path_join(str(version)+".json"),FileAccess.WRITE)
 		file.store_string(JSON.stringify({"format":1,"game":{"version":version}})); file.close()
 	check(store.remove_legacy(folder) == 1, "cleanup removes only pre-campaign version")
-	check(not FileAccess.file_exists(folder.path_join("5.json")) and FileAccess.file_exists(folder.path_join("6.json")) and FileAccess.file_exists(folder.path_join("7.json")), "cleanup retains current and unknown future saves")
+	check(not FileAccess.file_exists(folder.path_join("6.json")) and FileAccess.file_exists(folder.path_join("7.json")) and FileAccess.file_exists(folder.path_join("8.json")), "cleanup retains current and unknown future saves")
 	for file in DirAccess.get_files_at(folder): DirAccess.remove_absolute(folder.path_join(file))
 	DirAccess.remove_absolute(folder)

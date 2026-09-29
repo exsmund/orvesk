@@ -38,13 +38,19 @@ func run():
 					check(data.level(enemy) == expected, "level chapter %d stage %d hero %d" % [chapter,stage,hero_level])
 					check(enemy.get("creatureId", "") == (encounter.creatureId if encounter.kind == "creature" else ""), "keep configured species/human")
 					if chapter == 1:
-						check(enemy.stats.values().all(func(v): return v == 1) and enemy.hp == 30, "first map base stats and 30 HP, boss included")
+						check(enemy.stats.values().all(func(v): return v == 1) and data.max_hp(enemy) == 30, "first map base stats and max HP, boss included")
+						check(enemy.hp == (15 if stage == 5 else 30), "only first boss starts at half health")
 						check(enemy.gear.values().all(func(v): return v == null), "no first map gear")
 						if stage == 5: check(not enemy.has("creatureVariant"), "boss retains normal natural actions")
+					else:
+						check(enemy.hp == data.max_hp(enemy), "later enemies start at full health")
 			await process_frame
+	equipment_budget()
+	wounded_boss()
 	var old = Catalog.new()
 	old.journey_rules = old.journey_rules.duplicate(true)
 	old.journey_rules.enemyBalanceVersion = 1
+	old.journey_rules.firstMap.erase("bossStartingHealthFraction")
 	old.journey_rules.firstMap.bossRank = 1
 	old.journey_rules.rankOffsets = [-2,-1,-1,0,1]
 	for chapter in [1,2,6]:
@@ -110,7 +116,7 @@ func run():
 		loaded.finish_battle()
 		check(loaded.restart().is_empty(), "restart after defeat")
 		loaded.fight_fixture(5)
-		check(loaded.game.enemy.stats.values().all(func(v):return v==1) and loaded.game.enemy.hp == 30, "retry boss base stats")
+		check(loaded.game.enemy.stats.values().all(func(v):return v==1) and loaded.game.enemy.hp == 15 and data.max_hp(loaded.game.enemy) == 30, "retry boss base stats and configured wound")
 		check(loaded.game.enemy.gear.values().all(func(v):return v==null), "retry removes old boss weapon")
 		var attacks = loaded.combat.build_deck(loaded.game.enemy).filter(func(c): return c.category=="attack")
 		var total = 0
@@ -119,3 +125,74 @@ func run():
 		check(total < 30, "whole first boss attack deck cannot kill a fresh 30 HP hero in one turn")
 	print("JOURNEY_LEVELS: %d checks; %d failures" % [checks,failures.size()])
 	quit(0 if failures.is_empty() else 1)
+
+func wounded_boss():
+	# The field controls HP independently of stats, and omitted fields preserve full HP.
+	for fraction in [null, 0.25, 0.5, 1.0]:
+		var custom = Catalog.new()
+		custom.journey_rules = custom.journey_rules.duplicate(true)
+		if fraction == null: custom.journey_rules.firstMap.erase("bossStartingHealthFraction")
+		else: custom.journey_rules.firstMap.bossStartingHealthFraction = fraction
+		var s = fresh(custom)
+		var expected_hp = 30 if fraction == null else (8 if fraction == 0.25 else (15 if fraction == 0.5 else 30))
+		check(s.game.journey.enemies["fight-5"].hp == expected_hp, "boss starting fraction comes from config: " + str(fraction))
+		check(s.game.journey.enemies["fight-4"].hp == 30, "fraction does not wound regular enemies")
+		s.fight_fixture(5)
+		check(s.game.enemy.hp == expected_hp and custom.max_hp(s.game.enemy) == 30, "combat entry preserves wound and maximum")
+		s.game.enemy.hp = 3
+		var saved = payload(s)
+		var loaded = fresh(custom)
+		check(loaded.restore(saved).is_empty() and loaded.game.enemy.hp == 3, "loading current battle does not apply fraction again")
+		loaded.game.phase = "draw"
+		check(loaded.restart().is_empty() and loaded.game.enemy.hp == expected_hp, "draw retries with configured initial health")
+		loaded.game.phase = "defeat"
+		loaded.finish_battle()
+		check(loaded.restart().is_empty(), "death restarts chapter")
+		loaded.fight_fixture(5)
+		check(loaded.game.enemy.hp == expected_hp, "chapter retry uses wounded cached profile")
+		loaded.fight_fixture(5)
+		check(loaded.game.enemy.hp == expected_hp, "repeated battle entry does not halve health again")
+	# Saves created under balance v2 had a full-health boss even at base stats.
+	var previous = Catalog.new()
+	previous.journey_rules = previous.journey_rules.duplicate(true)
+	previous.journey_rules.enemyBalanceVersion = 2
+	previous.journey_rules.firstMap.erase("bossStartingHealthFraction")
+	for active in [false, true]:
+		var s = fresh(previous)
+		if active: s.fight_fixture(5)
+		else:
+			s.game.journey.stage = 5
+			s.game.enemy = s.game.journey.enemies["fight-5"].duplicate(true)
+		var saved = payload(s)
+		var loaded = fresh()
+		check(loaded.restore(saved).is_empty(), "restore full-health v2 boss")
+		check(loaded.game.journey.enemies["fight-5"].hp == 15, "v2 cached boss receives wound")
+		check(loaded.game.enemy.hp == (30 if active else 15), "only undealt v2 enemy changes immediately")
+		if active: check(loaded.game.enemy == saved.game.enemy, "active v2 boss snapshot preserved")
+		check(loaded.combat.rng.state == int(saved.rngState), "wound migration preserves RNG")
+		var once = payload(loaded)
+		check(loaded.restore(once).is_empty() and loaded.game == once.game, "wound migration is idempotent")
+
+func equipment_budget():
+	var s = fresh()
+	var light = s.fighter("Light", {"strength":8,"agility":1,"vitality":1,"intelligence":1})
+	var tank = s.fighter("Tank", {"strength":8,"agility":1,"vitality":8,"intelligence":1})
+	check(s.equipment_cost(light, data.item("rags@8")) > s.equipment_cost(light, data.item("rags@1")), "Armor level consumes budget")
+	check(s.equipment_cost(tank, data.item("rags@1")) > s.equipment_cost(light, data.item("rags@1")), "Armor and vitality share budget")
+	check(s.equipment_cost(light, data.item("shortsword@8")) > s.equipment_cost(light, data.item("shortsword@1")), "Weapon level consumes budget")
+	for rank in [1,3,6,10,30]:
+		s.game.journey.expedition = 2
+		s.game.journey.startLevel = rank
+		for seed_value in range(20):
+			for encounter in [{"kind":"human","role":"Test"}] + data.creature_pool(6).map(func(c): return {"kind":"creature","creatureId":c.id}):
+				s.combat.rng.seed = seed_value
+				var f = s.generate_enemy(5, encounter)
+				var cost = 0.0
+				for reference in f.gear.values():
+					if not reference: continue
+					var item = data.item(reference)
+					check(data.can_use(f, item), "Generated item respects requirements and species")
+					cost += s.equipment_cost(f, item)
+				var rules = data.journey_rules.equipmentBudget
+				check(cost <= minf(rules.maximum, rules.base + (data.stat_total(f) - 4) * rules.perStatPoint) + 0.0001, "Generated gear stays within power budget")
+				check(not (data.item(f.gear.weapon).get("hands",1) == 2 and f.gear.shield), "No shield with two-handed weapon")

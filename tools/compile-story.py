@@ -23,9 +23,9 @@ def compile_story():
     nodes = copy.deepcopy(preview['nodes'])
     scenes = copy.deepcopy(preview['scenes'])
     points = {p['id'] for p in read('data/map-points.json')['points']}
-    chars = {c['id']: c for c in read('data/story-characters.json')}
+    chars = {c['id']: c for c in read('data/characters.json')}
     creatures = {c['id'] for c in read('data/creatures.json')}
-    maps = {m['id'] for m in read('data/journey-maps.json')}
+    maps = {m['id'] for m in read('data/maps.json')}
     for point, activity in rules['activities'].items():
         assert point in points and activity['handler'] in ('recover', 'equipment', 'dialogue'), activity
         if activity['handler'] == 'recover':
@@ -124,7 +124,7 @@ def compile_story():
         'entry': preview['entry'], 'nodes': nodes, 'scenes': scenes,
         'state': preview['state'], 'speakers': preview['speakers'], 'defeat': preview['defeat'],
         'chapters': story['chapters'], 'stages': stage_index, 'rules': rules,
-        'sources': {name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest() for name in ['data/story.json', 'data/story-preview.json', 'data/story-gameplay.json', 'data/story-characters.json', 'data/map-points.json', 'data/journey-maps.json']}
+        'sources': {name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest() for name in ['data/story.json', 'data/story-preview.json', 'data/story-gameplay.json', 'data/characters.json', 'data/map-points.json', 'data/maps.json']}
     }
 
 

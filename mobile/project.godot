@@ -8,6 +8,7 @@ run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 
 [features]
+
 debug_tools=true
 
 [display]

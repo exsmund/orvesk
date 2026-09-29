@@ -60,6 +60,8 @@ var inspection_window
 var debug_catalog
 var map_dialog
 var damage_feedback
+var shard_feedback
+var presented_awards: Dictionary = {}
 var page = VBoxContainer.new()
 var page_header_view
 var page_padding = MarginContainer.new()
@@ -146,6 +148,7 @@ func update_safe_area():
 
 
 func clear(title: String, subtitle: String = ""):
+	if is_instance_valid(shard_feedback): shard_feedback.finish()
 	for i in range(get_child_count() - 1, -1, -1):
 		var child = get_child(i)
 		if child is ModalDialog: child.close()
@@ -201,7 +204,7 @@ func clear(title: String, subtitle: String = ""):
 	notice.hide()
 	if not session.game.is_empty():
 		var preset = data.lookup(data.maps, session.game.journey.mapPreset)
-		backdrop.texture = data.image(preset.battleBackground if session.game.phase == "combat" else preset.background)
+		backdrop.texture = data.image(preset.battleBackground if session.game.phase in ["combat", "story", "ended"] else preset.background)
 		overlay.color = Color(data.color("background-page"), 0.76)
 	else:
 		backdrop.texture = data.image(data.maps[0].background)
@@ -323,7 +326,7 @@ func present_action(previous: Dictionary):
 func show_home():
 	screen = "home"
 	clear("")
-	backdrop.texture = data.image("/ui/start-landscape-v1.png")
+	backdrop.texture = data.image("/ui/start-landscape.png")
 	var shading = ShaderMaterial.new()
 	shading.shader = preload("res://shaders/home_overlay.gdshader")
 	var tokens = {"top_color": "background-start-screen", "upper_color": "background-start-screen-2", "lower_color": "background-start-screen-3", "bottom_color": "background-start-screen-4", "center_color": "background-start-screen-5"}
@@ -339,6 +342,7 @@ func show_home():
 	home_view.settings_requested.connect(show_settings)
 	home_view.bestiary_requested.connect(func(): show_debug_catalog(true))
 	home_view.equipment_requested.connect(func(): show_debug_catalog(false))
+	home_view.skills_requested.connect(show_skills_catalog)
 	home_view.map_requested.connect(show_debug_map_dialog)
 	content.add_child(home_view)
 	scroll.scroll_vertical = 0
@@ -433,7 +437,7 @@ func latest_hero(entries: Array) -> Dictionary:
 func start_create():
 	create_stats = session.initial_creation_stats()
 	create_name = ""
-	create_portrait = 0
+	create_portrait = randi_range(0, data.portraits.size() - 1)
 	show_create()
 
 func show_heroes():
@@ -646,7 +650,7 @@ func fighter_panel(f: Dictionary, parent, compact: bool = false):
 	for kind in ["health", "stamina"]:
 		var bar = ResourceBar.new()
 		box.add_child(bar)
-		bar.configure(data, "Здоровье" if kind == "health" else "Силы", f.hp if kind == "health" else f.stamina, data.max_hp(f) if kind == "health" else data.balance.stamina.max, kind, animated)
+		bar.configure(data, "Здоровье" if kind == "health" else "Силы", f.hp if kind == "health" else f.stamina, data.max_hp(f) if kind == "health" else data.max_stamina(f), kind, animated)
 
 func show_combat():
 	page.hide()
@@ -656,6 +660,29 @@ func show_combat():
 	combat_view.configure(self)
 	board = combat_view.board
 	overlay.color = Color(data.color("background-page"), 0.56)
+	show_combat_help.call_deferred()
+
+func show_combat_help():
+	if screen != "game" or not is_instance_valid(combat_view) or not session.needs_combat_help(): return
+	for child in get_children():
+		if child is ModalDialog and child.visible: return
+	var dialog = preload("res://ui/combat_help_dialog.gd").new()
+	add_child(dialog)
+	dialog.configure(data)
+	var actor = hero_id
+	dialog.answered.connect(func(hide_future: bool):
+		if dialog.closing: return
+		if hero_id != actor or session.game.phase != "combat":
+			dialog.close()
+			return
+		var previous = session.game.duplicate(true)
+		session.acknowledge_combat_help(hide_future)
+		if persist(): dialog.close()
+		else:
+			session.game = previous
+			dialog.show_error(saves.error))
+	dialog.popup_centered(Vector2i(430, 560))
+	dialog.primary.grab_focus()
 
 func rotation_for(id: String) -> int:
 	var moves = session.game.clashPlan.playerPlaced if session.game.clashPlan.stage == "reveal" else draft
@@ -720,7 +747,7 @@ func show_figure_details(card: Dictionary, fighter: Dictionary):
 	var lines: Array = [card.get("description", "")]
 	var hp = art.damage(fighter, card)
 	if hp > 0: lines.append("Урон здоровью за клетку: " + art.number(hp))
-	if card.get("staminaDamagePerCell", 0) > 0: lines.append("Урон выносливости за клетку: " + art.number(card.staminaDamagePerCell))
+	if session.combat.stamina_damage_per_cell(fighter, card) > 0: lines.append("Урон выносливости за клетку: " + art.number(session.combat.stamina_damage_per_cell(fighter, card)))
 	if card.get("healing", 0) > 0: lines.append("Лечение за фигуру: " + art.number(card.healing))
 	if card.get("blocks", false): lines.append("Блокирует входящий урон")
 	if card.get("evades", false): lines.append("Уклонение от входящего урона")
@@ -759,19 +786,19 @@ func show_last_clash_details():
 func show_enemy_details():
 	var f = session.game.enemy
 	var lines: Array = []
-	for stat in data.STATS: lines.append("%s: %d" % [data.STAT_NAMES[stat], f.stats[stat]])
+	for stat in data.STATS: lines.append("%s: %d" % [data.STAT_NAMES[stat], data.effective_stat(f, stat)])
 	show_info(f.name, "\n".join(lines))
 
 func show_battle_menu():
 	var dialog = ModalDialog.new()
-	dialog.title = "Свободное поле" if session.game.journey.battleMode == "free" else "Единственный шанс"
+	dialog.title = "Свободное поле"
 	dialog.ok_button_text = "Вернуться в бой"
 	var box = VBoxContainer.new()
 	box.add_theme_constant_override("separation", 8)
 	dialog.content.add_child(box)
 	if Flags.enabled(Flags.DEBUG_TOOLS):
 		button("Перейти карту…", func(): dialog.close(); show_debug_map_dialog(), box)
-	label("Сброшенные фигуры возвращаются в колоду." if session.game.journey.battleMode == "free" else "Каждая фигура используется один раз за бой.", 16, "text-muted", box)
+	label("Сброшенные фигуры возвращаются в колоду.", 16, "text-muted", box)
 	button("Герой", func(): dialog.close(); show_character(), box)
 	button("Главное меню", func():
 		if persist(): dialog.close(); show_home(), box)
@@ -784,8 +811,6 @@ func show_battle_menu():
 			combat_view.refresh(), box, draft.is_empty())
 		if data.item(session.game.player.gear.get("amulet")).get("charmEffect", "") == "compress":
 			button("Сжать выбранную фигуру", func(): dialog.close(); act(func(): return session.compress(selected)), box, selected.is_empty())
-		if session.game.journey.battleMode == "expendable":
-			button("Завершить действия", func(): dialog.close(); confirm_finish(), box)
 	if not session.game.get("log", []).is_empty():
 		var record = session.game.log[0]
 		label("Последний ход: вы потеряли %s HP, противник — %s HP." % [str(record.summary.player.damage), str(record.summary.enemy.damage)], 14, "text-muted", box)
@@ -871,8 +896,8 @@ func reward_entry(reward: Dictionary) -> Dictionary:
 			var skill = data.lookup(data.skills, reward.skillId)
 			entry.title = skill.name
 			entry.description = skill.description
-			if session.game.player.skills.size() >= 3:
-				entry.description += "\n\nПосле получения выберите навык для замены."
+			var hint = skill_reward_hint(reward.skillId)
+			if hint: entry.description += "\n\n" + hint
 			entry.texture = data.image(skill.get("art", ""))
 	return entry
 
@@ -895,7 +920,34 @@ func show_rewards():
 	victory_view.inspected.connect(show_reward_details)
 	victory_view.continued.connect(func(): act(session.complete_reward))
 	victory_view.declined.connect(func(): act(session.skip_reward))
-	victory_view.upgrade_requested.connect(func(): show_character(1))
+	victory_view.upgrade_requested.connect(show_reward_upgrade)
+	animate_victory_shards(receipt)
+
+func animate_victory_shards(receipt: Dictionary):
+	if receipt.is_empty() or receipt.get("progressionPending", false): return
+	var identity = [session.game.get("wins", 0), session.game.journey.expedition, session.game.journey.stage, session.game.get("story", {}).get("node", ""), receipt.duplicate(true)]
+	if presented_awards.get(hero_id, []) == identity: return
+	presented_awards[hero_id] = identity
+	if int(receipt.get("shards", 0)) + int(receipt.get("recoveredShards", 0)) <= 0: return
+	shard_feedback = preload("res://ui/shard_award_feedback.gd").new()
+	add_child(shard_feedback)
+	shard_feedback.configure(victory_view.shards, victory_view.recovered, page_header_view.shards)
+
+func show_reward_upgrade():
+	if session.game.phase != "victory" or not session.game.get("victoryReward", {}).get("progressionPending", false): return
+	show_character(1)
+	var window = character_window
+	var actor = hero_id
+	var receipt = session.game.victoryReward.duplicate(true)
+	var applied = [false]
+	window.pages[1].applied.connect(func(): applied[0] = true)
+	window.closed.connect(func():
+		if applied[0]: finish_reward_upgrade.call_deferred(actor, receipt))
+
+func finish_reward_upgrade(actor: String, receipt: Dictionary):
+	# A delayed close must not advance a different hero, reward or destination.
+	if screen != "game" or hero_id != actor or session.game.phase != "victory" or session.game.get("victoryReward", {}) != receipt or not session.game.rewardOptions.is_empty(): return
+	act(session.complete_reward)
 
 func open_inspection(entries: Array, settings: Dictionary):
 	if is_instance_valid(inspection_window): inspection_window.close()
@@ -921,27 +973,67 @@ func offered_item(reference: String) -> Dictionary:
 	if entries.size() > 1: title = "Сравнение оружия" if equipment.kind == "weapon" else "Сравнение экипировки"
 	var eligible = data.can_use(session.game.player,equipment)
 	var hint = ""
-	if entries.size() > 1:
-		hint = "Заменит: " + ", ".join(entries[1].map(func(entry): return entry.title)) if eligible else "Характеристик недостаточно для этого предмета."
+	var lost = model.lost_items(reference, session.game.player)
+	if not eligible: hint = "Характеристик недостаточно для этого предмета."
+	elif not lost.is_empty(): hint = "Вы потеряете: " + ", ".join(lost.map(func(id): return data.item(id).name))
 	return {"entries":entries,"settings":{"title":title,"action":"Заменить" if entries.size() > 1 else "Получить", "eligible":eligible,"hint":hint,"hint_danger":not eligible}}
+
+func confirm_equipment_replacement(reference: String, inspection, current: Callable, commit: Callable):
+	if not current.call() or inspection.primary.disabled: return
+	if get_children().any(func(node): return node is ModalDialog and node.visible): return
+	var model = InspectionModel.new(data, session.combat)
+	var lost = model.lost_items(reference, session.game.player)
+	if lost.is_empty():
+		commit.call()
+		return
+	var gear = session.game.player.gear.duplicate(true)
+	var dialog = ModalDialog.new()
+	dialog.title = "Заменить предмет?"
+	dialog.destructive = true
+	dialog.dialog_text = "Вы потеряете: %s.\n\nЭто действие нельзя отменить." % ", ".join(lost.map(func(id): return data.item(id).name))
+	dialog.ok_button_text = "Заменить"
+	dialog.cancel_button_text = "Отмена"
+	dialog.confirmed.connect(func():
+		# Check again after the modal: an old offer cannot act on another hero or loadout.
+		if not is_instance_valid(inspection) or not current.call(): return
+		if session.game.player.gear != gear:
+			inspection.show_error("Экипировка изменилась. Откройте сравнение заново.")
+			return
+		commit.call())
+	add_child(dialog)
+	dialog.popup_centered(Vector2i(430, 240))
+
+func forge_inspection(reference: String) -> Dictionary:
+	var request = offered_item(reference)
+	request.settings.requirements = session.item_requirements(reference)
+	var price = int(session.game.journey.service.prices.get(reference,0))
+	if price > 0:
+		request.settings.action = "Купить · " + shard_amount(price)
+		request.settings.eligible = request.settings.eligible and session.game.souls >= price
+	return request
 
 func show_forge_details(reference: String):
 	if session.game.phase != "ready" or not session.game.journey.has("service") or session.game.journey.get("forgeResolved",false) or reference not in session.game.journey.offers: return
 	var node_id = session.current_node()
 	var actor = hero_id
-	var request = offered_item(reference)
-	var price = int(session.game.journey.service.prices.get(reference,0))
-	if price > 0:
-		request.settings.action = "Купить · " + shard_amount(price)
-		request.settings.eligible = request.settings.eligible and session.game.souls >= price
+	var request = forge_inspection(reference)
 	var dialog = open_inspection(request.entries,request.settings)
-	dialog.confirmed.connect(func():
-		if dialog.closing: return
-		if hero_id != actor or session.current_node() != node_id or session.game.phase != "ready" or not session.game.journey.has("service") or session.game.journey.get("forgeResolved",false) or reference not in session.game.journey.offers:
+	var current = func(): return not dialog.closing and hero_id == actor and session.current_node() == node_id and session.game.phase == "ready" and session.game.journey.has("service") and not session.game.journey.get("forgeResolved",false) and reference in session.game.journey.offers
+	dialog.upgrade_requested.connect(func(quote):
+		if not current.call():
 			dialog.close()
 			return
-		if act(func(): return session.forge(reference)): dialog.close()
-		else: dialog.show_error(notice.text))
+		var success = act(func(): return session.upgrade_item_requirements(reference, quote))
+		var updated = forge_inspection(reference)
+		dialog.refresh(updated.entries,updated.settings)
+		if not success: dialog.show_error(notice.text))
+	dialog.confirmed.connect(func():
+		if not current.call():
+			dialog.close()
+			return
+		confirm_equipment_replacement(reference, dialog, current, func():
+			if act(func(): return session.forge(reference)): dialog.close()
+			else: dialog.show_error(notice.text)))
 
 func reward_inspection(index: int) -> Dictionary:
 	var reward = session.game.rewardOptions[index]
@@ -951,7 +1043,7 @@ func reward_inspection(index: int) -> Dictionary:
 		return request
 	var model = InspectionModel.new(data,session.combat)
 	return {"entries":[[model.skill(reward.skillId,session.game.player,"Предлагается")]],
-		"settings":{"title":"Навык","action":"Получить","hint":"Затем выберите навык для замены" if session.game.player.skills.size() >= 3 else ""}}
+		"settings":{"title":"Навык","action":"Получить","hint":skill_reward_hint(reward.skillId)}}
 
 func show_reward_details(index: int):
 	if session.game.phase != "victory" or index < 0 or index >= session.game.rewardOptions.size(): return
@@ -960,11 +1052,11 @@ func show_reward_details(index: int):
 	var request = reward_inspection(index)
 	var dialog = open_inspection(request.entries,request.settings)
 	var current = func(): return not dialog.closing and hero_id == actor and session.game.phase == "victory" and index < session.game.rewardOptions.size() and session.game.rewardOptions[index] == reward
-	dialog.upgrade_requested.connect(func(stat, expected_value):
+	dialog.upgrade_requested.connect(func(quote):
 		if not current.call():
 			dialog.close()
 			return
-		var success = act(func(): return session.upgrade_reward_requirement(index, stat, expected_value))
+		var success = act(func(): return session.upgrade_item_requirements(reward.itemId, quote))
 		var updated = reward_inspection(index)
 		dialog.refresh(updated.entries,updated.settings)
 		if not success: dialog.show_error(notice.text))
@@ -973,17 +1065,28 @@ func show_reward_details(index: int):
 			dialog.close()
 			return
 		if not reward_entry(reward).eligible: return
-		if reward.kind == "skill" and session.game.player.skills.size() >= 3:
+		var conflict = data.conflicting_skill_slot(session.game.player, reward.skillId) if reward.kind == "skill" else -1
+		if conflict >= 0:
+			dialog.close()
+			show_skill_replacement(index, conflict)
+		elif reward.kind == "skill" and session.game.player.skills.size() >= 3:
 			dialog.close()
 			choose_skill_replacement(index)
-		elif act(func(): return session.reward(index)): dialog.close()
-		else: dialog.show_error(notice.text))
+		else:
+			var claim = func():
+				if act(func(): return session.reward(index)): dialog.close()
+				else: dialog.show_error(notice.text)
+			if reward.kind == "item": confirm_equipment_replacement(reward.itemId, dialog, current, claim)
+			else: claim.call())
 
 func choose_skill_replacement(reward_index: int):
 	clear("Заменить навык")
-	for slot in session.game.player.skills.size():
-		var skill = data.lookup(data.skills, session.game.player.skills[slot])
-		button(skill.name, func(): show_skill_replacement(reward_index, slot))
+	var choices = preload("res://ui/reward_grid.gd").new()
+	choices.name = "SkillReplacementGrid"
+	choices.custom_minimum_size.y = 240
+	content.add_child(choices)
+	choices.configure(data, session.game.player.skills.map(func(id): return reward_entry({"kind":"skill", "skillId":id})))
+	choices.inspected.connect(func(slot): show_skill_replacement(reward_index, slot))
 	button("Назад", show_game)
 
 func show_skill_replacement(index: int, slot: int):
@@ -994,7 +1097,7 @@ func show_skill_replacement(index: int, slot: int):
 	var actor = hero_id
 	var model = InspectionModel.new(data,session.combat)
 	var dialog = open_inspection([[model.skill(reward.skillId,session.game.player,"Предлагается",slot)],[model.skill(old,session.game.player,"Изучено")]],
-		{"title":"Сравнение навыков","action":"Заменить","hint":"Заменит навык: " + data.lookup(data.skills,old).name})
+		{"title":"Сравнение навыков","action":"Заменить","hint":"Вы потеряете: " + data.lookup(data.skills,old).name})
 	dialog.confirmed.connect(func():
 		if dialog.closing: return
 		if actor != hero_id or session.game.phase != "victory" or index >= session.game.rewardOptions.size() or session.game.rewardOptions[index] != reward or slot >= session.game.player.skills.size() or session.game.player.skills[slot] != old:
@@ -1011,6 +1114,7 @@ func show_character(tab: int = 0):
 	character_window.select_tab(tab)
 
 func refresh_character_header():
+	if is_instance_valid(shard_feedback): shard_feedback.finish()
 	if is_instance_valid(story_view): story_view.header.configure_journey(data, session.game, animated)
 	if is_instance_valid(journey_view):
 		journey_view.header.configure_journey(data, session.game, animated)
@@ -1018,28 +1122,6 @@ func refresh_character_header():
 	if is_instance_valid(combat_view): combat_view.refresh()
 	if is_instance_valid(page_header_view): page_header_view.configure_journey(data, session.game, animated)
 	if is_instance_valid(victory_view): victory_view.refresh_progression(session.can_upgrade_attributes())
-
-func confirm_finish():
-	var dialog = ModalDialog.new()
-	dialog.title = "Завершить действия?"
-	dialog.dialog_text = "Оставшиеся карты будут сброшены. Противник доиграет свои карты."
-	dialog.ok_button_text = "Завершить"
-	dialog.cancel_button_text = "Отмена"
-	add_child(dialog)
-	dialog.theme = theme
-	dialog.confirmed.connect(func():
-		dialog.close()
-		act(func():
-			session.game.player.actionsFinished = true
-			session.game.player.deck.hand = []
-			session.game.player.deck.draw = []
-			for _turn in 100:
-				if session.game.phase != "combat": return ""
-				var error = session.submit([])
-				if error: return error
-			return "Противник не завершил действия."))
-	dialog.canceled.connect(dialog.close)
-	dialog.popup_centered(Vector2i(380, 220))
 
 func show_rules():
 	screen = "rules"
@@ -1074,3 +1156,24 @@ func _notification(what):
 		else: show_home()
 	elif what == NOTIFICATION_WM_CLOSE_REQUEST:
 		if persist(): get_tree().quit()
+
+func show_skills_catalog():
+	if not Flags.enabled(Flags.DEBUG_TOOLS): return
+	screen = "skills_catalog"
+	clear("Навыки")
+	button("Назад", show_home)
+	debug_catalog = DebugCatalog.new()
+	content.add_child(debug_catalog)
+	debug_catalog.configure(self, false, true)
+
+func show_skill_catalog_entry(id: String):
+	if not Flags.enabled(Flags.DEBUG_TOOLS) or data.lookup(data.skills, id).is_empty(): return
+	var baseline = session.fighter("Базовый профиль", {"strength":1, "agility":1, "vitality":1, "intelligence":1})
+	var player = baseline if session.game.is_empty() else session.game.player
+	var model = InspectionModel.new(data, session.combat)
+	open_inspection([[model.skill(id, player)]], {"title":"Навык"})
+
+func skill_reward_hint(id: String) -> String:
+	var conflict = data.conflicting_skill_slot(session.game.player, id)
+	if conflict >= 0: return "Заменит несовместимый навык «%s»." % data.lookup(data.skills, session.game.player.skills[conflict]).name
+	return "Затем выберите навык для замены" if session.game.player.skills.size() >= 3 else ""

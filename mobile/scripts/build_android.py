@@ -6,6 +6,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import sys
+import tempfile
 
 MOBILE = Path(__file__).resolve().parents[1]
 ROOT = MOBILE.parent
@@ -34,13 +35,12 @@ def main():
     run([sys.executable, str(MOBILE/'scripts/sync_content.py')], env)
     run([executable, '--headless', '--editor', '--path', str(MOBILE), '--import', '--quit'], env)
     if not args.skip_tests:
-        run([str(ROOT/'node_modules/.bin/tsx'), str(MOBILE/'scripts/reference-fixtures.ts')], env)
-        for script in ['campaign.gd', 'journey_levels.gd', 'story_ui.gd', 'run.gd', 'rewards.gd', 'ui_smoke.gd', 'adaptive_layout.gd', 'home_settings.gd', 'creation_ui.gd', 'heroes_ui.gd', 'modal_ui.gd', 'combat_ui.gd', 'combat_forecast.gd', 'combat_feedback.gd', 'ui_design.gd', 'ui_refinement.gd', 'reward_ui.gd', 'character_window.gd', 'inspection.gd', 'debug_tools.gd', 'game_header.gd']:
+        for script in ['campaign.gd', 'journey_levels.gd', 'story_ui.gd', 'run.gd', 'balance_matrix.gd', 'basic_equipment.gd', 'armor_levels.gd', 'free_mode.gd', 'skills.gd', 'skills_ui.gd', 'rewards.gd', 'ui_smoke.gd', 'adaptive_layout.gd', 'home_settings.gd', 'creation_ui.gd', 'heroes_ui.gd', 'modal_ui.gd', 'combat_ui.gd', 'combat_forecast.gd', 'combat_feedback.gd', 'ui_design.gd', 'ui_refinement.gd', 'reward_ui.gd', 'character_window.gd', 'inspection.gd', 'interaction_updates.gd', 'debug_tools.gd', 'game_header.gd', 'shared_art.gd']:
             run([executable, '--headless', '--path', str(MOBILE), '--script', 'res://tests/'+script], env)
-        balance_report = MOBILE/'build/first-map-balance.json'
-        balance_report.parent.mkdir(parents=True, exist_ok=True)
+        balance_report = Path(tempfile.mkdtemp(prefix='orvesk-balance-'))/'first-map-balance.json'
         run([executable, '--headless', '--path', str(MOBILE), '--script', 'res://tests/first_map_balance.gd',
              '--', '--report', str(balance_report)], env)
+        print(f'Balance report: {balance_report}')
     output = args.output.resolve()
     output.parent.mkdir(parents=True, exist_ok=True)
     run([executable, '--headless', '--path', str(MOBILE), '--export-debug', 'Android', str(output)], env)

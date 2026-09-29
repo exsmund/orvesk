@@ -5,7 +5,6 @@ const Board = preload("res://ui/board.gd")
 const Card = preload("res://ui/card_button.gd")
 const FigureArt = preload("res://ui/figure_art.gd")
 const Layout = preload("res://ui/adaptive_layout.gd")
-const Flags = preload("res://game/feature_flags.gd")
 var host
 var art
 var header = Header.new()
@@ -15,7 +14,7 @@ var phase_label = header.title
 var hint = Label.new()
 var status = Label.new()
 var action = Button.new()
-var debug_action = Button.new()
+var skip = Button.new()
 var ghost = Control.new()
 var cards: Array = []
 var columns = 1
@@ -31,7 +30,7 @@ var last_layout_size = Vector2.ZERO
 var forecast: Dictionary = {}
 
 func _init():
-	for node in [header, board, hand, hint, status, action, debug_action, ghost]: add_child(node)
+	for node in [header, board, hand, hint, status, skip, action, ghost]: add_child(node)
 	for node in [hint, status]:
 		node.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		node.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
@@ -43,10 +42,10 @@ func _init():
 	hand.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	action.add_theme_font_size_override("font_size", preload("res://ui/gothic_theme.gd").button_text_size(19))
 	action.add_theme_font_override("font", preload("res://content/fonts/Prata-Regular.ttf"))
-	for button in [action, debug_action]:
+	skip.text = "Пропустить ход"
+	for button in [skip, action]:
 		button.clip_text = true
 		button.add_theme_font_override("font", preload("res://content/fonts/Prata-Regular.ttf"))
-	debug_action.text = "Победить врага"
 	ghost.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	ghost.z_index = 10
 	ghost.draw.connect(draw_ghost)
@@ -61,9 +60,6 @@ func configure(controller):
 	header.menu_requested.connect(host.show_battle_menu)
 	board.cell_chosen.connect(inspect_cell)
 	board.card_dropped.connect(func(id, index): host.place_card(id, index, host.rotation_for(id)))
-	board.held.connect(func(point):
-		var index = board.index_at(point - board.global_position)
-		inspect_cell(index))
 	board.drag_started.connect(func(point):
 		var index = board.index_at(point - board.global_position)
 		if index >= 0 and not board.player_layer[index].is_empty(): start_drag(board.player_layer[index].id, point, board))
@@ -84,14 +80,17 @@ func configure(controller):
 			if drag_source == view: end_drag(point, canceled))
 		cards.append(view)
 	action.pressed.connect(func():
+		if action.disabled: return
 		if host.session.game.clashPlan.stage == "reveal": host.act(func(): return host.session.submit([]))
 		else:
 			var committed = host.draft.duplicate(true)
 			host.act(func(): return host.session.submit(committed)))
+	skip.pressed.connect(func():
+		if not can_skip(): return
+		host.act(func(): return host.session.submit([])))
 	hint.add_theme_color_override("font_color", host.data.color("text-muted"))
 	action.add_theme_color_override("font_color", host.data.color("text-highlight"))
-	debug_action.add_theme_color_override("font_color", host.data.color("text-highlight"))
-	debug_action.pressed.connect(host.debug_win)
+	skip.add_theme_color_override("font_color", host.data.color("text-highlight"))
 	refresh()
 	layout()
 
@@ -109,8 +108,9 @@ func refresh():
 	var own_moves = moves.filter(func(m): return m.id != drag_id)
 	board.configure(art, host.session.combat.layer(g.player, own_moves, p.playerModifiers), opposing, p.preparer == "player" and not revealed, g.player, g.enemy, p.playerModifiers, p.enemyModifiers)
 	update_forecast(moves)
-	action.text = "Следующий ход" if revealed else ("Восстановить силы" if moves.is_empty() else "Подтвердить ход")
+	action.text = "Следующий ход" if revealed else "Подтвердить ход"
 	action.disabled = not revealed and forecast.cost.remaining < 0
+	skip.disabled = not can_skip()
 	hint.hide()
 	for card in cards:
 		card.card_rotation = host.rotation_for(card.card_id)
@@ -119,6 +119,10 @@ func refresh():
 		card.visible = not card.placed
 		card.queue_redraw()
 	layout()
+
+func can_skip() -> bool:
+	var g = host.session.game
+	return g.phase == "combat" and g.clashPlan.stage != "reveal" and host.draft.is_empty() and g.clashPlan.playerPlaced.is_empty() and g.player.stamina < host.data.max_stamina(g.player)
 
 func update_forecast(moves: Array):
 	forecast = host.session.combat.forecast(host.session.game, moves)
@@ -190,10 +194,9 @@ func layout():
 		card.queue_redraw()
 	status.position = Vector2(hand.position.x, size.y - footer_height)
 	status.size = Vector2(hand.size.x, 24)
-	debug_action.visible = Flags.enabled(Flags.DEBUG_TOOLS)
-	var action_width = (hand.size.x - gap) / 2 if debug_action.visible else hand.size.x
-	place_action(action, Vector2(hand.position.x, size.y - 54), action_width)
-	if debug_action.visible: place_action(debug_action, action.position + Vector2(action_width + gap, 0), action_width)
+	var action_width = (hand.size.x - gap) / 2
+	place_action(skip, Vector2(hand.position.x, size.y - 54), action_width)
+	place_action(action, Vector2(hand.position.x + action_width + gap, size.y - 54), action_width)
 	ghost.position = Vector2.ZERO
 	ghost.size = size
 	ghost.queue_redraw()

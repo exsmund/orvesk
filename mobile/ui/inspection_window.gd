@@ -2,7 +2,7 @@ extends Control
 ## Equipment and skill inspection; only the body scrolls, even while comparing or folding.
 signal confirmed
 signal canceled
-signal upgrade_requested(stat: String, expected_value: int)
+signal upgrade_requested(quote: Dictionary)
 const GothicTheme = preload("res://ui/gothic_theme.gd")
 const Surface = preload("res://ui/character_surface.gd")
 const Frame = preload("res://ui/texture_frame.gd")
@@ -11,6 +11,8 @@ const TabButton = preload("res://ui/character_tab_button.gd")
 const Card = preload("res://ui/inspection_card.gd")
 const Model = preload("res://ui/inspection_model.gd")
 const FigureArt = preload("res://ui/figure_art.gd")
+const MIN_COMPARISON_COLUMN = 144.0
+const COMPARISON_GAP = 12
 const Column = preload("res://ui/inspection_column.gd")
 var host
 var panel = Control.new()
@@ -26,8 +28,6 @@ var cards: Array = []
 var groups: Array = []
 var column_slots: Array = []
 var warning = Label.new()
-var upgrade_controls = preload("res://ui/requirement_upgrades.gd").new()
-var upgrades: VBoxContainer
 var primary = Button.new()
 var secondary = Button.new()
 var close_button = TabButton.new()
@@ -103,8 +103,6 @@ func configure(owner_ui, entries: Array, settings: Dictionary = {}):
 	body.add_child(warning)
 	warning.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	warning.add_theme_font_size_override("font_size",15)
-	body.add_child(upgrade_controls)
-	upgrade_controls.requested.connect(func(stat,value): upgrade_requested.emit(stat,value))
 	body.add_child(columns)
 	columns.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	columns.add_theme_constant_override("h_separation",26)
@@ -153,22 +151,22 @@ func refresh(entries: Array, settings: Dictionary = {}):
 		for entry in entries_in_column:
 			var card = Card.new()
 			group.add_child(card)
-			card.configure(host.data,renderer,model,entry)
+			var quote = options.get("requirements", {}) if entry.reference == options.get("requirements", {}).get("reference", "") and entry.status == "Предлагается" else {}
+			card.configure(host.data,renderer,model,entry,quote)
+			card.upgrade_requested.connect(func(request): upgrade_requested.emit(request))
 			cards.append(card)
 	title.text = options.get("title","Экипировка")
 	primary.text = options.get("action","")
 	primary.visible = not primary.text.is_empty()
 	primary.disabled = not options.get("eligible",true)
-	secondary.text = "Оставить" if entries.size() > 1 else "Назад"
-	secondary.visible = primary.visible
+	secondary.text = "Назад"
+	secondary.visible = primary.visible and entries.size() == 1
 	footer_hint.text = options.get("hint","")
 	footer_hint.visible = primary.visible and not footer_hint.text.is_empty()
 	footer_hint.add_theme_color_override("font_color",host.data.color("text-danger" if options.get("hint_danger",false) else "text-muted"))
 	warning.text = options.get("warning","")
 	warning.visible = not warning.text.is_empty()
 	warning.add_theme_color_override("font_color",host.data.color("text-danger"))
-	upgrade_controls.configure(host.data,options.get("requirements",{}))
-	upgrades = upgrade_controls.steps
 	host.margin.process_mode = Node.PROCESS_MODE_DISABLED
 	arrange()
 	restore_scroll.call_deferred(offset)
@@ -185,11 +183,11 @@ func arrange():
 	if not host or not is_inside_tree(): return
 	var origin = Vector2(host.margin.get_theme_constant("margin_left"),host.margin.get_theme_constant("margin_top"))
 	var area = size - origin - Vector2(host.margin.get_theme_constant("margin_right"),host.margin.get_theme_constant("margin_bottom"))
-	panel.size = Vector2(minf(1120 if groups.size() > 1 else 540,host.AdaptiveLayout.content_width(area)),minf(900,area.y))
+	panel.size = Vector2(minf(1120 if groups.size() > 1 else 380,host.AdaptiveLayout.content_width(area)),minf(900,area.y))
 	panel.position = origin + (area - panel.size) / 2
 	if area.y > area.x * 1.65: panel.position.y = origin.y + area.y - panel.size.y
 	var head = window_header.arrange(panel.size)
-	var compact = primary.visible and panel.size.x < 440
+	var compact = primary.visible and secondary.visible and panel.size.x < 440
 	footer_hint.size.x = panel.size.x-40
 	var hint_height = maxf(18,footer_hint.get_minimum_size().y) if footer_hint.visible else 0.0
 	var hint_space = hint_height+8 if footer_hint.visible else 0.0
@@ -199,9 +197,17 @@ func arrange():
 	footer_separator.position = Vector2(12,footer.position.y)
 	footer_separator.size = Vector2(panel.size.x-24,2)
 	# Insets belong to scrolling content, so the clipping edges meet both strips.
-	scroll.position = Vector2(20,header.position.y+header.size.y)
-	scroll.size = Vector2(panel.size.x-40,maxf(1,footer.position.y-scroll.position.y))
-	columns.columns = groups.size() if panel.size.x >= 760 else 1
+	var body_inset = 12 if groups.size() > 1 else 20
+	scroll.position = Vector2(body_inset,header.position.y+header.size.y)
+	scroll.size = Vector2(panel.size.x-body_inset*2,maxf(1,footer.position.y-scroll.position.y))
+	columns.add_theme_constant_override("h_separation", COMPARISON_GAP)
+	# Godot can downscale its 480-unit canvas into a narrower native window.
+	# Include that shrinkage so the fallback reflects visible column width.
+	var visible_scale = minf(1.0, get_viewport().get_final_transform().get_scale().x)
+	var paired_width = (scroll.size.x - COMPARISON_GAP*(groups.size()-1))/maxi(1, groups.size())
+	columns.columns = groups.size() if groups.size() > 1 and paired_width * visible_scale >= MIN_COMPARISON_COLUMN else 1
+	var column_width = (scroll.size.x - COMPARISON_GAP*(columns.columns-1))/columns.columns
+	for card in cards: card.set_compact(column_width < 280)
 	update_sticky_columns.call_deferred()
 	var close_side = 48.0
 	footer_hint.position = Vector2(20,footer.position.y+10)
@@ -214,10 +220,10 @@ func arrange():
 	close_separator.size = Vector2(2,close_side-8)
 	if primary.visible:
 		var available = panel.size.x-40 if compact else panel.size.x-close_side-60
-		var width = (available-10)/2
+		var width = (available-10)/2 if secondary.visible else available
 		secondary.position = Vector2(20,y)
 		secondary.size = Vector2(width,50)
-		primary.position = Vector2(30+width,y)
+		primary.position = Vector2(30+width if secondary.visible else 20,y)
 		primary.size = Vector2(width,50)
 		for button in [secondary,primary]: GothicTheme.fit_button_text(button,width)
 		if compact:

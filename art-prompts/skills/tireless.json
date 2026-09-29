@@ -1,0 +1,36 @@
+{
+  "asset": "images/skills/tireless.png",
+  "sha256": "3f1e1772a82aa8e03edb901dcf21fe057a0ca0e7fe249163cc46ea56b9bd7e38",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "date": "2026-09-28",
+      "prompt": "Create exactly ONE original skill icon for dark Gothic fantasy game Heroes of Orvesk. Square 1024x1024 PNG RGBA, genuine transparent background including all openings, no painted backdrop, no floor or cast shadow, no frame, lettering, numbers, UI, watermark, or extra objects. Central compact object/gesture entirely inside canvas with 8 percent clear margin, readable at 48 pixels. Sculptural volume, rough hand-painted dry brush fantasy illustration, selective etched texture, aged materials, deep chiaroscuro, dominant charcoal and old iron with muted ivory and brown leather. Directional light from upper front LEFT. No photography, smooth 3D render, neon or cartoon. Material guidance: heavy dark metal with thin broken highlights; layered old linen with deep folds; matte worn leather. One weathered bronze relief shaped as a pair of human lungs joined by the windpipe, inset with subdued ivory ridges. A compact sculptural emblem of steady breathing and stamina. No badge or surrounding frame, no text, no magic glow.",
+      "transparentBackground": true,
+      "references": [
+        {
+          "path": "refs/image1.png",
+          "role": "Reviewed visually; not supplied: aged metal, material weight"
+        },
+        {
+          "path": "refs/image2.png",
+          "role": "Reviewed visually; not supplied: cold Gothic steel"
+        },
+        {
+          "path": "refs/image3.png",
+          "role": "Reviewed visually; not supplied: old linen and ivory"
+        },
+        {
+          "path": "images/skills/parry.png",
+          "role": "Reviewed visually; not supplied: existing skill readability comparison"
+        }
+      ],
+      "output": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-eb6cb0a1-b541-4dd0-8a49-0ba8c5b6e2cb.png",
+      "sha256": "3f1e1772a82aa8e03edb901dcf21fe057a0ca0e7fe249163cc46ea56b9bd7e38",
+      "notes": [
+        "Model: tool default; version/seed not exposed",
+        "Inspected full image, light/dark UI surfaces at small sizes, and real mobile skill catalog/cards; upper-left light, materials and distinct silhouettes retained."
+      ]
+    }
+  ]
+}

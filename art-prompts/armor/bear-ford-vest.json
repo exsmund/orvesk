@@ -1,0 +1,36 @@
+{
+  "asset": "images/armor/bear-ford-vest.png",
+  "sha256": "3a7c7ba770c3d3a3000917fc72ae3a8af1660bd22b96d3df6408a15faec7f6a9",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "date": "2026-09-28",
+      "prompt": "Use case: stylized-concept. Create one ORIGINAL equipment icon for the dark gothic fantasy game Heroes of Orvesk. Square 1024x1024 PNG RGBA with TRUE transparent background, alpha zero outside the object and in gaps. Sculptural painterly realism with subtle engraved texture, aged iron, creased leather, thick matte fabric, muted charcoal, old bronze, bone and earthy brown palette. Directional light from upper front-left, deep dimensional shadows and narrow broken highlights. One complete item centered, large legible silhouette at 40-56px, about 8% empty margin, nothing cropped. Hollow gender-neutral human clothing: no wearer, mannequin, body, face, hands or feet. Clothes upright, slight three-quarter angle; shoes as ONE matching pair side by side, one slightly behind. No floor, cast shadow on a surface, background color, checkerboard, scene, stand, frame, labels, letters, digits, UI, watermark, helmet, gloves, weapon, pouches or extra equipment. No anime, glossy 3D plastic, neon, large aura or excessive ornament. New asset, not an edit of another item. Subject: Безрукавка медвежьего брода (bear-ford-vest). A broad sleeveless northern hunter's vest of dark bear-like thick fur hides, boiled leather reinforcement panels at ribs and shoulders, rough stitching and soft padded lining, no bear head, claws, teeth or skull. Depict only this item, no other items from the series.",
+      "transparentBackground": true,
+      "references": [
+        {
+          "path": "refs/items/robe.png",
+          "role": "Reviewed visually; not supplied to the generator"
+        },
+        {
+          "path": "refs/items/dagger.png",
+          "role": "Reviewed visually; not supplied to the generator"
+        },
+        {
+          "path": "refs/items/buckler.png",
+          "role": "Reviewed visually; not supplied to the generator"
+        },
+        {
+          "path": "images/footwear/greaves.png",
+          "role": "Reviewed visually; not supplied to the generator"
+        }
+      ],
+      "output": "/Users/exsmund/.codex/generated_images/01a0dfd8-247d-7662-9197-dc693b1f8781/exec-ca8005ec-ac0a-4d35-8b85-eb2a7ad824a2.png",
+      "notes": [
+        "Model: not exposed by built-in tool",
+        "isolated garment or footwear pair; no wearer, text, frame or floor"
+      ],
+      "sha256": "3a7c7ba770c3d3a3000917fc72ae3a8af1660bd22b96d3df6408a15faec7f6a9"
+    }
+  ]
+}

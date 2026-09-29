@@ -1,0 +1,13 @@
+{
+  "asset": "images/weapons/spark-lantern.png",
+  "sha256": "0e2067cf94dbe0d65859f6782229b104dc3e2309a328ac64781ff4158fb6a84f",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "date": "2026-09-27",
+      "prompt": "Use case: stylized-concept. Create ONE square 1024x1024 PNG game inventory/action illustration on a TRUE TRANSPARENT RGBA background. Completely empty alpha outside the subject and in all gaps and holes. No black or colored backdrop, no gradient rectangle, no checkerboard, no floor, no shadow plane, no UI tile, no frame, no text or numbers. This will overlay textured combat cells: the cell texture MUST show everywhere around the object.\nArt direction: dark gothic fantasy, sculptural volume, tactile finely painted aged materials, strong chiaroscuro but readable midtone surfaces and narrow upper-left edge highlights. Muted iron grey, old brown leather, ivory linen, ochre accents; no plastic, cartoon, neon, flat vector or glossy 3D. A strong simple silhouette readable at 40px. Whole object fully visible, centered with about 8% transparent margin. No unintended accessories. Do not create a sheet of variations.\nSubject: Фонарь забытой искры (spark-lantern). Переносной железный фонарь с жёсткой ручкой. За закопчённым янтарным стеклом тлеет единственный уголёк. Смотрители магических печей носили в таких фонарях образец поддерживаемого огня. Искра подчиняется подготовленному направляющему жесту. .\nType weapon. Designed for 1 hand(s); depict the item alone, no person holding it. Long weapons diagonal bottom-left handle to upper-right tip. Boots/greaves are a matched pair; other items one object. Bow shown alone without quiver, weapons without scabbards. A fist is an anatomical action symbol, not a weapon held by a person.",
+      "transparentBackground": true,
+      "output": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-92120d34-ce9a-4d02-9993-2ef06c1d62ea.png"
+    }
+  ]
+}

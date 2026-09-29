@@ -106,10 +106,11 @@ func run():
 	input.text_changed.emit(input.text)
 	view.action.pressed.emit()
 	check(view.step == 0 and view.action.disabled, "Whitespace name cannot advance")
+	var initial_portrait = ui.create_portrait
 	view.identity.previous.pressed.emit()
-	check(ui.create_portrait == ui.data.portraits.size() - 1, "Portrait carousel wraps backward through catalog")
+	check(ui.create_portrait == posmod(initial_portrait - 1, ui.data.portraits.size()), "Portrait carousel wraps backward through catalog")
 	view.identity.next.pressed.emit()
-	check(ui.create_portrait == 0, "Portrait carousel wraps forward")
+	check(ui.create_portrait == initial_portrait, "Portrait carousel wraps forward")
 	view.identity.next.pressed.emit()
 	var portrait_id = ui.data.portraits[ui.create_portrait].id
 	input.text = "Вереск"
@@ -119,7 +120,7 @@ func run():
 		for pixels in [Vector2i(320,640), Vector2i(432,1008), Vector2i(896,800), Vector2i(1008,432), Vector2i(2240,900), Vector2i(432,1600)]:
 			root.size = pixels
 			await settle()
-			check(ui.creation_view == view and view.identity.name_input == input and ui.create_name == "Вереск" and ui.create_portrait == 1, "Resize preserves the draft and input node")
+			check(ui.creation_view == view and view.identity.name_input == input and ui.create_name == "Вереск" and ui.data.portraits[ui.create_portrait].id == portrait_id, "Resize preserves the draft and input node")
 			geometry(step)
 			shot("create-step-%d-%dx%d" % [step + 1, pixels.x, pixels.y])
 		if step == 0:
@@ -138,6 +139,22 @@ func run():
 	attributes.rows.intelligence.plus.pressed.emit()
 	check(ui.session.creation_points_remaining(ui.create_stats) == 0 and not view.action.disabled, "All three points unlock Start")
 	for stat in ui.data.STATS: check(attributes.rows[stat].plus.disabled, "Cannot overspend initial points")
+	# Hiding the allocation hint must not cross the adaptive column breakpoint.
+	for pixels in [Vector2i(766, 962), Vector2i(768, 990), Vector2i(896, 800), Vector2i(432, 1008)]:
+		root.size = pixels
+		await settle()
+		var ready_body = view.body.get_rect()
+		var ready_wide = attributes.wide
+		var ready_button = view.action.get_global_rect()
+		attributes.rows.strength.minus.pressed.emit()
+		await settle()
+		check(view.actions.hint.visible, "Unspent point shows hint")
+		check(view.body.get_rect().is_equal_approx(ready_body), "Hint does not change body geometry")
+		check(attributes.wide == ready_wide, "Hint does not switch column layout")
+		check(view.action.get_global_rect().is_equal_approx(ready_button), "Hint does not move primary action")
+		attributes.rows.strength.plus.pressed.emit()
+		await settle()
+		check(not view.actions.hint.visible and view.body.get_rect().is_equal_approx(ready_body), "Last point hides hint without reflow")
 	var distributed = ui.create_stats.duplicate(true)
 	attributes.change("strength", 1)
 	attributes.change("agility", -1)
@@ -181,7 +198,7 @@ func run():
 	check(restored.restore(ui.saves.records[ui.hero_id]).is_empty() and restored.game == ui.session.game, "Created campaign restores through normal loader")
 	ui.start_create()
 	await settle()
-	check(ui.create_name.is_empty() and ui.create_portrait == 0 and ui.session.creation_points_remaining(ui.create_stats) == ui.session.CREATION_POINTS, "New creation starts a clean draft")
+	check(ui.create_name.is_empty() and ui.create_portrait >= 0 and ui.create_portrait < ui.data.portraits.size() and ui.session.creation_points_remaining(ui.create_stats) == ui.session.CREATION_POINTS, "New creation starts a clean draft with a valid random portrait")
 	ui.creation_view.back_button.pressed.emit()
 	await settle()
 	check(ui.screen == "home" and ui.saves.writes == 1, "Cancel first step returns home without creating another hero")

@@ -1,0 +1,52 @@
+{
+  "asset": "images/maps/limestone-valley/scene.png",
+  "sha256": "c1dcdaaef232b0d8c0d6de222825245f1286b30761de3f17f6185b0a89073e74",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "date": "2026-09-27",
+      "prompt": "Use case: stylized-concept. Game environment art for Heroes of Orvesk, dark gothic fantasy painted realism. Natural large masses and convincing volume, restrained textured brushwork, aged materials, muted earth/olive/charcoal/stone palette, upper-left daylight, readable middle-dark values, atmospheric depth without washed-out whitening. Never photorealistic drone photography, flat vector art, cute cartoon, plastic 3D, neon, modern objects, sci-fi, heroic saturated colors. No characters, creatures, text, labels, UI, markers, circles, graph nodes, frames, watermarks or vignette. Full-bleed opaque image; fill every edge with environment, no black fades. Asset type: separate ground-level combat-screen landscape backdrop of the same region, not an overhead map. Create ONE landscape image, requested exact 1672 x 941 pixels, approximately 16:9. Wide eye-level environmental view. Calm lower-center ground and subdued mid/upper-center backdrop for a separate game interface, but NOT a deliberately flat rectangular empty area. Place most intricate texture at the sides and middle distance; retain recognizable material and architectural features through a narrow center crop too. No painted battlefield grid, empty round combat arena or laid-out path. Scene: Ground-level view inside a quiet limestone basin. Layered pale stone walls and weathered ledges, old roots penetrating narrow cracks; a small closed stone doorway recessed into the cliff in the middle distance, without markings or visible interior. A simple keeper refuge is partly seen farther away. Calm scree foreground, low grey mist, bone-grey and slate with sparse grey-green grass; softly lit from upper left. No magical glow, no portal, no revealed treasure or burial contents. Regional continuity: A secluded limestone valley at the end of a long journey: layered weathered pale grey chalk cliffs and stone shelves, fissures dark with old roots, scattered sparse wind-bent grey-green trees and silver grass, dry scree and pockets of mist. An austere tiny stone keeper refuge and a few small closed recessed entrances cut into the cliff, plausibly a hidden repository yet no visible contents. Repeated natural bands of limestone are the major visual identity across center and edges. Restrained bone-grey, slate shadows and muted sage, bleak quiet daylight. No giant temple, no prominent magical artifact, no open black portal, no glowing crystals, no giant chasm, no readable symbols.",
+      "transparentBackground": false,
+      "references": [
+        {
+          "path": "docs/ART_DIRECTION.md",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "docs/ART_DIRECTION.md",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/forest/map.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/forest/scene.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/steppe/map.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/steppe/scene.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/ruins/map.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/ruins/scene.png",
+          "role": "Reviewed visually"
+        }
+      ],
+      "output": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-18004c96-7498-444d-b6c0-89b1d9126684.png",
+      "sha256": "c1dcdaaef232b0d8c0d6de222825245f1286b30761de3f17f6185b0a89073e74",
+      "notes": [
+        "Exact copies of generated originals. Map outputs were 1402x1122 rather than requested 3000x2400; actual dimensions recorded in the catalog. No stretching, cropping or repainting. Mobile delivery copies are produced by the existing sync_content.py pipeline.",
+        "Accepted: location matches chapter, no UI or itinerary, opaque, map and battle view share palette and materials."
+      ]
+    }
+  ]
+}

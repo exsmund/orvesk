@@ -1,0 +1,42 @@
+{
+  "asset": "images/hero-portraits/hero-48-rowan.png",
+  "sha256": "b8deed15a5678eb03957ca287ef4fede45e0500955e7ae3c33da50290182d57c",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "date": "2026-09-28",
+      "prompt": "Use case: identity-preserving portrait edit and shoulder outpainting. Asset: dialogue portrait for \"Герои Орвеска\".\nImage 1 is the approved character identity and clothing. Images 2–4 are material references ONLY: 2 warm aged material, 3 cold gothic material, 4 cloth/bone. Never copy faces, beards, armor, accessories or frames from 2–4.\nCreate the SAME person as image 1 on a SQUARE 1024x1024 PNG with a genuinely TRANSPARENT background. Preserve their exact recognizable facial features, age, skin tone, marks/asymmetry, hairstyle, expression, original androgyny, rightward three-quarter gaze, garment design and muted painterly colors. No beautification, no aging/de-aging, no new accessories.\nCRITICAL: Show the ENTIRE left and right SHOULDERS, including all outside curves of garment and upper arms, with at least 12% EMPTY transparent space between the silhouette and EACH side of the canvas. Neither shoulder may touch or be cut off by the left/right image borders. The original portrait has clipped shoulders: reconstruct and extend the SAME coarse garment naturally so both shoulders are fully present. Uniformly scale DOWN the head/body relative to the canvas; do not simply add blank columns around clipped shoulders. Bust composition, head/neck/full shoulders/upper chest, NOT waist or full body. The lower canvas edge may crop the lower torso; sides must be clear. Maximum overall silhouette width 76%. Empty vertical strips of width 12% MUST remain on BOTH sides all the way to the bottom. Zoom the whole bust out enough to guarantee this.\nComposition target for this SQUARE: head centered X=50%; top of hair Y=10%; eye line Y=30%; chin Y=50%; head main width about 34% canvas (32–38%). Whole head/hair inside frame. Natural anatomy, never stretch the head to fit. Preserve original light from upper front-left, pose and facial identity while adapting framing.\nArt style: dark gothic painterly illustration with sculptural volume, fine dry brush texture, deep chiaroscuro, matte skin, grouped strands of hair, coarse worn dark cloth. Face is the focus, clothing secondary. Low saturation earth/charcoal/bone palette as in source. Do not transform into photography, glossy 3D, cartoon, or elaborate costume.\nBackground must be actual alpha=0 outside the subject and in gaps. NO solid black/white/grey background, NO checkerboard painted into image, NO smoky rectangle or halo. Keep interior skin/hair/clothing shadows opaque. Accurate antialiased silhouette; dark clothing must not be erased as background. No frame, labels, text, watermark. ONE square portrait only.",
+      "transparentBackground": true,
+      "references": [
+        {
+          "path": "images/portraits/heroes-v2/hero-48-rowan.png",
+          "role": "Original opaque portrait; replaced series",
+          "sha256": "af2c737fd12cf48239af63b2a5f9a387f3bb8b8d5c4545d5eebc30357e6c2200"
+        },
+        {
+          "path": "refs/image1.png",
+          "role": "refs/image1.png: warm aged materials"
+        },
+        {
+          "path": "refs/image2.png",
+          "role": "refs/image2.png: cold gothic materials"
+        },
+        {
+          "path": "refs/image3.png",
+          "role": "refs/image3.png: cloth/bone"
+        }
+      ]
+    },
+    {
+      "tool": "image_gen",
+      "date": "2026-09-28",
+      "prompt": "Edit this existing transparent portrait. Preserve exactly this person, face, hair, clothing, paint style and colors. ONLY fix framing: zoom out substantially so BOTH shoulders AND outside upper arms are fully inside the square with wide transparent margins. The whole bust must occupy only the CENTRAL 75% of the canvas width, with 12.5% empty transparent columns on both sides. Make the head smaller, not the shoulders narrower. Do not crop or auto-trim the final canvas to the subject. Square PNG with actual transparency. Head top at 10%, eyes at 30%, chin at 50%. Reconstruct any missing clothing at the lower corners, do not change garment. Torso may meet bottom edge, but NO visible pixel may touch left or right canvas edge. No border, no background, no text.",
+      "transparentBackground": true,
+      "notes": [
+        "Shoulder framing correction; intermediate output was not recorded separately."
+      ],
+      "output": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-8c1d15fc-4441-4b82-897e-ad801ca50b6a.png",
+      "sha256": "b8deed15a5678eb03957ca287ef4fede45e0500955e7ae3c33da50290182d57c"
+    }
+  ]
+}

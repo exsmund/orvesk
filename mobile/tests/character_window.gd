@@ -57,6 +57,14 @@ func check_bounds(window, tag: String):
 			check(equipment.divider.get_rect().end.y + 8 <= equipment.skill_title.position.y, "Divider clears the skill heading")
 			check(equipment.skill_title.get_rect().end.y + 8 <= equipment.skills[0].position.y, "Skill heading clears the tiles")
 		if i == 1:
+			var attributes = window.pages[1]
+			if attributes.wide:
+				var previous_bottom = -1.0
+				for row in attributes.rows.values():
+					check(row.position.x == 2 and row.position.y >= previous_bottom, "Wide attributes form one ordered left column")
+					previous_bottom = row.get_rect().end.y
+					for control in [attributes.shards, attributes.price, attributes.warning, attributes.confirm]:
+						check(row.get_rect().end.x < control.position.x, "Balance, cost, hint and confirmation are to the right of all attributes")
 			for row in window.pages[1].rows.values():
 				check(row.get_global_rect().grow(1).encloses(row.value.get_global_rect()), "Large stat value stays inside row")
 				var extent = row.value.get_theme_font("font").get_string_size(row.value.text,HORIZONTAL_ALIGNMENT_LEFT,-1,row.value.get_theme_font_size("font_size")).x
@@ -110,6 +118,22 @@ func run():
 	ui.session.combat.rng.seed = 43
 	ui.session.create("Зая", {"strength":3,"agility":2,"vitality":1,"intelligence":1}, ui.data.portraits[0].id)
 	ui.hero_id = "memory-only-character-test"
+	ui.show_game()
+	ui.show_character()
+	ui.character_window.select_tab(2)
+	await settle()
+	for equipment in ui.data.items.filter(func(item): return item.get("unarmed", false)):
+		var slot = ui.character_window.pages[2].slots[equipment.slot]
+		check(slot.tooltip_text == equipment.name, "Mannequin displays basic item: " + equipment.name)
+		check(slot.get_children().any(func(child): return child is TextureRect and child.texture != null), "Basic mannequin slot has artwork")
+		slot.pressed.emit()
+		await settle()
+		check(ui.inspection_window != null and ui.inspection_window.cards[0].entry.reference == equipment.id, "Basic slot opens ordinary equipment card")
+		check(not ui.inspection_window.cards[0].entry.figures.is_empty(), "Basic item card has combat figures")
+		ui.inspection_window.close_button.pressed.emit()
+		await settle()
+	ui.character_window.tabs[4].pressed.emit()
+	await settle()
 	ui.session.game.souls = 32
 	ui.session.game.player.hp = 24
 	ui.session.game.player.stamina = 5

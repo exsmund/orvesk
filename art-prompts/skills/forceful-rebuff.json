@@ -1,0 +1,36 @@
+{
+  "asset": "images/skills/forceful-rebuff.png",
+  "sha256": "3ba021071c1f77b96a26bfc50efc6ebdb9f68564e9279c68c9f2a6e55cbe77e7",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "date": "2026-09-28",
+      "prompt": "Create exactly ONE original skill icon for dark Gothic fantasy game Heroes of Orvesk. Square 1024x1024 PNG RGBA, genuine transparent background including all openings, no painted backdrop, no floor or cast shadow, no frame, lettering, numbers, UI, watermark, or extra objects. Central compact object/gesture entirely inside canvas with 8 percent clear margin, readable at 48 pixels. Sculptural volume, rough hand-painted dry brush fantasy illustration, selective etched texture, aged materials, deep chiaroscuro, dominant charcoal and old iron with muted ivory and brown leather. Directional light from upper front LEFT. No photography, smooth 3D render, neon or cartoon. Material guidance: heavy dark metal with thin broken highlights; layered old linen with deep folds; matte worn leather. A strong leather-wrapped fist with an aged steel forearm bracer forcefully pushing aside the flat of an incoming battered short blade. Compact bold diagonal collision gesture, just fist forearm and one blade fully inside canvas. Conveys strength-based defensive counter.",
+      "transparentBackground": true,
+      "references": [
+        {
+          "path": "refs/image1.png",
+          "role": "Reviewed visually; not supplied: aged metal, material weight"
+        },
+        {
+          "path": "refs/image2.png",
+          "role": "Reviewed visually; not supplied: cold Gothic steel"
+        },
+        {
+          "path": "refs/image3.png",
+          "role": "Reviewed visually; not supplied: old linen and ivory"
+        },
+        {
+          "path": "images/skills/parry.png",
+          "role": "Reviewed visually; not supplied: existing skill readability comparison"
+        }
+      ],
+      "output": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-2fbe2ea6-d25a-45e3-9153-79d72f3d5303.png",
+      "sha256": "3ba021071c1f77b96a26bfc50efc6ebdb9f68564e9279c68c9f2a6e55cbe77e7",
+      "notes": [
+        "Model: tool default; version/seed not exposed",
+        "Inspected full image, light/dark UI surfaces at small sizes, and real mobile skill catalog/cards; upper-left light, materials and distinct silhouettes retained."
+      ]
+    }
+  ]
+}

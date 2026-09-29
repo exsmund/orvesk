@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Герои Орвеска — значки карты</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#151917;color:#eee7d8;font:15px/1.4 system-ui,sans-serif}header{padding:18px 24px;background:#111713}h1{margin:0 0 8px;font:24px Georgia,serif}p{margin:6px 0 12px;color:#bdbfae}.controls{display:flex;align-items:center;flex-wrap:wrap;gap:12px}select,button{font:inherit;color:inherit}select,.toggle{padding:6px 10px;background:#2b332d;border:1px solid #8e9384;border-radius:5px}label{display:flex;align-items:center;gap:8px}main{min-height:600px;background-size:cover;background-position:center;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px 12px;padding:32px 16px}.point{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}.sizes{display:flex;align-items:center;justify-content:center;gap:8px}.node{display:block;background:none;border:0;padding:0;cursor:pointer;line-height:0;border-radius:50%;filter:drop-shadow(0 2px 3px #000b)}.node:focus-visible{outline:3px solid #f6e4a5;outline-offset:3px}.node[aria-pressed=true]{outline:2px solid #f6e4a5;outline-offset:2px}.node img{width:var(--size);height:var(--size)}.label{background:#101713ee;border:1px solid #73806c;border-radius:5px;padding:4px 8px;text-align:center;font-size:12px}.no-labels .label{visibility:hidden}#detail{padding:12px 24px;min-height:60px;background:#171e19}body.render{background:transparent}#badge{width:512px;height:512px;position:relative}#badge img{position:absolute;object-fit:contain;display:block}.frame{inset:0;width:100%;height:100%}
+@media(max-width:850px){main{grid-template-columns:repeat(3,minmax(0,1fr));gap:20px 6px;padding:24px 8px}.sizes{gap:3px;flex-wrap:wrap}header{padding:14px}.controls{gap:8px}h1{font-size:20px}}
+@media(max-width:480px){main{grid-template-columns:repeat(2,minmax(0,1fr))}.sizes{max-width:140px}label{flex-wrap:wrap}select{max-width:100%}}
+</style></head><body><header><h1>Герои Орвеска · Точки карты</h1><p>Проверка общей рамки и силуэтов на игровых фонах. Каталог подготовлен к подключению.</p><div class="controls"><label>Фон <select id="map" aria-label="Фон карты"></select></label><label>Вид <select id="view" aria-label="Вид фона"><option value="map">Карта</option><option value="battle">Фон боя</option></select></label><label>Размер <select id="size" aria-label="Размер значков"><option value="all">48 / 64 / 96 px</option> <option>48</option><option>64</option><option>96</option></select></label><button class="toggle" id="labels" aria-pressed="false">Без подписей</button></div></header><main id="gallery"></main><aside id="detail" aria-live="polite">Выберите значок, чтобы увидеть назначение точки.</aside>
+<script type="module">
+try {
+ const cfg=await fetch('/data/map-points.json').then(r=>r.json());
+ const params=new URLSearchParams(location.search), render=params.get('render');
+ if(render){
+  const point=cfg.points.find(p=>p.id===render);if(!point)throw Error('Unknown point: '+render);
+  document.body.className='render';document.body.replaceChildren();
+  const badge=document.createElement('div');badge.id='badge';
+  const backing=document.createElement('div');Object.assign(backing.style,{position:'absolute',inset:cfg.presentation.backing.inset*100+'%',borderRadius:'50%',background:cfg.presentation.backing.color});
+  const frame=document.createElement('img');frame.className='frame';frame.src=cfg.presentation.frame;
+  const symbol=document.createElement('img');symbol.src=point.icon.symbol;
+  const box=cfg.presentation.symbolBox;Object.assign(symbol.style,{left:box.x*100+'%',top:box.y*100+'%',width:box.width*100+'%',height:box.height*100+'%'});
+  badge.append(backing,frame,symbol);document.body.append(badge);
+ } else {
+  const maps=await fetch('/data/maps.json').then(r=>r.json());
+  const select=document.querySelector('#map'),size=document.querySelector('#size'),view=document.querySelector('#view'),gallery=document.querySelector('#gallery');
+  for(const m of maps){const o=document.createElement('option');o.value=m.id;o.textContent=m.name;select.append(o)}
+  if(maps.some(m=>m.id===params.get('map')))select.value=params.get('map');
+  if(['48','64','96','all'].includes(params.get('size')))size.value=params.get('size');
+  if(params.get('view')==='battle')view.value='battle';
+  function paint(){
+   gallery.style.backgroundImage=`url("${maps.find(m=>m.id===select.value)[view.value==='battle'?'battleBackground':'background']}")`;gallery.replaceChildren();
+   for(const point of cfg.points){
+    const cell=document.createElement('section');cell.className='point';const sizes=document.createElement('div');sizes.className='sizes';
+    for(const px of size.value==='all'?[48,64,96]:[Number(size.value)]){
+     const button=document.createElement('button');button.className='node';button.setAttribute('aria-label',point.name+', '+px+' px');button.setAttribute('aria-pressed','false');button.title=point.name;
+     const img=document.createElement('img');img.src=point.icon.src;img.alt='';img.style.setProperty('--size',px+'px');button.append(img);
+     button.onclick=()=>{document.querySelectorAll('.node').forEach(n=>n.setAttribute('aria-pressed','false'));button.setAttribute('aria-pressed','true');document.querySelector('#detail').textContent=point.name+' — '+point.description};sizes.append(button);
+    }
+    const label=document.createElement('span');label.className='label';label.textContent=point.name;cell.append(sizes,label);gallery.append(cell);
+   }
+  }
+  select.onchange=paint;size.onchange=paint;view.onchange=paint;document.querySelector('#labels').onclick=e=>{const active=gallery.classList.toggle('no-labels');e.currentTarget.setAttribute('aria-pressed',String(active));e.currentTarget.textContent=active?'Показать подписи':'Без подписей'};paint();
+ }
+ await Promise.all([...document.images].map(i=>i.decode()));window.artReady=true;
+} catch(e){document.querySelector('#detail')?.replaceChildren(document.createTextNode(e.message));window.artError=e.message;throw e}
+</script></body></html>

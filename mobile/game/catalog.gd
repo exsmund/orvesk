@@ -21,22 +21,28 @@ var palette: Dictionary
 var art: Dictionary
 
 func _init():
-	for name in ["weapons", "armor", "jewelry"]:
+	for name in ["weapons", "shields", "armor", "footwear", "jewelry", "basic-equipment"]:
 		items.append_array(read_json(name))
 	skills = read_json("skills")
 	creatures = read_json("creatures")
-	portraits = read_json("portraits")
-	maps = read_json("journey-maps")
+	portraits = read_json("hero-portraits")
+	maps = read_json("maps")
 	encounters = read_json("journey-encounters")
-	base = read_json("base-figures")
+	base = read_json("base-actions")
+	for equipment in items:
+		if equipment.has("baseFigureAvailability"):
+			equipment.figures = base.filter(func(figure): return figure.get("availability", "") == equipment.baseFigureAvailability).duplicate(true)
 	balance = read_json("combat-balance")
 	palette = read_json("palette")
 	art = read_json("item-art")
 	story = read_json("story-runtime")
-	characters = read_json("story-characters")
+	characters = read_json("characters")
 	map_points = read_json("map-points")
 	journey_rules = read_json("journey-rules")
 	portrait_presentation = read_json("portrait-presentation")
+
+func stat_abbreviation(stat: String) -> String:
+	return str(STAT_NAMES.get(stat, stat)).left(3).to_upper()
 
 func read_json(name: String):
 	return JSON.parse_string(FileAccess.get_file_as_string(ROOT + name + ".json"))
@@ -77,7 +83,7 @@ func item(reference) -> Dictionary:
 	if template.is_empty():
 		push_error("Неизвестный предмет: " + str(reference))
 		return {}
-	var scales = false
+	var scales = template.get("defenseScalesWithLevel", false)
 	for figure in template.figures:
 		if not figure.get("healthDamage", {}).get("stats", []).is_empty(): scales = true
 	var rank = clampi(int(parts[1]) if parts.size() > 1 else 1, 1, 999) if scales and not template.get("unarmed", false) else 1
@@ -86,6 +92,8 @@ func item(reference) -> Dictionary:
 	result.level = rank
 	result.id = template.id + ("@%d" % rank if rank > 1 else "")
 	for stat in result.requirements: result.requirements[stat] = rank
+	if template.get("defenseScalesWithLevel", false):
+		for type in result.get("defense", {}): result.defense[type] *= rank
 	return result
 
 func permits(f: Dictionary, equipment: Dictionary) -> bool:
@@ -96,18 +104,35 @@ func permits(f: Dictionary, equipment: Dictionary) -> bool:
 func can_use(f: Dictionary, equipment: Dictionary) -> bool:
 	if not permits(f, equipment): return false
 	for stat in STATS:
-		if f.stats[stat] < equipment.requirements.get(stat, 0): return false
+		if effective_stat(f, stat) < equipment.requirements.get(stat, 0): return false
 	return true
 
-func wear(f: Dictionary, equipment: Dictionary) -> bool:
+func wear(f: Dictionary, equipment: Dictionary, include_basics: bool = true) -> bool:
 	if not can_use(f, equipment): return false
 	if equipment.get("hands", 1) == 2: f.gear.shield = null
 	if equipment.kind == "shield" and item(f.gear.weapon).get("hands", 1) == 2: f.gear.weapon = null
-	if not equipment.get("unarmed", false): f.gear[equipment.slot] = equipment.id
+	f.gear[equipment.slot] = equipment.id
+	if include_basics: equip_basics(f)
 	return true
 
+func has_equipment(f: Dictionary, slot: String) -> bool:
+	if not f.gear.get(slot): return false
+	return not item(f.gear[slot]).get("unarmed", false)
+
+func basic_item(slot: String) -> Dictionary:
+	for equipment in items:
+		if equipment.get("unarmed", false) and equipment.slot == slot: return equipment
+	return {}
+
+func equip_basics(f: Dictionary):
+	if f.get("creatureId", ""): return
+	for equipment in items:
+		if not equipment.get("unarmed", false) or f.gear.get(equipment.slot): continue
+		if equipment.slot == "shield" and item(f.gear.get("weapon")).get("hands", 1) == 2: continue
+		f.gear[equipment.slot] = equipment.id
+
 func max_hp(f: Dictionary) -> float:
-	return balance.health.base + balance.health.perVitality * (f.stats.vitality - 1)
+	return balance.health.base + balance.health.perVitality * (effective_stat(f, "vitality") - 1)
 
 func stat_total(f: Dictionary) -> int:
 	var total = 0
@@ -130,13 +155,23 @@ func portrait(f: Dictionary) -> Texture2D:
 		return image(lookup(characters, f.characterId).get("portrait", {}).get("src", ""))
 	if f.get("creatureId", ""):
 		return image(lookup(creatures, f.creatureId).get("portrait", {}).get("src", ""))
-	var selected = lookup(portraits, f.get("portraitId", ""))
+	var portrait_id = str(f.get("portraitId", "")).replace("character-", "hero-")
+	var selected = lookup(portraits, portrait_id)
 	if selected.is_empty() and not portraits.is_empty(): selected = portraits[0]
 	return image(selected.get("src", ""))
 
+func framed_portrait(texture: Texture2D) -> Texture2D:
+	if texture == null or texture.get_width() != texture.get_height(): return texture
+	var crop: Dictionary = portrait_presentation.rectangle.squareCrop
+	var framed = AtlasTexture.new()
+	framed.atlas = texture
+	var side = float(texture.get_width())
+	framed.region = Rect2(crop.x * side, crop.y * side, crop.width * side, crop.height * side)
+	return framed
+
 func unarmed() -> Dictionary:
-	for equipment in items:
-		if equipment.get("unarmed", false): return equipment
+	var equipment = basic_item("weapon")
+	if not equipment.is_empty(): return equipment
 	assert(false, "В каталоге не задано оружие без экипировки")
 	return {}
 
@@ -154,4 +189,53 @@ func speaker(id: String, player: Dictionary) -> Dictionary:
 	if not person.is_empty():
 		return {"name": binding.get("name", person.name), "texture": image(person.get("portrait", {}).get("src", "")), "side": person.dialogueSide}
 	var creature = lookup(creatures, binding.get("portrait", {}).get("id", ""))
-	return {"name": binding.get("name", ""), "texture": image(creature.get("portrait", {}).get("src", "")), "side": binding.get("portraitSide", "right")}
+	return {"name": binding.get("name", ""), "texture": image(creature.get("dialoguePortrait", creature.get("portrait", {})).get("src", "")), "side": binding.get("portraitSide", "right")}
+
+## Permanent attributes remain the basis of level/upgrade prices. Skill bonuses
+## are evaluated from their IDs, never baked into saves or applied again on load.
+func effective_stat(f: Dictionary, stat: String) -> int:
+	var value = int(f.stats[stat])
+	for definition in skills:
+		if definition.id in f.get("skills", []): value += int(definition.get("passive", {}).get("statBonuses", {}).get(stat, 0))
+	return value
+
+func max_stamina(f: Dictionary) -> float:
+	var value = float(balance.stamina.max)
+	for definition in skills:
+		if definition.id in f.get("skills", []): value += float(definition.get("passive", {}).get("maxStaminaBonus", 0))
+	return value
+
+func turn_order(f: Dictionary) -> String:
+	for definition in skills:
+		if definition.id in f.get("skills", []) and definition.get("passive", {}).has("turnOrder"):
+			return definition.passive.turnOrder
+	return ""
+
+func conflicting_skill_slot(f: Dictionary, id: String) -> int:
+	var group = lookup(skills, id).get("exclusiveGroup", "")
+	if group.is_empty(): return -1
+	for i in f.get("skills", []).size():
+		var known = f.skills[i]
+		if known != id and lookup(skills, known).get("exclusiveGroup", "") == group: return i
+	return -1
+
+func learn_skill(f: Dictionary, id: String, slot: int = -1) -> String:
+	if lookup(skills, id).is_empty(): return "Неизвестный навык."
+	if id in f.get("skills", []): return "Навык уже изучен."
+	var conflict = conflicting_skill_slot(f, id)
+	if conflict >= 0:
+		if slot >= 0 and slot != conflict: return "Замените несовместимый навык в его ячейке."
+		slot = conflict
+	var current = f.get("skills", []).duplicate()
+	if slot >= 0:
+		if slot > current.size() or slot >= 3: return "Выберите доступную ячейку навыка."
+		if slot == current.size(): current.append(id)
+		else: current[slot] = id
+	else:
+		if current.size() >= 3: return "Выберите навык для замены."
+		current.append(id)
+	f.skills = current
+	# Learning does not heal. Losing a bonus clamps resources to the new maximum.
+	f.hp = minf(f.hp, max_hp(f))
+	f.stamina = minf(f.stamina, max_stamina(f))
+	return ""

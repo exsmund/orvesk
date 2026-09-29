@@ -1,11 +1,10 @@
 extends RefCounted
-## Port of tests/helpers/first-map-balance.ts: greedy current-turn play, no lookahead.
+## Shared control player: greedy current-turn play, no hidden information or lookahead.
 static func score(combat, g: Dictionary, moves: Array, visible_enemy: Array) -> float:
 	var calc = combat.calculate(g, {"player": moves, "enemy": visible_enemy}, {"player": {}, "enemy": g.clashPlan.enemyModifiers})
 	return calc.enemy.damage - calc.player.damage + 0.25 * calc.enemy.staminaLoss + moves.size() * 0.01
 
 static func plan(combat, g: Dictionary) -> Array:
-	if g.player.stamina < 3: return []
 	var p = g.clashPlan
 	var reacting = p.preparer == "enemy"
 	# Never inspect the hidden enemy hand, draw order or unrevealed placements.

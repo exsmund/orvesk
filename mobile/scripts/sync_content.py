@@ -14,17 +14,17 @@ sys.dont_write_bytecode = True
 MOBILE = Path(__file__).resolve().parents[1]
 ROOT = MOBILE.parent
 OUT = MOBILE / 'content' / 'generated'
-MIPMAP_ART = {'/ui/gothic-frame.png', '/ui/portrait-frame-v1.png', '/ui/logos-shards-v3.png'}
-CATALOGS = ['weapons', 'armor', 'jewelry', 'base-figures', 'skills', 'creatures',
-            'portraits', 'journey-maps', 'journey-encounters', 'item-art', 'combat-balance', 'damage-types',
-            'story', 'story-characters', 'story-gameplay', 'map-points', 'journey-rules', 'portrait-presentation']
+MIPMAP_ART = {'/ui/gothic-frame.png', '/ui/portrait-frame.png', '/ui/logos-shards.png'}
+CATALOGS = ['weapons', 'shields', 'armor', 'footwear', 'jewelry', 'basic-equipment', 'base-actions', 'skills', 'creatures',
+            'hero-portraits', 'maps', 'journey-encounters', 'item-art', 'combat-balance', 'damage-types',
+            'story', 'characters', 'story-gameplay', 'map-points', 'journey-rules', 'portrait-presentation']
 
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
-    paths = {'/ui/start-landscape-v1.png',
-             '/ui/battle-modes/free-v1.png', '/ui/battle-modes/expendable-v1.png',
-             '/ui/logos-shards-v3.png', '/ui/portrait-frame-round-v1.png',
-             '/ui/portrait-frame-v1.png', '/ui/gothic-frame.png'}
+    paths = {'/ui/start-landscape.png',
+             '/ui/battle-modes/free.png',
+             '/ui/logos-shards.png', '/ui/portrait-frame-round.png',
+             '/ui/portrait-frame.png', '/ui/gothic-frame.png'}
     old_manifest = json.loads((OUT / 'manifest.json').read_text()) if (OUT / 'manifest.json').exists() else {}
     spec = importlib.util.spec_from_file_location("story_compiler", ROOT / "tools/compile-story.py")
     compiler = importlib.util.module_from_spec(spec)
@@ -46,20 +46,21 @@ def main():
         collect(value)
         (OUT / (name + '.json')).write_bytes(raw)
         manifest[str(source.relative_to(ROOT))] = hashlib.sha256(raw).hexdigest()
-    css = (ROOT / 'src/app/styles/palette.css').read_text()
-    colors = dict(re.findall(r'--(color-[\w-]+):\s*(#[0-9a-fA-F]+|transparent)\s*;', css))
-    for token, channels in re.findall(r'--(color-[\w-]+):\s*rgb\(([^)]+)\)\s*;', css):
-        values = channels.split()
-        if len(values) != 3:
-            raise ValueError('Unsupported RGB token: ' + token)
-        rgb = [round(float(v[:-1]) * 2.55) if v.endswith('%') else round(float(v)) for v in values]
-        colors[token] = '#' + ''.join(f'{max(0, min(255, v)):02x}' for v in rgb)
-    shutil.copy2(ROOT / 'public/favicon.svg', OUT / 'icon.svg')
-    (OUT / 'palette.json').write_text(json.dumps(colors, ensure_ascii=False, indent=2))
+    palette_source = MOBILE / 'content/palette.json'
+    palette_raw = palette_source.read_bytes()
+    colors = json.loads(palette_raw)
+    if not isinstance(colors, dict) or not colors:
+        raise ValueError('Palette must be a non-empty JSON object')
+    for token, color in colors.items():
+        if not re.fullmatch(r'color-[\w-]+', token) or not isinstance(color, str) or not re.fullmatch(r'transparent|#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})', color):
+            raise ValueError('Invalid palette entry: ' + token)
+    (OUT / 'palette.json').write_bytes(palette_raw)
+    manifest[str(palette_source.relative_to(ROOT))] = hashlib.sha256(palette_raw).hexdigest()
+    shutil.copy2(ROOT / 'images/favicon.svg', OUT / 'icon.svg')
     for path in sorted(paths):
-        source = (ROOT / 'public' / path.lstrip('/')).resolve()
-        if not source.is_relative_to((ROOT / 'public').resolve()):
-            raise ValueError('Asset outside public: ' + path)
+        source = (ROOT / 'images' / path.lstrip('/')).resolve()
+        if not source.is_relative_to((ROOT / 'images').resolve()):
+            raise ValueError('Asset outside images: ' + path)
         if not source.is_file():
             raise FileNotFoundError(source)
         target = OUT / 'art' / path.lstrip('/')
@@ -70,7 +71,7 @@ def main():
         stamp = target.with_suffix(target.suffix + '.sha256')
         if not target.exists() or not stamp.exists() or stamp.read_text() != digest:
             shutil.copy2(source, target)
-            limit = 1920 if path == '/ui/start-landscape-v1.png' else (1280 if '/maps/' in path else 512)
+            limit = 1920 if path == '/ui/start-landscape.png' else (1280 if '/maps/' in path else 512)
             if shutil.which('sips'):
                 subprocess.run(['sips', '-Z', str(limit), str(target)], check=True, stdout=subprocess.DEVNULL)
             stamp.write_text(digest)
@@ -84,11 +85,19 @@ def main():
             else:
                 settings += '\nmipmaps/generate=true\n'
             import_file.write_text(settings)
+    # Remove obsolete generated catalogs after source catalog renames.
+    for name in old_manifest:
+        if name.startswith('data/') and name not in manifest:
+            target = OUT / Path(name).name
+            target.unlink(missing_ok=True)
+    # Normalize manifests written before the source directory was renamed.
+    old_manifest = {('images/' + name[len('public/'):]) if name.startswith('public/') else name: digest
+                    for name, digest in old_manifest.items()}
     # Only remove previously generated delivery copies whose canonical references vanished.
     for name in old_manifest:
-        if not name.startswith('public/') or name in manifest:
+        if not name.startswith('images/') or name in manifest:
             continue
-        target = OUT / 'art' / name.removeprefix('public/')
+        target = OUT / 'art' / name.removeprefix('images/')
         if not target.resolve().is_relative_to((OUT / 'art').resolve()):
             raise ValueError('Asset outside generated delivery directory: ' + name)
         for candidate in [target, Path(str(target) + '.import'), Path(str(target) + '.sha256')]:

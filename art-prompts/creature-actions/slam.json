@@ -1,0 +1,35 @@
+{
+  "asset": "images/creature-actions/slam.png",
+  "sha256": "7f2f9778b15b8bcf3e69487e0127a1e17b2bf30086e28f24224367524a62a5bc",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "date": "2026-09-27",
+      "prompt": "Use case: stylized-concept. Create ONE square 1024x1024 PNG game inventory/action illustration on a TRUE TRANSPARENT RGBA background. Completely empty alpha outside the subject and in all gaps and holes. No black or colored backdrop, no gradient rectangle, no checkerboard, no floor, no shadow plane, no UI tile, no frame, no text or numbers. This will overlay textured combat cells: the cell texture MUST show everywhere around the object.\nArt direction: dark gothic fantasy, sculptural volume, tactile finely painted aged materials, strong chiaroscuro but readable midtone surfaces and narrow upper-left edge highlights. Muted iron grey, old brown leather, ivory linen, ochre accents; no plastic, cartoon, neon, flat vector or glossy 3D. A strong simple silhouette readable at 40px. Whole object fully visible, centered with about 8% transparent margin. No unintended accessories. Do not create a sheet of variations.\nSubject: Massive rough stone and iron-like fist striking down, sculptural impact, no text. Action symbol only, no scene. Creature action moves or faces LEFT because the enemy stands on the right. No gore. Even very dark or ghostly parts have a legible edge and empty transparent surroundings. No ground, no rectangular fog patch.",
+      "transparentBackground": true,
+      "output": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-dd1d3e35-278e-4972-8976-277d2fe9b7e9.png"
+    }
+  ],
+  "initialGeneration": {
+    "method": "built-in image_gen",
+    "date": "2026-09-25",
+    "references": [
+      "refs/image1.png",
+      "refs/image2.png",
+      "refs/image3.png"
+    ],
+    "subject": {
+      "id": "slam",
+      "subject": "Massive rough stone and iron-like fist striking down, sculptural impact, no text"
+    },
+    "promptTemplate": "Use case: stylized-concept. Single square 1024x1024 illustrated action icon for dark gothic fantasy tactics game. Large central motif occupying 80 percent of image, readable at 64px. Charcoal nearly black background, sculptural organic realism, worn detailed textures, restrained ivory, graphite, muted ochre highlights from upper left. Reference images are STYLE ONLY, not subjects: heavy material detail, chiaroscuro, gothic modelling; do not copy frames or characters. No frame, text, symbols, UI, neon, cartoon, gore. Subject: ",
+    "outputs": [
+      {
+        "id": "slam",
+        "kind": "actions",
+        "prompt": "Use case: stylized-concept. Single square 1024x1024 illustrated action icon for dark gothic fantasy tactics game. Large central motif occupying 80 percent of image, readable at 64px. Charcoal nearly black background, sculptural organic realism, worn detailed textures, restrained ivory, graphite, muted ochre highlights from upper left. Reference images are STYLE ONLY, not subjects: heavy material detail, chiaroscuro, gothic modelling; do not copy frames or characters. No frame, text, symbols, UI, neon, cartoon, gore. Subject: Massive rough stone and iron-like fist striking down, sculptural impact, no text",
+        "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-51a9b78a-c3c6-44b4-b35b-f5da49944906.png"
+      }
+    ]
+  }
+}

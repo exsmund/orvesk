@@ -1,0 +1,18 @@
+{
+  "asset": "images/creatures/dialogue-portraits/wild-mage.png",
+  "sha256": "daa18245a0cb942ec48d9e387e8212ed2861878d4189be857b5fcae71c213842",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "prompt": "Edit the FIRST reference only: wild-mage. Create a square transparent PNG dialogue bust preserving this exact creature's identity, face, clothing, anatomy, colors and leftward gaze. References 2–4 are ONLY material/painting style references, do not copy their faces, frames or costume. Dark gothic dry-brush painting, sculptural chiaroscuro, matte materials, muted charcoal, ivory, earth colors, upper-left light. Remove ALL background, true alpha outside silhouette, no black rectangle, vignette, floor, text or border. Expand composition to fully include both shoulders with at least 6% transparent lateral margins; full head and horns/ears/foliage uncut. Humanoid head crown at 10%, eyes at 30%, chin around 50%, head width about 36% canvas; bust to bottom. Match scale across portraits. Preserve organic holes between branches as transparency. For huge-wolf keep actual wolf anatomy, show full ears, head, chest ruff, both forequarters, not human shoulders. For attractor-v1 keep the SAME whole dark rock with central hollow, no face or shoulders, centered with 10% clear margins. High-quality square 1024x1024 RGBA, isolated subject.",
+      "transparentBackground": true,
+      "references": [
+        {
+          "path": "images/creatures/portraits/wild-mage.png",
+          "role": "Original portrait / edit target"
+        }
+      ],
+      "output": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-adabee88-77d5-4d93-b8ba-7cc8f4c9aeec.png"
+    }
+  ]
+}

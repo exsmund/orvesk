@@ -5,6 +5,7 @@ signal create_requested
 signal heroes_requested
 signal settings_requested
 signal bestiary_requested
+signal skills_requested
 signal equipment_requested
 signal map_requested
 const Flags = preload("res://game/feature_flags.gd")
@@ -42,6 +43,7 @@ func configure(data, latest: Dictionary, failed: bool, has_hero: bool = false):
 	if Flags.enabled(Flags.DEBUG_TOOLS):
 		add_action("Бестиарий", func(): bestiary_requested.emit(), data)
 		add_action("Экипировка", func(): equipment_requested.emit(), data)
+		add_action("Навыки", func(): skills_requested.emit(), data)
 		var jump = add_action("Перейти карту…", func(): map_requested.emit(), data)
 		jump.disabled = not has_hero
 		if not has_hero: jump.tooltip_text = "Сначала начните или продолжите игру"

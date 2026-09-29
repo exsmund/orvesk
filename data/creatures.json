@@ -8,7 +8,7 @@
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "10"
     },
     "encounter": {
@@ -42,7 +42,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/mind-transparent-v2.png",
+        "art": "/creature-actions/mind.png",
         "order": 1,
         "category": "attack",
         "copies": 3,
@@ -70,7 +70,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/veil-transparent-v2.png",
+        "art": "/creature-actions/veil.png",
         "order": 2,
         "evades": true,
         "category": "defense",
@@ -91,6 +91,10 @@
       "agility": 1,
       "vitality": 3,
       "intelligence": 6
+    },
+    "dialoguePortrait": {
+      "src": "/creatures/dialogue-portraits/demon.png",
+      "facing": "left"
     }
   },
   {
@@ -102,7 +106,7 @@
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "10"
     },
     "encounter": {
@@ -132,7 +136,7 @@
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "10"
     },
     "encounter": {
@@ -159,7 +163,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/mind-transparent-v2.png",
+        "art": "/creature-actions/mind.png",
         "order": 1,
         "category": "attack",
         "copies": 3,
@@ -187,7 +191,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/veil-transparent-v2.png",
+        "art": "/creature-actions/veil.png",
         "order": 2,
         "evades": true,
         "category": "defense",
@@ -219,7 +223,7 @@
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "10"
     },
     "encounter": {
@@ -248,7 +252,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/poison-transparent-v2.png",
+        "art": "/creature-actions/poison.png",
         "order": 1,
         "category": "attack",
         "copies": 3,
@@ -284,7 +288,7 @@
             1
           ]
         ],
-        "art": "/creatures/actions/claw-transparent-v2.png",
+        "art": "/creature-actions/claw.png",
         "order": 2,
         "category": "attack",
         "copies": 3,
@@ -309,6 +313,10 @@
       "agility": 1,
       "vitality": 3,
       "intelligence": 6
+    },
+    "dialoguePortrait": {
+      "src": "/creatures/dialogue-portraits/swamp-hag.png",
+      "facing": "left"
     }
   },
   {
@@ -320,7 +328,7 @@
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "10"
     },
     "encounter": {
@@ -354,7 +362,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/magic-transparent-v2.png",
+        "art": "/creature-actions/magic.png",
         "order": 1,
         "category": "attack",
         "copies": 3,
@@ -382,7 +390,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/ward-transparent-v2.png",
+        "art": "/creature-actions/ward.png",
         "order": 2,
         "category": "defense",
         "copies": 1,
@@ -414,7 +422,7 @@
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "10"
     },
     "encounter": {
@@ -448,7 +456,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/magic-transparent-v2.png",
+        "art": "/creature-actions/magic.png",
         "order": 1,
         "category": "attack",
         "copies": 3,
@@ -476,7 +484,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/ward-transparent-v2.png",
+        "art": "/creature-actions/ward.png",
         "order": 2,
         "category": "defense",
         "copies": 1,
@@ -497,6 +505,10 @@
       "agility": 1,
       "vitality": 3,
       "intelligence": 6
+    },
+    "dialoguePortrait": {
+      "src": "/creatures/dialogue-portraits/wild-mage.png",
+      "facing": "left"
     }
   },
   {
@@ -508,7 +520,7 @@
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "10"
     },
     "encounter": {
@@ -542,7 +554,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/magic-transparent-v2.png",
+        "art": "/creature-actions/magic.png",
         "order": 1,
         "category": "attack",
         "copies": 3,
@@ -570,7 +582,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/evade-transparent-v2.png",
+        "art": "/creature-actions/evade.png",
         "order": 2,
         "evades": true,
         "category": "defense",
@@ -602,7 +614,7 @@
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "10"
     },
     "encounter": {
@@ -632,7 +644,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/magic-transparent-v2.png",
+        "art": "/creature-actions/magic.png",
         "order": 1,
         "category": "attack",
         "copies": 3,
@@ -660,7 +672,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/veil-transparent-v2.png",
+        "art": "/creature-actions/veil.png",
         "order": 2,
         "evades": true,
         "category": "defense",
@@ -681,6 +693,10 @@
       "agility": 1,
       "vitality": 3,
       "intelligence": 6
+    },
+    "dialoguePortrait": {
+      "src": "/creatures/dialogue-portraits/faerie.png",
+      "facing": "left"
     }
   },
   {
@@ -692,7 +708,7 @@
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "10"
     },
     "encounter": {
@@ -722,7 +738,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/magic-transparent-v2.png",
+        "art": "/creature-actions/magic.png",
         "order": 1,
         "category": "attack",
         "copies": 3,
@@ -750,7 +766,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/veil-transparent-v2.png",
+        "art": "/creature-actions/veil.png",
         "order": 2,
         "evades": true,
         "category": "defense",
@@ -782,7 +798,7 @@
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "10"
     },
     "encounter": {
@@ -816,7 +832,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/bite-transparent-v2.png",
+        "art": "/creature-actions/bite.png",
         "order": 1,
         "category": "attack",
         "copies": 3,
@@ -844,7 +860,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/evade-transparent-v2.png",
+        "art": "/creature-actions/evade.png",
         "order": 2,
         "evades": true,
         "category": "defense",
@@ -865,6 +881,10 @@
       "agility": 1,
       "vitality": 3,
       "intelligence": 1
+    },
+    "dialoguePortrait": {
+      "src": "/creatures/dialogue-portraits/vampire.png",
+      "facing": "left"
     }
   },
   {
@@ -876,7 +896,7 @@
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "10"
     },
     "encounter": {
@@ -903,7 +923,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/talon-transparent-v2.png",
+        "art": "/creature-actions/talon.png",
         "order": 1,
         "category": "attack",
         "copies": 3,
@@ -931,7 +951,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/evade-transparent-v2.png",
+        "art": "/creature-actions/evade.png",
         "order": 2,
         "evades": true,
         "category": "defense",
@@ -963,7 +983,7 @@
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "10"
     },
     "encounter": {
@@ -997,7 +1017,7 @@
             1
           ]
         ],
-        "art": "/creatures/actions/claw-transparent-v2.png",
+        "art": "/creature-actions/claw.png",
         "order": 1,
         "category": "attack",
         "copies": 3,
@@ -1025,7 +1045,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/evade-transparent-v2.png",
+        "art": "/creature-actions/evade.png",
         "order": 2,
         "evades": true,
         "category": "defense",
@@ -1057,7 +1077,7 @@
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "10"
     },
     "encounter": {
@@ -1090,7 +1110,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/horn-transparent-v2.png",
+        "art": "/creature-actions/horn.png",
         "order": 1,
         "category": "attack",
         "copies": 3,
@@ -1118,7 +1138,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/evade-transparent-v2.png",
+        "art": "/creature-actions/evade.png",
         "order": 2,
         "evades": true,
         "category": "defense",
@@ -1156,7 +1176,7 @@
                 0
               ]
             ],
-            "art": "/creatures/actions/horn-transparent-v2.png",
+            "art": "/creature-actions/horn.png",
             "order": 1,
             "category": "attack",
             "copies": 3,
@@ -1184,7 +1204,7 @@
                 0
               ]
             ],
-            "art": "/creatures/actions/evade-transparent-v2.png",
+            "art": "/creature-actions/evade.png",
             "order": 2,
             "evades": true,
             "category": "defense",
@@ -1201,6 +1221,10 @@
           }
         ]
       }
+    },
+    "dialoguePortrait": {
+      "src": "/creatures/dialogue-portraits/faun.png",
+      "facing": "left"
     }
   },
   {
@@ -1212,7 +1236,7 @@
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "10"
     },
     "encounter": {
@@ -1242,7 +1266,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/slam-transparent-v2.png",
+        "art": "/creature-actions/slam.png",
         "order": 1,
         "category": "attack",
         "copies": 3,
@@ -1270,7 +1294,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/ward-transparent-v2.png",
+        "art": "/creature-actions/ward.png",
         "order": 2,
         "category": "defense",
         "copies": 1,
@@ -1302,7 +1326,7 @@
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "10"
     },
     "encounter": {
@@ -1329,7 +1353,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/bite-transparent-v2.png",
+        "art": "/creature-actions/bite.png",
         "order": 1,
         "category": "attack",
         "copies": 3,
@@ -1357,7 +1381,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/evade-transparent-v2.png",
+        "art": "/creature-actions/evade.png",
         "order": 2,
         "evades": true,
         "category": "defense",
@@ -1395,7 +1419,7 @@
                 0
               ]
             ],
-            "art": "/creatures/actions/bite-transparent-v2.png",
+            "art": "/creature-actions/bite.png",
             "order": 1,
             "category": "attack",
             "copies": 3,
@@ -1423,7 +1447,7 @@
                 0
               ]
             ],
-            "art": "/creatures/actions/evade-transparent-v2.png",
+            "art": "/creature-actions/evade.png",
             "order": 2,
             "evades": true,
             "category": "defense",
@@ -1451,7 +1475,7 @@
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "10"
     },
     "encounter": {
@@ -1478,7 +1502,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/claw-transparent-v2.png",
+        "art": "/creature-actions/claw.png",
         "order": 2,
         "category": "attack",
         "copies": 3,
@@ -1514,7 +1538,7 @@
             1
           ]
         ],
-        "art": "/creatures/actions/claw-transparent-v2.png",
+        "art": "/creature-actions/claw.png",
         "order": 2,
         "category": "attack",
         "copies": 2,
@@ -1542,7 +1566,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/bite-transparent-v2.png",
+        "art": "/creature-actions/bite.png",
         "order": 1,
         "category": "attack",
         "copies": 2,
@@ -1574,7 +1598,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/evade-transparent-v2.png",
+        "art": "/creature-actions/evade.png",
         "order": 3,
         "evades": false,
         "category": "defense",
@@ -1613,7 +1637,7 @@
                 0
               ]
             ],
-            "art": "/creatures/actions/claw-transparent-v2.png",
+            "art": "/creature-actions/claw.png",
             "order": 2,
             "category": "attack",
             "copies": 3,
@@ -1641,7 +1665,7 @@
                 0
               ]
             ],
-            "art": "/creatures/actions/evade-transparent-v2.png",
+            "art": "/creature-actions/evade.png",
             "order": 3,
             "evades": false,
             "category": "defense",
@@ -1670,7 +1694,7 @@
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "10"
     },
     "encounter": {
@@ -1697,7 +1721,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/bite-transparent-v2.png",
+        "art": "/creature-actions/bite.png",
         "order": 1,
         "category": "attack",
         "copies": 3,
@@ -1733,7 +1757,7 @@
             1
           ]
         ],
-        "art": "/creatures/actions/claw-transparent-v2.png",
+        "art": "/creature-actions/claw.png",
         "order": 2,
         "category": "attack",
         "copies": 3,
@@ -1761,7 +1785,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/evade-transparent-v2.png",
+        "art": "/creature-actions/evade.png",
         "order": 3,
         "evades": true,
         "category": "defense",
@@ -1799,7 +1823,7 @@
                 0
               ]
             ],
-            "art": "/creatures/actions/bite-transparent-v2.png",
+            "art": "/creature-actions/bite.png",
             "order": 1,
             "category": "attack",
             "copies": 3,
@@ -1827,7 +1851,7 @@
                 0
               ]
             ],
-            "art": "/creatures/actions/evade-transparent-v2.png",
+            "art": "/creature-actions/evade.png",
             "order": 3,
             "evades": true,
             "category": "defense",
@@ -1844,6 +1868,10 @@
           }
         ]
       }
+    },
+    "dialoguePortrait": {
+      "src": "/creatures/dialogue-portraits/huge-wolf.png",
+      "facing": "left"
     }
   },
   {
@@ -1855,7 +1883,7 @@
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "10"
     },
     "encounter": {
@@ -1886,7 +1914,7 @@
             1
           ]
         ],
-        "art": "/creatures/actions/claw-transparent-v2.png",
+        "art": "/creature-actions/claw.png",
         "order": 1,
         "category": "attack",
         "copies": 3,
@@ -1918,7 +1946,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/bite-transparent-v2.png",
+        "art": "/creature-actions/bite.png",
         "order": 2,
         "category": "attack",
         "copies": 3,
@@ -1946,7 +1974,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/evade-transparent-v2.png",
+        "art": "/creature-actions/evade.png",
         "order": 3,
         "evades": true,
         "category": "defense",
@@ -1978,7 +2006,7 @@
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "10"
     },
     "encounter": {
@@ -2009,7 +2037,7 @@
             1
           ]
         ],
-        "art": "/creatures/actions/claw-transparent-v2.png",
+        "art": "/creature-actions/claw.png",
         "order": 1,
         "category": "attack",
         "copies": 3,
@@ -2037,7 +2065,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/evade-transparent-v2.png",
+        "art": "/creature-actions/evade.png",
         "order": 2,
         "evades": true,
         "category": "defense",
@@ -2075,7 +2103,7 @@
                 1
               ]
             ],
-            "art": "/creatures/actions/claw-transparent-v2.png",
+            "art": "/creature-actions/claw.png",
             "order": 1,
             "category": "attack",
             "copies": 3,
@@ -2103,7 +2131,7 @@
                 0
               ]
             ],
-            "art": "/creatures/actions/evade-transparent-v2.png",
+            "art": "/creature-actions/evade.png",
             "order": 2,
             "evades": true,
             "category": "defense",
@@ -2131,7 +2159,7 @@
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "10"
     },
     "encounter": {
@@ -2158,7 +2186,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/bite-transparent-v2.png",
+        "art": "/creature-actions/bite.png",
         "order": 1,
         "category": "attack",
         "copies": 3,
@@ -2194,7 +2222,7 @@
             1
           ]
         ],
-        "art": "/creatures/actions/claw-transparent-v2.png",
+        "art": "/creature-actions/claw.png",
         "order": 2,
         "category": "attack",
         "copies": 3,
@@ -2222,7 +2250,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/evade-transparent-v2.png",
+        "art": "/creature-actions/evade.png",
         "order": 3,
         "evades": true,
         "category": "defense",
@@ -2254,7 +2282,7 @@
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "10"
     },
     "encounter": {
@@ -2281,7 +2309,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/talon-transparent-v2.png",
+        "art": "/creature-actions/talon.png",
         "order": 1,
         "category": "attack",
         "copies": 3,
@@ -2309,7 +2337,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/evade-transparent-v2.png",
+        "art": "/creature-actions/evade.png",
         "order": 2,
         "evades": true,
         "category": "defense",
@@ -2347,7 +2375,7 @@
                 0
               ]
             ],
-            "art": "/creatures/actions/talon-transparent-v2.png",
+            "art": "/creature-actions/talon.png",
             "order": 1,
             "category": "attack",
             "copies": 3,
@@ -2375,7 +2403,7 @@
                 0
               ]
             ],
-            "art": "/creatures/actions/evade-transparent-v2.png",
+            "art": "/creature-actions/evade.png",
             "order": 2,
             "evades": true,
             "category": "defense",
@@ -2403,7 +2431,7 @@
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "10"
     },
     "encounter": {
@@ -2430,7 +2458,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/talon-transparent-v2.png",
+        "art": "/creature-actions/talon.png",
         "order": 1,
         "category": "attack",
         "copies": 3,
@@ -2462,7 +2490,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/slam-transparent-v2.png",
+        "art": "/creature-actions/slam.png",
         "order": 2,
         "category": "attack",
         "copies": 3,
@@ -2490,7 +2518,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/evade-transparent-v2.png",
+        "art": "/creature-actions/evade.png",
         "order": 3,
         "evades": true,
         "category": "defense",
@@ -2522,7 +2550,7 @@
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "10"
     },
     "encounter": {
@@ -2549,7 +2577,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/bite-transparent-v2.png",
+        "art": "/creature-actions/bite.png",
         "order": 1,
         "category": "attack",
         "copies": 3,
@@ -2581,7 +2609,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/constrict-transparent-v2.png",
+        "art": "/creature-actions/constrict.png",
         "order": 2,
         "category": "attack",
         "copies": 3,
@@ -2609,7 +2637,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/evade-transparent-v2.png",
+        "art": "/creature-actions/evade.png",
         "order": 3,
         "evades": true,
         "category": "defense",
@@ -2641,7 +2669,7 @@
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "10"
     },
     "encounter": {
@@ -2667,7 +2695,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/bite-transparent-v2.png",
+        "art": "/creature-actions/bite.png",
         "order": 1,
         "category": "attack",
         "copies": 3,
@@ -2699,7 +2727,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/constrict-transparent-v2.png",
+        "art": "/creature-actions/constrict.png",
         "order": 2,
         "category": "attack",
         "copies": 3,
@@ -2727,7 +2755,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/evade-transparent-v2.png",
+        "art": "/creature-actions/evade.png",
         "order": 3,
         "evades": true,
         "category": "defense",
@@ -2759,7 +2787,7 @@
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "10"
     },
     "encounter": {
@@ -2786,7 +2814,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/bite-transparent-v2.png",
+        "art": "/creature-actions/bite.png",
         "order": 1,
         "category": "attack",
         "copies": 3,
@@ -2814,7 +2842,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/evade-transparent-v2.png",
+        "art": "/creature-actions/evade.png",
         "order": 2,
         "evades": true,
         "category": "defense",
@@ -2846,7 +2874,7 @@
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "10"
     },
     "encounter": {
@@ -2873,7 +2901,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/talon-transparent-v2.png",
+        "art": "/creature-actions/talon.png",
         "order": 1,
         "category": "attack",
         "copies": 3,
@@ -2905,7 +2933,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/bite-transparent-v2.png",
+        "art": "/creature-actions/bite.png",
         "order": 2,
         "category": "attack",
         "copies": 3,
@@ -2933,7 +2961,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/evade-transparent-v2.png",
+        "art": "/creature-actions/evade.png",
         "order": 3,
         "evades": true,
         "category": "defense",
@@ -2965,7 +2993,7 @@
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "10"
     },
     "encounter": {
@@ -2992,7 +3020,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/bite-transparent-v2.png",
+        "art": "/creature-actions/bite.png",
         "order": 1,
         "category": "attack",
         "copies": 3,
@@ -3028,7 +3056,7 @@
             1
           ]
         ],
-        "art": "/creatures/actions/claw-transparent-v2.png",
+        "art": "/creature-actions/claw.png",
         "order": 2,
         "category": "attack",
         "copies": 3,
@@ -3056,7 +3084,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/evade-transparent-v2.png",
+        "art": "/creature-actions/evade.png",
         "order": 3,
         "evades": true,
         "category": "defense",
@@ -3088,7 +3116,7 @@
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "10"
     },
     "encounter": {
@@ -3115,7 +3143,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/tentacle-transparent-v2.png",
+        "art": "/creature-actions/tentacle.png",
         "order": 1,
         "category": "attack",
         "copies": 3,
@@ -3147,7 +3175,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/constrict-transparent-v2.png",
+        "art": "/creature-actions/constrict.png",
         "order": 2,
         "category": "attack",
         "copies": 3,
@@ -3175,7 +3203,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/evade-transparent-v2.png",
+        "art": "/creature-actions/evade.png",
         "order": 3,
         "evades": true,
         "category": "defense",
@@ -3207,7 +3235,7 @@
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "11"
     },
     "encounter": {
@@ -3234,7 +3262,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/bite-transparent-v2.png",
+        "art": "/creature-actions/bite.png",
         "order": 1,
         "category": "attack",
         "copies": 3,
@@ -3270,7 +3298,7 @@
             1
           ]
         ],
-        "art": "/creatures/actions/claw-transparent-v2.png",
+        "art": "/creature-actions/claw.png",
         "order": 2,
         "category": "attack",
         "copies": 3,
@@ -3298,7 +3326,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/evade-transparent-v2.png",
+        "art": "/creature-actions/evade.png",
         "order": 3,
         "evades": true,
         "category": "defense",
@@ -3330,7 +3358,7 @@
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "11"
     },
     "encounter": {
@@ -3357,7 +3385,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/poison-transparent-v2.png",
+        "art": "/creature-actions/poison.png",
         "order": 1,
         "category": "attack",
         "copies": 3,
@@ -3389,7 +3417,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/bite-transparent-v2.png",
+        "art": "/creature-actions/bite.png",
         "order": 2,
         "category": "attack",
         "copies": 3,
@@ -3417,7 +3445,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/evade-transparent-v2.png",
+        "art": "/creature-actions/evade.png",
         "order": 3,
         "evades": true,
         "category": "defense",
@@ -3449,7 +3477,7 @@
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "11"
     },
     "encounter": {
@@ -3480,7 +3508,7 @@
             1
           ]
         ],
-        "art": "/creatures/actions/spores-transparent-v2.png",
+        "art": "/creature-actions/spores.png",
         "order": 1,
         "category": "attack",
         "copies": 3,
@@ -3508,7 +3536,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/ward-transparent-v2.png",
+        "art": "/creature-actions/ward.png",
         "order": 2,
         "category": "defense",
         "copies": 1,
@@ -3540,7 +3568,7 @@
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "11"
     },
     "encounter": {
@@ -3567,7 +3595,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/ash-transparent-v2.png",
+        "art": "/creature-actions/ash.png",
         "order": 1,
         "category": "attack",
         "copies": 3,
@@ -3599,7 +3627,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/bite-transparent-v2.png",
+        "art": "/creature-actions/bite.png",
         "order": 2,
         "category": "attack",
         "copies": 3,
@@ -3627,7 +3655,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/evade-transparent-v2.png",
+        "art": "/creature-actions/evade.png",
         "order": 3,
         "evades": true,
         "category": "defense",
@@ -3659,7 +3687,7 @@
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "11"
     },
     "encounter": {
@@ -3690,7 +3718,7 @@
             1
           ]
         ],
-        "art": "/creatures/actions/root-transparent-v2.png",
+        "art": "/creature-actions/root.png",
         "order": 1,
         "category": "attack",
         "copies": 3,
@@ -3722,7 +3750,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/slam-transparent-v2.png",
+        "art": "/creature-actions/slam.png",
         "order": 2,
         "category": "attack",
         "copies": 3,
@@ -3750,7 +3778,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/evade-transparent-v2.png",
+        "art": "/creature-actions/evade.png",
         "order": 3,
         "evades": true,
         "category": "defense",
@@ -3782,7 +3810,7 @@
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "11"
     },
     "encounter": {
@@ -3809,7 +3837,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/mirror-transparent-v2.png",
+        "art": "/creature-actions/mirror.png",
         "order": 1,
         "category": "attack",
         "copies": 3,
@@ -3837,7 +3865,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/veil-transparent-v2.png",
+        "art": "/creature-actions/veil.png",
         "order": 2,
         "evades": true,
         "category": "defense",
@@ -3869,7 +3897,7 @@
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "11"
     },
     "encounter": {
@@ -3900,7 +3928,7 @@
             1
           ]
         ],
-        "art": "/creatures/actions/claw-transparent-v2.png",
+        "art": "/creature-actions/claw.png",
         "order": 1,
         "category": "attack",
         "copies": 3,
@@ -3932,7 +3960,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/slam-transparent-v2.png",
+        "art": "/creature-actions/slam.png",
         "order": 2,
         "category": "attack",
         "copies": 3,
@@ -3960,7 +3988,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/evade-transparent-v2.png",
+        "art": "/creature-actions/evade.png",
         "order": 3,
         "evades": true,
         "category": "defense",
@@ -3992,7 +4020,7 @@
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "11"
     },
     "encounter": {
@@ -4019,7 +4047,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/whisper-transparent-v2.png",
+        "art": "/creature-actions/whisper.png",
         "order": 1,
         "category": "attack",
         "copies": 3,
@@ -4047,7 +4075,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/veil-transparent-v2.png",
+        "art": "/creature-actions/veil.png",
         "order": 2,
         "evades": true,
         "category": "defense",
@@ -4079,7 +4107,7 @@
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "11"
     },
     "encounter": {
@@ -4106,7 +4134,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/slam-transparent-v2.png",
+        "art": "/creature-actions/slam.png",
         "order": 1,
         "category": "attack",
         "copies": 3,
@@ -4138,7 +4166,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/constrict-transparent-v2.png",
+        "art": "/creature-actions/constrict.png",
         "order": 2,
         "category": "attack",
         "copies": 3,
@@ -4166,7 +4194,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/evade-transparent-v2.png",
+        "art": "/creature-actions/evade.png",
         "order": 3,
         "evades": true,
         "category": "defense",
@@ -4198,7 +4226,7 @@
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "11"
     },
     "encounter": {
@@ -4225,7 +4253,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/magic-transparent-v2.png",
+        "art": "/creature-actions/magic.png",
         "order": 1,
         "category": "attack",
         "copies": 3,
@@ -4261,7 +4289,7 @@
             1
           ]
         ],
-        "art": "/creatures/actions/claw-transparent-v2.png",
+        "art": "/creature-actions/claw.png",
         "order": 2,
         "category": "attack",
         "copies": 3,
@@ -4289,7 +4317,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/evade-transparent-v2.png",
+        "art": "/creature-actions/evade.png",
         "order": 3,
         "evades": true,
         "category": "defense",
@@ -4317,11 +4345,11 @@
     "name": "Аттрактор",
     "description": "Чёрный камень, возникший там, где жрецы очистили фрагмент материального пространства от сознания Логоса. Поглощает помещённые в него осколки сознания и в обмен усиливает характеристики носителя. Накапливая осколки, становится осознаннее, разговаривает с героем и склоняет его ко злу. Происхождение голоса остаётся неизвестным.",
     "portrait": {
-      "src": "/creatures/portraits/attractor-v1.png",
+      "src": "/creatures/portraits/attractor.png",
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "9"
     },
     "encounter": {
@@ -4333,18 +4361,22 @@
     "equipment": {
       "slots": []
     },
-    "figures": []
+    "figures": [],
+    "dialoguePortrait": {
+      "src": "/creatures/dialogue-portraits/attractor.png",
+      "facing": "left"
+    }
   },
   {
     "id": "skeleton",
     "name": "Скелет",
     "description": "Оживлённые человеческие кости, скреплённые чужой волей. Жрецы считают, что в останки привязаны частицы сознания, а не возвращена личность умершего. Враждебный страж заброшенных мест; сражается одноручным оружием, иногда носит щит.",
     "portrait": {
-      "src": "/creatures/portraits/skeleton-v1.png",
+      "src": "/creatures/portraits/skeleton.png",
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "12"
     },
     "encounter": {
@@ -4385,7 +4417,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/evade-transparent-v2.png",
+        "art": "/creature-actions/evade.png",
         "order": 1,
         "evades": true,
         "category": "defense",
@@ -4413,11 +4445,11 @@
     "name": "Скелет-лучник",
     "description": "Оживлённый костяной страж, повторяющий движения давно забытого стрелка. Узкий череп под истлевшим капюшоном и настороженный наклон головы. Сражается только луком, щита не носит. Стрелы в игре бесконечны; их запас не учитывается.",
     "portrait": {
-      "src": "/creatures/portraits/skeleton-archer-v1.png",
+      "src": "/creatures/portraits/skeleton-archer.png",
       "facing": "left"
     },
     "source": {
-      "document": "docs/BESTIARY.md",
+      "document": "docs/CREATURES.md",
       "section": "12"
     },
     "encounter": {
@@ -4445,7 +4477,7 @@
             0
           ]
         ],
-        "art": "/creatures/actions/evade-transparent-v2.png",
+        "art": "/creature-actions/evade.png",
         "order": 1,
         "evades": true,
         "category": "defense",

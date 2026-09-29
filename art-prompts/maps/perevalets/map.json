@@ -1,0 +1,52 @@
+{
+  "asset": "images/maps/perevalets/map.png",
+  "sha256": "c9792253cb8c2773ed3d4b7331688c03ad6fa5a00857bb1e3a9d52323c668d4d",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "date": "2026-09-27",
+      "prompt": "Use case: stylized-concept. Game environment art for Heroes of Orvesk, dark gothic fantasy painted realism. Natural large masses and convincing volume, restrained textured brushwork, aged materials, muted earth/olive/charcoal/stone palette, upper-left daylight, readable middle-dark values, atmospheric depth without washed-out whitening. Never photorealistic drone photography, flat vector art, cute cartoon, plastic 3D, neon, modern objects, sci-fi, heroic saturated colors. No characters, creatures, text, labels, UI, markers, circles, graph nodes, frames, watermarks or vignette. Full-bleed opaque image; fill every edge with environment, no black fades. Asset type: travel map backdrop. Create ONE landscape image, requested exact 3000 x 2400 pixels, 5:4 aspect ratio. High bird's-eye near-top-down terrain view with only a slight tilt, NO horizon or sky; a readable continuous region viewed from above. Large irregular grouped terrain/architecture features with natural variation, no repetitive tiny tiling. No emphasized central active zone, blank arena or flat reserved panel. Do NOT draw an itinerary, connecting paths, winding adventure road, staged clearings, circular platforms or board-game layout. Crop-safe environment everywhere. Scene: Perevalets, an inhabited but bleak walled medieval trading town under strain from war. Dense irregular quarters of weathered limestone and dark timber houses with grey steep slate roofs and modest gothic arches, shuttered windows, enclosed courtyards with stone paving, small linen market awnings, an austere charitable infirmary and a modest inn among normal houses. City-wall towers and a gate are distributed along one side. Architecture is mostly intact, signs of neglect rather than a ruined city. Rooftops, walls and courtyards remain visible across the center, dark narrow gaps between quarters, no grand central square as a play arena.",
+      "transparentBackground": false,
+      "references": [
+        {
+          "path": "docs/ART_DIRECTION.md",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "docs/ART_DIRECTION.md",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/forest/map.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/forest/scene.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/steppe/map.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/steppe/scene.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/ruins/map.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/ruins/scene.png",
+          "role": "Reviewed visually"
+        }
+      ],
+      "output": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-ac5ef8a7-0a25-4225-9a8d-c4ff53923212.png",
+      "sha256": "c9792253cb8c2773ed3d4b7331688c03ad6fa5a00857bb1e3a9d52323c668d4d",
+      "notes": [
+        "Exact copies of generated originals. Map outputs were 1402x1122 rather than requested 3000x2400; actual dimensions recorded in the catalog. No stretching, cropping or repainting. Mobile delivery copies are produced by the existing sync_content.py pipeline.",
+        "Accepted: location matches chapter, no UI or itinerary, opaque, map and battle view share palette and materials."
+      ]
+    }
+  ]
+}

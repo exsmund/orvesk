@@ -146,10 +146,11 @@ func run():
 	var cell_point = screen.board.get_global_rect().position + Vector2.ONE * screen.board.size.x / 6
 	var draft_before = ui.draft.duplicate(true)
 	touch(cell_point, true)
+	screen.board._process(0.51)
 	touch(cell_point, false)
 	await frame()
 	var reports = ui.get_children().filter(func(c): return c is ModalDialog and c.visible)
-	check(reports.size() == 1 and reports[0].title.begins_with("Клетка 1"), "Tap opens cell report")
+	check(reports.size() == 1 and reports[0].title.begins_with("Клетка 1"), "Hold opens cell report")
 	if not reports.is_empty():
 		check(reports[0].report.text.contains("половина") and reports[0].report.text.contains("−3 здоровья"), "Cell report explains contact and actual losses")
 		check(reports[0].size.x <= ui.size.x and reports[0].size.y <= ui.size.y, "Report fits narrow viewport")

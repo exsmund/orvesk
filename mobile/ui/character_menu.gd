@@ -51,7 +51,12 @@ func show_menu():
 	action("Продолжить игру", owner_window.close)
 	action("Настройки", show_settings)
 	action("Правила", show_rules)
-	if Flags.enabled(Flags.DEBUG_TOOLS): action("Перейти карту…", host.show_debug_map_dialog)
+	if Flags.enabled(Flags.DEBUG_TOOLS):
+		if not host.session.game.is_empty() and host.session.game.phase == "combat":
+			action("Победить врага", func():
+				owner_window.close()
+				host.debug_win())
+		action("Перейти карту…", host.show_debug_map_dialog)
 	action("Главное меню", func():
 		if host.persist():
 			owner_window.close()

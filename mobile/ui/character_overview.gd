@@ -13,9 +13,11 @@ var divider = preload("res://ui/textured_divider.gd").new()
 
 func configure(owner_ui):
 	setup(owner_ui)
-	portrait = picture(host.data.portrait(host.session.game.player))
+	portrait = picture(host.data.framed_portrait(host.data.portrait(host.session.game.player)))
+	portrait.material = ShaderMaterial.new()
+	portrait.material.shader = preload("res://shaders/portrait_background.gdshader")
 	canvas.add_child(frame)
-	frame.configure(host.data, 22, "/ui/portrait-frame-v1.png")
+	frame.configure(host.data, 22, "/ui/portrait-frame.png")
 	frame.modulate = host.data.color("text-home")
 	canvas.add_child(divider)
 	divider.configure(host.data)
@@ -36,7 +38,7 @@ func refresh():
 	var summary = forecast.get("calculation", {}).get("player", {})
 	var available = forecast.get("cost", {}).get("remaining", player.stamina)
 	health.configure(host.data, "Здоровье", player.hp, host.data.max_hp(player), "health", host.animated, -summary.get("damage", 0))
-	stamina.configure(host.data, "Выносливость", available, host.data.balance.stamina.max, "stamina", host.animated, -summary.get("staminaLoss", 0))
+	stamina.configure(host.data, "Выносливость", available, host.data.max_stamina(player), "stamina", host.animated, -summary.get("staminaLoss", 0))
 	arrange()
 
 func layout_content():

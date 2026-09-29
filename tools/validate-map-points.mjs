@@ -23,8 +23,8 @@ export function validateMapPoints(root, suppliedStory, suppliedCatalog, supplied
   check(box && box.x >= 0 && box.y >= 0 && box.width > 0 && box.height > 0 && box.x + box.width <= 1 && box.y + box.height <= 1, 'Invalid map symbol box');
   check(existsSync(resolve(root, catalog.artDirection ?? 'missing')), 'Missing map point art direction');
   const checkImage = (src, size) => {
-    if (typeof src !== 'string' || !/^\/ui\/map-points\/v1\/(?:symbols\/)?[a-z-]+\.png$/.test(src)) { check(false, `Invalid map point image path ${src}`); return; }
-    const path = resolve(root, 'public' + src);
+    if (typeof src !== 'string' || !/^\/map-points\/(?:symbols\/)?[a-z-]+\.png$/.test(src)) { check(false, `Invalid map point image path ${src}`); return; }
+    const path = resolve(root, 'images' + src);
     if (!existsSync(path)) { check(false, `Missing map point image ${src}`); return; }
     const b = readFileSync(path);
     if (b.length < 33 || b.subarray(0, 8).toString('hex') !== '89504e470d0a1a0a') { check(false, `Invalid map point PNG ${src}`); return; }

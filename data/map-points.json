@@ -11,10 +11,10 @@
     "rules": "data/story-gameplay.json",
     "note": "Godot использует весь каталог. Браузер пока сохраняет прежние четыре значка."
   },
-  "artDirection": "docs/MAP_POINT_ART_DIRECTION.md",
+  "artDirection": "docs/ART_DIRECTION.md",
   "presentation": {
     "shape": "circle",
-    "frame": "/ui/map-points/v1/frame.png",
+    "frame": "/map-points/frame.png",
     "symbolBox": {
       "x": 0.19,
       "y": 0.19,
@@ -47,8 +47,8 @@
       "storyLabels": [],
       "actionLabel": "Начать бой",
       "icon": {
-        "src": "/ui/map-points/v1/combat.png",
-        "symbol": "/ui/map-points/v1/symbols/combat.png",
+        "src": "/map-points/combat.png",
+        "symbol": "/map-points/symbols/combat.png",
         "alt": "Бой"
       },
       "engineBinding": {
@@ -68,8 +68,8 @@
       "storyLabels": [],
       "actionLabel": "Сразиться с боссом",
       "icon": {
-        "src": "/ui/map-points/v1/boss.png",
-        "symbol": "/ui/map-points/v1/symbols/boss.png",
+        "src": "/map-points/boss.png",
+        "symbol": "/map-points/symbols/boss.png",
         "alt": "Босс"
       },
       "engineBinding": {
@@ -91,8 +91,8 @@
       ],
       "actionLabel": "Отдохнуть",
       "icon": {
-        "src": "/ui/map-points/v1/campfire.png",
-        "symbol": "/ui/map-points/v1/symbols/campfire.png",
+        "src": "/map-points/campfire.png",
+        "symbol": "/map-points/symbols/campfire.png",
         "alt": "Костёр"
       },
       "engineBinding": {
@@ -114,8 +114,8 @@
       ],
       "actionLabel": "Открыть кузницу",
       "icon": {
-        "src": "/ui/map-points/v1/forge.png",
-        "symbol": "/ui/map-points/v1/symbols/forge.png",
+        "src": "/map-points/forge.png",
+        "symbol": "/map-points/symbols/forge.png",
         "alt": "Кузница"
       },
       "engineBinding": {
@@ -137,8 +137,8 @@
       ],
       "actionLabel": "Войти в лечебницу",
       "icon": {
-        "src": "/ui/map-points/v1/healer.png",
-        "symbol": "/ui/map-points/v1/symbols/healer.png",
+        "src": "/map-points/healer.png",
+        "symbol": "/map-points/symbols/healer.png",
         "alt": "Лечебница"
       },
       "engineBinding": {
@@ -160,8 +160,8 @@
       ],
       "actionLabel": "Посетить рынок",
       "icon": {
-        "src": "/ui/map-points/v1/market.png",
-        "symbol": "/ui/map-points/v1/symbols/market.png",
+        "src": "/map-points/market.png",
+        "symbol": "/map-points/symbols/market.png",
         "alt": "Рынок"
       },
       "engineBinding": {
@@ -183,8 +183,8 @@
       ],
       "actionLabel": "Выслушать горожан",
       "icon": {
-        "src": "/ui/map-points/v1/square.png",
-        "symbol": "/ui/map-points/v1/symbols/square.png",
+        "src": "/map-points/square.png",
+        "symbol": "/map-points/symbols/square.png",
         "alt": "Площадь"
       },
       "engineBinding": {
@@ -206,8 +206,8 @@
       ],
       "actionLabel": "Зайти в таверну",
       "icon": {
-        "src": "/ui/map-points/v1/tavern.png",
-        "symbol": "/ui/map-points/v1/symbols/tavern.png",
+        "src": "/map-points/tavern.png",
+        "symbol": "/map-points/symbols/tavern.png",
         "alt": "Таверна"
       },
       "engineBinding": {
@@ -229,8 +229,8 @@
       ],
       "actionLabel": "Поговорить с проводником",
       "icon": {
-        "src": "/ui/map-points/v1/forest-meeting.png",
-        "symbol": "/ui/map-points/v1/symbols/forest-meeting.png",
+        "src": "/map-points/forest-meeting.png",
+        "symbol": "/map-points/symbols/forest-meeting.png",
         "alt": "Лесная встреча"
       },
       "engineBinding": {
@@ -254,8 +254,8 @@
       ],
       "actionLabel": "Поговорить с феей",
       "icon": {
-        "src": "/ui/map-points/v1/fairy-meeting.png",
-        "symbol": "/ui/map-points/v1/symbols/fairy-meeting.png",
+        "src": "/map-points/fairy-meeting.png",
+        "symbol": "/map-points/symbols/fairy-meeting.png",
         "alt": "Встреча с феей"
       },
       "engineBinding": {
@@ -277,8 +277,8 @@
       ],
       "actionLabel": "Продолжить беседу",
       "icon": {
-        "src": "/ui/map-points/v1/hermit-meeting.png",
-        "symbol": "/ui/map-points/v1/symbols/hermit-meeting.png",
+        "src": "/map-points/hermit-meeting.png",
+        "symbol": "/map-points/symbols/hermit-meeting.png",
         "alt": "Беседа с отшельником"
       },
       "engineBinding": {
@@ -300,8 +300,8 @@
       ],
       "actionLabel": "Помочь",
       "icon": {
-        "src": "/ui/map-points/v1/aid.png",
-        "symbol": "/ui/map-points/v1/symbols/aid.png",
+        "src": "/map-points/aid.png",
+        "symbol": "/map-points/symbols/aid.png",
         "alt": "Помощь"
       },
       "engineBinding": {

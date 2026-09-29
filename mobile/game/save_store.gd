@@ -1,7 +1,7 @@
 extends RefCounted
 ## Independent mobile format. Never reads or changes browser/Express saves.
 const VERSION = 1
-const GAME_VERSION = 6
+const GAME_VERSION = 7
 const DIRECTORY = "user://heroes"
 var error = ""
 var folder = DIRECTORY

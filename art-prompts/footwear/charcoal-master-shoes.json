@@ -1,0 +1,36 @@
+{
+  "asset": "images/footwear/charcoal-master-shoes.png",
+  "sha256": "39a028c36671bc8cea84f4e747533d7a70bc7d18064bc29c6614313e7fd0bd7b",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "date": "2026-09-28",
+      "prompt": "Use case: stylized-concept. Create one ORIGINAL equipment icon for the dark gothic fantasy game Heroes of Orvesk. Square 1024x1024 PNG RGBA with TRUE transparent background, alpha zero outside the object and in gaps. Sculptural painterly realism with subtle engraved texture, aged iron, creased leather, thick matte fabric, muted charcoal, old bronze, bone and earthy brown palette. Directional light from upper front-left, deep dimensional shadows and narrow broken highlights. One complete item centered, large legible silhouette at 40-56px, about 8% empty margin, nothing cropped. Hollow gender-neutral human clothing: no wearer, mannequin, body, face, hands or feet. Clothes upright, slight three-quarter angle; shoes as ONE matching pair side by side, one slightly behind. No floor, cast shadow on a surface, background color, checkerboard, scene, stand, frame, labels, letters, digits, UI, watermark, helmet, gloves, weapon, pouches or extra equipment. No anime, glossy 3D plastic, neon, large aura or excessive ornament. New asset, not an edit of another item. Subject: Башмаки угольного мастера (charcoal-master-shoes). ONE matching pair of low sturdy charcoal master's leather shoes with dull mineral toe overlays, thick layered soles, sooty brown leather and chalky ceramic surfaces, tiny incised protective marks, no flames. Depict only this item, no other items from the series.",
+      "transparentBackground": true,
+      "references": [
+        {
+          "path": "refs/items/robe.png",
+          "role": "Reviewed visually; not supplied to the generator"
+        },
+        {
+          "path": "refs/items/dagger.png",
+          "role": "Reviewed visually; not supplied to the generator"
+        },
+        {
+          "path": "refs/items/buckler.png",
+          "role": "Reviewed visually; not supplied to the generator"
+        },
+        {
+          "path": "images/footwear/greaves.png",
+          "role": "Reviewed visually; not supplied to the generator"
+        }
+      ],
+      "output": "/Users/exsmund/.codex/generated_images/01a0dfd8-247d-7662-9197-dc693b1f8781/exec-bb380184-23b2-4179-8a34-549da04923cf.png",
+      "notes": [
+        "Model: not exposed by built-in tool",
+        "isolated garment or footwear pair; no wearer, text, frame or floor"
+      ],
+      "sha256": "39a028c36671bc8cea84f4e747533d7a70bc7d18064bc29c6614313e7fd0bd7b"
+    }
+  ]
+}

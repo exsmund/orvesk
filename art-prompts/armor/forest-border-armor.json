@@ -1,0 +1,51 @@
+{
+  "asset": "images/armor/forest-border-armor.png",
+  "sha256": "44791f3e86f2220fe4a8c4d9c2caa2ef095f2839c12c624b1acbaafb86185bf9",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "date": "2026-09-28",
+      "prompt": "Use case: stylized-concept. Create one ORIGINAL equipment icon for the dark gothic fantasy game Heroes of Orvesk. Square 1024x1024 PNG RGBA with TRUE transparent background, alpha zero outside the object and in gaps. Sculptural painterly realism with subtle engraved texture, aged iron, creased leather, thick matte fabric, muted charcoal, old bronze, bone and earthy brown palette. Directional light from upper front-left, deep dimensional shadows and narrow broken highlights. One complete item centered, large legible silhouette at 40-56px, about 8% empty margin, nothing cropped. Hollow gender-neutral human clothing: no wearer, mannequin, body, face, hands or feet. Clothes upright, slight three-quarter angle; shoes as ONE matching pair side by side, one slightly behind. No floor, cast shadow on a surface, background color, checkerboard, scene, stand, frame, labels, letters, digits, UI, watermark, helmet, gloves, weapon, pouches or extra equipment. No anime, glossy 3D plastic, neon, large aura or excessive ornament. New asset, not an edit of another item. Subject: Доспех лесной границы (forest-border-armor). A fitted but gender-neutral forest sentry cuirass of overlapping weathered brown leather strips and thin dark iron plates under lining, muted moss tint in seams, flexible layered shoulders, no leaf crown or weapons. Depict only this item, no other items from the series.",
+      "transparentBackground": true,
+      "references": [
+        {
+          "path": "refs/items/robe.png",
+          "role": "Reviewed visually; not supplied to the generator"
+        },
+        {
+          "path": "refs/items/dagger.png",
+          "role": "Reviewed visually; not supplied to the generator"
+        },
+        {
+          "path": "refs/items/buckler.png",
+          "role": "Reviewed visually; not supplied to the generator"
+        },
+        {
+          "path": "images/footwear/greaves.png",
+          "role": "Reviewed visually; not supplied to the generator"
+        }
+      ],
+      "output": "/Users/exsmund/.codex/generated_images/01a0dfd8-247d-7662-9197-dc693b1f8781/exec-9587ce75-2d4f-4197-8b1e-fd607e2c1fae.png",
+      "notes": [
+        "Model: not exposed by built-in tool"
+      ]
+    },
+    {
+      "tool": "image_gen",
+      "date": "2026-09-28",
+      "prompt": "Edit this game equipment asset. Remove the entire pair of boots, feet, trousers and all leg armor below the garment. Keep ONLY the upper body garment, sleeves and its hanging cloth hem or attached skirt panels. It must be one hollow garment on a transparent background with absolutely no human wearer, no legs, no shoes, no detached equipment. Reframe the isolated clothing item larger in the square with approximately 8% clear margin on all sides. Preserve the garment's existing materials, design, dark medieval painterly style and upper-left lighting. Preserve true RGBA transparency including all gaps. No floor, cast shadow, text, border or extra props. Garment design: A fitted but gender-neutral forest sentry cuirass of overlapping weathered brown leather strips and thin dark iron plates under lining, muted moss tint in seams, flexible layered shoulders, no leaf crown or weapons.",
+      "transparentBackground": true,
+      "references": [
+        {
+          "path": "/Users/exsmund/.codex/generated_images/01a0dfd8-247d-7662-9197-dc693b1f8781/exec-9587ce75-2d4f-4197-8b1e-fd607e2c1fae.png",
+          "role": "Edit target; original file before replacement"
+        }
+      ],
+      "output": "/Users/exsmund/.codex/generated_images/01a0dfd8-247d-7662-9197-dc693b1f8781/exec-11b19a68-94c8-407a-86b9-34ceb1db0397.png",
+      "sha256": "44791f3e86f2220fe4a8c4d9c2caa2ef095f2839c12c624b1acbaafb86185bf9",
+      "notes": [
+        "isolated garment or footwear pair; no wearer, text, frame or floor"
+      ]
+    }
+  ]
+}

@@ -29,7 +29,8 @@ func configure(data, entries: Array):
 func arrange():
 	if buttons.is_empty(): return
 	var gap = 12.0
-	# Keep the artwork large, square and at the same scale for one or two offers.
+	# Shared by reward offers and the choice of an occupied skill slot.
+	# All tiles stay square and use the same scale within the row.
 	var slot = maxf(0, minf(minf(240, size.x * 0.44), minf(size.y, (size.x - gap * (buttons.size() - 1)) / buttons.size())))
 	var left = (size.x - slot * buttons.size() - gap * (buttons.size() - 1)) / 2
 	for i in buttons.size():

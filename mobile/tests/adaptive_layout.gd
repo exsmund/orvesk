@@ -103,11 +103,11 @@ func run():
 	# Input still targets the same logical cells after a complete fold cycle.
 	ui.remove_card(card.id)
 	check(ui.draft.is_empty(), "Can remove a figure after folding back")
-	ui.session.game.journey.battleMode = "expendable"
-	ui.confirm_finish()
+	ui.session.game.journey.battleMode = "free"
+	ui.show_battle_menu()
 	var modal = ui.get_child(ui.get_child_count() - 1)
 	await resize_to(Vector2i(896, 800), "modal-unfolded", 2)
-	check(is_instance_valid(modal) and modal.visible, "Confirmation remains open after unfolding")
+	check(is_instance_valid(modal) and modal.visible, "Battle menu remains open after unfolding")
 	modal.canceled.emit()
 	await process_frame
 	ui.show_character()

@@ -1,4 +1,5 @@
 extends Control
+signal closed
 const ModalDialog = preload("res://ui/modal_dialog.gd")
 ## Overlay: map selection, dealt cards, board placements and RNG stay in their owners.
 const GothicTheme = preload("res://ui/gothic_theme.gd")
@@ -49,7 +50,7 @@ func configure(owner_ui):
 	background.configure(host.data, 26, 0.68)
 	background.frame.hide()
 	background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	landscape.texture = host.data.image("/ui/start-landscape-v1.png")
+	landscape.texture = host.data.image("/ui/start-landscape.png")
 	landscape.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	landscape.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	landscape.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -162,6 +163,7 @@ func close():
 	hide()
 	if is_instance_valid(previous_focus) and previous_focus.is_inside_tree(): previous_focus.grab_focus()
 	queue_free()
+	closed.emit()
 
 func focus_targets(node, result: Array):
 	if node is Control and node.is_visible_in_tree() and node.focus_mode == Control.FOCUS_ALL and not (node is BaseButton and node.disabled): result.append(node)

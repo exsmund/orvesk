@@ -7,9 +7,9 @@ import { fileURLToPath } from 'node:url';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const fallback = process.env.MAP_POINT_REFERENCE_ROOT && resolve(process.env.MAP_POINT_REFERENCE_ROOT);
 const port = Number(process.env.PORT || 4197);
-const mapFiles = new Set(JSON.parse(readFileSync(resolve(root, 'data/journey-maps.json'), 'utf8')).flatMap(m => [m.background, m.battleBackground]));
-const allowed = p => ['/ui/map-point-preview.html', '/data/map-points.json', '/data/journey-maps.json'].includes(p)
-  || /^\/ui\/map-points\/v1\/(?:symbols\/|previews\/)?[a-z-]+\.png$/.test(p)
+const mapFiles = new Set(JSON.parse(readFileSync(resolve(root, 'data/maps.json'), 'utf8')).flatMap(m => [m.background, m.battleBackground]));
+const allowed = p => ['/ui/map-point-preview.html', '/data/map-points.json', '/data/maps.json'].includes(p)
+  || /^\/map-points\/(?:symbols\/|previews\/)?[a-z-]+\.png$/.test(p)
   || mapFiles.has(p);
 const server = createServer((req, res) => {
   let path;
@@ -17,7 +17,7 @@ const server = createServer((req, res) => {
   catch { res.writeHead(400).end(); return; }
   if (path === '/') path = '/ui/map-point-preview.html';
   if (!['GET', 'HEAD'].includes(req.method) || !allowed(path)) { res.writeHead(404).end(); return; }
-  const rel = path.startsWith('/data/') ? path.slice(1) : 'public' + path;
+  const rel = path.startsWith('/data/') ? path.slice(1) : 'images' + path;
   let file = resolve(root, rel);
   if (!existsSync(file) && fallback) file = resolve(fallback, rel);
   if (!existsSync(file)) { res.writeHead(404).end(); return; }

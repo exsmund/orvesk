@@ -1,0 +1,54 @@
+{
+  "asset": "images/skills/step-back.png",
+  "sha256": "fec2341521765ee49dafad976802f4c0e51102bdd90ffe0aa654bead71002706",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "date": "2026-09-28",
+      "prompt": "Create exactly ONE original skill icon for dark Gothic fantasy game Heroes of Orvesk. Square 1024x1024 PNG RGBA, genuine transparent background including all openings, no painted backdrop, no floor or cast shadow, no frame, lettering, numbers, UI, watermark, or extra objects. Central compact object/gesture entirely inside canvas with 8 percent clear margin, readable at 48 pixels. Sculptural volume, rough hand-painted dry brush fantasy illustration, selective etched texture, aged materials, deep chiaroscuro, dominant charcoal and old iron with muted ivory and brown leather. Directional light from upper front LEFT. No photography, smooth 3D render, neon or cartoon. Material guidance: heavy dark metal with thin broken highlights; layered old linen with deep folds; matte worn leather. One pair of worn medieval leather boots taking a deliberate backward step: large near boot planted flat in profile, rear boot lifted onto heel and moving back, both entirely visible, no ground. Compact poised withdrawing stance distinct from a leaping pair. Only boots and small cuffs, no whole person.",
+      "transparentBackground": true,
+      "references": [
+        {
+          "path": "refs/image1.png",
+          "role": "Reviewed visually; not supplied: aged metal, material weight"
+        },
+        {
+          "path": "refs/image2.png",
+          "role": "Reviewed visually; not supplied: cold Gothic steel"
+        },
+        {
+          "path": "refs/image3.png",
+          "role": "Reviewed visually; not supplied: old linen and ivory"
+        },
+        {
+          "path": "images/skills/parry.png",
+          "role": "Reviewed visually; not supplied: existing skill readability comparison"
+        }
+      ],
+      "output": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-cb62b6c3-0a31-4191-bd0e-05aea9e94c76.png",
+      "sha256": "1153ccd0b3351a26144e803e502e80c9ff0d4876382f71a0125328b9f9c0fa30",
+      "notes": [
+        "Faint nonzero alpha in a corner; replaced with inset composition"
+      ]
+    },
+    {
+      "tool": "image_gen",
+      "date": "2026-09-28",
+      "prompt": "Edit this exact skill icon, preserve its object identity, aged leather materials, upper-left lighting, muted Gothic painted style and pose. Recompose the ENTIRE matched pair of boots together 15 percent smaller and centered, with a clean completely empty transparent margin on every side. No part or faint noise may touch any border. All four corners and the outer 8 percent border must have exactly zero alpha. Preserve true PNG RGBA transparency in openings. No floor, shadow, background, frame or text. Do not add other objects.",
+      "transparentBackground": true,
+      "references": [
+        {
+          "path": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-cb62b6c3-0a31-4191-bd0e-05aea9e94c76.png",
+          "role": "edit target; preserve identity and materials",
+          "sha256": "1153ccd0b3351a26144e803e502e80c9ff0d4876382f71a0125328b9f9c0fa30"
+        }
+      ],
+      "output": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-b9c6d870-ac5b-44ea-b80d-7cac1dccd260.png",
+      "sha256": "fec2341521765ee49dafad976802f4c0e51102bdd90ffe0aa654bead71002706",
+      "notes": [
+        "Model: tool default; version/seed not exposed",
+        "Inspected full image, light/dark UI surfaces at small sizes, and real mobile skill catalog/cards; upper-left light, materials and distinct silhouettes retained."
+      ]
+    }
+  ]
+}

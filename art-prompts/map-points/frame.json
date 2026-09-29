@@ -1,0 +1,48 @@
+{
+  "asset": "images/map-points/frame.png",
+  "sha256": "6c416d408aa420ecfe9b20f3b0bc17b19a97f84c7f88436d222e8f42c2d98f36",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "date": "2026-09-27",
+      "prompt": "Use case: stylized-concept. Asset type: shared backing and frame for game map point icons. A single empty perfectly circular dark fantasy game map medallion base, straight-on view. Circular outer edge fits inside 90 percent of a square canvas, perfectly centered. Continuous thick aged pale silver pewter rim with a very subtle warm bronze inner lip, only four small embedded rivets at cardinal directions, all INSIDE the circle: no spikes, no crest. Bright continuous outer bevel visibly separates the dark nearly black outline from a map. Inside disk is solid opaque near-black charcoal #111513 with faint matte hammered iron texture, extremely calm and evenly dark, no emblem. Evenly round geometry. Top-front-left key light. Transparent outside the circle. No symbol, text, hole, cutout inside, letters, numerals, jewels or ornate decorations. Designed to remain readable as 48px UI. Render at 1024x1024.",
+      "transparentBackground": true,
+      "references": [
+        {
+          "path": "docs/ART_DIRECTION.md",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "docs/ART_DIRECTION.md",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "refs/image1.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "refs/image2.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "refs/image3.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/forest/map.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/steppe/map.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/ruins/map.png",
+          "role": "Reviewed visually"
+        }
+      ],
+      "output": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-4ebd7a3c-6fe8-4500-bd2c-6fa9c349f925.png",
+      "sha256": "6c416d408aa420ecfe9b20f3b0bc17b19a97f84c7f88436d222e8f42c2d98f36"
+    }
+  ]
+}

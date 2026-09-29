@@ -1,0 +1,26 @@
+{
+  "asset": "images/creatures/portraits/attractor.png",
+  "sha256": "5d854898ef479b32aa992e23037439666f21c3d196aaca2607a865c0da4b70e5",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "date": "2026-09-27",
+      "prompt": "Use case: stylized-concept. Create a finished 1024x1536 vertical dialogue portrait for a gothic dark fantasy RPG: The Attractor. Subject is ONLY a mysterious black stone, NOT a humanoid, demon, face, skull, creature body or cosmic black hole. Lore: priests emptied a fragment of material space of Logos consciousness, creating a black stone which absorbs fragments of consciousness; it gradually develops a voice of unknown origin. Visual interpretation: a single irregular substantial charcoal-black stone with sculptural weathered angular planes, deep near-black center, restrained narrow old-silver edge highlights, subtle material grain, no decorative runes or jewelry. Center the whole stone prominently with comfortable margins, its asymmetric leading planes oriented LEFT, since this portrait appears on the right of a dialogue opposite the hero. Light from upper front LEFT, weighty volume, deep chiaroscuro, muted graphite and bone-gray palette. Nearly black opaque charcoal background with a very subtle cool tonal separation behind the stone; no landscape, no ground, no stars, no vortex, no glowing face, no floating shard swarm. Old gothic fantasy illustration, realistic dimensional material rendering, controlled detail, legible at 120px tall. NO text, border, frame, UI, weapons or hands. Style reference guidance: refs/image2.png cold graphite gothic sculpture and concentrated details; refs/image1.png heavy volume and dramatic edge lighting; refs/image3.png deep layered shadows and restrained highlights. These describe STYLE ONLY, do not reproduce their human characters or frames. Portrait background remains opaque; this is not a transparent inventory icon.",
+      "references": [
+        {
+          "path": "refs/image1.png",
+          "role": "Style reference"
+        },
+        {
+          "path": "refs/image2.png",
+          "role": "Style reference"
+        },
+        {
+          "path": "refs/image3.png",
+          "role": "Style reference"
+        }
+      ],
+      "output": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-ada38512-76c7-4896-bc1a-5653691e5026.png"
+    }
+  ]
+}

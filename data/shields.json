@@ -1,0 +1,237 @@
+[
+  {
+    "id": "buckler",
+    "name": "Потёртый баклер",
+    "kind": "shield",
+    "slot": "shield",
+    "hands": 1,
+    "tier": 0,
+    "requirements": {
+      "strength": 1
+    },
+    "description": "Маленький щит. Позволяет бить щитом: сила + 1.",
+    "figures": [
+      {
+        "id": "guard",
+        "order": 6,
+        "name": "Блок щитом",
+        "shape": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "ignoreBlocked": false,
+        "category": "defense",
+        "copies": 3,
+        "staminaCost": 0,
+        "blockCost": 1,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 0,
+          "stats": [],
+          "types": {}
+        },
+        "description": "Блокирует урон здоровью и выносливости. За каждую перекрытую клетку атаки расходует 1 выносливости.",
+        "blocks": true
+      },
+      {
+        "id": "shield",
+        "order": 9,
+        "name": "Толчок щитом",
+        "shape": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 1,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": [
+            "strength"
+          ],
+          "types": {
+            "blunt": 1
+          }
+        },
+        "description": "Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      }
+    ]
+  },
+  {
+    "id": "kite-shield",
+    "name": "Щит сумеречного стража",
+    "kind": "shield",
+    "slot": "shield",
+    "hands": 1,
+    "tier": 2,
+    "requirements": {
+      "strength": 1
+    },
+    "description": "За каждую полностью перекрытую блоками этого щита фигуру атаки восстанавливает 1 выносливости. Без ограничения срабатываний за раунд, до максимальной выносливости.",
+    "figures": [
+      {
+        "id": "guard",
+        "order": 6,
+        "name": "Блок щитом",
+        "shape": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "ignoreBlocked": false,
+        "category": "defense",
+        "copies": 3,
+        "staminaCost": 0,
+        "blockCost": 1,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 0,
+          "stats": [],
+          "types": {}
+        },
+        "description": "Блокирует урон здоровью и выносливости. За каждую перекрытую клетку атаки расходует 1 выносливости.",
+        "blocks": true
+      },
+      {
+        "id": "shield",
+        "order": 9,
+        "name": "Толчок щитом",
+        "shape": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 1,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": [
+            "strength"
+          ],
+          "types": {
+            "blunt": 1
+          }
+        },
+        "description": "Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      }
+    ]
+  },
+  {
+    "id": "mirror-shield",
+    "name": "Зеркало забвения",
+    "kind": "shield",
+    "slot": "shield",
+    "hands": 1,
+    "tier": 3,
+    "requirements": {
+      "strength": 1
+    },
+    "description": "Отражает отголоски чужого колдовства.",
+    "figures": [
+      {
+        "id": "guard",
+        "order": 6,
+        "name": "Блок щитом",
+        "shape": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "ignoreBlocked": false,
+        "category": "defense",
+        "copies": 3,
+        "staminaCost": 0,
+        "blockCost": 1,
+        "staminaDamagePerCell": 0,
+        "healthDamage": {
+          "base": 0,
+          "stats": [],
+          "types": {}
+        },
+        "description": "Блокирует урон здоровью и выносливости. За каждую перекрытую клетку атаки расходует 1 выносливости.",
+        "blocks": true
+      },
+      {
+        "id": "shield",
+        "order": 9,
+        "name": "Толчок щитом",
+        "shape": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "ignoreBlocked": false,
+        "category": "attack",
+        "copies": 1,
+        "staminaCost": 2,
+        "blockCost": 0,
+        "staminaDamagePerCell": 1,
+        "healthDamage": {
+          "base": 3,
+          "stats": [
+            "strength"
+          ],
+          "types": {
+            "blunt": 1
+          }
+        },
+        "description": "Урон указан за клетку. При столкновении атак обе наносят половину урона."
+      }
+    ]
+  }
+]

@@ -10,18 +10,18 @@ export function validateStory(root, suppliedStory) {
   const read = (name) => JSON.parse(readFileSync(resolve(root, name), 'utf8'));
   const story = suppliedStory ?? read('data/story.json');
   errors.push(...validateMapPoints(root, story).errors);
-  const characters = new Map(read('data/story-characters.json').map(x => [x.id, x]));
+  const characters = new Map(read('data/characters.json').map(x => [x.id, x]));
   const creatures = new Map(read('data/creatures.json').map(x => [x.id, x]));
-  const mapPresets = read('data/journey-maps.json');
+  const mapPresets = read('data/maps.json');
   const maps = new Set(mapPresets.map(x => x.id));
   const preview = read('data/story-preview.json');
   check(maps.size === mapPresets.length, 'Duplicate journey map ID');
-  check(preview.mapsCatalog === 'data/journey-maps.json', 'Missing preview map catalog');
+  check(preview.mapsCatalog === 'data/maps.json', 'Missing preview map catalog');
   for (const m of mapPresets) {
     for (const field of ['background', 'battleBackground']) {
       const asset = m[field];
-      if (typeof asset !== 'string' || !/^\/ui\/journey\/maps\/[a-z0-9-]+\.png$/.test(asset)) { check(false, `Invalid map asset ${m.id}/${field}`); continue; }
-      const path = resolve(root, 'public' + asset);
+      if (typeof asset !== 'string' || !/^\/maps\/[a-z0-9-]+\/(?:map|scene)\.png$/.test(asset)) { check(false, `Invalid map asset ${m.id}/${field}`); continue; }
+      const path = resolve(root, 'images' + asset);
       if (!existsSync(path)) { check(false, `Missing map asset ${m.id}/${field}`); continue; }
       const b = readFileSync(path);
       if (b.length < 33 || b.subarray(0, 8).toString('hex') !== '89504e470d0a1a0a') { check(false, `Invalid map PNG ${m.id}/${field}`); continue; }
@@ -102,7 +102,9 @@ export function validateStory(root, suppliedStory) {
   check(story.version === 1, 'Unsupported story version');
   check(story.runtimeEnabled === false, 'Authoring story must not be enabled in runtime');
   check(story.entryScene in scenes, 'Missing entry scene');
-  for (const source of [story.source, ...(story.source?.dependencies ?? [])]) {
+  check(story.source && !('document' in story.source) && !('sha256' in story.source), 'Story is authored in JSON; external manuscript source is not supported');
+  check(Array.isArray(story.source?.dependencies) && story.source.dependencies.length > 0, 'Missing story dependencies');
+  for (const source of Array.isArray(story.source?.dependencies) ? story.source.dependencies : []) {
     const path = source?.document && resolve(root, source.document);
     check(path && existsSync(path), `Missing source ${source?.document}`);
     if (path && existsSync(path)) check(createHash('sha256').update(readFileSync(path)).digest('hex') === source.sha256, `Stale source ${source.document}`);
@@ -112,7 +114,7 @@ export function validateStory(root, suppliedStory) {
     check(c.characterId === id && characters.has(id), `Unknown character binding ${id}`);
     check(!('portrait' in c) && !('facing' in c) && !('portraitSide' in c), `Duplicated character presentation ${id}`);
     const source = characters.get(id);
-    if (source?.portrait) check(existsSync(resolve(root, 'public', source.portrait.src.replace(/^\//,''))), `Missing character image ${id}`);
+    if (source?.portrait) check(existsSync(resolve(root, 'images', source.portrait.src.replace(/^\//,''))), `Missing character image ${id}`);
   }
   const unassigned = [];
   for (const [id, speaker] of Object.entries(story.speakers ?? {})) {
@@ -122,13 +124,13 @@ export function validateStory(root, suppliedStory) {
     if (p?.kind === 'creature') {
       const c = creatures.get(p.id);
       check(!!c, `Unknown portrait creature ${p.id}`);
-      if (c) check(existsSync(resolve(root,'public',c.portrait.src.replace(/^\//,''))), `Missing creature image ${p.id}`);
+      if (c) check(existsSync(resolve(root,'images',c.portrait.src.replace(/^\//,''))), `Missing creature image ${p.id}`);
     } else if (p?.kind === 'character') {
       const c = characters.get(p.id);
       check(!!c && p.id === id, `Unknown or mismatched portrait character ${id}: ${p.id}`);
       check(c?.portraitSource === 'asset' && !!c?.portrait?.src, `Missing portrait asset binding ${id}`);
       check(c?.portrait?.facing === 'left' && c?.dialogueSide === 'right', `Wrong portrait character orientation ${id}`);
-      if (c?.portrait?.src) check(existsSync(resolve(root, 'public', c.portrait.src.replace(/^\//,''))), `Missing character image ${id}`);
+      if (c?.portrait?.src) check(existsSync(resolve(root, 'images', c.portrait.src.replace(/^\//,''))), `Missing character image ${id}`);
     } else if (p?.kind === 'unassigned') unassigned.push(id);
     if (speaker.revealedSpeakerId) check(speaker.revealedSpeakerId in story.speakers, `Missing revealed identity ${id}`);
   }
@@ -140,7 +142,7 @@ export function validateStory(root, suppliedStory) {
     check(chapter.introScene in scenes, `Missing intro ${chapter.id}`);
     check(chapter.stages.length === 9, `Expected nine stages ${chapter.id}`);
     const binding = chapter.mapBinding;
-    check(binding?.policy === 'fixedChapterMap' && binding?.selection === 'fixedMapId' && binding?.catalog === 'data/journey-maps.json', `Chapter requires fixed map binding ${chapter.id}`);
+    check(binding?.policy === 'fixedChapterMap' && binding?.selection === 'fixedMapId' && binding?.catalog === 'data/maps.json', `Chapter requires fixed map binding ${chapter.id}`);
     check(maps.has(binding?.mapId), `Missing or unknown map ${chapter.id}`);
     check(preview.chapterMaps?.[String(chapter.number)] === binding?.mapId, `Preview chapter map mismatch ${chapter.id}`);
     for (const [i, st] of chapter.stages.entries()) {

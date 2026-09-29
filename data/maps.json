@@ -1,0 +1,66 @@
+[
+  {
+    "id": "forest",
+    "name": "Тропинка в лесу",
+    "background": "/maps/forest/map.png",
+    "battleBackground": "/maps/forest/scene.png",
+    "width": 3000,
+    "height": 2400
+  },
+  {
+    "id": "steppe",
+    "name": "Каменистая тропа в степях",
+    "background": "/maps/steppe/map.png",
+    "battleBackground": "/maps/steppe/scene.png",
+    "width": 3000,
+    "height": 2400
+  },
+  {
+    "id": "ruins",
+    "name": "Заброшенные руины",
+    "background": "/maps/ruins/map.png",
+    "battleBackground": "/maps/ruins/scene.png",
+    "width": 3000,
+    "height": 2400
+  },
+  {
+    "id": "ravaged-lands",
+    "name": "Разорённые земли",
+    "background": "/maps/ravaged-lands/map.png",
+    "battleBackground": "/maps/ravaged-lands/scene.png",
+    "width": 1402,
+    "height": 1122
+  },
+  {
+    "id": "perevalets",
+    "name": "Перевалец",
+    "background": "/maps/perevalets/map.png",
+    "battleBackground": "/maps/perevalets/scene.png",
+    "width": 1402,
+    "height": 1122
+  },
+  {
+    "id": "mire",
+    "name": "Болота Тихой Заводи",
+    "background": "/maps/mire/map.png",
+    "battleBackground": "/maps/mire/scene.png",
+    "width": 1402,
+    "height": 1122
+  },
+  {
+    "id": "warlands",
+    "name": "Земли войны",
+    "background": "/maps/warlands/map.png",
+    "battleBackground": "/maps/warlands/scene.png",
+    "width": 1402,
+    "height": 1122
+  },
+  {
+    "id": "limestone-valley",
+    "name": "Известняковая долина",
+    "background": "/maps/limestone-valley/map.png",
+    "battleBackground": "/maps/limestone-valley/scene.png",
+    "width": 1402,
+    "height": 1122
+  }
+]

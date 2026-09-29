@@ -1,0 +1,52 @@
+{
+  "asset": "images/maps/mire/scene.png",
+  "sha256": "15a0e8f685445f8fb51823cc717b75d9bfeb4dbfc031ab82ed75e580718e84d0",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "date": "2026-09-27",
+      "prompt": "Use case: stylized-concept. Game environment art for Heroes of Orvesk, dark gothic fantasy painted realism. Natural large masses and convincing volume, restrained textured brushwork, aged materials, muted earth/olive/charcoal/stone palette, upper-left daylight, readable middle-dark values, atmospheric depth without washed-out whitening. Never photorealistic drone photography, flat vector art, cute cartoon, plastic 3D, neon, modern objects, sci-fi, heroic saturated colors. No characters, creatures, text, labels, UI, markers, circles, graph nodes, frames, watermarks or vignette. Full-bleed opaque image; fill every edge with environment, no black fades. Asset type: separate ground-level combat-screen landscape backdrop of the same region, not an overhead map. Create ONE landscape image, requested exact 1672 x 941 pixels, approximately 16:9. Wide eye-level environmental view. Calm lower-center ground and subdued mid/upper-center backdrop for a separate game interface, but NOT a deliberately flat rectangular empty area. Place most intricate texture at the sides and middle distance; retain recognizable material and architectural features through a narrow center crop too. No painted battlefield grid, empty round combat arena or laid-out path. Scene: Ground-level view from a low mossy island across still black marsh water and reeds. A small half-sunken chapel with stained off-white plaster and a broken bell arch emerges in the middle distance. Gnarled alder roots, soaked timber and a few short weathered boards around the perimeter; calm mossy foreground and low mist. No visible spirit or monster. Regional continuity: A deep old peat marsh called the Quiet Backwater: irregular black-green pools, densely clustered reeds, knotted alder trunks and pale exposed roots on raised mossy islands. Sparse decayed timber huts of secluded contemplative sisters, a partially sunken small white-plastered stone chapel with a broken bell arch, and black root hollows at the water line. Short broken fragments of weathered wooden decking may lie alongside a hut but no connected boardwalk network and no route across the map. Ground and pools fill the whole scene; atmospheric low mist, grey moss, sage reeds, dark peat; a place both quiet and threatening. No giant fantasy mushrooms, no neon, no luminous swamp gas.",
+      "transparentBackground": false,
+      "references": [
+        {
+          "path": "docs/ART_DIRECTION.md",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "docs/ART_DIRECTION.md",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/forest/map.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/forest/scene.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/steppe/map.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/steppe/scene.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/ruins/map.png",
+          "role": "Reviewed visually"
+        },
+        {
+          "path": "images/maps/ruins/scene.png",
+          "role": "Reviewed visually"
+        }
+      ],
+      "output": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-e8bdbc88-599d-4ad4-9c01-a4f72732bd70.png",
+      "sha256": "15a0e8f685445f8fb51823cc717b75d9bfeb4dbfc031ab82ed75e580718e84d0",
+      "notes": [
+        "Exact copies of generated originals. Map outputs were 1402x1122 rather than requested 3000x2400; actual dimensions recorded in the catalog. No stretching, cropping or repainting. Mobile delivery copies are produced by the existing sync_content.py pipeline.",
+        "Accepted: location matches chapter, no UI or itinerary, opaque, map and battle view share palette and materials."
+      ]
+    }
+  ]
+}

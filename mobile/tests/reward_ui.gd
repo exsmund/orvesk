@@ -65,6 +65,24 @@ func run():
 	ui.show_game()
 	await settle()
 	check(ui.session.game.souls == 33, "Currency already credited on reward screen")
+	var award = ui.shard_feedback
+	var awarded_state = ui.session.game.duplicate(true)
+	check(is_instance_valid(award) and award.particles.size() > 0, "Victory starts shard transfer feedback")
+	check(ui.page_header_view.shards.amount == 33 and ui.page_header_view.shards.displayed_amount < 33, "Only displayed balance counts up; committed counter is final")
+	award.elapsed = 0.55
+	award.update_feedback()
+	check(ui.page_header_view.shards.displayed_amount > 30 and ui.page_header_view.shards.displayed_amount < 33, "Balance visibly increases during shard transfer")
+	root.size = Vector2i(1008,432)
+	await settle()
+	check(ui.session.game == awarded_state and ui.shard_feedback == award, "Resize preserves currency, offers and the active animation")
+	await shot("shards-in-flight")
+	award.finish()
+	check(ui.page_header_view.shards.displayed_amount == 33 and ui.victory_view.shards.displayed_amount == 3, "Finishing feedback shows exact awarded and total amounts")
+	ui.show_game()
+	await settle()
+	check(not is_instance_valid(ui.shard_feedback) and ui.session.game == awarded_state, "Rebuilding the reward screen does not replay or recredit its award")
+	root.size = Vector2i(432,1008)
+	await settle()
 	check(grid().buttons.size() == 2, "Only skill and item choices, no currency tile")
 	check(ui.victory_view.received.text == "Получено" and ui.victory_view.shards.amount == 3, "Automatic award is explicitly labelled")
 	check(ui.victory_view.choice_hint.visible, "Two offers explain that only one can be taken")
@@ -99,9 +117,13 @@ func run():
 	grid().buttons[1].pressed.emit()
 	await settle()
 	var card = dialog()
-	check(card.get_ok_button().disabled and card.upgrades.get_child_count() >= 2, "Hybrid item shows every missing requirement")
-	if DisplayServer.get_name() != "headless":
-		check(card.scroll.get_global_rect().encloses(card.upgrades.get_child(0).get_global_rect()), "First upgrade is visible before scrolling long item lore")
+	var offered = card.cards[0]
+	check(card.get_ok_button().disabled and offered.requirement_rows.size() >= 2, "Hybrid item shows every missing requirement")
+	check(offered.upgrade_button.visible and offered.upgrade_button.cost.amount == ui.session.reward_requirements(1).totalCost, "One upgrade button quotes the complete cost")
+	check(offered.upgrade_button.cost.prefix == "Поднять за ", "Upgrade action uses shared shard counter and icon")
+	check(offered.upgrade_button.get_index() > offered.requirement_rows.back().get_index() and offered.upgrade_button.get_index() < offered.figure_rows[0].get_index(), "Upgrade action is inside the offered card after requirements and before figures")
+	check(card.body.get_children().all(func(child): return child in [card.warning, card.columns]), "No currency or upgrade block remains above cards")
+	check(card.cards.slice(1).all(func(entry): return not entry.upgrade_button.visible), "Worn cards do not offer requirement upgrades")
 	check(ui.session.game == before, "Inspecting locked item does not pay or grant")
 	await shot("reward-upgrade")
 	root.size = Vector2i(320,640)
@@ -116,31 +138,31 @@ func run():
 	await settle()
 	# Failed upgrade stays visible and rolls back the spend, stats, offers and RNG.
 	ui.saves.fail = true
-	card.upgrades.get_child(0).get_child(1).pressed.emit()
+	card.cards[0].upgrade_button.pressed.emit()
 	await settle()
 	check(ui.session.game == before and card.visible and card.warning.text == ui.saves.error, "Failed upgrade rolls back and reports inside card")
 	ui.saves.fail = false
 	var quote = ui.session.reward_requirements(1)
 	var total = quote.totalCost
-	var first = quote.steps[0]
-	card.upgrades.get_child(0).get_child(1).pressed.emit()
+	card.cards[0].upgrade_button.pressed.emit()
 	await settle()
-	check(ui.session.game.player.stats[first.stat] == first.current + 1 and ui.session.game.souls == before.souls - first.cost, "Upgrade button purchases one required point")
+	check(quote.steps.all(func(step): return ui.session.game.player.stats[step.stat] == step.required) and ui.session.game.souls == before.souls - total, "One press buys all missing points for the quoted cost")
+	check(not card.cards[0].upgrade_button.visible, "Upgrade button disappears once requirements are met")
+	var upgraded = ui.session.game.duplicate(true)
+	card.upgrade_requested.emit(quote)
+	await settle()
+	check(ui.session.game == upgraded, "Repeated stale bulk request never spends twice")
 	check(ui.session.game.rewardOptions == before.rewardOptions and ui.session.game.phase == "victory", "Level change leaves original two offers intact")
 	card.canceled.emit()
 	await settle()
-	check(dialog() == null and ui.session.game.player.stats[first.stat] == first.current + 1, "Closing card keeps explicitly purchased stat")
+	check(dialog() == null and ui.session.game.player.stats == upgraded.player.stats, "Closing card keeps explicitly purchased stat")
 	var balance = ui.session.game.souls
 	check(ui.session.restore(ui.saves.saved).is_empty() and ui.session.game.souls == balance, "Reload retains purchases without recrediting shards")
 	ui.show_game()
 	ui.show_reward_details(1)
 	await settle()
 	card = dialog()
-	while not ui.session.reward_requirements(1).steps.is_empty():
-		check(not card.upgrades.get_child(0).get_child(1).disabled, "Affordable required upgrade enabled")
-		card.upgrades.get_child(0).get_child(1).pressed.emit()
-		await settle()
-	check(not card.get_ok_button().disabled and card.upgrades.get_child_count() == 0, "Claim unlocks when every requirement is satisfied")
+	check(not card.get_ok_button().disabled and not card.cards[0].upgrade_button.visible, "Claim unlocks when every requirement is satisfied")
 	check(ui.session.game.souls == before.souls - total, "UI purchases respect full increasing-price quote")
 	await shot("reward-unlocked")
 	card.confirmed.emit()
@@ -153,12 +175,12 @@ func run():
 	check(ui.session.game.phase == "ready", "Can defer further upgrades after claiming equipment")
 	# Insufficient balance disables buying, but keeps the description accessible.
 	ui.session.game = before.duplicate(true)
-	ui.session.game.souls = 0
+	ui.session.game.souls = total - 1
 	ui.show_game()
 	ui.show_reward_details(1)
 	await settle()
 	card = dialog()
-	check(card.upgrades.get_child(0).get_child(1).disabled and card.get_ok_button().disabled, "Unavailable upgrade and item cannot be claimed")
+	check(not card.cards[0].upgrade_button.visible and card.get_ok_button().disabled, "Unavailable upgrade and item cannot be claimed")
 	card.canceled.emit()
 	await settle()
 	# Full skill slots require a deliberate replacement and retain the awarded shards.
@@ -170,12 +192,24 @@ func run():
 	dialog().confirmed.emit()
 	await settle()
 	check(ui.session.game.phase == "victory" and ui.session.game.player.skills == old_skills, "Skill claim first asks which slot to replace")
-	for child in ui.content.get_children():
-		if child is Button and child.text == ui.data.lookup(ui.data.skills, old_skills[0]).name:
-			child.pressed.emit()
-			break
+	var replacements = ui.content.get_node("SkillReplacementGrid")
+	check(replacements.get_script() == preload("res://ui/reward_grid.gd") and replacements.buttons.size() == old_skills.size(), "Skill replacement reuses reward artwork tiles for every occupied slot")
+	for pixels in [Vector2i(320,640), Vector2i(1008,432), Vector2i(432,1008)]:
+		root.size = pixels
+		await settle()
+		for slot in old_skills.size():
+			var tile = replacements.buttons[slot]
+			check(replacements.pictures[slot].texture != null and tile.tooltip_text == ui.data.lookup(ui.data.skills, old_skills[slot]).name, "Replacement tile shows the correct skill artwork and name")
+			check(ui.scroll.get_global_rect().grow(1).encloses(tile.get_global_rect()) and is_equal_approx(tile.size.x, tile.size.y), "Skill replacement tile stays square and visible after resizing")
+	await shot("skill-replacement-choices")
+	replacements.buttons[0].pressed.emit()
 	await settle()
 	check(dialog() != null and ui.session.game.player.skills == old_skills, "Replacement first opens skill comparison")
+	dialog().canceled.emit()
+	await settle()
+	check(ui.session.game.player.skills == old_skills and is_instance_valid(replacements), "Cancel comparison retains skills and their image choices")
+	replacements.buttons[0].pressed.emit()
+	await settle()
 	dialog().confirmed.emit()
 	await settle()
 	check(ui.session.game.victoryReward.progressionPending and ui.session.game.player.skills[0] == skill.id and ui.session.game.souls == before.souls, "Skill replacement opens progression and preserves mandatory currency")
@@ -266,13 +300,48 @@ func check_progression_flow(reward_state: Dictionary):
 				check(ui.character_window.current_tab == 1, "Level-up opens character attributes directly")
 				var attributes = ui.character_window.pages[1]
 				attributes.change("strength", 1)
+				ui.character_window.close()
+				await settle()
+				check(ui.session.game.phase == "victory" and ui.session.game.souls == balance, "Closing an unconfirmed allocation stays on the level-up offer")
+				ui.victory_view.upgrade_button.pressed.emit()
+				attributes = ui.character_window.pages[1]
+				attributes.change("strength", 1)
+				ui.saves.fail = true
+				attributes.confirm.pressed.emit()
+				ui.character_window.close()
+				await settle()
+				check(ui.session.game.phase == "victory" and ui.session.game.souls == balance, "Failed upgrade save cannot trigger continuation on close")
+				ui.saves.fail = false
+				ui.victory_view.upgrade_button.pressed.emit()
+				attributes = ui.character_window.pages[1]
+				attributes.change("strength", 1)
 				attributes.confirm.pressed.emit()
 				await settle()
 				check(ui.session.game.souls == 0 and ui.session.game.player.stats.strength == before.player.stats.strength + 1, "Existing attributes page spends exact upgrade cost")
 				check(ui.victory_view.upgrade_button.disabled, "Underlying action updates after last affordable upgrade")
 				ui.character_window.close()
 				await settle()
-				check(ui.victory_view.progression and ui.session.game.rewardOptions.is_empty(), "Closing attributes returns to resolved reward")
-				ui.victory_view.continue_button.pressed.emit()
-				await settle()
-				check(ui.session.game.phase == "ready" and ui.session.game.souls == 0, "Continue after upgrade resumes journey")
+				check(ui.session.game.phase == "ready" and ui.session.game.souls == 0, "Closing after a confirmed upgrade skips the offer and resumes journey")
+				check(ui.saves.saved.game.phase == "ready", "Automatic continuation is saved")
+	# Continue even if there are shards left for another upgrade; a failed transition
+	# must preserve the successfully purchased point and let the player retry.
+	for fail_transition in [false, true]:
+		ui.session.game = reward_state.duplicate(true)
+		ui.session.game.souls = 30
+		ui.show_game()
+		ui.victory_view.skip_button.pressed.emit()
+		await settle()
+		ui.victory_view.upgrade_button.pressed.emit()
+		ui.character_window.pages[1].change("strength", 1)
+		ui.character_window.pages[1].confirm.pressed.emit()
+		check(ui.session.can_upgrade_attributes(), "There is still enough currency to level up again")
+		var upgraded = ui.session.game.duplicate(true)
+		ui.saves.fail = fail_transition
+		ui.character_window.close()
+		await settle()
+		if fail_transition:
+			check(ui.session.game == upgraded and ui.notice.text == ui.saves.error, "Failed automatic transition preserves the upgrade and reports the write error")
+			ui.saves.fail = false
+			ui.victory_view.continue_button.pressed.emit()
+			await settle()
+		check(ui.session.game.phase == "ready" and ui.session.game.souls == upgraded.souls and ui.session.game.player.stats == upgraded.player.stats, "Continuation preserves leftover shards and never repeats the upgrade")

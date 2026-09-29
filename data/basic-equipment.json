@@ -1,0 +1,40 @@
+[
+  {
+    "id": "fist",
+    "name": "Кулак",
+    "kind": "weapon",
+    "slot": "weapon",
+    "hands": 1,
+    "tier": 0,
+    "requirements": {},
+    "description": "Базовый предмет правой руки. Удары кулаком доступны, пока в этой руке нет оружия.",
+    "figures": [],
+    "unarmed": true,
+    "baseFigureAvailability": "emptyWeapon"
+  },
+  {
+    "id": "bare-hands",
+    "name": "Блок руками",
+    "kind": "shield",
+    "slot": "shield",
+    "hands": 1,
+    "tier": 0,
+    "requirements": {},
+    "description": "Базовый предмет левой руки. Позволяет прикрыться руками; заменяется щитом и недоступен с двуручным оружием.",
+    "figures": [],
+    "unarmed": true,
+    "baseFigureAvailability": "emptyShield"
+  },
+  {
+    "id": "bare-foot",
+    "name": "Нога",
+    "kind": "armor",
+    "slot": "feet",
+    "tier": 0,
+    "requirements": {},
+    "description": "Базовый предмет для ног. Позволяет наносить пинок без обуви; заменяется надетой обувью.",
+    "figures": [],
+    "unarmed": true,
+    "baseFigureAvailability": "emptyFeet"
+  }
+]

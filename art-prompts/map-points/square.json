@@ -1,0 +1,27 @@
+{
+  "asset": "images/map-points/square.png",
+  "sha256": "2bdd6e9cac046053cc4effadf579942dbd840422c0dfc6a4b512ff91a3ad7fa8",
+  "steps": [
+    {
+      "tool": "browser composition",
+      "date": "2026-09-27",
+      "references": [
+        {
+          "path": "images/map-points/frame.png",
+          "role": "Shared frame"
+        },
+        {
+          "path": "images/map-points/symbols/square.png",
+          "role": "Foreground symbol"
+        },
+        {
+          "path": "data/map-points.json",
+          "role": "Presentation / assembly parameters"
+        }
+      ],
+      "notes": [
+        "Unchanged generated PNG layers composed by browser UI: opaque circular CSS backing from presentation.backing, shared frame at 100%, symbol box from data/map-points.json; transparent element screenshot at 512px. No repainting or independent frame generation per type."
+      ]
+    }
+  ]
+}

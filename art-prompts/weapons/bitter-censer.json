@@ -1,0 +1,13 @@
+{
+  "asset": "images/weapons/bitter-censer.png",
+  "sha256": "668d3aba31ba90335408fe41cb513b2f961d2c97242df463691d219eb70ae2bf",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "date": "2026-09-27",
+      "prompt": "Use case: stylized-concept. Create ONE square 1024x1024 PNG game inventory/action illustration on a TRUE TRANSPARENT RGBA background. Completely empty alpha outside the subject and in all gaps and holes. No black or colored backdrop, no gradient rectangle, no checkerboard, no floor, no shadow plane, no UI tile, no frame, no text or numbers. This will overlay textured combat cells: the cell texture MUST show everywhere around the object.\nArt direction: dark gothic fantasy, sculptural volume, tactile finely painted aged materials, strong chiaroscuro but readable midtone surfaces and narrow upper-left edge highlights. Muted iron grey, old brown leather, ivory linen, ochre accents; no plastic, cartoon, neon, flat vector or glossy 3D. A strong simple silhouette readable at 40px. Whole object fully visible, centered with about 8% transparent margin. No unintended accessories. Do not create a sheet of variations.\nSubject: Кадило горького дыма (bitter-censer). Закрытый перфорированный сосуд на короткой рукояти с крышкой и внутренней чашей для состава. Тёмные потёки забили часть отверстий. Оружие некоторых диких магов и отравителей. В нём нагревают заранее приготовленную смесь растительных и минеральных компонентов. Название и форма не означают принадлежности ордену Света.\n\n.\nType weapon. Designed for 1 hand(s); depict the item alone, no person holding it. Long weapons diagonal bottom-left handle to upper-right tip. Boots/greaves are a matched pair; other items one object. Bow shown alone without quiver, weapons without scabbards. A fist is an anatomical action symbol, not a weapon held by a person.",
+      "transparentBackground": true,
+      "output": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-f7e2fee2-a177-44cd-b7cf-5c0f0a22136d.png"
+    }
+  ]
+}

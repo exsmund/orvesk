@@ -69,6 +69,8 @@ func refresh():
 	action.text = "Далее" if step == 0 else "Начать путешествие"
 	action.disabled = not host.session.creation_name_error(host.create_name).is_empty() or (step == 1 and host.session.creation_points_remaining(host.create_stats) != 0)
 	warning.text = ""
+	# Keep body geometry stable when the final point hides the hint.
+	actions.reserve_hint_space = step == 1
 	actions.hint.text = "Распределите %d очка" % host.session.CREATION_POINTS if step == 1 and host.session.creation_points_remaining(host.create_stats) > 0 else ""
 	arrange()
 

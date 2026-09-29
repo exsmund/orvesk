@@ -1,6 +1,7 @@
 extends Control
 ## Fixed page actions, including safe spacing around the Back ornament.
 const GothicTheme = preload("res://ui/gothic_theme.gd")
+var reserve_hint_space = false
 var hint = preload("res://ui/action_hint.gd").new()
 var primary = Button.new()
 var back = Button.new()
@@ -21,7 +22,7 @@ func arrange(panel_size: Vector2) -> float:
 	var primary_height = maxf(52, 56 * unit)
 	var back_height = maxf(30, 38 * unit)
 	hint.visible = not hint.text.is_empty()
-	var hint_height = 38.0 * unit if hint.visible else 0.0
+	var hint_height = 38.0 * unit if hint.visible or reserve_hint_space else 0.0
 	size = Vector2(panel_size.x, hint_height + primary_height + 10 * unit + back_height + maxf(8, 8 * unit) + 40)
 	position = Vector2(0, panel_size.y - size.y)
 	hint.position = Vector2(x, 0)

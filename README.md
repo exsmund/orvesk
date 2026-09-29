@@ -1,34 +1,36 @@
 # Герои Орвеска
 
-Репозиторий браузерной игры, мобильного клиента Godot и общих игровых данных.
+Репозиторий мобильной игры Godot, общего игрового контента и инструментов сценария.
 
-## Клиенты
+## Запуск
 
-- [Браузерная версия](browser/README.md): установка, запуск, Storybook, тесты и сборка из `browser/`.
 - [Мобильная версия](mobile/README.md): Godot, синхронизация контента и сборка Android.
+- [Предпросмотр сценария](story-preview/README.md): текстовый стенд истории.
 
-## Общий TypeScript-инструментарий
+## Инструменты сценария
 
-Node.js 22.13+. В корне: `npm ci`, затем `npm run check` для проверки `src/game`.
-Корневые зависимости: TypeScript, tsx и типы Node.js. Они нужны в том числе `mobile/scripts/reference-fixtures.ts` и мобильному сборщику; браузер устанавливает свои зависимости отдельно.
+Для проверок контента нужны Node.js 22.13+ и Python 3: `npm run check`.
+Устанавливать npm-зависимости не требуется. Команда проверяет сценарий, точки карты
+и компиляцию диалогов; Godot-проверки описаны в [mobile/README.md](mobile/README.md).
+Сборка Android использует Python и Godot без Node.js.
 
 ## Структура
 
-- `browser/` — браузерный интерфейс, сервер, Storybook, тесты и инструменты.
 - `mobile/` — самостоятельный клиент Godot и его инструменты.
-- `src/game/` — TypeScript-правила, каталоги и типы; также источник эталонов для мобильных тестов. Без React, CSS и клиентского хранилища.
-- `src/app/styles/palette.css` — общая палитра, которую читает мобильная синхронизация.
-- `data/` — общие JSON-каталоги; `data/sessions/` — приватные браузерные сохранения, не включать в Git и не раздавать статически.
-- `public/` — общие изображения; `browser/public/` — только браузерные ресурсы.
-- `art-prompts/`, `refs/` — история генерации и художественные эталоны.
+- `mobile/game/` — игровая механика на GDScript.
+- `mobile/content/palette.json` — палитра интерфейса.
+- `mobile/tests/fixtures/` — фиксированные примеры для проверки боевых расчётов.
+- `data/` — общие JSON-каталоги; `data/sessions/` — приватные сохранения, не включать в Git и не раздавать статически.
+- `images/` — общие изображения.
+- `art-prompts/`, `refs/` — промпты актуальных изображений и художественные эталоны.
 - `docs/` — лор, правила, баланс и художественное направление.
 
 ## Документация
 
-- [Правила боя и прогрессии](docs/DECK_COMBAT.md), [состояния игры и карты](docs/GAME_STATES.md).
-- [Лор](docs/LORE.md), [сценарий](docs/STORY.md), [бестиарий](docs/BESTIARY.md), [экипировка](docs/EQUIPMENT.md), [навыки](docs/SKILLS.md), [персонажи сценария](docs/CHARACTERS.md).
-- [Художественное направление и генерация](docs/ART_DIRECTION.md), [изображения предметов](docs/ITEM_ART_DIRECTION.md), [карты и фоны боя](docs/MAP_ART_DIRECTION.md).
+- [Правила игры](docs/RULES.md), [формулы и численный баланс](docs/FORMULAS.md).
+- [Лор](docs/LORE.md), [сценарий](data/story.json), [бестиарий](docs/CREATURES.md), [экипировка](docs/EQUIPMENT.md), [навыки](docs/SKILLS.md), [персонажи сценария](docs/CHARACTERS.md).
+- [Единое художественное направление и генерация](docs/ART_DIRECTION.md): портреты, предметы, действия, значки, карты и фоны.
 
-- [Типы точек карты и значки](docs/MAP_POINTS.md), [художественные правила значков](docs/MAP_POINT_ART_DIRECTION.md): `npm run check:map-points`, `npm run preview:map-points`.
+- [Каталог точек карты и значки](docs/MAP_POINTS.md): `npm run check:map-points`, `npm run preview:map-points`.
 
-- [Конфигурация сценария и подготовка интеграции](data/STORY.md): `npm run check:story`, `npm run test:story`.
+- [Редактирование сценария в JSON](data/STORY.md): правила изменения реплик, графа и игровых настроек; проверки `npm run check:story` и `npm run check:story-runtime`.
