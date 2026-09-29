@@ -16,7 +16,7 @@ func configure(owner_ui):
 	portrait.material = ShaderMaterial.new()
 	portrait.material.shader = preload("res://shaders/portrait_background.gdshader")
 	canvas.add_child(frame)
-	frame.configure(host.data, 24, "/ui/portrait-frame.png")
+	frame.configure(host.data, 24, preload("res://content/ui/portrait-frame.png"))
 	frame.modulate = host.data.color("text-home")
 	for button in [previous, next]: canvas.add_child(button)
 	previous.configure(host.data, "‹")

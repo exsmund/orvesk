@@ -101,7 +101,7 @@ func configure(catalog, game: Dictionary, animated: bool, forecast: Dictionary =
 	shards.visible = journey_mode
 	enemy_bars.visible = not journey_mode
 	enemy_portrait.visible = not journey_mode
-	portrait_frame = GothicTheme.trim_texture(data.image("/ui/portrait-frame-round.png"))
+	portrait_frame = GothicTheme.trim_texture(preload("res://content/ui/portrait-frame-round.png"))
 	for border in frames: border.texture = portrait_frame
 	for separator in separators: separator.configure(data, true)
 	shading.set_shader_parameter("shade", data.color("base-black"))

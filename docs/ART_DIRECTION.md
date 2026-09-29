@@ -301,6 +301,15 @@
 | <img src="../images/hero-portraits/hero-59-juniper.png" alt="Можжевеловый" width="96"> | `hero-59-juniper` | Можжевеловый |
 | <img src="../images/hero-portraits/hero-60-dolomite.png" alt="Доломитовый" width="96"> | `hero-60-dolomite` | Доломитовый |
 
+## Рамки мобильного интерфейса
+
+Исходные рамки находятся вместе с остальными текстурами Godot в `mobile/content/ui`:
+[портретная](../mobile/content/ui/portrait-frame.png),
+[круглая портретная](../mobile/content/ui/portrait-frame-round.png) и
+[общая готическая](../mobile/content/ui/gothic-frame.png).
+Интерфейс загружает их напрямую; копии в `images` и в синхронизируемом каталоге не нужны.
+Назначение и настройки импорта — в [описании мобильных текстур](../mobile/content/ui/README.md#рамки-интерфейса).
+
 ## Порядок генерации
 
 1. Прочитать актуальные требования нужного типа ассета и его описание в `data`/каталоге лора; просмотреть общие и специализированные референсы.

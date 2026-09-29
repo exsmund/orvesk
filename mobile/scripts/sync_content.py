@@ -14,7 +14,7 @@ sys.dont_write_bytecode = True
 MOBILE = Path(__file__).resolve().parents[1]
 ROOT = MOBILE.parent
 OUT = MOBILE / 'content' / 'generated'
-MIPMAP_ART = {'/ui/gothic-frame.png', '/ui/portrait-frame.png', '/ui/logos-shards.png'}
+MIPMAP_ART = {'/ui/logos-shards.png'}
 CATALOGS = ['weapons', 'shields', 'armor', 'footwear', 'jewelry', 'basic-equipment', 'base-actions', 'skills', 'creatures',
             'hero-portraits', 'maps', 'journey-encounters', 'item-art', 'combat-balance', 'damage-types',
             'story', 'characters', 'story-gameplay', 'map-points', 'journey-rules', 'portrait-presentation']
@@ -23,8 +23,7 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
     paths = {'/ui/start-landscape.png',
              '/ui/battle-modes/free.png',
-             '/ui/logos-shards.png', '/ui/portrait-frame-round.png',
-             '/ui/portrait-frame.png', '/ui/gothic-frame.png'}
+             '/ui/logos-shards.png'}
     old_manifest = json.loads((OUT / 'manifest.json').read_text()) if (OUT / 'manifest.json').exists() else {}
     spec = importlib.util.spec_from_file_location("story_compiler", ROOT / "tools/compile-story.py")
     compiler = importlib.util.module_from_spec(spec)

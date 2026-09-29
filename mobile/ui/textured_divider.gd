@@ -8,7 +8,7 @@ func _init():
 	material = ShaderMaterial.new()
 	material.shader = preload("res://shaders/textured_divider.gdshader")
 
-func configure(data, upright: bool = false):
+func configure(_data, upright: bool = false):
 	vertical = upright
-	material.set_shader_parameter("metal", data.image("/ui/gothic-frame.png"))
+	material.set_shader_parameter("metal", preload("res://content/ui/gothic-frame.png"))
 	material.set_shader_parameter("vertical", vertical)

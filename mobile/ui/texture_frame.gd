@@ -1,5 +1,6 @@
 extends Control
 ## Nine-slice frame with independent source/destination corners; ornaments never stretch.
+const DEFAULT_TEXTURE = preload("res://content/ui/gothic-frame.png")
 var texture: Texture2D
 var corner = 12.0
 
@@ -7,8 +8,8 @@ func _init():
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	resized.connect(queue_redraw)
 
-func configure(data, edge: float = 12, path: String = "/ui/gothic-frame.png"):
-	texture = data.image(path)
+func configure(_data, edge: float = 12, source_texture: Texture2D = DEFAULT_TEXTURE):
+	texture = source_texture
 	corner = edge
 	queue_redraw()
 
