@@ -48,8 +48,10 @@ func run():
 	check(ui.theme.default_font.get_font_name() == "Golos Text", "Browser body font bundled locally")
 	check(ui.GothicTheme.DISPLAY_FONT.get_font_name() == "Prata", "Display font is Prata")
 	var button_style = ui.theme.get_stylebox("normal", "Button")
-	check(button_style.axis_stretch_horizontal == StyleBoxTexture.AXIS_STRETCH_MODE_TILE, "Button center tiles without horizontal distortion")
-	check(button_style.get_texture_margin(SIDE_TOP) >= 22, "Clipped button corners remain in fixed slices")
+	check(button_style.texture == ui.GothicTheme.BUTTON, "Framed buttons use the shared gold texture")
+	var short_cap = button_style.slices(Rect2(0, 0, 200, 52))[0][0]
+	var wide_cap = button_style.slices(Rect2(0, 0, 600, 52))[0][0]
+	check(short_cap.size == wide_cap.size, "Wider buttons do not stretch the end ornaments")
 	await shot("home")
 	ui.session.combat.rng.seed = 43
 	ui.session.create("Зая", {"strength":1,"agility":1,"vitality":1,"intelligence":4}, ui.data.portraits[0].id)

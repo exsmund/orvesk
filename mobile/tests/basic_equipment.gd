@@ -43,7 +43,7 @@ func run():
 	var model = Inspection.new(data, session.combat)
 	for basic in basics:
 		check(data.item(basic.id + "@20").level == 1, "Basic item level stays one: " + basic.id)
-		var entry = model.item(basic.id, hero, "Надето")
+		var entry = model.item(basic.id, hero, "У вас")
 		check(entry.texture != null, "Basic item has shared artwork: " + basic.id)
 		var expected = session.combat.figures(hero).filter(func(card): return card.get("availability", "") == basic.baseFigureAvailability)
 		check(not expected.is_empty() and entry.figures == expected, "Card shows the actual combat figures: " + basic.id)
@@ -83,6 +83,11 @@ func run():
 		check(comparison.size() == 2 and comparison[1][0].reference == hero.gear[slot], "Comparison includes worn basic item in " + slot)
 	# Restore a real dealt reveal with old empty gear without rebuilding any combat state.
 	check(session.travel("fight-1").is_empty(), "Enter battle")
+	# This migration fixture needs the hero to open, regardless of earlier RNG draws.
+	if session.game.clashPlan.preparer != "player":
+		session.game.erase("clashPlan")
+		session.game.lastReactor = "player"
+		session.combat.prepare(session.game)
 	check(session.submit([]).is_empty() and session.game.clashPlan.stage == "reveal", "Create committed reveal")
 	for basic in basics: session.game.player.gear[basic.slot] = null
 	var store = SaveStore.new("/tmp/duelyant-basic-items-%d" % Time.get_ticks_usec())

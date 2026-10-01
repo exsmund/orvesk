@@ -1,0 +1,20 @@
+{
+  "asset": "images/ui/combat-help/place-rotate.png",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "date": "2026-09-29",
+      "prompt": "Use case: infographic-diagram. Create ONE compact tutorial illustration for the mobile dark-fantasy game shown in the reference screenshot. It will appear beneath a Russian instruction paragraph; the text is rendered separately in the app.\nReference screenshot supplies the actual UI vocabulary: orthographic 3x3 stone board, thin aged-bronze borders, mossy muted green player cells, ochre enemy cells, amber stamina bars, carved ivory gesture arrows. SIMPLIFY these surfaces strongly so the diagram is immediately readable at 300 pixels wide. Keep muted gothic materials and upper-left lighting, with clear warm ivory instructional symbols and strong silhouettes.\nOutput wide landscape approximately 2:1, 1536x768, genuinely TRANSPARENT PNG RGBA. All space outside the illustrated game components and arrows must be alpha-transparent. No scene background, dark rectangle, backing panel, large outer frame, phone, screenshot chrome, prose, title, labels, logos or watermark. Components themselves remain opaque. Do not reproduce the whole screenshot. Large, sparse composition with about 6% transparent margin. No ornamental clutter.\nDiagram: show a small TWO-CELL HORIZONTAL player action figure at lower-left (two joined moss-green square tiles, with tiny boot/kick silhouettes). A simple ivory touch-finger symbol and curved rotation arrow beside it communicate tapping to rotate. A clear sweeping ivory arrow goes from that figure into a larger EXACTLY 3-by-3 board on the right, where the matching two green cells occupy two adjacent squares in the middle row. Other board squares empty charcoal stone. Show one clear transfer, not several alternate boards. No long labels or numerals.",
+      "transparentBackground": true,
+      "output": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-577b2ee4-3109-43ce-8003-b8daa3e417c3.png",
+      "references": [
+        {
+          "path": "/var/folders/5m/r44sn43d0pl48n6jplzm4x380000gn/T/orvesk-combat-help-jqtkam4y/before/combat-actions-432.png",
+          "role": "Actual mobile combat screenshot used as UI layout, material and palette reference.",
+          "sha256": "d4a39159cbbf386a3e185b576ee294c6573a1963cffa0d986133f40bd73e1604"
+        }
+      ]
+    }
+  ],
+  "sha256": "4586dbf4355b2ab2d1000a439ef47d11abb9000d3baa1cba2364b5acb50259dd"
+}

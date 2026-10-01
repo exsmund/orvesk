@@ -107,7 +107,7 @@ func apply_effects(current: Dictionary):
 
 func record_dialogue():
 	var context = "%s/%s" % [run().scene, run().attempt]
-	if session.game.phase not in ["story", "ended"]:
+	if session.game.get("skipStory", false) or session.game.phase not in ["story", "ended"]:
 		run().dialogue = {"context": "", "entries": []}
 		return
 	if run().get("dialogue", {}).get("context", "") != context:
@@ -198,6 +198,7 @@ func seek_node(target: String, enter_from_map: bool = false) -> String:
 				return ""
 			"end":
 				session.game.phase = "ended"
+				session.record_completion()
 				return ""
 			"choice":
 				if current.mode == "activity":
@@ -206,6 +207,11 @@ func seek_node(target: String, enter_from_map: bool = false) -> String:
 				session.game.phase = "story"
 				return ""
 			_:
+				if session.game.get("skipStory", false):
+					apply_effects(current)
+					if offer_story_reward(current): return ""
+					target = current.next
+					continue
 				session.game.phase = "story"
 				return ""
 	return "Пустой переход сценария."
@@ -217,7 +223,7 @@ func advance(expected: String, option_id: String = "") -> String:
 	if current.kind == "choice":
 		if option_id not in options(): return "Выберите доступный ответ."
 		if current.mode == "single" and run().decisions.has(current.id) and run().decisions[current.id] != option_id: return "Решение уже принято."
-		run().dialogue.entries.append({"id": option_id, "name": session.game.player.name, "text": config.nodes[option_id].text})
+		if not session.game.get("skipStory", false): run().dialogue.entries.append({"id": option_id, "name": session.game.player.name, "text": config.nodes[option_id].text})
 		run().decisions[current.id] = option_id
 		target = config.nodes[option_id].next
 		apply_effects(config.nodes[option_id])
@@ -241,6 +247,19 @@ func prepare_enemy(stage: Dictionary) -> String:
 	journey.enemies[key] = session.generate_enemy(int(stage.engineBinding.journeyStage), encounter)
 	session.combat.rng.state = saved_rng
 	return "" if not journey.enemies[key].is_empty() else "Не удалось создать сюжетную встречу: " + stage.id
+
+func prune_removed_activities():
+	# Keep visited landmarks as history until retry; never reroll a saved map.
+	var journey = session.game.journey
+	var removed = {}
+	for point in journey.map.nodes:
+		if point.kind == "fight" or point.id in journey.path: continue
+		var stage: Dictionary = config.stages.get(point.get("storyStage", ""), {})
+		if stage.has("activityOptions") and not stage.activityOptions.has(point.get("storyOption", "")):
+			removed[point.id] = true
+	if removed.is_empty(): return
+	journey.map.nodes = journey.map.nodes.filter(func(point): return point.id not in removed)
+	journey.map.edges = journey.map.edges.filter(func(edge): return edge[0] not in removed and edge[1] not in removed)
 
 func available_nodes() -> Array:
 	if session.game.phase != "ready" or session.game.journey.has("service"): return []

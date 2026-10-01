@@ -14,7 +14,7 @@
       },
       {
         "document": "data/creatures.json",
-        "sha256": "46ad207c67a2fd9112c0b7f8f3602f83b13e2cc86fa61b2e86e60862cf41724d"
+        "sha256": "39c36e1bd8eec4abb4275d0591cfef555423585abc113a4cec5d0e7d96c79576"
       },
       {
         "document": "data/maps.json",
@@ -34,7 +34,7 @@
       },
       {
         "document": "data/jewelry.json",
-        "sha256": "a0e21dfcc91bfc5fae190fafe89939994e60545fa4541ab130ca624e80d1c4a2"
+        "sha256": "9a7301469aa70a5493a166e931031ba18cf28c8c7864f3291253b0cf1520bb93"
       },
       {
         "document": "data/skills.json",
@@ -46,7 +46,7 @@
       },
       {
         "document": "data/combat-balance.json",
-        "sha256": "24d6ebe6d2a15b1d1dd4de4b8160e50f927b7bdbca502d420e35056495a6abd2"
+        "sha256": "aa08132aeca577e84ef0082f3f17ef423f00998801fe5d4c9fc762c08446dcdd"
       },
       {
         "document": "docs/CHARACTERS.md",
@@ -58,7 +58,7 @@
       },
       {
         "document": "data/map-points.json",
-        "sha256": "38b3c612f11a20c531ef1423a4fb9a27954bfeea5f0018cee90eb21b39d40f7b"
+        "sha256": "88e502e73d775136aeece14125ab035c928467fa51d293fd033352d05680c32a"
       },
       {
         "document": "data/shields.json",
@@ -854,14 +854,6 @@
           "repeatScene": "repeat-stop",
           "activities": [
             {
-              "id": "campfire",
-              "label": "Костёр",
-              "effectBinding": "existingCampfire",
-              "availability": "whenRouteExists",
-              "route": "camp",
-              "mapPointType": "campfire"
-            },
-            {
               "id": "forge",
               "label": "Кузница",
               "effectBinding": "existingForge",
@@ -885,8 +877,8 @@
           "engineBinding": {
             "journeyStage": 1,
             "nodeIds": [
-              "camp-1",
-              "forge-1"
+              "forge-1",
+              "healer-1"
             ],
             "trigger": "beforeRouteSelection",
             "requiresAdapter": true
@@ -970,7 +962,9 @@
             "journeyStage": 2,
             "nodeIds": [
               "camp-2",
-              "forge-2"
+              "forge-2",
+              "market-2",
+              "square-2"
             ],
             "trigger": "beforeRouteSelection",
             "requiresAdapter": true
@@ -1047,7 +1041,8 @@
             "journeyStage": 3,
             "nodeIds": [
               "camp-3",
-              "forge-3"
+              "forge-3",
+              "tavern-3"
             ],
             "trigger": "beforeRouteSelection",
             "requiresAdapter": true
@@ -1238,7 +1233,8 @@
             "journeyStage": 1,
             "nodeIds": [
               "camp-1",
-              "forge-1"
+              "forge-1",
+              "forest-meeting-1"
             ],
             "trigger": "beforeRouteSelection",
             "requiresAdapter": true
@@ -1344,7 +1340,8 @@
             "journeyStage": 2,
             "nodeIds": [
               "camp-2",
-              "forge-2"
+              "forge-2",
+              "fairy-meeting-2"
             ],
             "trigger": "beforeRouteSelection",
             "requiresAdapter": true
@@ -1489,7 +1486,8 @@
             "journeyStage": 4,
             "nodeIds": [
               "camp-4",
-              "forge-4"
+              "forge-4",
+              "fairy-meeting-4"
             ],
             "trigger": "beforeRouteSelection",
             "requiresAdapter": true
@@ -1610,7 +1608,8 @@
             "journeyStage": 1,
             "nodeIds": [
               "camp-1",
-              "forge-1"
+              "forge-1",
+              "hermit-meeting-1"
             ],
             "trigger": "beforeRouteSelection",
             "requiresAdapter": true
@@ -1686,7 +1685,8 @@
             "journeyStage": 2,
             "nodeIds": [
               "camp-2",
-              "forge-2"
+              "forge-2",
+              "aid-2"
             ],
             "trigger": "beforeRouteSelection",
             "requiresAdapter": true
@@ -1762,7 +1762,8 @@
             "journeyStage": 3,
             "nodeIds": [
               "camp-3",
-              "forge-3"
+              "forge-3",
+              "fairy-meeting-3"
             ],
             "trigger": "beforeRouteSelection",
             "requiresAdapter": true
@@ -1953,7 +1954,8 @@
             "journeyStage": 1,
             "nodeIds": [
               "camp-1",
-              "forge-1"
+              "forge-1",
+              "market-1"
             ],
             "trigger": "beforeRouteSelection",
             "requiresAdapter": true
@@ -2279,14 +2281,6 @@
           "repeatScene": "repeat-stop",
           "activities": [
             {
-              "id": "campfire",
-              "label": "Костёр",
-              "effectBinding": "existingCampfire",
-              "availability": "whenRouteExists",
-              "route": "camp",
-              "mapPointType": "campfire"
-            },
-            {
               "id": "forge",
               "label": "Кузница",
               "effectBinding": "existingForge",
@@ -2310,8 +2304,8 @@
           "engineBinding": {
             "journeyStage": 1,
             "nodeIds": [
-              "camp-1",
-              "forge-1"
+              "forge-1",
+              "healer-1"
             ],
             "trigger": "beforeRouteSelection",
             "requiresAdapter": true
@@ -2388,7 +2382,8 @@
             "journeyStage": 2,
             "nodeIds": [
               "camp-2",
-              "forge-2"
+              "forge-2",
+              "fairy-meeting-2"
             ],
             "trigger": "beforeRouteSelection",
             "requiresAdapter": true
@@ -3591,9 +3586,9 @@
         },
         {
           "type": "interfaceInstruction",
-          "text": "Интерфейс: «Выбрать занятие» → «Костёр» / «Кузница» / «Лечебница».",
+          "text": "Интерфейс: «Выбрать занятие» → «Кузница» / «Лечебница».",
           "id": "2.2.99b76bae4951",
-          "sourceText": "**Интерфейс:** «Выбрать занятие» → «Костёр» / «Кузница» / «Лечебница».",
+          "sourceText": "**Интерфейс:** «Выбрать занятие» → «Кузница» / «Лечебница».",
           "display": false
         },
         {
@@ -6885,9 +6880,9 @@
         },
         {
           "type": "interfaceInstruction",
-          "text": "Интерфейс: «Выбрать занятие» → «Костёр» / «Кузница» / «Лечебница».",
+          "text": "Интерфейс: «Выбрать занятие» → «Кузница» / «Лечебница».",
           "id": "6.2.99b76bae4951",
-          "sourceText": "**Интерфейс:** «Выбрать занятие» → «Костёр» / «Кузница» / «Лечебница».",
+          "sourceText": "**Интерфейс:** «Выбрать занятие» → «Кузница» / «Лечебница».",
           "display": false
         },
         {

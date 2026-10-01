@@ -4,7 +4,7 @@
     "name": "Демон",
     "description": "Враждебное человеку пограничное существо из иного пространства. Стремится поглотить человеческую душу — крупицу Логоса — и увеличить собственную силу. Практически не вступает с людьми в деловые отношения. Принимает любое выгодное обличье. Часто выглядит как ребёнок или безобидная женщина, чтобы не вызывать настороженности и встречной агрессии. Устойчивый «истинный облик» не задан.",
     "portrait": {
-      "src": "/creatures/portraits/demon.png",
+      "src": "/creatures/dialogue-portraits/demon.png",
       "facing": "left"
     },
     "source": {
@@ -92,17 +92,14 @@
       "vitality": 3,
       "intelligence": 6
     },
-    "dialoguePortrait": {
-      "src": "/creatures/dialogue-portraits/demon.png",
-      "facing": "left"
-    }
+    "damageMultiplier": 1.0
   },
   {
     "id": "light-spirit",
     "name": "Бесплотный дух",
     "description": "Существа иных планов, случайно касающиеся материального мира. Не являются демонами. Бледные, белёсые, едва уловимые фигуры или почти незаметное присутствие в воздухе. Отдельные призраки создают иллюзии.",
     "portrait": {
-      "src": "/creatures/portraits/light-spirit.png",
+      "src": "/creatures/dialogue-portraits/light-spirit.png",
       "facing": "left"
     },
     "source": {
@@ -125,14 +122,15 @@
       "agility": 1,
       "vitality": 3,
       "intelligence": 1
-    }
+    },
+    "damageMultiplier": 1.0
   },
   {
     "id": "vanishing",
     "name": "Исчезающий",
     "description": "Враждебное людям существо, отличное от безвредных духов. Точное происхождение не раскрыто. Абсолютно чёрная, лишённая объёма тень. Может иметь очертания человека, зверя или чудовища; скользит по стенам, полу и потолку либо возникает в пространстве без предмета, который мог бы её отбрасывать. «Плотная» означает визуальную черноту, а не объёмное тело.",
     "portrait": {
-      "src": "/creatures/portraits/vanishing.png",
+      "src": "/creatures/dialogue-portraits/vanishing.png",
       "facing": "left"
     },
     "source": {
@@ -212,14 +210,15 @@
       "agility": 1,
       "vitality": 3,
       "intelligence": 6
-    }
+    },
+    "damageMultiplier": 1.0
   },
   {
     "id": "swamp-hag",
     "name": "Болотница",
     "description": "Сгорбленное существо с зеленоватыми седыми волосами и крючковатыми руками. Заманивает путников в трясину, запутывает их и отравляет зловонными испарениями. Может притворяться заблудившейся старухой и предлагать помощь.",
     "portrait": {
-      "src": "/creatures/portraits/swamp-hag.png",
+      "src": "/creatures/dialogue-portraits/swamp-hag.png",
       "facing": "left"
     },
     "source": {
@@ -314,17 +313,14 @@
       "vitality": 3,
       "intelligence": 6
     },
-    "dialoguePortrait": {
-      "src": "/creatures/dialogue-portraits/swamp-hag.png",
-      "facing": "left"
-    }
+    "damageMultiplier": 1.0
   },
   {
     "id": "battle-mage",
     "name": "Боевой маг",
     "description": "Человек, чувствующий сознание Логоса и применяющий магию в бою. Может быть противником героя; не каждый боевой маг обязательно враждебен. Не задана. Дополнение: дорожное или военное снаряжение, камни и ёмкости с подготовленными составами; внешний вид зависит от службы и школы.",
     "portrait": {
-      "src": "/creatures/portraits/battle-mage.png",
+      "src": "/creatures/dialogue-portraits/battle-mage.png",
       "facing": "left"
     },
     "source": {
@@ -411,14 +407,15 @@
       "agility": 1,
       "vitality": 3,
       "intelligence": 6
-    }
+    },
+    "damageMultiplier": 1.0
   },
   {
     "id": "wild-mage",
     "name": "Дикий маг",
     "description": "Маг, практикующий собственную магию. Может быть враждебен, но принадлежность к этой категории сама по себе не определяет нравственность.",
     "portrait": {
-      "src": "/creatures/portraits/wild-mage.png",
+      "src": "/creatures/dialogue-portraits/wild-mage.png",
       "facing": "left"
     },
     "source": {
@@ -506,17 +503,14 @@
       "vitality": 3,
       "intelligence": 6
     },
-    "dialoguePortrait": {
-      "src": "/creatures/dialogue-portraits/wild-mage.png",
-      "facing": "left"
-    }
+    "damageMultiplier": 1.0
   },
   {
     "id": "elf",
     "name": "Эльф",
     "description": "Представитель народа, возникшего из более возвышенных и сложных фрагментов сознания Логоса. Автором не задана. Дополнение для портретов: человекоподобный облик, тонкие черты, внимательное спокойное выражение; конкретная анатомия и одежда могут различаться между общинами.",
     "portrait": {
-      "src": "/creatures/portraits/elf.png",
+      "src": "/creatures/dialogue-portraits/elf.png",
       "facing": "left"
     },
     "source": {
@@ -603,14 +597,15 @@
       "agility": 1,
       "vitality": 3,
       "intelligence": 6
-    }
+    },
+    "damageMultiplier": 1.0
   },
   {
     "id": "faerie",
     "name": "Фея",
     "description": "Тонкое существо, частично пребывающее вне материального мира. Феири называют духами природы. Постоянная форма не задана. В материальном мире встречается по собственной воле, когда решает воплотиться. Маленький рост и крылья не являются обязательными свойствами.",
     "portrait": {
-      "src": "/creatures/portraits/faerie.png",
+      "src": "/creatures/dialogue-portraits/faerie.png",
       "facing": "left"
     },
     "source": {
@@ -694,17 +689,14 @@
       "vitality": 3,
       "intelligence": 6
     },
-    "dialoguePortrait": {
-      "src": "/creatures/dialogue-portraits/faerie.png",
-      "facing": "left"
-    }
+    "damageMultiplier": 1.0
   },
   {
     "id": "dark-faerie",
     "name": "Подземная фея",
     "description": "Отдельная разновидность феири, связанная с землёй и подземным пространством. Слово «тёмная» само по себе не означает злую или враждебную. Материальное воплощение может напоминать небольшую фигуру из влажной земли, корневых волокон и тусклого минерального блеска; это вариант, а не обязательная анатомия.",
     "portrait": {
-      "src": "/creatures/portraits/dark-faerie.png",
+      "src": "/creatures/dialogue-portraits/dark-faerie.png",
       "facing": "left"
     },
     "source": {
@@ -787,14 +779,15 @@
       "agility": 1,
       "vitality": 3,
       "intelligence": 6
-    }
+    },
+    "damageMultiplier": 1.0
   },
   {
     "id": "vampire",
     "name": "Вампир",
     "description": "Пограничное существо, не способное автономно поддерживать жизнь в материальном мире. Питается человеческой кровью и жизненными силами. Способен выдавать себя за беззащитного человека. Конкретные признаки внешности не заданы; постоянная чудовищная маска не обязательна.",
     "portrait": {
-      "src": "/creatures/portraits/vampire.png",
+      "src": "/creatures/dialogue-portraits/vampire.png",
       "facing": "left"
     },
     "source": {
@@ -882,17 +875,14 @@
       "vitality": 3,
       "intelligence": 1
     },
-    "dialoguePortrait": {
-      "src": "/creatures/dialogue-portraits/vampire.png",
-      "facing": "left"
-    }
+    "damageMultiplier": 1.0
   },
   {
     "id": "harpy",
     "name": "Гарпия",
     "description": "Существо бестиария, сочетающее человеческие и звериные черты; связано с феями и состоит с ними в союзе. Человеческое лицо и часть торса сочетаются с птичьими крыльями, оперением и цепкими лапами.",
     "portrait": {
-      "src": "/creatures/portraits/harpy.png",
+      "src": "/creatures/dialogue-portraits/harpy.png",
       "facing": "left"
     },
     "source": {
@@ -972,14 +962,15 @@
       "agility": 6,
       "vitality": 3,
       "intelligence": 1
-    }
+    },
+    "damageMultiplier": 1.0
   },
   {
     "id": "leshy",
     "name": "Леший",
     "description": "Существо бестиария с чертами человека и дикого зверя, союзник фей. Обитает в лесу. Высокий сутулый силуэт, грубая шерсть, вытянутые конечности и лицо с человеческими и звериными чертами. Мох и ветви могут служить маскировкой, но тело не обязательно состоит из дерева.",
     "portrait": {
-      "src": "/creatures/portraits/leshy.png",
+      "src": "/creatures/dialogue-portraits/leshy.png",
       "facing": "left"
     },
     "source": {
@@ -1066,14 +1057,15 @@
       "agility": 1,
       "vitality": 3,
       "intelligence": 1
-    }
+    },
+    "damageMultiplier": 1.0
   },
   {
     "id": "faun",
     "name": "Фавн",
     "description": "Существо бестиария с человеческими и звериными чертами; живёт рядом с феями и состоит с ними в союзе. Человеческие лицо и торс, рога, шерсть и копытные ноги.",
     "portrait": {
-      "src": "/creatures/portraits/faun.png",
+      "src": "/creatures/dialogue-portraits/faun.png",
       "facing": "left"
     },
     "source": {
@@ -1222,17 +1214,14 @@
         ]
       }
     },
-    "dialoguePortrait": {
-      "src": "/creatures/dialogue-portraits/faun.png",
-      "facing": "left"
-    }
+    "damageMultiplier": 1.0
   },
   {
     "id": "living-armor",
     "name": "Живой доспех",
     "description": "Результат работы мага, поймавшего бесплотный дух из другого измерения и соединившего его с железным доспехом. Дух заперт внутри материальной оболочки. Пустой шагающий доспех, способный сражаться. Обладает примитивной или потусторонней волей.",
     "portrait": {
-      "src": "/creatures/portraits/living-armor.png",
+      "src": "/creatures/dialogue-portraits/living-armor.png",
       "facing": "left"
     },
     "source": {
@@ -1315,14 +1304,15 @@
       "agility": 1,
       "vitality": 3,
       "intelligence": 1
-    }
+    },
+    "damageMultiplier": 1.0
   },
   {
     "id": "dog",
     "name": "Собака",
     "description": "Обычное материальное животное; одичавшая либо обученная человеком собака.",
     "portrait": {
-      "src": "/creatures/portraits/dog.png",
+      "src": "/creatures/dialogue-portraits/dog.png",
       "facing": "left"
     },
     "source": {
@@ -1464,14 +1454,15 @@
           }
         ]
       }
-    }
+    },
+    "damageMultiplier": 1.0
   },
   {
     "id": "wolf",
     "name": "Дикий волк",
     "description": "Обычный лесной волк материального мира.",
     "portrait": {
-      "src": "/creatures/portraits/wolf.png",
+      "src": "/creatures/dialogue-portraits/wolf.png",
       "facing": "left"
     },
     "source": {
@@ -1683,14 +1674,15 @@
           }
         ]
       }
-    }
+    },
+    "damageMultiplier": 1.0
   },
   {
     "id": "huge-wolf",
     "name": "Огромный волк",
     "description": "Отдельный крупный зверь; точная история происхождения не задана.",
     "portrait": {
-      "src": "/creatures/portraits/huge-wolf.png",
+      "src": "/creatures/dialogue-portraits/huge-wolf.png",
       "facing": "left"
     },
     "source": {
@@ -1869,17 +1861,14 @@
         ]
       }
     },
-    "dialoguePortrait": {
-      "src": "/creatures/dialogue-portraits/huge-wolf.png",
-      "facing": "left"
-    }
+    "damageMultiplier": 1.0
   },
   {
     "id": "werewolf",
     "name": "Волк-оборотень",
     "description": "Самостоятельный зверь, не человек; дополнение — волкоподобное тело с длинными хватательными передними конечностями.",
     "portrait": {
-      "src": "/creatures/portraits/werewolf.png",
+      "src": "/creatures/dialogue-portraits/werewolf.png",
       "facing": "left"
     },
     "source": {
@@ -1995,14 +1984,15 @@
       "agility": 1,
       "vitality": 3,
       "intelligence": 1
-    }
+    },
+    "damageMultiplier": 1.0
   },
   {
     "id": "cat",
     "name": "Кошачий хищник",
     "description": "Материальные звери кошачьего облика; крупная разновидность — отдельное существо.",
     "portrait": {
-      "src": "/creatures/portraits/cat.png",
+      "src": "/creatures/dialogue-portraits/cat.png",
       "facing": "left"
     },
     "source": {
@@ -2148,14 +2138,15 @@
           }
         ]
       }
-    }
+    },
+    "damageMultiplier": 1.0
   },
   {
     "id": "huge-cat",
     "name": "Огромный кошачий хищник",
     "description": "Материальные звери кошачьего облика; крупная разновидность — отдельное существо.",
     "portrait": {
-      "src": "/creatures/portraits/huge-cat.png",
+      "src": "/creatures/dialogue-portraits/huge-cat.png",
       "facing": "left"
     },
     "source": {
@@ -2271,14 +2262,15 @@
       "agility": 1,
       "vitality": 3,
       "intelligence": 1
-    }
+    },
+    "damageMultiplier": 1.0
   },
   {
     "id": "small-bird",
     "name": "Малая хищная птица",
     "description": "Материальные пернатые звери; разные существа, а не просто числовые ступени.",
     "portrait": {
-      "src": "/creatures/portraits/small-bird.png",
+      "src": "/creatures/dialogue-portraits/small-bird.png",
       "facing": "left"
     },
     "source": {
@@ -2420,14 +2412,15 @@
           }
         ]
       }
-    }
+    },
+    "damageMultiplier": 1.0
   },
   {
     "id": "large-bird",
     "name": "Большая хищная птица",
     "description": "Материальные пернатые звери; разные существа, а не просто числовые ступени.",
     "portrait": {
-      "src": "/creatures/portraits/large-bird.png",
+      "src": "/creatures/dialogue-portraits/large-bird.png",
       "facing": "left"
     },
     "source": {
@@ -2539,14 +2532,15 @@
       "agility": 6,
       "vitality": 3,
       "intelligence": 1
-    }
+    },
+    "damageMultiplier": 1.0
   },
   {
     "id": "giant-snake",
     "name": "Гигантская змея",
     "description": "Крупный материальный змей.",
     "portrait": {
-      "src": "/creatures/portraits/giant-snake.png",
+      "src": "/creatures/dialogue-portraits/giant-snake.png",
       "facing": "left"
     },
     "source": {
@@ -2658,14 +2652,15 @@
       "agility": 1,
       "vitality": 3,
       "intelligence": 1
-    }
+    },
+    "damageMultiplier": 1.0
   },
   {
     "id": "lake-snake",
     "name": "Озёрная змея",
     "description": "Длинный водный змей, скрывающийся в глубине озёр. Нападает из-под поверхности, опрокидывает небольшие лодки и утаскивает добычу в воду.",
     "portrait": {
-      "src": "/creatures/portraits/lake-snake.png",
+      "src": "/creatures/dialogue-portraits/lake-snake.png",
       "facing": "left"
     },
     "source": {
@@ -2776,14 +2771,15 @@
       "agility": 1,
       "vitality": 3,
       "intelligence": 1
-    }
+    },
+    "damageMultiplier": 1.0
   },
   {
     "id": "flying-snake",
     "name": "Летающая гигантская змея",
     "description": "Отдельный змееобразный зверь, способный летать; дополнение — широкие перепончатые выросты вдоль тела.",
     "portrait": {
-      "src": "/creatures/portraits/flying-snake.png",
+      "src": "/creatures/dialogue-portraits/flying-snake.png",
       "facing": "left"
     },
     "source": {
@@ -2863,14 +2859,15 @@
       "agility": 1,
       "vitality": 3,
       "intelligence": 1
-    }
+    },
+    "damageMultiplier": 1.0
   },
   {
     "id": "flying-lizard",
     "name": "Летающий ящер",
     "description": "Крылатый материальный зверь; дополнение — кожистые перепонки и вытянутая зубастая пасть.",
     "portrait": {
-      "src": "/creatures/portraits/flying-lizard.png",
+      "src": "/creatures/dialogue-portraits/flying-lizard.png",
       "facing": "left"
     },
     "source": {
@@ -2982,14 +2979,15 @@
       "agility": 6,
       "vitality": 3,
       "intelligence": 1
-    }
+    },
+    "damageMultiplier": 1.0
   },
   {
     "id": "dragon",
     "name": "Дракон",
     "description": "Существование драконов задано, конкретный облик — нет. Дополнение: крупный чешуйчатый зверь с тяжёлой головой и крыльями.",
     "portrait": {
-      "src": "/creatures/portraits/dragon.png",
+      "src": "/creatures/dialogue-portraits/dragon.png",
       "facing": "left"
     },
     "source": {
@@ -3105,14 +3103,15 @@
       "agility": 1,
       "vitality": 3,
       "intelligence": 1
-    }
+    },
+    "damageMultiplier": 1.0
   },
   {
     "id": "octopus",
     "name": "Спрут",
     "description": "Материальное водное существо со щупальцами; опасная крупная разновидность.",
     "portrait": {
-      "src": "/creatures/portraits/octopus.png",
+      "src": "/creatures/dialogue-portraits/octopus.png",
       "facing": "left"
     },
     "source": {
@@ -3224,14 +3223,15 @@
       "agility": 1,
       "vitality": 3,
       "intelligence": 1
-    }
+    },
+    "damageMultiplier": 1.0
   },
   {
     "id": "bone-collector",
     "name": "Костесборщик",
     "description": "Материальный падальщик, приспособившийся к землям непрерывных войн. Низкое шестиногое тело под костяными наростами; морда с раздвоенной нижней челюстью. На спине застревают подобранные кости и обломки снаряжения.",
     "portrait": {
-      "src": "/creatures/portraits/bone-collector.png",
+      "src": "/creatures/dialogue-portraits/bone-collector.png",
       "facing": "left"
     },
     "source": {
@@ -3347,14 +3347,15 @@
       "agility": 1,
       "vitality": 3,
       "intelligence": 1
-    }
+    },
+    "damageMultiplier": 1.0
   },
   {
     "id": "rust-eater",
     "name": "Ржавоед",
     "description": "Материальное насекомоподобное существо, питающееся металлами и минеральными отложениями. Длинное плоское тело, медно-бурый панцирь, жёсткие усики; у рта блестят капли едкой слюны.",
     "portrait": {
-      "src": "/creatures/portraits/rust-eater.png",
+      "src": "/creatures/dialogue-portraits/rust-eater.png",
       "facing": "left"
     },
     "source": {
@@ -3466,14 +3467,15 @@
       "agility": 1,
       "vitality": 3,
       "intelligence": 6
-    }
+    },
+    "damageMultiplier": 1.0
   },
   {
     "id": "bog-bell",
     "name": "Топяной колокол",
     "description": "Хищный организм материального мира, сочетающий свойства грибной колонии и подвижного болотного животного. Вздутый полупрозрачный мешок на корневидных ногах; внутри колышется тёмная жидкость. На ветру оболочка издаёт глухой звон.",
     "portrait": {
-      "src": "/creatures/portraits/bog-bell.png",
+      "src": "/creatures/dialogue-portraits/bog-bell.png",
       "facing": "left"
     },
     "source": {
@@ -3557,14 +3559,15 @@
       "agility": 1,
       "vitality": 3,
       "intelligence": 6
-    }
+    },
+    "damageMultiplier": 1.0
   },
   {
     "id": "ash-hound",
     "name": "Пепельный гончий",
     "description": "Зверь материального мира, чья структура сознания была изменена длительным соседством с остатками боевых заклинаний. Это не демон. Худое четвероногое тело, покрытое серой коркой; в трещинах теплится красный свет, дыхание несёт золу.",
     "portrait": {
-      "src": "/creatures/portraits/ash-hound.png",
+      "src": "/creatures/dialogue-portraits/ash-hound.png",
       "facing": "left"
     },
     "source": {
@@ -3676,14 +3679,15 @@
       "agility": 1,
       "vitality": 3,
       "intelligence": 6
-    }
+    },
+    "damageMultiplier": 1.0
   },
   {
     "id": "root-shepherd",
     "name": "Корневой пастух",
     "description": "Самостоятельное существо материального мира, чьё тело объединяет древесные и животные ткани. Соседствует с феями, но не подчиняется им автоматически. Тяжёлое туловище на четырёх узловатых ногах, пучки корней вместо бороды, влажные глаза под корой.",
     "portrait": {
-      "src": "/creatures/portraits/root-shepherd.png",
+      "src": "/creatures/dialogue-portraits/root-shepherd.png",
       "facing": "left"
     },
     "source": {
@@ -3799,14 +3803,15 @@
       "agility": 1,
       "vitality": 3,
       "intelligence": 1
-    }
+    },
+    "damageMultiplier": 1.0
   },
   {
     "id": "mirror-being",
     "name": "Зеркальщик",
     "description": "Пограничный паразит из плана отражений; не относится к демонам и не поглощает души ради роста. В отражающей поверхности выглядит как запоздалое движение чужого лица. Воплощаясь, напоминает тонкую фигуру из дымчатого стекла.",
     "portrait": {
-      "src": "/creatures/portraits/mirror-being.png",
+      "src": "/creatures/dialogue-portraits/mirror-being.png",
       "facing": "left"
     },
     "source": {
@@ -3886,14 +3891,15 @@
       "agility": 1,
       "vitality": 3,
       "intelligence": 6
-    }
+    },
+    "damageMultiplier": 1.0
   },
   {
     "id": "stitchling",
     "name": "Шовник",
     "description": "Искусственное существо, созданное магом из останков животных и связанного с ними сознания. Не требует человеческой души. Несимметричное тело, стянутое жилами и металлическими скобами; разные по длине лапы, лишние суставы, несколько плохо согласованных органов чувств.",
     "portrait": {
-      "src": "/creatures/portraits/stitchling.png",
+      "src": "/creatures/dialogue-portraits/stitchling.png",
       "facing": "left"
     },
     "source": {
@@ -4009,14 +4015,15 @@
       "agility": 1,
       "vitality": 3,
       "intelligence": 1
-    }
+    },
+    "damageMultiplier": 1.0
   },
   {
     "id": "whisperess",
     "name": "Шёпотница",
     "description": "Пограничное существо, питающееся переживанием горя, но не поглощающее человеческую душу целиком. Узкая фигура в складках, похожих на мокрую погребальную ткань; вместо лица — несколько едва видимых движущихся ртов.",
     "portrait": {
-      "src": "/creatures/portraits/whisperess.png",
+      "src": "/creatures/dialogue-portraits/whisperess.png",
       "facing": "left"
     },
     "source": {
@@ -4096,14 +4103,15 @@
       "agility": 1,
       "vitality": 3,
       "intelligence": 6
-    }
+    },
+    "damageMultiplier": 1.0
   },
   {
     "id": "stone-yawn",
     "name": "Каменный зевок",
     "description": "Медленно растущий материальный хищник, чьё сознание связано преимущественно с землёй и камнем. Снаружи напоминает груду валунов или участок кладки. Раскрываясь, обнаруживает влажную пасть между минеральными пластинами.",
     "portrait": {
-      "src": "/creatures/portraits/stone-yawn.png",
+      "src": "/creatures/dialogue-portraits/stone-yawn.png",
       "facing": "left"
     },
     "source": {
@@ -4215,14 +4223,15 @@
       "agility": 1,
       "vitality": 3,
       "intelligence": 1
-    }
+    },
+    "damageMultiplier": 1.0
   },
   {
     "id": "meldling",
     "name": "Слитник",
     "description": "Возможное новое существо из смешавшихся частиц, освобождённых при разрушении одного аттрактора. Это пример опасного исхода, а не обязательный результат каждого разрушения. Неустойчивая общая форма, в которой проступают несовместимые черты нескольких существ; разные части пытаются обрести собственные очертания.",
     "portrait": {
-      "src": "/creatures/portraits/meldling.png",
+      "src": "/creatures/dialogue-portraits/meldling.png",
       "facing": "left"
     },
     "source": {
@@ -4338,14 +4347,15 @@
       "agility": 1,
       "vitality": 3,
       "intelligence": 6
-    }
+    },
+    "damageMultiplier": 1.0
   },
   {
     "id": "attractor",
     "name": "Аттрактор",
     "description": "Чёрный камень, возникший там, где жрецы очистили фрагмент материального пространства от сознания Логоса. Поглощает помещённые в него осколки сознания и в обмен усиливает характеристики носителя. Накапливая осколки, становится осознаннее, разговаривает с героем и склоняет его ко злу. Происхождение голоса остаётся неизвестным.",
     "portrait": {
-      "src": "/creatures/portraits/attractor.png",
+      "src": "/creatures/dialogue-portraits/attractor.png",
       "facing": "left"
     },
     "source": {
@@ -4362,17 +4372,14 @@
       "slots": []
     },
     "figures": [],
-    "dialoguePortrait": {
-      "src": "/creatures/dialogue-portraits/attractor.png",
-      "facing": "left"
-    }
+    "damageMultiplier": 1.0
   },
   {
     "id": "skeleton",
     "name": "Скелет",
     "description": "Оживлённые человеческие кости, скреплённые чужой волей. Жрецы считают, что в останки привязаны частицы сознания, а не возвращена личность умершего. Враждебный страж заброшенных мест; сражается одноручным оружием, иногда носит щит.",
     "portrait": {
-      "src": "/creatures/portraits/skeleton.png",
+      "src": "/creatures/dialogue-portraits/skeleton.png",
       "facing": "left"
     },
     "source": {
@@ -4438,14 +4445,15 @@
       "agility": 1,
       "vitality": 3,
       "intelligence": 1
-    }
+    },
+    "damageMultiplier": 1.0
   },
   {
     "id": "skeleton-archer",
     "name": "Скелет-лучник",
     "description": "Оживлённый костяной страж, повторяющий движения давно забытого стрелка. Узкий череп под истлевшим капюшоном и настороженный наклон головы. Сражается только луком, щита не носит. Стрелы в игре бесконечны; их запас не учитывается.",
     "portrait": {
-      "src": "/creatures/portraits/skeleton-archer.png",
+      "src": "/creatures/dialogue-portraits/skeleton-archer.png",
       "facing": "left"
     },
     "source": {
@@ -4498,6 +4506,7 @@
       "agility": 6,
       "vitality": 3,
       "intelligence": 1
-    }
+    },
+    "damageMultiplier": 1.0
   }
 ]

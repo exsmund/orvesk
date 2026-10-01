@@ -17,7 +17,11 @@ class MemorySaves extends RefCounted:
 		return true
 
 class MemoryPreferences extends RefCounted:
-	var animated = false
+	var completed_difficulties: Array = []
+	func record_completed(ids):
+		for id in ids:
+			if id not in completed_difficulties: completed_difficulties.append(id)
+		return true
 	var last_hero = "previous"
 	func write(): return true
 
@@ -52,9 +56,9 @@ func geometry(step: int):
 	var body = view.body.get_global_rect().grow(1)
 	if step == 0:
 		var page = view.identity
-		for node in [page.frame, page.portrait, page.previous, page.next, page.name_input]:
+		for node in [page.portrait, page.previous, page.next, page.name_input]:
 			check(body.encloses(node.get_global_rect()), "Identity content fits without scrolling")
-		check(page.frame.get_global_rect().encloses(page.portrait.get_global_rect()), "Portrait does not escape frame")
+		check(page.portrait.texture == ui.data.image(ui.data.portraits[ui.create_portrait].src), "Creation uses complete transparent source")
 		check(is_equal_approx(page.portrait.size.aspect(), Vector2(page.portrait.texture.get_size()).aspect()), "Portrait keeps original aspect")
 	else:
 		var page = view.attributes
@@ -180,10 +184,15 @@ func run():
 	check(view.step == 0 and view.identity.portrait.visible and input.text == "Вереск", "Back first dismisses keyboard without losing name")
 	view.action.pressed.emit()
 	await settle()
+	view.action.pressed.emit()
+	await settle()
+	check(view.step == 2 and view.title.text == "Сложность" and view.subtitle.text == "Шаг 3 из 3", "Third step chooses difficulty")
+	check(ui.create_difficulty == "manageable" and view.difficulty.find_children("*", "CheckBox", true, false).is_empty(), "Default is manageable with story enabled")
+	check(view.difficulty.buttons.legendary.disabled, "Legendary initially locked")
 	ui.saves.fail = true
 	view.action.pressed.emit()
 	await settle()
-	check(ui.creation_view == view and view.step == 1 and view.warning.text == ui.saves.error, "Failed creation save stays on attributes with error")
+	check(ui.creation_view == view and view.step == 2 and view.warning.text == ui.saves.error, "Failed creation save stays on difficulty with error")
 	check(ui.session == old_session and ui.session.game == old_game and ui.session.combat.rng.state == old_rng and ui.hero_id == "previous", "Failed creation leaves existing hero and RNG intact")
 	check(ui.preferences.last_hero == "previous" and ui.saves.writes == 0 and ui.create_stats == distributed, "Failed save preserves draft and last hero")
 	ui.saves.fail = false

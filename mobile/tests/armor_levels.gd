@@ -66,7 +66,7 @@ func run():
 		attacker.deck = {"hand":[move],"draw":[],"discard":[],"exchanged":false}
 		hero.deck = {"hand":[],"draw":[],"discard":[],"exchanged":false}
 		var result = session.combat.calculate({"player":attacker,"enemy":hero},{"player":[{"id":move.id,"x":0,"y":0,"rotation":0}],"enemy":[]},{"player":{},"enemy":{}},true)
-		check(is_equal_approx(result.enemy.damage, 24.4 if type == "slash" else 100.0), "leveled armor mitigates actual damage")
+		check(is_equal_approx(result.enemy.damage, 62.2 if type == "slash" else 100.0), "leveled armor mitigates actual damage")
 		check(result.enemy.staminaLoss == 2, "armor never mitigates stamina damage")
 	# Rewards and shops resolve armor through the same catalog as weapons.
 	hero.gear.body = null
@@ -78,22 +78,23 @@ func run():
 		check(rolled.level > 1 and rolled.requirements.values().all(func(value):return value == rolled.level), "loot rolls armor levels")
 		var option = {"kind":"item", "itemId":template.id + "@5"}
 		check(session.rewards.usable(option, hero), "armor is an eligible reward: " + template.id)
-		var entry = inspection.item(option.itemId, hero, "Предлагается")
+		var entry = inspection.item(option.itemId, hero, "Новое")
 		check(entry.texture != null and entry.defense == data.item(option.itemId).defense, "inspection shares art and protection: " + template.id)
 		check(entry.figures.size() == (1 if template.slot == "feet" else 0), "body has no actions; footwear retains kick: " + template.id)
+	hero.gear.body = "plate@5"
 	var armored_enemies = 0
 	for seed_value in range(30):
 		var enemy = hero.duplicate(true)
 		enemy.style = data.journey_rules.styles[seed_value % data.journey_rules.styles.size()].id
 		for slot in enemy.gear: enemy.gear[slot] = null
 		session.combat.rng.seed = seed_value
-		session.enemy_gear(enemy)
+		session.enemy_gear(enemy, hero)
 		for reference in enemy.gear.values():
 			if not reference: continue
 			var equipment = data.item(reference)
 			if equipment.kind != "armor": continue
 			armored_enemies += 1
-			check(equipment.level >= 1 and equipment.level <= 5 and data.can_use(enemy, equipment), "enemy armor respects stat ceiling and may use a lower budgeted rank")
+			check(equipment.level >= 1 and equipment.level <= 5 and data.can_use(enemy, equipment), "enemy armor respects stat and hero equipment ceilings")
 	check(armored_enemies > 0, "enemy generation includes leveled armor")
 	# Old IDs stay level one; existing leveled footwear keeps its rank and gains scaled protection.
 	for reference in ["plate", "plate@5"]:

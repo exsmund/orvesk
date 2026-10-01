@@ -1,16 +1,61 @@
 {
-  "enemyBalanceVersion": 4,
-  "equipmentBudget": {"base": 1, "perStatPoint": 1, "maximum": 12, "weaponLevelCost": 0.5, "healthPerArmorPoint": 30},
+  "enemyBalanceVersion": 7,
   "fightsPerMap": 5,
   "bossStage": 5,
-  "firstMap": {"expedition": 1, "regularRank": 0, "bossRank": 0, "bossStartingHealthFraction": 0.5},
-  "rankOffsets": [-2, -2, -1, -1, 0],
+  "firstMap": {
+    "expedition": 1,
+    "regularRank": 0,
+    "bossRank": 0,
+    "bossStartingHealthFraction": 0.5
+  },
+  "rankGaps": [
+    { "minimum": 2, "percent": 20 },
+    { "minimum": 2, "percent": 20 },
+    { "minimum": 1, "percent": 15 },
+    { "minimum": 1, "percent": 15 },
+    { "minimum": 0, "percent": 10 }
+  ],
   "minimumRank": 1,
-  "battleModes": ["free"],
-  "forgeBranches": {"min": 0, "max": 2},
+  "battleModes": [
+    "free"
+  ],
+  "forgeBranches": {
+    "min": 0,
+    "max": 2
+  },
   "styles": [
-    {"id": "berserker", "stats": {"strength": 6, "agility": 1, "vitality": 3, "intelligence": 1}, "slots": {"shield": 2, "body": 4, "feet": 2, "ring": 1, "amulet": 1}},
-    {"id": "duelist", "stats": {"strength": 1, "agility": 6, "vitality": 2, "intelligence": 1}, "slots": {"shield": 2, "body": 4, "feet": 2, "ring": 1, "amulet": 1}},
-    {"id": "warden", "stats": {"strength": 2, "agility": 1, "vitality": 6, "intelligence": 1}, "slots": {"shield": 6, "body": 4, "feet": 2, "ring": 1, "amulet": 1}}
-  ]
+    {
+      "id": "berserker",
+      "stats": {
+        "strength": 6,
+        "agility": 1,
+        "vitality": 3,
+        "intelligence": 1
+      }
+    },
+    {
+      "id": "duelist",
+      "stats": {
+        "strength": 1,
+        "agility": 6,
+        "vitality": 2,
+        "intelligence": 1
+      }
+    },
+    {
+      "id": "warden",
+      "stats": {
+        "strength": 2,
+        "agility": 1,
+        "vitality": 6,
+        "intelligence": 1
+      }
+    }
+  ],
+  "enemyEquipment": {
+    "naturalFallback": {
+      "level": 1,
+      "tier": 0
+    }
+  }
 }

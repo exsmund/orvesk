@@ -43,7 +43,7 @@ func resize_to(pixels: Vector2i, name: String, expected_columns: int = 0):
 			if expected_columns == 1:
 				check(absf(card.position.y) < 1, name + ": portrait figures in one row")
 			else:
-				check(is_equal_approx(card.position.y, int(i / 2) * card.size.y), name + ": wide figures in two rows")
+				check(is_equal_approx(card.position.y, int(ui.combat_view.hand_slots[card.card_id] / 2) * card.size.y), name + ": wide figures in two rows")
 		for cell in 9:
 			var center = (Vector2(cell % 3, cell / 3) + Vector2(0.5, 0.5)) * ui.board.size / 3
 			check(ui.board.index_at(center) == cell, name + ": cell hit testing %d" % cell)
@@ -104,10 +104,10 @@ func run():
 	ui.remove_card(card.id)
 	check(ui.draft.is_empty(), "Can remove a figure after folding back")
 	ui.session.game.journey.battleMode = "free"
-	ui.show_battle_menu()
+	ui.show_info("Проверка окна", "Проверка адаптивной раскладки")
 	var modal = ui.get_child(ui.get_child_count() - 1)
 	await resize_to(Vector2i(896, 800), "modal-unfolded", 2)
-	check(is_instance_valid(modal) and modal.visible, "Battle menu remains open after unfolding")
+	check(is_instance_valid(modal) and modal.visible, "Information dialog remains open after unfolding")
 	modal.canceled.emit()
 	await process_frame
 	ui.show_character()

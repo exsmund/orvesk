@@ -1,18 +1,10 @@
 {
-  "asset": "images/creatures/dialogue-portraits/demon.png",
-  "sha256": "1fda98e07afe72379e038a594ceb27d734c7d5253be9b72646edd05fb81d3d1f",
-  "steps": [
-    {
-      "tool": "image_gen",
-      "prompt": "Edit the FIRST reference only: demon. Create a square transparent PNG dialogue bust preserving this exact creature's identity, face, clothing, anatomy, colors and leftward gaze. References 2–4 are ONLY material/painting style references, do not copy their faces, frames or costume. Dark gothic dry-brush painting, sculptural chiaroscuro, matte materials, muted charcoal, ivory, earth colors, upper-left light. Remove ALL background, true alpha outside silhouette, no black rectangle, vignette, floor, text or border. Expand composition to fully include both shoulders with at least 6% transparent lateral margins; full head and horns/ears/foliage uncut. Humanoid head crown at 10%, eyes at 30%, chin around 50%, head width about 36% canvas; bust to bottom. Match scale across portraits. Preserve organic holes between branches as transparency. For huge-wolf keep actual wolf anatomy, show full ears, head, chest ruff, both forequarters, not human shoulders. For attractor-v1 keep the SAME whole dark rock with central hollow, no face or shoulders, centered with 10% clear margins. High-quality square 1024x1024 RGBA, isolated subject.",
-      "transparentBackground": true,
-      "references": [
-        {
-          "path": "images/creatures/portraits/demon.png",
-          "role": "Original portrait / edit target"
-        }
-      ],
-      "output": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-32b96fc7-f52c-4dff-9ca9-6842a32b3a82.png"
-    }
-  ]
+  "id": "demon",
+  "prompt": "Create a NEW RECOMPOSED square 1024x1024 PNG RGBA dialogue bust based on references. Reference 1 supplies creature identity ONLY, NOT its tight crop. Reference 2 supplies EXACT zoom level and placement. ZOOM OUT from reference 1 substantially, draw missing full shoulders. Mandatory empty TRANSPARENT margins of 10% on BOTH sides and ABOVE the highest point, with subject fitting x10%-90%. Head must be smaller than reference 1: core width 34% of entire square, crown y12%, eye line y30%, chin y48%, head center x50%. Full shoulders and upper chest beneath; no full body, no feet. All horns/ears/hair remain inside canvas. Both torso and head three-quarter turned toward IMAGE LEFT, not just eyes. Preserve first creature identity, costume and anatomy, do NOT turn it into the human hero. Dark gothic hand-painted textured dry-brush, muted charcoal/bone/earth tones, directional upper-left light, sculptural shadows. Genuine transparent alpha outside silhouette and in gaps; NO background, NO opaque black rectangle, NO checker pattern, no halo, no ground, no frame or text. Entire visible silhouette including lower clothing must remain away from left/right edge; bottom torso may be cropped at bottom edge. THIS IS A CORRECTIVE ZOOM-OUT: previous result cut clothing at edges. Enlarge transparent canvas around figure, reduce entire figure uniformly by about 25%, reconstruct outer shoulders; nothing may touch side edges. Preserve identity and costume exactly.",
+  "previousPrompt": "Identity-preserving edit of FIRST reference creature; second reference hero is ONLY head size/placement and paint style guide, do not copy hero identity or right-facing pose. Create ONE square 1024x1024 transparent RGBA dialogue portrait. Preserve exact creature face/anatomy/clothing/materials/color and recognizable identity from first image. Both BODY and HEAD turned three-quarter toward IMAGE LEFT. Dark gothic dry-brush painterly sculptural chiaroscuro, light from upper-left, muted natural colors, no photographic gloss. Humanoid core head centered x50%, crown y10%, eyes y30%, chin y50%, core head width 36-38% of square. Match hero reference camera distance. Include BOTH full shoulders, upper chest, outer upper arms, with >=6% transparent side margins; no silhouette cut on left/right, no ears/horns cropped. Upper torso may meet bottom edge. No full body. For nonhumanoids preserve anatomy, analogous head/perception center near x50% y30%. TRUE alpha background outside subject and in gaps, no black/white rectangle, no checkerboard painted into image, no background halo, scenery, text or frame. Face/interior clothing stays opaque except explicitly spectral creature. Preserve silver swept hair, wrapped mouth, dark ragged cloak and clasp; no added horns.",
+  "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-62b4bed3-f331-488f-a605-bec06107ccfe.png",
+  "generator": "built-in imagegen",
+  "preparedOnly": true,
+  "target": "images/creatures/dialogue-portraits/demon.png",
+  "sha256": "a1ae43612f186016f5737cf1a6867357c56f07078565b6467079a290a27b4af5"
 }

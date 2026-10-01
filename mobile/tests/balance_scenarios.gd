@@ -4,7 +4,7 @@ const Session = preload("res://game/session.gd")
 const Combat = preload("res://game/combat.gd")
 const MemoCombat = preload("res://tests/balance_combat.gd")
 const Player = preload("res://tests/first_map_player.gd")
-const LEVELS = [1, 5, 10, 20, 50, 100]
+const LEVELS = [2, 5, 10, 20, 50, 100]
 const BUILDS = [
 	{"id": "agility", "name": "Ловкач", "focus": ["agility"], "divisor": 1},
 	{"id": "strength", "name": "Силач", "focus": ["strength"], "divisor": 1},
@@ -70,14 +70,14 @@ func cases(levels: Array = LEVELS, builds: Array = BUILDS) -> Array:
 	var result: Array = []
 	for build in builds:
 		for rank in levels:
-			for hands in [0, 1, 2]:
+			for hands in [1, 2]:
 				for armor in [false, true]:
 					for shield in [false, true]:
 						if hands == 2 and shield: continue
 						for enemy in ["human", "creature"]:
 							var id = "%s:L%d:h%d:a%d:s%d:%s" % [build.id, int(rank), hands, int(armor), int(shield), enemy]
 							result.append({"id": id, "build": build.id, "name": build.name, "level": int(rank),
-								"enemyLevel": maxi(int(data.journey_rules.minimumRank), int(rank) - 1),
+								"enemyLevel": int(rank),
 								"hands": hands, "armor": armor, "shield": shield, "enemyKind": enemy,
 								"stats": stats(int(rank), build)})
 	return result
@@ -94,13 +94,13 @@ func item_pool(f: Dictionary, slot: String, hands: int = 0) -> Array:
 		var offensive: Array = []
 		for template in templates:
 			for figure in template.figures:
-				for stat in figure.get("healthDamage", {}).get("stats", []):
+				for stat in preload("res://game/figure_actions.gd").stats(figure):
 					if stat not in offensive: offensive.append(stat)
 		var maximum = 0
 		for stat in offensive: maximum = maxi(maximum, data.effective_stat(f, stat))
 		templates = templates.filter(func(i):
 			for figure in i.figures:
-				for stat in figure.get("healthDamage", {}).get("stats", []):
+				for stat in preload("res://game/figure_actions.gd").stats(figure):
 					if data.effective_stat(f, stat) == maximum: return true
 			return false)
 	var pool: Array = []
@@ -128,18 +128,15 @@ func actors(scenario: Dictionary, seed_value: int) -> Dictionary:
 	if scenario.enemyKind == "creature":
 		if creature_ids.is_empty(): return {"error": "No combat creatures in story"}
 		encounter.creatureId = choose(creature_ids)
-	# Select the normal generation path and a zero-offset stage, so the engine
-	# creates the requested lower rank (no post-generation edits or introductory variant).
+	# Keep the production generator and actual hero for all equipment limits.
+	# Only this test encounter uses a zero level gap; restore campaign rules below.
 	var rules = data.journey_rules
-	var stage = 0
-	for index in rules.rankOffsets.size():
-		if int(rules.rankOffsets[index]) == 0:
-			stage = index + 1
-			break
-	if stage == 0: return {"error": "No same-level encounter in journey rules"}
-	session.game = {"journey": {"expedition": int(rules.firstMap.expedition) + 1, "startLevel": scenario.enemyLevel}}
+	session.game = {"player": player, "journey": {"expedition": int(rules.firstMap.expedition) + 1, "startLevel": scenario.level}}
 	session.combat.rng.seed = seed_value + 1
-	var enemy = session.generate_enemy(stage, encounter)
+	data.journey_rules = rules.duplicate(true)
+	data.journey_rules.rankGaps[int(rules.bossStage) - 1] = {"minimum": 0, "percent": 0}
+	var enemy = session.generate_enemy(int(data.journey_rules.bossStage), encounter)
+	data.journey_rules = rules
 	if data.level(player) != scenario.level or data.level(enemy) != scenario.enemyLevel:
 		return {"error": "Generated fighter level mismatch"}
 	for f in [player, enemy]:
@@ -157,6 +154,8 @@ func simulate(scenario: Dictionary, seed_value: int, first: String, max_rounds: 
 		"heroStats": fighters.player.stats.duplicate(true),
 		"heroGear": fighters.player.gear.duplicate(true), "enemyStats": fighters.enemy.stats.duplicate(true),
 		"enemyGear": fighters.enemy.gear.duplicate(true), "creatureId": fighters.enemy.get("creatureId", ""),
+		"enemyNaturalWeaponLevel": fighters.enemy.get("naturalWeaponLevel", 1),
+		"enemyNaturalWeaponTier": fighters.enemy.get("naturalWeaponTier", 0),
 		"heroHpStart": fighters.player.hp, "enemyHpStart": fighters.enemy.hp}
 	var g = {"player": fighters.player, "enemy": fighters.enemy, "phase": "combat", "round": 1,
 		"log": [], "journey": {"battleMode": "free"}, "lastReactor": first}

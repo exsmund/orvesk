@@ -1,0 +1,11 @@
+{
+  "id": "root-shepherd",
+  "prompt": "Edit only composition of this existing transparent portrait. Zoom out whole figure 15%, keep square canvas. Center horizontally, head/face raised slightly so eyes around30% height. All ear tufts, branches, horns and shoulder silhouette must fit within canvas with at least 7% transparent empty margins. Preserve exactly same identity, texture, anatomy, left-facing direction and muted colors. No new content except reconstruct any cut-off outline. Transparent background remains true alpha.",
+  "previousPrompt": "Create a NEW RECOMPOSED square 1024x1024 PNG RGBA dialogue bust based on references. Reference 1 supplies creature identity ONLY, NOT its tight crop. Reference 2 supplies EXACT zoom level and placement. ZOOM OUT from reference 1 substantially, draw missing full shoulders. Mandatory empty TRANSPARENT margins of 10% on BOTH sides and ABOVE the highest point, with subject fitting x10%-90%. Head must be smaller than reference 1: core width 34% of entire square, crown y12%, eye line y30%, chin y48%, head center x50%. Full shoulders and upper chest beneath; no full body, no feet. All horns/ears/hair remain inside canvas. Both torso and head three-quarter turned toward IMAGE LEFT, not just eyes. Preserve first creature identity, costume and anatomy, do NOT turn it into the human hero. Dark gothic hand-painted textured dry-brush, muted charcoal/bone/earth tones, directional upper-left light, sculptural shadows. Genuine transparent alpha outside silhouette and in gaps; NO background, NO opaque black rectangle, NO checker pattern, no halo, no ground, no frame or text. Entire visible silhouette including lower clothing must remain away from left/right edge; bottom torso may be cropped at bottom edge.  Preserve animal-like bark face, wet dark eyes, root beard and full branching crown.",
+  "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-9a3adcd6-bb3f-4d2b-893e-31a8bc706e8f.png",
+  "editReference": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-4184c548-8bef-4a06-ae34-21c3f70fa4d4.png",
+  "generator": "built-in imagegen",
+  "preparedOnly": true,
+  "target": "images/creatures/dialogue-portraits/root-shepherd.png",
+  "sha256": "927a88e9766a29def7a339cf1c7594350e0270c311727a22a7c73b63b1743314"
+}

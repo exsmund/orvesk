@@ -151,7 +151,8 @@ export function validateStory(root, suppliedStory) {
       check(st.kind === (stop?'stop':i===8?'boss':'combat'), `Wrong stage kind ${st.id}`);
       check(st.scene in scenes && st.repeatScene in scenes, `Missing stage/repeat scene ${st.id}`);
       check(st.engineBinding?.journeyStage === n, `Wrong engine stage ${st.id}`);
-      check(JSON.stringify(st.engineBinding?.nodeIds) === JSON.stringify(stop?[`camp-${n}`,`forge-${n}`]:[`fight-${n}`]), `Wrong map nodes ${st.id}`);
+      const nodeIds = stop ? st.activities.map(a => `${a.route ?? a.mapPointType}-${n}`) : [`fight-${n}`];
+      check(JSON.stringify(st.engineBinding?.nodeIds) === JSON.stringify(nodeIds), `Wrong map nodes ${st.id}`);
       const next = chapter.stages[i+1]?.scene ?? story.chapters[ci+1]?.introScene ?? 'final-choice';
       check(st.next === next, `Wrong chapter continuation ${st.id}`);
       if (stop) {

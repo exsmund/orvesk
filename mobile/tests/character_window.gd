@@ -1,5 +1,6 @@
 extends SceneTree
 const SquareButton = preload("res://ui/square_button.gd")
+const CombatHelp = preload("res://ui/combat_help_dialog.gd")
 var ui
 var output = ""
 var checks = 0
@@ -75,7 +76,7 @@ func check_bounds(window, tag: String):
 	if safe_size.y > safe_size.x * 1.65:
 		check(is_equal_approx(window.panel.position.y + window.panel.size.y, safe_origin.y + safe_size.y), "Narrow window rests on safe bottom: " + tag)
 	if safe_size.x > safe_size.y * 1.8:
-		check(is_equal_approx(window.panel.position.x, safe_origin.x) and window.panel.size.x < safe_size.x, "Wide window stays left without filling width: " + tag)
+		check(is_equal_approx(window.panel.position.x, safe_origin.x + (safe_size.x - window.panel.size.x) / 2) and window.panel.size.x < safe_size.x, "Wide window stays centered without filling width: " + tag)
 	var first = window.tabs[0].position.x
 	var last = window.tabs[4].position.x + window.tabs[4].size.x
 	check(is_equal_approx((first + last) / 2, window.navigation.size.x / 2), "Tab group centered: " + tag)
@@ -88,7 +89,7 @@ func check_bounds(window, tag: String):
 	var hero = window.pages[0]
 	var source_size = Vector2(hero.portrait.texture.get_size())
 	check(is_equal_approx(hero.portrait.size.x / hero.portrait.size.y, source_size.x / source_size.y), "Portrait retains the source aspect ratio: " + tag)
-	check(hero.frame.get_rect().grow(-12).encloses(hero.portrait.get_rect()), "Portrait stays inside the frame: " + tag)
+	check(hero.canvas.get_global_rect().grow(1).encloses(hero.portrait.get_global_rect()), "Full portrait stays inside content: " + tag)
 	check(hero.level.position.y == hero.shards.position.y and hero.level.get_rect().end.x <= hero.shards.position.x, "Level and balance share one row")
 	for bar in [hero.health, hero.stamina]:
 		check(bar.label.get_rect().end.x <= bar.value_label.position.x + 1, "Resource caption on left, numbers on right")
@@ -96,9 +97,8 @@ func check_bounds(window, tag: String):
 		check(bar.value_label.text.contains(" / ") and not bar.label.text.contains("/"), "Resource caption and numbers are separate")
 	window.select_tab(3)
 	await settle()
-	var confirm_height = window.pages[1].confirm.get_global_rect().size.y
 	for action in window.pages[3].content.get_children():
-		if action is Button: check(absf(action.get_global_rect().size.y - confirm_height) <= 1, "Menu action matches confirmation height: " + tag)
+		if action is Button: check(action.size.y >= 44 and action.size.y >= action.get_minimum_size().y, "Compact menu keeps readable labels and tappable rows: " + tag)
 	check(window.pages[2].divider.visible == not window.pages[2].wide, "Equipment separator is portrait only: " + tag)
 	check(window.landscape.visible and window.inner_shadow.get_index() > window.landscape.get_index(), "Menu art stays under inward shadows")
 	if window.panel.size.x > window.panel.size.y:
@@ -156,7 +156,7 @@ func run():
 	check(ui.character_window == window, "Repeated opening never duplicates window")
 	check(window.tabs.size() == 5 and window.tabs[4].kind == 4, "Four icon-only tabs and bottom close")
 	check(ui.GothicTheme.DISPLAY_FONT.get_font_name() == "Prata" and ui.GothicTheme.DISPLAY_FONT.variation_embolden > 0, "Prata has a subtle heavier variation")
-	check(window.outer_frame.texture != window.pages[0].frame.texture, "Window and portrait have distinct frames")
+	check(window.pages[0].portrait.texture == ui.data.portrait(ui.session.game.player), "Hero profile uses the complete transparent portrait")
 	var mannequin_image = preload("res://content/ui/equipment-mannequin-v2.png").get_image()
 	check(mannequin_image.get_pixel(0, 0).a == 0 and mannequin_image.get_pixel(mannequin_image.get_width() / 2, mannequin_image.get_height() / 2).a > 0.9, "New mannequin has genuine transparent surroundings")
 	await shot("hero")
@@ -233,9 +233,9 @@ func run():
 	await settle()
 	window.pages[3].show_rules()
 	await settle()
-	check(window.pages[3].page == "rules" and ui.session.game.player.stats.strength == 999, "Rules stay inside menu without applying pending stat")
+	check(not window.can_process() and ui.get_children().any(func(node): return node is CombatHelp) and ui.session.game.player.stats.strength == 999, "Rules open illustrated help above the menu without applying pending stat")
 	ui._notification(Node.NOTIFICATION_WM_GO_BACK_REQUEST)
-	check(is_instance_valid(ui.character_window) and window.pages[3].page == "menu", "Back from rules returns to menu")
+	check(is_instance_valid(ui.character_window) and window.can_process() and window.current_tab == 3, "Back from rules returns to menu")
 	ui._notification(Node.NOTIFICATION_WM_GO_BACK_REQUEST)
 	await settle()
 	check(not is_instance_valid(ui.character_window) and ui.screen == "game", "Back closes overlay and stays in game")

@@ -7,6 +7,7 @@ var card_id = ""
 var card_rotation = 0
 var chosen = false
 var placed = false
+var opponent = false
 var cell_pitch = 36.0
 var caption = Label.new()
 
@@ -40,6 +41,6 @@ func _draw():
 	var extent = art.pixel_extent(points, pitch)
 	var reserved = 48 if caption.visible else 24
 	var origin = Vector2((size.x - extent.x) / 2, 14 + (size.y - reserved - extent.y) / 2)
-	art.piece(self, card, fighter, card_rotation, modifiers, origin, pitch, chosen)
+	art.piece(self, card, fighter, card_rotation, modifiers, origin, pitch, chosen, true, opponent)
 	caption.position = Vector2(1, size.y - 32)
 	caption.size = Vector2(maxf(0, size.x - 2), 32)

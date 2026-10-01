@@ -10,7 +10,7 @@
 
 **Каталог:** `data/creatures.json` → `demon`.
 
-<img src="../images/creatures/portraits/demon.png" alt="Демон" width="200">
+<img src="../images/creatures/dialogue-portraits/demon.png" alt="Демон" width="200">
 
 **Иллюстрации действий:**
 
@@ -46,7 +46,7 @@
 
 **Каталог:** `data/creatures.json` → `light-spirit`.
 
-<img src="../images/creatures/portraits/light-spirit.png" alt="Бесплотный дух" width="200">
+<img src="../images/creatures/dialogue-portraits/light-spirit.png" alt="Бесплотный дух" width="200">
 
 **Основа:** существа иных планов, случайно касающиеся материального мира. Не являются демонами.
 
@@ -70,7 +70,7 @@
 
 **Каталог:** `data/creatures.json` → `vanishing`.
 
-<img src="../images/creatures/portraits/vanishing.png" alt="Исчезающий" width="200">
+<img src="../images/creatures/dialogue-portraits/vanishing.png" alt="Исчезающий" width="200">
 
 **Иллюстрации действий:**
 
@@ -104,7 +104,7 @@
 
 **Каталог:** `data/creatures.json` → `swamp-hag`.
 
-<img src="../images/creatures/portraits/swamp-hag.png" alt="Болотница" width="200">
+<img src="../images/creatures/dialogue-portraits/swamp-hag.png" alt="Болотница" width="200">
 
 **Иллюстрации действий:**
 
@@ -138,7 +138,7 @@
 
 **Каталог:** `data/creatures.json` → `battle-mage`.
 
-<img src="../images/creatures/portraits/battle-mage.png" alt="Боевой маг" width="200">
+<img src="../images/creatures/dialogue-portraits/battle-mage.png" alt="Боевой маг" width="200">
 
 **Иллюстрации действий:**
 
@@ -172,7 +172,7 @@
 
 **Каталог:** `data/creatures.json` → `wild-mage`.
 
-<img src="../images/creatures/portraits/wild-mage.png" alt="Дикий маг" width="200">
+<img src="../images/creatures/dialogue-portraits/wild-mage.png" alt="Дикий маг" width="200">
 
 **Иллюстрации действий:**
 
@@ -204,7 +204,7 @@
 
 **Каталог:** `data/creatures.json` → `elf`.
 
-<img src="../images/creatures/portraits/elf.png" alt="Эльф" width="200">
+<img src="../images/creatures/dialogue-portraits/elf.png" alt="Эльф" width="200">
 
 **Иллюстрации действий:**
 
@@ -240,7 +240,7 @@
 
 **Каталог:** `data/creatures.json` → `faerie`.
 
-<img src="../images/creatures/portraits/faerie.png" alt="Фея" width="200">
+<img src="../images/creatures/dialogue-portraits/faerie.png" alt="Фея" width="200">
 
 **Иллюстрации действий:**
 
@@ -276,7 +276,7 @@
 
 **Каталог:** `data/creatures.json` → `dark-faerie`.
 
-<img src="../images/creatures/portraits/dark-faerie.png" alt="Подземная фея" width="200">
+<img src="../images/creatures/dialogue-portraits/dark-faerie.png" alt="Подземная фея" width="200">
 
 **Иллюстрации действий:**
 
@@ -310,7 +310,7 @@
 
 **Каталог:** `data/creatures.json` → `vampire`.
 
-<img src="../images/creatures/portraits/vampire.png" alt="Вампир" width="200">
+<img src="../images/creatures/dialogue-portraits/vampire.png" alt="Вампир" width="200">
 
 **Иллюстрации действий:**
 
@@ -344,7 +344,7 @@
 
 **Каталог:** `data/creatures.json` → `harpy`.
 
-<img src="../images/creatures/portraits/harpy.png" alt="Гарпия" width="200">
+<img src="../images/creatures/dialogue-portraits/harpy.png" alt="Гарпия" width="200">
 
 **Иллюстрации действий:**
 
@@ -378,7 +378,7 @@
 
 **Каталог:** `data/creatures.json` → `leshy`.
 
-<img src="../images/creatures/portraits/leshy.png" alt="Леший" width="200">
+<img src="../images/creatures/dialogue-portraits/leshy.png" alt="Леший" width="200">
 
 **Иллюстрации действий:**
 
@@ -410,7 +410,7 @@
 
 **Каталог:** `data/creatures.json` → `faun`.
 
-<img src="../images/creatures/portraits/faun.png" alt="Фавн" width="200">
+<img src="../images/creatures/dialogue-portraits/faun.png" alt="Фавн" width="200">
 
 **Иллюстрации действий:**
 
@@ -444,7 +444,7 @@
 
 **Каталог:** `data/creatures.json` → `living-armor`.
 
-<img src="../images/creatures/portraits/living-armor.png" alt="Живой доспех" width="200">
+<img src="../images/creatures/dialogue-portraits/living-armor.png" alt="Живой доспех" width="200">
 
 **Иллюстрации действий:**
 
@@ -488,7 +488,7 @@
 
 **Каталог:** `data/creatures.json` → `dog`.
 
-<img src="../images/creatures/portraits/dog.png" alt="Собака" width="200">
+<img src="../images/creatures/dialogue-portraits/dog.png" alt="Собака" width="200">
 
 **Иллюстрации действий:**
 
@@ -516,7 +516,7 @@
 
 **Каталог:** `data/creatures.json` → `wolf`.
 
-<img src="../images/creatures/portraits/wolf.png" alt="Дикий волк" width="200">
+<img src="../images/creatures/dialogue-portraits/wolf.png" alt="Дикий волк" width="200">
 
 **Иллюстрации действий:**
 
@@ -548,7 +548,7 @@
 
 **Каталог:** `data/creatures.json` → `huge-wolf`.
 
-<img src="../images/creatures/portraits/huge-wolf.png" alt="Огромный волк" width="200">
+<img src="../images/creatures/dialogue-portraits/huge-wolf.png" alt="Огромный волк" width="200">
 
 **Иллюстрации действий:**
 
@@ -580,7 +580,7 @@
 
 **Каталог:** `data/creatures.json` → `werewolf`.
 
-<img src="../images/creatures/portraits/werewolf.png" alt="Волк-оборотень" width="200">
+<img src="../images/creatures/dialogue-portraits/werewolf.png" alt="Волк-оборотень" width="200">
 
 **Иллюстрации действий:**
 
@@ -612,7 +612,7 @@
 
 **Каталог:** `data/creatures.json` → `cat`.
 
-<img src="../images/creatures/portraits/cat.png" alt="Кошачий хищник" width="200">
+<img src="../images/creatures/dialogue-portraits/cat.png" alt="Кошачий хищник" width="200">
 
 **Иллюстрации действий:**
 
@@ -640,7 +640,7 @@
 
 **Каталог:** `data/creatures.json` → `huge-cat`.
 
-<img src="../images/creatures/portraits/huge-cat.png" alt="Огромный кошачий хищник" width="200">
+<img src="../images/creatures/dialogue-portraits/huge-cat.png" alt="Огромный кошачий хищник" width="200">
 
 **Иллюстрации действий:**
 
@@ -672,7 +672,7 @@
 
 **Каталог:** `data/creatures.json` → `small-bird`.
 
-<img src="../images/creatures/portraits/small-bird.png" alt="Малая хищная птица" width="200">
+<img src="../images/creatures/dialogue-portraits/small-bird.png" alt="Малая хищная птица" width="200">
 
 **Иллюстрации действий:**
 
@@ -700,7 +700,7 @@
 
 **Каталог:** `data/creatures.json` → `large-bird`.
 
-<img src="../images/creatures/portraits/large-bird.png" alt="Большая хищная птица" width="200">
+<img src="../images/creatures/dialogue-portraits/large-bird.png" alt="Большая хищная птица" width="200">
 
 **Иллюстрации действий:**
 
@@ -732,7 +732,7 @@
 
 **Каталог:** `data/creatures.json` → `giant-snake`.
 
-<img src="../images/creatures/portraits/giant-snake.png" alt="Гигантская змея" width="200">
+<img src="../images/creatures/dialogue-portraits/giant-snake.png" alt="Гигантская змея" width="200">
 
 **Иллюстрации действий:**
 
@@ -764,7 +764,7 @@
 
 **Каталог:** `data/creatures.json` → `lake-snake`.
 
-<img src="../images/creatures/portraits/lake-snake.png" alt="Озёрная змея" width="200">
+<img src="../images/creatures/dialogue-portraits/lake-snake.png" alt="Озёрная змея" width="200">
 
 **Иллюстрации действий:**
 
@@ -796,7 +796,7 @@
 
 **Каталог:** `data/creatures.json` → `flying-snake`.
 
-<img src="../images/creatures/portraits/flying-snake.png" alt="Летающая гигантская змея" width="200">
+<img src="../images/creatures/dialogue-portraits/flying-snake.png" alt="Летающая гигантская змея" width="200">
 
 **Иллюстрации действий:**
 
@@ -824,7 +824,7 @@
 
 **Каталог:** `data/creatures.json` → `flying-lizard`.
 
-<img src="../images/creatures/portraits/flying-lizard.png" alt="Летающий ящер" width="200">
+<img src="../images/creatures/dialogue-portraits/flying-lizard.png" alt="Летающий ящер" width="200">
 
 **Иллюстрации действий:**
 
@@ -856,7 +856,7 @@
 
 **Каталог:** `data/creatures.json` → `dragon`.
 
-<img src="../images/creatures/portraits/dragon.png" alt="Дракон" width="200">
+<img src="../images/creatures/dialogue-portraits/dragon.png" alt="Дракон" width="200">
 
 **Иллюстрации действий:**
 
@@ -888,7 +888,7 @@
 
 **Каталог:** `data/creatures.json` → `octopus`.
 
-<img src="../images/creatures/portraits/octopus.png" alt="Спрут" width="200">
+<img src="../images/creatures/dialogue-portraits/octopus.png" alt="Спрут" width="200">
 
 **Иллюстрации действий:**
 
@@ -924,7 +924,7 @@
 
 **Каталог:** `data/creatures.json` → `bone-collector`.
 
-<img src="../images/creatures/portraits/bone-collector.png" alt="Костесборщик" width="200">
+<img src="../images/creatures/dialogue-portraits/bone-collector.png" alt="Костесборщик" width="200">
 
 **Иллюстрации действий:**
 
@@ -962,7 +962,7 @@
 
 **Каталог:** `data/creatures.json` → `rust-eater`.
 
-<img src="../images/creatures/portraits/rust-eater.png" alt="Ржавоед" width="200">
+<img src="../images/creatures/dialogue-portraits/rust-eater.png" alt="Ржавоед" width="200">
 
 **Иллюстрации действий:**
 
@@ -1000,7 +1000,7 @@
 
 **Каталог:** `data/creatures.json` → `bog-bell`.
 
-<img src="../images/creatures/portraits/bog-bell.png" alt="Топяной колокол" width="200">
+<img src="../images/creatures/dialogue-portraits/bog-bell.png" alt="Топяной колокол" width="200">
 
 **Иллюстрации действий:**
 
@@ -1034,7 +1034,7 @@
 
 **Каталог:** `data/creatures.json` → `ash-hound`.
 
-<img src="../images/creatures/portraits/ash-hound.png" alt="Пепельный гончий" width="200">
+<img src="../images/creatures/dialogue-portraits/ash-hound.png" alt="Пепельный гончий" width="200">
 
 **Иллюстрации действий:**
 
@@ -1072,7 +1072,7 @@
 
 **Каталог:** `data/creatures.json` → `root-shepherd`.
 
-<img src="../images/creatures/portraits/root-shepherd.png" alt="Корневой пастух" width="200">
+<img src="../images/creatures/dialogue-portraits/root-shepherd.png" alt="Корневой пастух" width="200">
 
 **Иллюстрации действий:**
 
@@ -1110,7 +1110,7 @@
 
 **Каталог:** `data/creatures.json` → `mirror-being`.
 
-<img src="../images/creatures/portraits/mirror-being.png" alt="Зеркальщик" width="200">
+<img src="../images/creatures/dialogue-portraits/mirror-being.png" alt="Зеркальщик" width="200">
 
 **Иллюстрации действий:**
 
@@ -1144,7 +1144,7 @@
 
 **Каталог:** `data/creatures.json` → `stitchling`.
 
-<img src="../images/creatures/portraits/stitchling.png" alt="Шовник" width="200">
+<img src="../images/creatures/dialogue-portraits/stitchling.png" alt="Шовник" width="200">
 
 **Иллюстрации действий:**
 
@@ -1182,7 +1182,7 @@
 
 **Каталог:** `data/creatures.json` → `whisperess`.
 
-<img src="../images/creatures/portraits/whisperess.png" alt="Шёпотница" width="200">
+<img src="../images/creatures/dialogue-portraits/whisperess.png" alt="Шёпотница" width="200">
 
 **Иллюстрации действий:**
 
@@ -1216,7 +1216,7 @@
 
 **Каталог:** `data/creatures.json` → `stone-yawn`.
 
-<img src="../images/creatures/portraits/stone-yawn.png" alt="Каменный зевок" width="200">
+<img src="../images/creatures/dialogue-portraits/stone-yawn.png" alt="Каменный зевок" width="200">
 
 **Иллюстрации действий:**
 
@@ -1254,7 +1254,7 @@
 
 **Каталог:** `data/creatures.json` → `meldling`.
 
-<img src="../images/creatures/portraits/meldling.png" alt="Слитник" width="200">
+<img src="../images/creatures/dialogue-portraits/meldling.png" alt="Слитник" width="200">
 
 **Иллюстрации действий:**
 
@@ -1296,7 +1296,7 @@
 
 **Каталог:** `data/creatures.json` → `skeleton`.
 
-<img src="../images/creatures/portraits/skeleton.png" alt="Скелет" width="200">
+<img src="../images/creatures/dialogue-portraits/skeleton.png" alt="Скелет" width="200">
 
 **Происхождение:** маги научились удерживать в человеческих костях простое соединение частиц сознания. По мнению жрецов, это новый страж из старых останков, а не возвращённый умерший: привычные движения не доказывают сохранения его личности. После разрушения скелета действует общий цикл возвращения частиц в их родной мир.
 
@@ -1318,7 +1318,7 @@
 
 **Каталог:** `data/creatures.json` → `skeleton-archer`.
 
-<img src="../images/creatures/portraits/skeleton-archer.png" alt="Скелет-лучник" width="200">
+<img src="../images/creatures/dialogue-portraits/skeleton-archer.png" alt="Скелет-лучник" width="200">
 
 **Происхождение:** разновидность оживлённого костяного стража, в которую вложена последовательность движений стрелка. Это отдельный игровой вид с собственными ограничениями экипировки, а не случайно вооружённый обычный скелет.
 
@@ -1342,7 +1342,7 @@
 
 **Каталог:** `data/creatures.json` → `attractor`.
 
-<img src="../images/creatures/portraits/attractor.png" alt="Аттрактор" width="200">
+<img src="../images/creatures/dialogue-portraits/attractor.png" alt="Аттрактор" width="200">
 
 **Природа:** чёрный камень, созданный жрецами Света в месте, очищенном от сознания Логоса. Его присутствие в каталоге нужно для портрета и общения. Он не относится к обычным живым существам; подробное устройство описано в [разделе 9 лора](LORE.md#9-аттрактор-и-путешествие-героя).
 

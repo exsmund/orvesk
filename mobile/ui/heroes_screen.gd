@@ -24,6 +24,7 @@ func configure(owner_ui):
 	host = owner_ui
 	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	add_child(panel)
+	preload("res://ui/panel_shadow.gd").new().follow_panel(panel, host.data)
 	panel.theme = host.theme.duplicate(false)
 	for kind in ["Label", "Button"]: panel.theme.set_color("font_color", kind, host.data.color("text-home"))
 	panel.add_child(background)

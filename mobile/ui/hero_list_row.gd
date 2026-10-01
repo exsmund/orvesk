@@ -37,10 +37,7 @@ func configure(data, entry: Dictionary, description: String):
 	portrait.texture = data.portrait(game.player) if valid else null
 	portrait.material = ShaderMaterial.new()
 	portrait.material.shader = preload("res://shaders/portrait_mask.gdshader")
-	var crop = data.portrait_presentation.circle.position
-	portrait.material.set_shader_parameter("object_position", Vector2(crop.x, crop.y))
-	var square: Dictionary = data.portrait_presentation.circle.squareCrop
-	portrait.material.set_shader_parameter("square_crop", Vector4(square.x, square.y, square.width, square.height))
+	preload("res://ui/round_portrait.gd").apply_crop(portrait.material, data)
 	frame.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	frame.texture = GothicTheme.trim_texture(preload("res://content/ui/portrait-frame-round.png"))
 	missing.text = "?" if not valid else ""

@@ -28,6 +28,17 @@ var drop_index = -1
 var drop_valid = false
 var last_layout_size = Vector2.ZERO
 var forecast: Dictionary = {}
+var transition_busy = false
+var dealing = false
+var deal_elapsed = 0.0
+var shake_offset = Vector2.ZERO
+var hand_slots: Dictionary = {}
+var deal_order: Array = []
+var press_depth = 0.0
+var press_motion: Tween
+const DEAL_DURATION = 0.28
+const DEAL_STAGGER = 0.09
+
 
 func _init():
 	for node in [header, board, hand, hint, status, skip, action, ghost]: add_child(node)
@@ -43,6 +54,7 @@ func _init():
 	action.add_theme_font_size_override("font_size", preload("res://ui/gothic_theme.gd").button_text_size(19))
 	action.add_theme_font_override("font", preload("res://content/fonts/Prata-Regular.ttf"))
 	skip.text = "Пропустить ход"
+	skip.theme_type_variation = "SecondaryButton"
 	for button in [skip, action]:
 		button.clip_text = true
 		button.add_theme_font_override("font", preload("res://content/fonts/Prata-Regular.ttf"))
@@ -54,10 +66,9 @@ func _init():
 func configure(controller):
 	host = controller
 	art = FigureArt.new(host.data, host.session.combat)
-	header.configure(host.data, host.session.game, host.animated)
+	header.configure(host.data, host.session.game)
 	header.player_requested.connect(host.show_character)
 	header.enemy_requested.connect(host.show_enemy_details)
-	header.menu_requested.connect(host.show_battle_menu)
 	board.cell_chosen.connect(inspect_cell)
 	board.card_dropped.connect(func(id, index): host.place_card(id, index, host.rotation_for(id)))
 	board.drag_started.connect(func(point):
@@ -91,12 +102,29 @@ func configure(controller):
 	hint.add_theme_color_override("font_color", host.data.color("text-muted"))
 	action.add_theme_color_override("font_color", host.data.color("text-highlight"))
 	skip.add_theme_color_override("font_color", host.data.color("text-highlight"))
+	restore_hand_slots({})
 	refresh()
 	layout()
 
 func inspect_cell(index: int):
-	if index >= 0 and index < forecast.get("cells", []).size():
-		host.show_cell_details(forecast.cells[index])
+	if index < 0 or index >= board.player_layer.size(): return
+	var entries: Array = []
+	if not board.player_layer[index].is_empty():
+		entries.append(cell_entry(board.player_layer[index],host.session.game.player,board.damage_cells[index].get("playerCombos",[])))
+	if index < board.enemy_layer.size() and not board.enemy_layer[index].is_empty():
+		entries.append(cell_entry(board.enemy_layer[index],host.session.game.enemy,board.damage_cells[index].get("enemyCombos",[])))
+	if not entries.is_empty(): host.show_figure_cards(entries)
+
+func cell_entry(action: Dictionary, fighter: Dictionary, combos: Array) -> Dictionary:
+	var card = action
+	var description = ""
+	if action.has("cellIndex") or action.has("cellComponents"):
+		for pile in ["hand","draw","discard"]:
+			for figure in fighter.deck[pile]:
+				if figure.id == action.id: card = figure
+		description = "В этой клетке: "+", ".join(art.display_actions(action).map(func(part): return part.name))+"."
+		if action.has("cellComponents"): description += " Фигура сжата: все её действия собраны в одной клетке."
+	return {"card":card,"fighter":fighter,"combos":combos,"cellDescription":description}
 
 func refresh():
 	var g = host.session.game
@@ -109,7 +137,7 @@ func refresh():
 	board.configure(art, host.session.combat.layer(g.player, own_moves, p.playerModifiers), opposing, p.preparer == "player" and not revealed, g.player, g.enemy, p.playerModifiers, p.enemyModifiers)
 	update_forecast(moves)
 	action.text = "Следующий ход" if revealed else "Подтвердить ход"
-	action.disabled = not revealed and forecast.cost.remaining < 0
+	action.disabled = not can_confirm()
 	skip.disabled = not can_skip()
 	hint.hide()
 	for card in cards:
@@ -120,14 +148,22 @@ func refresh():
 		card.queue_redraw()
 	layout()
 
+func can_confirm() -> bool:
+	if transition_busy: return false
+	if host.session.game.clashPlan.stage == "reveal": return true
+	return forecast.get("cost", {}).get("remaining", 0) >= 0 and not can_skip()
+
 func can_skip() -> bool:
 	var g = host.session.game
-	return g.phase == "combat" and g.clashPlan.stage != "reveal" and host.draft.is_empty() and g.clashPlan.playerPlaced.is_empty() and g.player.stamina < host.data.max_stamina(g.player)
+	return not transition_busy and g.phase == "combat" and g.clashPlan.stage != "reveal" and host.draft.is_empty() and g.clashPlan.playerPlaced.is_empty() and g.player.stamina < host.data.max_stamina(g.player)
 
 func update_forecast(moves: Array):
 	forecast = host.session.combat.forecast(host.session.game, moves)
-	header.configure(host.data, host.session.game, host.animated, forecast)
+	header.configure(host.data, host.session.game, forecast)
 	board.damage_cells = forecast.cells
+	# Use the public snapshot, including bonus cells, without exposing hidden plans.
+	board.player_layer = forecast.cells.map(func(cell): return cell.player)
+	board.enemy_layer = forecast.cells.map(func(cell): return cell.enemy)
 	board.queue_redraw()
 	status.text = "Недостаточно сил" if forecast.cost.remaining < 0 else ""
 	status.visible = not status.text.is_empty()
@@ -184,19 +220,25 @@ func layout():
 	# Beside the board, use the full 2×2 lane instead of the compact phone cap.
 	var max_pitch = 48.0 if columns == 1 else board.size.x / 3
 	var pitch = minf(max_pitch, minf((slot - 16) / span, (slot_height - 48) / span))
-	var visible_index = 0
 	for card in cards:
 		card.cell_pitch = pitch
 		card.size = Vector2(slot, slot_height)
 		if card.visible:
-			card.position = Vector2((visible_index % hand_columns) * slot, int(visible_index / hand_columns) * slot_height)
-			visible_index += 1
+			var slot_index: int = hand_slots.get(card.card_id, 0)
+			card.position = Vector2((slot_index % hand_columns) * slot, int(slot_index / hand_columns) * slot_height)
+			if dealing and card.card_id in deal_order:
+				var progress = clampf((deal_elapsed - deal_order.find(card.card_id) * DEAL_STAGGER) / DEAL_DURATION, 0.0, 1.0)
+				var distance = get_viewport_rect().size.y - hand.global_position.y + card.size.y
+				card.position.y += distance * pow(1.0 - progress, 3)
 		card.queue_redraw()
 	status.position = Vector2(hand.position.x, size.y - footer_height)
 	status.size = Vector2(hand.size.x, 24)
 	var action_width = (hand.size.x - gap) / 2
 	place_action(skip, Vector2(hand.position.x, size.y - 54), action_width)
 	place_action(action, Vector2(hand.position.x + action_width + gap, size.y - 54), action_width)
+	board.pivot_offset = board.size / 2
+	board.scale = Vector2.ONE * (1.0 - press_depth * 0.018)
+	board.position += shake_offset + Vector2(0, press_depth * 4.0)
 	ghost.position = Vector2.ZERO
 	ghost.size = size
 	ghost.queue_redraw()
@@ -207,7 +249,8 @@ func place_action(button: Button, origin: Vector2, width: float):
 	button.size = Vector2(width, 54)
 
 func start_drag(id: String, point: Vector2, source):
-	if host.session.game.clashPlan.stage == "reveal" or not drag_id.is_empty(): return
+	if transition_busy or host.session.game.clashPlan.stage == "reveal" or not drag_id.is_empty(): return
+	if host.session.combat.card_by_id(host.session.game.player,id).is_empty(): return
 	drag_id = id
 	drag_source = source
 	drag_rotation = host.rotation_for(id)
@@ -261,7 +304,8 @@ func end_drag(point: Vector2, canceled: bool):
 	refresh()
 	if canceled: return
 	if removing: host.remove_card(id)
-	elif valid: host.place_card(id, index, rotation)
+	elif valid:
+		if host.place_card(id, index, rotation): press_board()
 	elif index >= 0: set_notice("Фигура пересекается с другой или выходит за край")
 
 func draw_ghost():
@@ -273,3 +317,55 @@ func draw_ghost():
 	if card.is_empty(): return
 	ghost.modulate.a = 0.76
 	art.piece(ghost, card, host.session.game.player, drag_rotation, host.session.game.clashPlan.playerModifiers, drag_point - global_position - drag_offset, board.size.x / 3, true, false)
+
+func set_transition_busy(value: bool):
+	transition_busy = value
+	board.cancel_gesture()
+	board.interactive = not value
+	for card in cards:
+		card.cancel_gesture()
+		card.interactive = not value
+	action.disabled = not can_confirm()
+	skip.disabled = not can_skip()
+
+func shake_board():
+	var motion = create_tween()
+	motion.tween_method(func(progress: float):
+		shake_offset = Vector2(sin(progress * TAU * 4), cos(progress * TAU * 3) * 0.45) * 4.0 * (1.0 - progress)
+		layout(), 0.0, 1.0, 0.32)
+	motion.tween_callback(func(): shake_offset = Vector2.ZERO; layout())
+
+func restore_hand_slots(retained: Dictionary):
+	hand_slots = {}
+	for card in cards:
+		if retained.has(card.card_id): hand_slots[card.card_id] = retained[card.card_id]
+	for card in cards:
+		if hand_slots.has(card.card_id): continue
+		var slot = 0
+		while slot in hand_slots.values(): slot += 1
+		hand_slots[card.card_id] = slot
+	layout()
+
+func press_board():
+	if press_motion and press_motion.is_valid(): press_motion.kill()
+	press_motion = create_tween()
+	press_motion.tween_method(func(depth: float): press_depth = depth; layout(), press_depth, 1.0, 0.07)
+	press_motion.tween_method(func(depth: float): press_depth = depth; layout(), 1.0, 0.0, 0.15).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+
+func animate_deal(retained: Dictionary = {}):
+	restore_hand_slots(retained)
+	deal_order = []
+	for card in cards:
+		if not retained.has(card.card_id): deal_order.append(card.card_id)
+	if deal_order.is_empty(): return
+	dealing = true
+	deal_elapsed = 0.0
+	set_transition_busy(true)
+	layout()
+	var motion = create_tween()
+	var duration = DEAL_DURATION + DEAL_STAGGER * (deal_order.size() - 1)
+	motion.tween_method(func(elapsed: float): deal_elapsed = elapsed; layout(), 0.0, duration, duration)
+	motion.tween_callback(func():
+		dealing = false
+		layout()
+		set_transition_busy(false))

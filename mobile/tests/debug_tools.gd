@@ -17,7 +17,11 @@ class MemorySaves extends RefCounted:
 		payload = {"format":1, "game":session.game.duplicate(true), "draft":draft.duplicate(true), "rngState":str(session.combat.rng.state)}
 		return true
 class MemoryPreferences extends RefCounted:
-	var animated = false
+	var completed_difficulties: Array = []
+	func record_completed(ids):
+		for id in ids:
+			if id not in completed_difficulties: completed_difficulties.append(id)
+		return true
 	var last_hero = ""
 	func write(): return true
 
@@ -73,10 +77,13 @@ func run():
 	ui.preferences = MemoryPreferences.new()
 	root.add_child(ui)
 	await settle()
-	check(button("Перейти карту…").disabled, "Jump requires an active hero")
+	check(button("Перейти на карту") == null, "Jump is absent on home")
+	create()
+	ui.show_game()
+	ui.show_character(3)
 	await shot("debug-home")
 	var before = snapshot()
-	button("Бестиарий").pressed.emit()
+	button("Существа").pressed.emit()
 	check(ui.screen == "bestiary" and ui.debug_catalog.entries.size() == ui.data.creatures.size(), "Bestiary lists every species, including non-combatants")
 	await shot("debug-bestiary")
 	for i in ui.debug_catalog.entries.size():
@@ -104,7 +111,7 @@ func run():
 		ui.inspection_window.close()
 		await process_frame
 	check(snapshot() == before, "Equipment browsing does not mutate game or RNG")
-	ui.show_home()
+	ui.return_from_catalog()
 	check(button("Навыки") != null and button("Экипировка") != null, "One debug flag shows both catalogs")
 	button("Навыки").pressed.emit()
 	check(ui.screen == "skills_catalog" and ui.debug_catalog.entries.size() == 14, "Shared debug flag shows every skill")
@@ -119,7 +126,7 @@ func run():
 		ui.inspection_window.close();await process_frame
 	check(snapshot() == before, "Skill browsing does not create a hero, learn skills or consume RNG")
 	ui._notification(Node.NOTIFICATION_WM_GO_BACK_REQUEST)
-	check(ui.screen == "home", "Back from skills returns to home")
+	check(ui.screen == "game" and is_instance_valid(ui.character_window), "Back from skills returns to hero menu")
 	ui.show_home()
 	create()
 	ui.session.travel("fight-1")
@@ -133,8 +140,8 @@ func run():
 		check(is_equal_approx(view.action.size.x + view.skip.size.x + view.Layout.CONTENT_GAP, view.hand.size.x) and button("Победить врага", view) == null, "Combat footer shares its lane between skip and ordinary action: " + spec[1])
 	ui.show_character()
 	ui.character_window.select_tab(3)
-	check(button("Победить врага", ui.character_window) != null, "Active combat debug win appears in hero menu")
-	button("Перейти карту…", ui.character_window).pressed.emit()
+	check(button("Победить врага", ui.character_window) != null and not button("Победить врага", ui.character_window).disabled, "Hero menu restores gated debug victory")
+	button("Перейти на карту", ui.character_window).pressed.emit()
 	await shot("debug-map-dialog")
 	var dialog = ui.map_dialog
 	var number = dialog.find_child("MapNumber", true, false)
@@ -213,7 +220,7 @@ func run():
 	before = snapshot()
 	check(not Debug.go_to_map(ui.session,"99").is_empty() and not Debug.win(ui.session).is_empty(), "Disabled actions reject direct calls")
 	ui.show_home()
-	for caption in ["Бестиарий", "Экипировка", "Навыки", "Перейти карту…"]: check(button(caption) == null, "Disabled home entry absent: " + caption)
+	for caption in ["Существа", "Экипировка", "Навыки", "Перейти на карту"]: check(button(caption) == null, "Disabled home entry absent: " + caption)
 	ui.show_debug_catalog(true)
 	ui.show_catalog_entry("wolf", true)
 	ui.show_skills_catalog()
@@ -231,10 +238,9 @@ func run():
 	check(snapshot() == before, "Debug win callback is also blocked")
 	ui.show_character()
 	ui.character_window.select_tab(3)
-	check(button("Перейти карту…", ui.character_window) == null, "Disabled game-menu entry absent")
+	check(button("Перейти на карту", ui.character_window) == null, "Disabled game-menu entry absent")
+	check(button("Победить врага", ui.character_window) == null, "Disabled debug victory entry absent")
 	ui.character_window.close()
-	ui.show_battle_menu()
-	check(button("Перейти карту…") == null, "Disabled legacy battle-menu entry absent")
 	ProjectSettings.set_setting("features/debug_tools", configured)
 	print("DEBUG_TOOLS: %s (%d checks; %d failures)" % ["PASS" if failures.is_empty() else "FAIL", checks, failures.size()])
 	quit(0 if failures.is_empty() else 1)

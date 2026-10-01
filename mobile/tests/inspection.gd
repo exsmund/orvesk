@@ -12,7 +12,11 @@ class MemorySaves extends RefCounted:
 	func list_heroes(): return []
 	func write(_id,_session,_draft): return not fail
 class MemoryPreferences extends RefCounted:
-	var animated = false
+	var completed_difficulties: Array = []
+	func record_completed(ids):
+		for id in ids:
+			if id not in completed_difficulties: completed_difficulties.append(id)
+		return true
 	var last_hero = ""
 	func write(): return true
 func _initialize(): call_deferred("run")
@@ -40,9 +44,9 @@ func geometry(window):
 	for node in [window.title,window.scroll,window.close_button]:
 		check(window.panel.get_global_rect().grow(1).encloses(node.get_global_rect()),"Fixed and scrolling areas stay inside frame")
 	if window.primary.visible:
-		for button in [window.primary,window.secondary]:
+		for button in [window.primary]:
 			if button.visible: check(window.panel.get_global_rect().grow(1).encloses(button.get_global_rect()),"Footer action fits")
-		check(not window.secondary.visible or not window.primary.get_rect().intersects(window.secondary.get_rect()),"Footer actions do not overlap")
+		check(is_equal_approx(window.primary.position.y,window.close_button.position.y),"Reward action and close share one row")
 		check(not window.primary.get_rect().intersects(window.close_button.get_rect()),"Close stays separate from primary action")
 	check(not window.scroll.get_rect().intersects(window.header.get_rect()) and not window.scroll.get_rect().intersects(window.footer.get_rect()),"Only body scrolls between pinned header/footer")
 	var header_before = window.title.get_global_rect()
@@ -59,7 +63,7 @@ func geometry(window):
 			check(row.preview.get_global_rect().end.x <= row.words.global_position.x, "Larger figures do not overlap formulas")
 			check(row.words.get_global_rect().end.x <= inspected.get_global_rect().end.x + 1, "Formula column fits its card")
 			check(row.formula.get_content_height() <= row.formula.size.y + 1, "Every wrapped formula line remains visible")
-			check(row.formula.get_parsed_text() == "\n".join(row.model.formula_lines(inspected.entry.fighter, row.preview.card)), "Highlighted formula preserves its complete literal text")
+			check(row.formula.get_parsed_text() == "\n".join(row.model.figure_runs(inspected.entry.fighter, row.preview.card, row.detailed).map(func(line): return line.prefix + line.result + line.suffix)), "Displayed damage preserves its selected level of detail")
 			check(row.formula.result_color == ui.data.color("text-success"), "Formula result uses palette highlight")
 	window.scroll.scroll_vertical = 0
 	for _step in 4:
@@ -245,10 +249,7 @@ func run():
 	ui.show_game()
 	await settle()
 	var before = ui.session.game.duplicate(true)
-	for child in ui.content.get_children():
-		if child is BaseButton and not child is Button:
-			click(child.get_global_rect().get_center())
-			break
+	click(ui.forge_view.rewards.buttons[0].get_global_rect().get_center())
 	await settle()
 	window = ui.inspection_window
 	check(is_instance_valid(window) and window.groups.size() == 2,"Forge item tap opens equipped/offered comparison")
@@ -374,7 +375,7 @@ func run():
 	check(ui.session.game == battle and ui.draft == placement and ui.session.combat.rng.state == rng and ui.combat_view == combat,"Battle inspection/folding preserves dealt cards, placements, reveal, history and RNG")
 	check(combat.can_process(),"Closing nested inspection restores battle input")
 	# Skill comparisons share the same responsive layout as equipment.
-	ui.open_inspection([[model.skill("bandage", player, "Предлагается")], [model.skill("dodge", player, "Изучено")]], {"title":"Сравнение навыков", "action":"Заменить"})
+	ui.open_inspection([[model.skill("bandage", player, "Новое")], [model.skill("dodge", player, "Изучено")]], {"title":"Сравнение навыков", "action":"Заменить"})
 	window = ui.inspection_window
 	for pixels in [Vector2i(432,1008), Vector2i(360,800), Vector2i(320,640)]:
 		root.size = pixels

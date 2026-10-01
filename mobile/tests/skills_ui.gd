@@ -56,7 +56,7 @@ func run():
 	ui.session.game.player.hp = 12
 	offer("robust-health")
 	ui.inspection_window.confirmed.emit();await settle()
-	check(ui.session.game.player.skills == ["robust-health"] and ui.session.game.player.hp == 12 and ui.data.max_hp(ui.session.game.player) == 70, "Reward enables passive without healing")
+	check(ui.session.game.player.skills == ["robust-health"] and ui.session.game.player.hp == 12 and ui.data.max_hp(ui.session.game.player) == 60, "Reward enables passive without healing")
 	ui.session.game.player.skills.append("tireless")
 	ui.session.game.player.stamina = 10
 	ui.show_character();ui.character_window.select_tab(1);await settle()

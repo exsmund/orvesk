@@ -1,0 +1,28 @@
+{
+  "asset": "images/ui/results/forge.png",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "prompt": "Use case: stylized-concept.\nAsset type: one isolated transparent blacksmith's forge illustration for the mobile dark-fantasy game \"Герои Орвеска\", to sit above the heading inside a dark stone UI window.\nSubject: a compact medieval forge vignette: a heavy worn dark iron anvil in front, resting on a short weathered oak block, a simple smith's hammer lying across the anvil, and a small low masonry charcoal hearth immediately behind it. The hearth has a restrained amber glow from a few coals, no towering flames. This should read instantly as a forge at a small UI size.\nComposition: centered cohesive silhouette, slight three-quarter view, entire objects visible, about 8% transparent padding on all sides, square 1024x1024 PNG RGBA. A single compact arrangement, not a landscape or a whole building.\nStyle: gritty old gothic fantasy painted illustration, sculptural volume, fine broken dry-brush strokes following material, aged iron, rough soot-darkened stone, splintered oak, deep contact shadows and narrow worn metallic highlights. Muted graphite and gray-brown palette with a small ochre-orange coal accent. Directional light from above and front-left, low saturation. Match the material weight of a weathered medieval shield illustration.\nTrue transparent background, alpha zero outside the silhouette and in gaps. No room, floor plane, scenery, background haze, painted backdrop, panel, border, frame, text, logo, runes, people, extra weapons, oversized sparks, outer cast shadow, neon, photography, smooth CGI or flat vector rendering. Keep the forge objects opaque; retain all genuine cutout edges.",
+      "transparentBackground": true,
+      "date": "2026-09-30",
+      "output": "/Users/exsmund/.codex/generated_images/01a0dfd8-247d-7662-9197-dc693b1f8781/exec-7c02e2f5-a4cc-48c9-a424-d6d1ff2c6ff7.png",
+      "references": [
+        {
+          "path": "refs/items/buckler.png",
+          "role": "Viewed for worn metal materials; not passed to the generator."
+        },
+        {
+          "path": "refs/image1.png",
+          "role": "Viewed for the project art direction; not passed to the generator."
+        },
+        {
+          "path": "images/ui/results/defeat-shield.png",
+          "role": "Viewed to match the style of the result illustration; not passed to the generator."
+        }
+      ],
+      "sha256": "b9b5b1f25f0bc402ff6155fa957bd6bed143dfe8bb7ff0cb20ac3b50b7a3cfa5"
+    }
+  ],
+  "sha256": "b9b5b1f25f0bc402ff6155fa957bd6bed143dfe8bb7ff0cb20ac3b50b7a3cfa5"
+}

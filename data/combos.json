@@ -1,0 +1,121 @@
+{
+  "version": 1,
+  "art": {
+    "cell": "/ui/combos/cell.png",
+    "link": "/ui/combos/diamond.png",
+    "contested": "/ui/combos/contested.png"
+  },
+  "ai": {
+    "beamWidth": 10,
+    "staminaWeight": 0.5,
+    "reserveWeight": 0.2,
+    "setupWeight": 0.4,
+    "lethalScore": 10000
+  },
+  "rules": [
+    {
+      "id": "covered-strike",
+      "name": "Прикрытый выпад",
+      "geometry": "pair",
+      "roles": [
+        "weaponAttack",
+        "shieldBlock"
+      ],
+      "minEdges": 1,
+      "condition": "guardHit",
+      "effect": {
+        "healthMultiplier": 1.25
+      },
+      "description": "Если соседний блок щитом остановит атаку, соприкасающиеся с ним клетки оружия нанесут на 25% больше урона здоровью."
+    },
+    {
+      "id": "breach",
+      "name": "Пролом",
+      "geometry": "pair",
+      "roles": [
+        "weaponAttack",
+        "weaponAttack"
+      ],
+      "minEdges": 2,
+      "condition": "always",
+      "effect": {
+        "armorIgnore": 0.25
+      },
+      "description": "Две фигуры оружия соприкасаются минимум двумя сторонами клеток. Контактирующие клетки игнорируют 25% брони; блоки и уклонения сохраняют действие."
+    },
+    {
+      "id": "solid-defense",
+      "name": "Глухая оборона",
+      "geometry": "pair",
+      "roles": [
+        "shieldBlock",
+        "shieldBlock"
+      ],
+      "minEdges": 2,
+      "condition": "always",
+      "effect": {
+        "blockDiscount": 1
+      },
+      "description": "Два блока щитом соприкасаются минимум двумя сторонами клеток. Общая стоимость их блокирования уменьшается на 1 выносливость, но не ниже нуля."
+    },
+    {
+      "id": "trip",
+      "name": "Подсечка",
+      "geometry": "pair",
+      "roles": [
+        "footAttack",
+        "weaponAttack"
+      ],
+      "minEdges": 1,
+      "condition": "bothHit",
+      "effect": {
+        "staminaDamage": 2
+      },
+      "description": "Если пинок обувью и соседняя фигура оружия оба нанесут урон здоровью, противник дополнительно потеряет 2 выносливости за всю комбинацию."
+    },
+    {
+      "id": "steady-stance",
+      "name": "Устойчивая стойка",
+      "geometry": "pair",
+      "roles": [
+        "footAttack",
+        "shieldBlock"
+      ],
+      "minEdges": 1,
+      "condition": "kickAndGuard",
+      "effect": {
+        "staminaRefund": 1
+      },
+      "description": "Если пинок нанесёт урон здоровью, а соседний блок щитом остановит атаку, после столкновения вернётся 1 выносливость, не больше стоимости пинка. Возврат нельзя потратить заранее."
+    },
+    {
+      "id": "defensive-corner",
+      "name": "Защитный угол",
+      "geometry": "corner",
+      "roles": [
+        "shieldBlock",
+        "shieldBlock"
+      ],
+      "minEdges": 1,
+      "condition": "always",
+      "effect": {
+        "bonusBlockCost": 1
+      },
+      "description": "Два соприкасающихся блока щитом прикрывают свободную собственную клетку с двух перпендикулярных сторон. В ней появляется дополнительный блок с ценой 1 выносливость за контакт."
+    },
+    {
+      "id": "surround",
+      "name": "Окружение",
+      "geometry": "surround",
+      "roles": [
+        "equipmentAttack"
+      ],
+      "minEdges": 3,
+      "condition": "always",
+      "effect": {
+        "bonusAttack": true
+      },
+      "description": "Три разные атакующие фигуры экипировки окружают свободную собственную клетку с трёх сторон. В ней появляется атака с уроном и типами самой слабой соседней клетки; дополнительная атака не создаёт новых комбинаций."
+    }
+  ]
+}

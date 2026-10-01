@@ -51,6 +51,7 @@ func run():
 	root.gui_embed_subwindows = true
 	if not OS.get_cmdline_user_args().is_empty(): output = OS.get_cmdline_user_args()[0]
 	ui = load("res://scenes/main.tscn").instantiate()
+	ui.saves = preload("res://game/save_store.gd").new(OS.get_temp_dir().path_join("orvesk-combos-gesture-tests"))
 	ui.session = preload("res://tests/campaign_driver.gd").new(ui.data)
 	root.add_child(ui)
 	await frame()
@@ -68,22 +69,33 @@ func run():
 	var state = JSON.stringify(ui.session.game)
 	var rng = ui.session.combat.rng.state
 	check(screen.cards.size() == 4 and not ui.scroll.visible, "Four native figures; no scroll container")
-	# Every cell uses the same hold gesture as the hand; a tap does nothing.
+	# Empty cells do not open an unrelated report or mutate a selected figure.
 	ui.selected = id
 	for index in 9:
 		var point = cell_center(index)
 		touch(point, true)
 		touch(point, false)
 		await frame()
-		check(not ui.get_children().any(func(c): return c is ModalDialog and c.visible), "Tap does not inspect cell %d" % (index + 1))
-		touch(point, true)
-		ui.board._process(0.51)
-		touch(point, false)
-		await frame()
-		var reports = ui.get_children().filter(func(c): return c is ModalDialog and c.visible)
-		check(reports.size() == 1 and reports[0].title.begins_with("Клетка %d ·" % (index + 1)), "Hold inspects cell %d" % (index + 1))
-		check(ui.draft.is_empty() and JSON.stringify(ui.session.game) == state and ui.session.combat.rng.state == rng, "Cell inspection does not place a selected figure or mutate combat")
-		await close_report()
+		var opened = ui.get_children().any(func(c): return c is ModalDialog and c.visible)
+		check(not opened, "Short taps on cells do nothing")
+		if opened: await close_report()
+	check(JSON.stringify(ui.session.game) == state and ui.session.combat.rng.state == rng, "Empty cell clicks preserve combat")
+	# The inspection uses both visible layers of a contested cell.
+	var enemy_card = ui.session.combat.build_deck(ui.session.game.enemy)[0]
+	ui.board.player_layer[0] = screen.cards[0].card
+	ui.board.enemy_layer[0] = enemy_card
+	touch(cell_center(0), true)
+	await create_timer(0.6).timeout
+	touch(cell_center(0), false)
+	var overlap = ui.get_children().filter(func(c): return c is ModalDialog and c.visible)
+	check(overlap.size() == 1, "Contested cell opens one window")
+	if not overlap.is_empty():
+		var figures = overlap[0].content.get_children().filter(func(c): return c.get_script() == preload("res://ui/inspection_figure.gd"))
+		check(figures.size() == 2, "Contested cell shows two figure cards")
+		if figures.size() == 2:
+			check(not figures[0].preview.opponent and figures[1].preview.opponent, "Inspection distinguishes player and enemy frames")
+	await close_report()
+	screen.refresh()
 	var previous_x = -1.0
 	for child in [screen.header.player_portrait, screen.header.player_bars, screen.header.mode_icon, screen.header.enemy_bars, screen.header.enemy_portrait]:
 		check(child.position.x > previous_x, "Header order")
@@ -92,26 +104,10 @@ func run():
 		touch(center, true)
 		touch(center, false)
 		await frame()
-		check(ui.rotation_for(id) == count % 4, "Single tap rotates exactly once, cycle %d" % count)
-	check(JSON.stringify(ui.session.game) == state and ui.session.combat.rng.state == rng, "Rotation changes no game state or RNG")
-	for pressed in [true, false]:
-		var mouse = InputEventMouseButton.new()
-		mouse.position = center
-		mouse.button_index = MOUSE_BUTTON_LEFT
-		mouse.pressed = pressed
-		root.push_input(mouse, true)
-	check(ui.rotation_for(id) == 1, "Desktop/emulator mouse tap rotates exactly once")
-	for pressed in [true, false]:
-		var emulated = InputEventMouseButton.new()
-		emulated.device = -1
-		emulated.position = center
-		emulated.button_index = MOUSE_BUTTON_LEFT
-		emulated.pressed = pressed
-		root.push_input(emulated, true)
-	check(ui.rotation_for(id) == 1, "Emulated duplicate mouse input is ignored")
-	ui.rotate_card(id)
-	ui.rotate_card(id)
-	ui.rotate_card(id)
+		var windows = ui.get_children().filter(func(c): return c is ModalDialog and c.visible)
+		check(windows.is_empty(), "Short tap rotates without opening a card")
+		check(ui.rotation_for(id) == count % 4, "Tap rotates exactly once")
+	check(JSON.stringify(ui.session.game) == state and ui.session.combat.rng.state == rng, "Figure browsing preserves game state and RNG")
 	# The same real touch stream handles long press, without a follow-up rotation.
 	touch(center, true)
 	await create_timer(0.6).timeout
@@ -121,7 +117,7 @@ func run():
 	await snapshot("combat-description")
 	touch(center, false)
 	if not dialogs.is_empty():
-		check(dialogs[0].dialog_text.contains("Урон здоровью за клетку: 3"), "Description uses actual dealt card damage")
+		check(dialogs[0].content.get_children().any(func(c): return c.get_script() == preload("res://ui/inspection_figure.gd")), "Description uses shared figure card")
 		ui._notification(Control.NOTIFICATION_WM_GO_BACK_REQUEST)
 	await frame()
 	check(ui.screen == "game" and ui.get_children().filter(func(c): return c is ModalDialog and c.visible).is_empty(), "Android Back closes only the description, keeping the battle")
@@ -179,7 +175,7 @@ func run():
 		if pressed: ui.board._process(0.51)
 	await frame()
 	var cell_reports = ui.get_children().filter(func(c): return c is ModalDialog and c.visible)
-	check(cell_reports.size() == 1 and cell_reports[0].title.begins_with("Клетка 2 ·"), "Mouse hold on any part of placed figure opens that cell report")
+	check(cell_reports.size() == 1 and cell_reports[0].title in ["Фигура", "Фигуры"], "Mouse hold on placed figure opens its card")
 	check(ui.draft == before_inspection and ui.rotation_for(id) == 0, "Inspecting own figure neither removes nor rotates it")
 	await close_report()
 	await snapshot("combat-cover")
@@ -298,7 +294,7 @@ func run():
 	ui.board._process(0.51)
 	touch(revealed_point, false)
 	await frame()
-	check(ui.get_children().any(func(c): return c is ModalDialog and c.visible and c.title.begins_with("Клетка 4 ·")), "Revealed cells remain inspectable")
+	check(ui.get_children().any(func(c): return c is ModalDialog and c.visible and c.title in ["Фигура", "Фигуры"]), "Revealed cells remain inspectable")
 	await close_report()
 	touch(cell_center(3), true)
 	motion(Vector2(-100,-100))

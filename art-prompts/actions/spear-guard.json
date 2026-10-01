@@ -1,0 +1,22 @@
+{
+  "asset": "images/actions/spear-guard.png",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "date": "2026-10-01",
+      "prompt": "Use case: stylized-concept. Production transparent action icon for the dark fantasy game Heroes of Orvesk, matching the two provided references only for painterly material, worn metal, wood and upper-left lighting. Depict a defensive SPEAR SHAFT PARRY, visually distinct from a spear thrust: two adult hands in rough dark leather wraps bracing a thick dark ashwood shaft nearly horizontally across the body, seen close up, with a downward striking short iron blade stopped firmly against the iron-reinforced middle of the shaft. Small restrained ivory sparks at contact. Only hands, short forearms, shaft and impacting blade; no torso, face, scenery or shield. Whole compact action silhouette entirely inside square canvas with 8 percent clear margin; readable at 48 pixels. Hand-painted fantasy illustration with brushwork, charcoal shadows, desaturated brown wood, tarnished silver and dull bronze, light from upper front-left. No text, no frame, no UI, no ground or cast backdrop, no photoreal skin. Genuine transparent RGBA background.",
+      "references": [
+        {
+          "path": "images/weapons/spear.png",
+          "role": "passed reference: wood and metal materials"
+        },
+        {
+          "path": "images/skills/parry.png",
+          "role": "passed reference: defensive action composition and painted style"
+        }
+      ],
+      "transparentBackground": true,
+      "output": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-5b5b7dca-9005-42bf-91dd-03bd0557dd1d.png"
+    }
+  ]
+}

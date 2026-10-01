@@ -1,0 +1,37 @@
+{
+  "asset": "mobile/content/ui/figure-player-frame.png",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "prompt": "Create a single square game UI frame based on the attached cell-player-v2 texture. Same straight-on square cut-corner geometry and weathered gothic metal craft. Change to a thicker border, about 6% of canvas width along all four edges (original about 2.5%). Metal subdued GREY-GREEN aged iron, low saturation, sculptural dry-brush texture, narrow upper-left highlights, dark recesses, chipped corners. Transparent hollow center and transparent outside the frame: remove ALL stone tile interior, moss and backing. This is a reusable ring overlay for small game pieces at 40-100px. Frame extends to canvas edges with only 1% exterior padding. Four straight equal sides, compact chamfered corners. No icons, text, numbers, additional ornament, glow, drop shadow outside, or additional frames. One 1024x1024 PNG RGBA asset, genuinely transparent central opening. Maintain readable substantial border in miniature.",
+      "transparentBackground": true,
+      "output": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-15e4dc65-b537-494e-bc6a-efb029f80ff0.png",
+      "references": [
+        {
+          "path": "mobile/content/ui/cell-player-v2.png",
+          "role": "Passed to generator: frame geometry, material and thickness reference"
+        }
+      ]
+    },
+    {
+      "tool": "image_gen",
+      "prompt": "Edit image 1: preserve thicker frame geometry and square cut corners, but brighten grey-green metal substantially to light sage grey-green midtones #A8B783 with silver highlights, readable at small scale. Fill the hollow center with opaque dark cracked stone like image 2. Single self-contained game tile with integrated background. Stone must stop at the inner metal edge. All area OUTSIDE the outer chamfered silhouette MUST be transparent, including four triangular cut corner areas: no square backing texture protruding outside. Opaque inside. Gothic distressed painted metal/stone, no text/icons/glow. Same thick border, square straight-on composition.",
+      "transparentBackground": true,
+      "references": [
+        {
+          "path": "mobile/content/ui/figure-player-frame.png",
+          "role": "Passed to generator: edit target",
+          "sha256": "36d015767b22c25ce9db1ae132b6b6b937ebf2d0e30a1a2b7bf89e2cdca05df9"
+        },
+        {
+          "path": "mobile/content/ui/cell-enemy-v2.png",
+          "role": "Passed to generator: reference geometry and stone",
+          "sha256": "e0b2ad1281aec4fb8c423c3debe61ab554adf0476a457f4304fc79dcea71dce5"
+        }
+      ],
+      "output": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-0f959d01-ca2e-4065-97c6-8017b49d75c5.png",
+      "sha256": "8820e59cf311981b1331b662c38f322cbce4934673582cd14042e960c2f3db51"
+    }
+  ],
+  "sha256": "8820e59cf311981b1331b662c38f322cbce4934673582cd14042e960c2f3db51"
+}

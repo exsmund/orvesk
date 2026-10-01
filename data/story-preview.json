@@ -6,7 +6,7 @@
   "sources": [
     {
       "path": "data/story.json",
-      "sha256": "0039c13ec115c400933314d065162809a2ffa0698c0ce99ec56fb48fbc0a82d6"
+      "sha256": "1512b832eabed9213e59906609bde6f332cf312cf2d260c712ff8b1525a3178f"
     },
     {
       "path": "data/characters.json",
@@ -14,7 +14,7 @@
     },
     {
       "path": "data/map-points.json",
-      "sha256": "38b3c612f11a20c531ef1423a4fb9a27954bfeea5f0018cee90eb21b39d40f7b"
+      "sha256": "88e502e73d775136aeece14125ab035c928467fa51d293fd033352d05680c32a"
     },
     {
       "path": "data/maps.json",
@@ -1764,22 +1764,11 @@
       "kind": "choice",
       "text": "Чем заняться?",
       "options": [
-        "2.2.activity.campfire",
         "2.2.activity.forge",
         "2.2.activity.activity-3"
       ],
       "next": "2.3.554cd9d46578",
       "mode": "activity"
-    },
-    "2.2.activity.campfire": {
-      "id": "2.2.activity.campfire",
-      "scene": "2.2",
-      "kind": "option",
-      "text": "Костёр",
-      "description": null,
-      "next": "2.3.554cd9d46578",
-      "choiceId": "2.2.99b76bae4951",
-      "mapPointType": "campfire"
     },
     "2.2.activity.forge": {
       "id": "2.2.activity.forge",
@@ -6237,22 +6226,11 @@
       "kind": "choice",
       "text": "Чем заняться?",
       "options": [
-        "6.2.activity.campfire",
         "6.2.activity.forge",
         "6.2.activity.activity-3"
       ],
       "next": "6.3.c9fce4e7730f",
       "mode": "activity"
-    },
-    "6.2.activity.campfire": {
-      "id": "6.2.activity.campfire",
-      "scene": "6.2",
-      "kind": "option",
-      "text": "Костёр",
-      "description": null,
-      "next": "6.3.c9fce4e7730f",
-      "choiceId": "6.2.99b76bae4951",
-      "mapPointType": "campfire"
     },
     "6.2.activity.forge": {
       "id": "6.2.activity.forge",
@@ -10178,10 +10156,6 @@
           "id": "2.2.99b76bae4951",
           "children": [
             {
-              "id": "2.2.activity.campfire",
-              "children": []
-            },
-            {
               "id": "2.2.activity.forge",
               "children": []
             },
@@ -12357,10 +12331,6 @@
           "id": "6.2.99b76bae4951",
           "children": [
             {
-              "id": "6.2.activity.campfire",
-              "children": []
-            },
-            {
               "id": "6.2.activity.forge",
               "children": []
             },
@@ -13334,7 +13304,7 @@
     "Голос и наполнение переключаются вручную: сюжет не задаёт числовые пороги.",
     "Портреты неназначенных персонажей показаны нейтральными заглушками."
   ],
-  "revision": 13,
+  "revision": 14,
   "mapPointsCatalog": "data/map-points.json",
   "mapsCatalog": "data/maps.json",
   "chapterMaps": {

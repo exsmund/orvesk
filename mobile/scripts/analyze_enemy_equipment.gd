@@ -33,7 +33,7 @@ func actor(rank: int, profile: String, loadout: String) -> Dictionary:
 func simulate(rank: int, profile: String, enemy_profile: String, loadout: String, mode: String, first: String, sample: int) -> Dictionary:
 	var p = actor(rank, profile, loadout)
 	var generator = legacy.new(data) if variant == "old" else Session.new(data)
-	generator.game = {"journey":{"expedition":2,"startLevel":rank}}
+	generator.game = {"player":p,"journey":{"expedition":2,"startLevel":rank}}
 	generator.combat.rng.seed = rank * 10000 + sample
 	var e = generator.generate_enemy(5, {"kind":"human", "role":"Test"})
 	var g = {"phase":"combat", "player":p, "enemy":e, "journey":{"battleMode":mode}}

@@ -4,12 +4,13 @@ const Header = preload("res://ui/game_header.gd")
 const GothicTheme = preload("res://ui/gothic_theme.gd")
 var host
 var header = Header.new()
+var panel_shadow = preload("res://ui/panel_shadow.gd").new()
 var surface = preload("res://ui/character_surface.gd").new()
-var portrait = TextureRect.new()
+var portrait = preload("res://ui/portrait_art.gd").new()
 var words = Control.new()
 var fade_group = CanvasGroup.new()
 var name_divider = preload("res://ui/header_divider.gd").new()
-var speaker_name = Label.new()
+var speaker_name = preload("res://ui/fitted_label.gd").new()
 var text_scroll = ScrollContainer.new()
 var speech = VBoxContainer.new()
 var top_padding = Control.new()
@@ -28,9 +29,10 @@ func configure(controller):
 	add_child(header)
 	var current = host.session.campaign.node()
 	header.title_override = host.data.story.scenes[current.scene].title
-	header.configure_journey(host.data, host.session.game, host.animated)
+	header.configure_journey(host.data, host.session.game)
 	header.player_requested.connect(host.show_character)
-	header.menu_requested.connect(host.show_journey_menu)
+	add_child(panel_shadow)
+	panel_shadow.configure(host.data)
 	add_child(surface)
 	surface.configure(host.data, 14, 0.48)
 	for child in [portrait, speaker_name, name_divider, words, notice, scroll_hint]: add_child(child)
@@ -42,16 +44,14 @@ func configure(controller):
 	var scroll_bar = text_scroll.get_v_scroll_bar()
 	scroll_bar.value_changed.connect(func(_value): update_scroll_hint())
 	scroll_bar.changed.connect(update_scroll_hint)
-	portrait.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	portrait.material = ShaderMaterial.new()
-	portrait.material.shader = preload("res://shaders/dialogue_portrait.gdshader")
-	portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	portrait.configure(host.data, null)
 	speaker_name.add_theme_font_override("font", GothicTheme.DISPLAY_FONT)
-	speaker_name.add_theme_font_size_override("font_size", 24)
+	speaker_name.base_font_size = 24
 	speaker_name.add_theme_color_override("font_color", host.data.color("text-home"))
-	speaker_name.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	speaker_name.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	speaker_name.add_theme_color_override("font_shadow_color", host.data.color("shadow-character-card-2"))
+	speaker_name.add_theme_constant_override("shadow_offset_x", 0)
+	speaker_name.add_theme_constant_override("shadow_offset_y", 2)
+	speaker_name.add_theme_constant_override("shadow_outline_size", 4)
 	words.add_child(fade_group)
 	fade_group.add_child(text_scroll)
 	fade_group.material = ShaderMaterial.new()
@@ -108,6 +108,7 @@ func configure(controller):
 			var option = host.data.story.nodes[id]
 			add_action("%d.  %s" % [number, option.text], func(): host.act(func(): return host.session.story_advance(current.id, id)), true)
 	elif current.kind == "end":
+		add_action("Пройти ещё раз →", host.offer_replay)
 		add_action("Главное меню →", host.show_home)
 	else:
 		add_action(current.get("label", host.data.story.rules.ui.continueLabel) + " →", func(): host.act(func(): return host.session.story_advance(current.id)))
@@ -150,19 +151,6 @@ func update_scroll_hint():
 func set_notice(message: String):
 	notice.text = message
 
-func fit_speaker_name(width: float):
-	var font = GothicTheme.DISPLAY_FONT
-	var flags = TextServer.BREAK_MANDATORY | TextServer.BREAK_WORD_BOUND | TextServer.BREAK_ADAPTIVE
-	for font_size in range(24, 7, -1):
-		var paragraph = TextParagraph.new()
-		paragraph.width = width
-		paragraph.break_flags = flags
-		paragraph.add_string(speaker_name.text, font, font_size)
-		if paragraph.get_line_count() <= 2 and paragraph.get_size().y <= 40:
-			speaker_name.add_theme_font_size_override("font_size", font_size)
-			return
-	speaker_name.add_theme_font_size_override("font_size", 8)
-
 func arrange():
 	if not host or not is_inside_tree() or size.x <= 0: return
 	header.size = Vector2(size.x, Header.HEIGHT)
@@ -175,6 +163,7 @@ func arrange():
 	var top = bottom - height
 	surface.position = Vector2(x, top)
 	surface.size = Vector2(width, height)
+	panel_shadow.fit_panel(surface.get_rect())
 	var overlap = minf(130, maxf(0, top - Header.HEIGHT - 8))
 	var base_image_side = minf(width * 0.51, overlap + 85)
 	var image_side = base_image_side * 1.30
@@ -185,10 +174,11 @@ func arrange():
 	portrait.position = Vector2(x - outward + border if side == "left" else x + width - image_side + outward - border, top - overlap - (image_side - base_image_side) + image_side * 0.10)
 	portrait.material.set_shader_parameter("horizontal_clip", Vector2((x + border - portrait.position.x) / image_side, (x + width - border - portrait.position.x) / image_side))
 	var occupied_width = image_side - outward + border
-	speaker_name.position = Vector2(x + occupied_width + 18 if side == "left" else x + 22, top + 12)
-	var name_width = maxf(50, width - occupied_width - 44)
-	fit_speaker_name(name_width)
+	# Let the heading overlap the shoulder while keeping the outer text inset.
+	var name_width = minf(width - 44, maxf(width - occupied_width - 44, (width - 44) * 0.56))
+	speaker_name.position = Vector2(x + width - 22 - name_width if side == "left" else x + 22, top + 12)
 	speaker_name.size = Vector2(name_width, 40)
+	speaker_name.fit()
 	name_divider.position = speaker_name.position + Vector2(0, 42)
 	name_divider.size = Vector2(speaker_name.size.x, 12)
 	# Begin fading beside the portrait, directly below the speaker heading.

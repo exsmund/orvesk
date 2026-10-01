@@ -15,7 +15,7 @@ spec.loader.exec_module(runner)
 class BalanceReportTest(unittest.TestCase):
     def scenario(self, case_id, build='a', name='A', level=5, **loadout):
         return {'id': case_id, 'build': build, 'name': name, 'level': level,
-                'enemyLevel': max(1, level-1), 'hands': 0, 'armor': False,
+                'enemyLevel': level, 'hands': 1, 'armor': False,
                 'shield': False, 'enemyKind': 'human', **loadout}
 
     def test_mean_is_over_combination_percentages_per_build_and_level(self):
@@ -33,8 +33,8 @@ class BalanceReportTest(unittest.TestCase):
         self.assertEqual(a['maxScenario'], results[1]['scenario'])
         self.assertEqual((higher['level'], higher['meanPercent']), (10, 25))
         self.assertEqual(b['meanPercent'], 50)
-        self.assertIn('| A | 5 | 10.0% — без оружия; без брони; без щита; человек ур. 4 | 45.0% | '
-                      '80.0% — одноручное; тело + обувь; со щитом; существо ур. 4 |',
+        self.assertIn('| A | 5 | 10.0% — одноручное; без брони; без щита; человек ур. 5 | 45.0% | '
+                      '80.0% — одноручное; тело + обувь; со щитом; существо ур. 5 |',
                       runner.table([a, higher, b]))
 
     def test_tied_extremes_select_one_stable_combination(self):
@@ -54,9 +54,9 @@ class BalanceReportTest(unittest.TestCase):
         return {'scenario': scenario, 'samples': 2, 'seed': str(seed), 'wins': 1, 'losses': 1,
                 'draws': 1, 'winPercent': 50,
                 'battles': [{'sample': 0, 'seed': offset, 'first': 'player', 'outcome': 'victory',
-                             'heroLevel': 5, 'enemyLevel': 4},
+                             'heroLevel': 5, 'enemyLevel': 5},
                             {'sample': 1, 'seed': offset+10, 'first': 'enemy', 'outcome': 'draw',
-                             'heroLevel': 5, 'enemyLevel': 4}]}
+                             'heroLevel': 5, 'enemyLevel': 5}]}
 
     def read(self, result):
         with tempfile.TemporaryDirectory() as temp:

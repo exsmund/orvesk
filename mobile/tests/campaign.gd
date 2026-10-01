@@ -90,8 +90,51 @@ func _initialize():
 	check(variants.size() == 4, "both alternatives at both conditional encounters exercised")
 	check(voices.size() == 3, "silent, fragmentary and coherent voice exercised")
 	persistence_checks()
+	healer_route_checks()
 	print("CAMPAIGN: ", checks, " checks; ", "FAIL" if failed else "PASS")
 	quit(1 if failed else 0)
+
+func healer_route_checks():
+	for chapter in [2, 6]:
+		var session = Driver.new(data)
+		session.combat.rng.seed = 601 + chapter
+		session.create("Лечебница", {"strength":2,"agility":2,"vitality":2,"intelligence":1}, data.portraits[0].id)
+		session.map_fixture(chapter)
+		var sid = "%d.2" % chapter
+		var stop_nodes = session.game.journey.map.nodes.filter(func(n): return n.get("storyStage", "") == sid)
+		check(stop_nodes.all(func(n): return n.mapPointType != "campfire"), "healer stop has no campfire")
+		var healers = stop_nodes.filter(func(n): return n.mapPointType == "healer")
+		check(healers.size() == 1, "healer remains on both maps")
+		if healers.is_empty(): continue
+		var healer: Dictionary = healers[0]
+		session.game.story.scene = sid
+		session.game.story.pendingEntry = ""
+		session.campaign.seek(data.story.stages[sid].activityChoice, true)
+		session.game.player.hp = 1
+		session.game.player.stamina = 0
+		# Recreate the obsolete branch from a save made before the story edit.
+		var old_camp = healer.duplicate(true)
+		old_camp.merge({"id":"camp-1", "kind":"camp", "mapPointType":"campfire", "storyOption":sid + ".activity.campfire", "name":"Костёр"}, true)
+		session.game.journey.map.nodes.append(old_camp)
+		session.game.journey.map.edges.append(["fight-1", "camp-1"])
+		session.game.journey.map.edges.append(["camp-1", "fight-2"])
+		var saved = {"game":session.game.duplicate(true), "rngState":str(session.combat.rng.state)}
+		var loaded = Session.new(data)
+		check(loaded.restore(saved).is_empty(), "old healer map loads")
+		check(loaded.game.journey.map.nodes.all(func(n): return n.id != "camp-1"), "removed camp is pruned from saved map")
+		check(loaded.game.journey.map.edges.all(func(e): return "camp-1" not in e), "removed camp has no dangling map edges")
+		check(loaded.game.player == saved.game.player and loaded.game.story == saved.game.story and loaded.game.journey.enemies == saved.game.journey.enemies, "route update preserves hero, decisions and enemies")
+		check(str(loaded.combat.rng.state) == saved.rngState, "route update preserves RNG")
+		check(loaded.available_nodes().has(healer.id) and not loaded.available_nodes().has("camp-1"), "only current activities are selectable")
+		check(not loaded.travel("camp-1").is_empty(), "obsolete camp cannot be visited")
+		check(loaded.travel(healer.id).is_empty(), "healer remains reachable")
+		check(loaded.game.player.hp == data.max_hp(loaded.game.player) and loaded.game.player.stamina == data.max_stamina(loaded.game.player), "healer fully restores both resources")
+		# Already visited landmarks remain historical until the chapter is retried.
+		saved.game.journey.path.append("camp-1")
+		var visited = Session.new(data)
+		check(visited.restore(saved).is_empty() and visited.current_node() == "camp-1", "visited camp history survives loading")
+		visited.reset_chapter()
+		check(visited.game.journey.map.nodes.all(func(n): return n.id != "camp-1"), "retry removes retired visited camp")
 
 func persistence_checks():
 	var session = Driver.new(data)

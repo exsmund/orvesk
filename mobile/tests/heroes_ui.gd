@@ -24,7 +24,11 @@ class MemorySaves extends RefCounted:
 		return true
 
 class MemoryPreferences extends RefCounted:
-	var animated = false
+	var completed_difficulties: Array = []
+	func record_completed(ids):
+		for id in ids:
+			if id not in completed_difficulties: completed_difficulties.append(id)
+		return true
 	var last_hero = ""
 	func write(): return true
 

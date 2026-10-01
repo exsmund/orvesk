@@ -1,0 +1,20 @@
+{
+  "asset": "mobile/content/ui/board-v2.png",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "date": "2026-10-01",
+      "prompt": "Edit this exact 3 by 3 dark stone game board. Retain the same dark fractured stone material, muted worn silver/bronze metal rails and small faceted diamond studs at every grid intersection. CORRECT GEOMETRY: perfectly square regular grid, nine identical square inner openings, straight parallel rails of identical thickness, horizontal and vertical lines matching the same coordinates. All 16 diamond stud centers on a regular 4 by 4 lattice including corners, each stud precisely centered at rail crossing; all cell chamfered corners meet neatly against studs with no offset. Fill almost all square canvas, small outer edge allowance only. Think canonical 1254 square: rail centers x AND y = 20,425,830,1235; inner stone windows x AND y = 32..413,437..818,842..1223. These numbers are drawing constraints, do NOT print any numbers. Remove EVERY opaque black outer strip and black corner outside the board perimeter, true alpha transparency outside actual metal silhouette. No black rectangular backing, no outside shadow, no perspective distortion, no extra frame, no ornament beyond existing small studs, no text, no action icons. Stone remains opaque inside all nine cells.",
+      "references": [
+        {
+          "path": "mobile/content/ui/board-v2.png",
+          "role": "edit target and material reference",
+          "sha256": "50c52e4be602b7a27245f662175387a2d23444bc4bf02fce36bf63d7ce7a290b"
+        }
+      ],
+      "transparentBackground": true,
+      "output": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-163c5521-6ceb-423e-bf4e-e9cc0a9e1c64.png"
+    }
+  ],
+  "sha256": "4f439076871d294eb12a1be563c40bc3888357b1dad6e2110f9dd776500b57eb"
+}

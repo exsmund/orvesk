@@ -16,16 +16,18 @@ func check(ok: bool, message: String):
 func run():
 	var suite = Scenarios.new(MemoCatalog.new())
 	var cases = suite.cases()
-	check(cases.size() == 1440, "12 builds × 6 levels × 10 legal loadouts × 2 enemy types")
+	check(cases.size() == 864, "12 builds × 6 levels × 6 legal loadouts × 2 enemy types")
+	check(Scenarios.LEVELS == [2, 5, 10, 20, 50, 100], "Default levels start at two")
 	check(not suite.creature_ids.is_empty(), "Creature pool is derived from story encounters")
 	var seen = {}
 	for scenario in cases:
 		check(not seen.has(scenario.id), "Unique case " + scenario.id)
 		seen[scenario.id] = true
 		check(data.level({"stats": scenario.stats}) == scenario.level, "Correct hero level")
-		check(scenario.enemyLevel == maxi(1, scenario.level - 1), "Enemy one level lower, minimum one")
+		check(scenario.enemyLevel == scenario.level, "Enemy has the same level as the hero")
 		check(scenario.stats.values().all(func(n): return n >= 1 and int(n) == n), "Integral base stats")
 		check(not (scenario.hands == 2 and scenario.shield), "No impossible shield/two-handed case")
+		check(scenario.hands in [1, 2], "All cases have one-handed or two-handed weapons")
 		var build = data.lookup(Scenarios.BUILDS, scenario.build)
 		var others: Array = []
 		for stat in data.STATS:
@@ -40,13 +42,12 @@ func run():
 	check(suite.stats(5, paired) == {"strength": 3, "agility": 3, "vitality": 3, "intelligence": 2}, "Paired thirds keep the whole point budget")
 	# Cover every stat/level/equipment category, not all expensive battles here.
 	for scenario in cases:
-		if scenario.enemyKind != "human": continue
 		var fighters = suite.actors(scenario, 987654 + checks)
 		check(not fighters.has("error"), "Actor generation: " + scenario.id)
 		if fighters.has("error"): continue
 		var p = fighters.player
 		var e = fighters.enemy
-		check(data.level(e) == scenario.enemyLevel and not e.has("creatureVariant"), "Normal lower-level enemy")
+		check(data.level(e) == data.level(p) and not e.has("creatureVariant"), "Normal equal-level enemy")
 		check(p.skills.is_empty() and e.skills.is_empty(), "No learned skills")
 		check(p.hp == data.max_hp(p) and e.hp == data.max_hp(e), "Full health")
 		check(data.has_equipment(p, "weapon") == (scenario.hands > 0), "Weapon mode")
@@ -55,8 +56,27 @@ func run():
 		check(not p.gear.ring and not p.gear.amulet, "No jewellery")
 		for reference in p.gear.values():
 			if reference: check(data.can_use(p, data.item(reference)), "Equipment requirements")
+		for reference in e.gear.values():
+			if reference: check(data.item(reference).level <= scenario.level, "Enemy equipment capped by hero, not enemy rank")
+		for slot in data.SLOTS:
+			if not e.gear[slot]: continue
+			check(p.gear[slot] != null and not data.item(p.gear[slot]).get("unarmed",false), "Enemy slot requires ordinary hero equipment")
+			var item = data.item(e.gear[slot])
+			var limit = data.item(p.gear[slot])
+			check(item.tier <= limit.tier and item.level <= limit.level, "Enemy item obeys hero slot limits")
+		if e.has("naturalWeaponLevel"):
+			check(e.naturalWeaponLevel <= data.item(p.gear.weapon).level and e.naturalWeaponTier <= data.item(p.gear.weapon).tier, "Natural weapon follows equipped hero weapon")
 		if scenario.hands: check(int(data.item(p.gear.weapon).hands) == scenario.hands, "Weapon handedness")
 	# Memoization must reproduce full production-engine battles, including final RNG.
+	var custom = Catalog.new()
+	custom.journey_rules.rankGaps[int(custom.journey_rules.bossStage) - 1] = {"minimum":3,"percent":25}
+	var changed = Scenarios.new(custom)
+	var changed_case = changed.cases([40], [Scenarios.BUILDS[0]])[0]
+	var campaign_rules = custom.journey_rules.duplicate(true)
+	check(changed_case.enemyLevel == 40, "Test matrix uses equal levels independently of map gap")
+	var changed_actors = changed.actors(changed_case, 3344)
+	check(not changed_actors.has("error") and custom.level(changed_actors.enemy) == 40, "Production generator creates an equal-level test enemy")
+	check(custom.journey_rules == campaign_rules and custom.enemy_level(40, int(custom.journey_rules.bossStage)) == 30, "Test generation preserves campaign level rules")
 	var plain = Scenarios.new(data, false)
 	for i in 8:
 		var scenario = cases[(i * 151) % cases.size()]
@@ -69,6 +89,7 @@ func run():
 		check(a == again, "Seed exactly reproduces battle")
 		await process_frame
 	cheap_moves(suite)
+	for result in preload("res://tests/balance_player.gd").run(): check(result[0], result[1])
 	print("BALANCE_MATRIX: checks=", checks, " failures=", failures.size())
 	quit(1 if failures else 0)
 

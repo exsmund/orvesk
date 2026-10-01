@@ -43,6 +43,7 @@ func configure(owner_ui):
 	shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	shade.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(panel)
+	preload("res://ui/panel_shadow.gd").new().follow_panel(panel, host.data)
 	panel.theme = host.theme.duplicate(false)
 	for kind in ["Label", "Button", "CheckButton", "RichTextLabel"]:
 		panel.theme.set_color("default_color" if kind == "RichTextLabel" else "font_color", kind, host.data.color("text-home"))
@@ -110,11 +111,10 @@ func arrange():
 	var bottom = host.margin.get_theme_constant("margin_bottom")
 	var available = size - Vector2(left + right, top + bottom)
 	var wide = available.x > available.y * 1.08
-	panel.size = Vector2(minf(available.x, available.y * 1.65), available.y) if wide else Vector2(minf(560, available.x), minf(920, available.y))
+	panel.size = Vector2(minf(available.x, available.y * 1.65), available.y) if wide else Vector2(minf(560, available.x), minf(host.AdaptiveLayout.WINDOW_MAX_HEIGHT, available.y))
 	panel.size.x = minf(panel.size.x, host.AdaptiveLayout.content_width(available))
 	panel.position = Vector2(left, top) + (available - panel.size) / 2
-	if wide: panel.position.x = left
-	elif available.y > available.x * 1.65: panel.position.y = top + available.y - panel.size.y
+	if not wide and available.y > available.x * 1.65: panel.position.y = top + available.y - panel.size.y
 	var unit = maxf(1, minf(panel.size.x / 900, panel.size.y / 650)) if wide else 1.0
 	var head = window_header.arrange(panel.size)
 	var foot = minf(90 * unit if wide else 100, maxf(66, panel.size.y * 0.19))
@@ -152,7 +152,6 @@ func select_tab(index: int):
 	arrange()
 
 func back():
-	if current_tab == 3 and pages[3].back(): return
 	close()
 
 func close():

@@ -38,7 +38,14 @@ func compatible(option: Dictionary, chosen: Array) -> bool:
 		if option.kind == "item" and previous.kind == "item" and data.item(option.itemId).templateId == data.item(previous.itemId).templateId: return false
 	return true
 
-func pick(pool: Array, rng: RandomNumberGenerator) -> Dictionary:
+func item_weight(option: Dictionary, player: Dictionary) -> float:
+	if option.kind != "item" or player.is_empty(): return 1.0
+	var equipment = data.item(option.itemId)
+	if data.has_equipment(player, equipment.slot): return 1.0
+	if equipment.slot == "shield" and data.item(player.gear.get("weapon")).get("hands", 1) == 2: return 1.0
+	return float(data.balance.loot.emptySlotWeight)
+
+func pick(pool: Array, rng: RandomNumberGenerator, player: Dictionary = {}) -> Dictionary:
 	if pool.is_empty(): return {}
 	# Configured weights apply to available kinds, not individual catalog entries.
 	var weights: Dictionary = data.balance.loot.rewardKindWeights
@@ -54,7 +61,14 @@ func pick(pool: Array, rng: RandomNumberGenerator) -> Dictionary:
 		roll -= int(weights[kind])
 		if roll <= 0:
 			var candidates = pool.filter(func(option): return option.kind == kind)
-			return candidates[rng.randi_range(0, candidates.size() - 1)]
+			var weights_by_item: Array = candidates.map(func(option): return item_weight(option, player))
+			var item_total = 0.0
+			for weight in weights_by_item: item_total += weight
+			var cursor = rng.randf() * item_total
+			for i in candidates.size():
+				cursor -= weights_by_item[i]
+				if cursor < 0: return candidates[i]
+			return candidates.back()
 	return {}
 
 func roll(player: Dictionary, enemy: Dictionary, rng: RandomNumberGenerator) -> Array:
@@ -78,10 +92,10 @@ func roll(player: Dictionary, enemy: Dictionary, rng: RandomNumberGenerator) -> 
 		if usable(ready, player):
 			available.append(ready)
 			if ready not in all: all.append(ready)
-	var first = pick(available, rng)
+	var first = pick(available, rng, player)
 	if first.is_empty(): return []
 	var result: Array = [first]
 	if count(player, enemy) == 2:
-		var second = pick(all.filter(func(option): return compatible(option, result)), rng)
+		var second = pick(all.filter(func(option): return compatible(option, result)), rng, player)
 		if not second.is_empty(): result.append(second)
 	return result

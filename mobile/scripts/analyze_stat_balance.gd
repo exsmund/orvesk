@@ -12,7 +12,7 @@ func fail(message: String):
 	quit(1)
 
 func run():
-	var options = {"samples": "20", "seed": "20260929", "output": "/tmp/orvesk-balance", "worker": "0", "workers": "1", "levels": "1,5,10,20,50,100", "builds": "", "max-rounds": "500", "describe": "false"}
+	var options = {"samples": "20", "seed": "20260929", "output": "/tmp/orvesk-balance", "worker": "0", "workers": "1", "levels": "2,5,10,20,50,100", "builds": "", "max-rounds": "500", "describe": "false"}
 	var args = OS.get_cmdline_user_args()
 	if args.size() % 2:
 		fail("Arguments must be --name value pairs")

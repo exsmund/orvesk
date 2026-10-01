@@ -11,8 +11,8 @@ func dialogues() -> String:
 		if error: return error
 	return "Test dialogue did not terminate"
 
-func create(name: String, stats: Dictionary, portrait_id: String) -> String:
-	var error = super.create(name, stats, portrait_id)
+func create(name: String, stats: Dictionary, portrait_id: String, difficulty_id: String = "", completed: Array = []) -> String:
+	var error = super.create(name, stats, portrait_id, difficulty_id, completed)
 	# Unrelated UI fixtures start with the tutorial dismissed. Dedicated help tests opt in.
 	if not error: game.player.combatHelpHidden = true
 	return error if error else dialogues()
@@ -50,7 +50,7 @@ func fight_fixture(stage: int):
 	game.story.pendingEntry = ""
 	game.story.replaying = false
 	game.journey.stage = stage
-	game.journey.path = [definition.engineBinding.nodeIds[0]]
+	game.journey.path = ["camp-start", definition.engineBinding.nodeIds[0]]
 	game.journey.awaitingFirstBattle = false
 	game.erase("victoryReward")
 	campaign.prepare_enemy(definition)

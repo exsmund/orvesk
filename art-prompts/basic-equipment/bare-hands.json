@@ -1,6 +1,6 @@
 {
   "asset": "images/basic-equipment/bare-hands.png",
-  "sha256": "a8071c02a2afdd17fd399f005933b2c50bf96668357953358315e3a2520e1335",
+  "sha256": "fc806ee7eb7856aea2a4311a5adb48ec16af0d428149f47c1da1bdc4bbe20989",
   "steps": [
     {
       "tool": "image_gen",
@@ -8,6 +8,82 @@
       "prompt": "Use case: stylized-concept. Create ONE square 1024x1024 PNG game inventory/action illustration on a TRUE TRANSPARENT RGBA background. Completely empty alpha outside the subject and in all gaps and holes. No black or colored backdrop, no gradient rectangle, no checkerboard, no floor, no shadow plane, no UI tile, no frame, no text or numbers. This will overlay textured combat cells: the cell texture MUST show everywhere around the object.\nArt direction: dark gothic fantasy, sculptural volume, tactile finely painted aged materials, strong chiaroscuro but readable midtone surfaces and narrow upper-left edge highlights. Muted iron grey, old brown leather, ivory linen, ochre accents; no plastic, cartoon, neon, flat vector or glossy 3D. A strong simple silhouette readable at 40px. Whole object fully visible, centered with about 8% transparent margin. No unintended accessories. Do not create a sheet of variations.\nSubject: Two organic human forearms crossed in an unmistakable X defensive guard with loosely clenched fists at the top corners. Worn short linen cuffs, bare weathered skin. No torso, no extra hands, no stone or statue. Distinct from a single attacking fist. Entire crossed forearms visible and tapered cuff ends.",
       "transparentBackground": true,
       "output": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-66952545-f237-4d3a-b230-4060880823cf.png"
+    },
+    {
+      "tool": "image_gen",
+      "date": "2026-09-29",
+      "prompt": "Use case: style-transfer / precise-object-edit.\nCreate one alternate game action icon by transforming Image 1. Image 1 is the CURRENT game illustration: it supplies the dark fantasy painting style, weathered adult human skin, restrained warm skin colors, linen cuff material, transparency and sculptural upper-left lighting ONLY. Replace its two crossed arms with ONE single LEFT hand and forearm. Image 2 is the user's martial-arts POSE reference ONLY: an upright open palm held as a protective guard, four fingers together and pointing upward, thumb bent/tucked naturally across the lower palm. Do not reproduce the photo, person, white uniform, wall or background.\nThe result must be anatomically a LEFT hand facing the viewer palm-first: the thumb base is on the viewer's RIGHT side of the palm. Mirror the pose reference if necessary to make the anatomy left-handed. Exactly one arm, one palm, four upright fingers held close together plus one tucked thumb, correct five-digit anatomy. All fingertips visible. Fingers are relaxed but firm, slightly curved, not a clenched fist and not widely splayed. The open palm blocks an approaching strike. A short bare forearm rises from a small worn unbleached linen sleeve cuff at the bottom into the upright palm, slight diagonal for a compact balanced silhouette. No second hand, crossed arms, torso, full person, glove, weapon, shield, jewelry or modern sports clothing. Complete cuff and fingertips fit inside the canvas, with approximately 8% empty margins. Readable at 40–56 px.\nStyle: retain Image 1's painterly dark gothic fantasy vocabulary, sculptural volume, tactile weathered skin, fine dry-brush texture, deep charcoal-brown shadows and narrow warm ivory highlights FROM UPPER LEFT. Selective detail in palm creases and finger joints, muted brown/ochre skin, dusty grey linen. This is a living organic hand, not a stone statue, metal prosthesis or glossy 3D render. No fresh wounds, blood, magic glow or motion trails.\nOutput ONE square PNG RGBA with TRUE TRANSPARENT background. Alpha zero outside the subject and in any gaps; opaque skin and cuff. No black/color backdrop, no checkerboard, fog, floor, cast shadow plane, frame, UI tile, text, labels or watermark. Keep only this one new single-hand guard icon, not a comparison or variations sheet.",
+      "transparentBackground": true,
+      "output": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-214c666d-c714-4669-9c99-b407e650a46b.png",
+      "references": [
+        {
+          "path": "images/basic-equipment/bare-hands.png",
+          "role": "Edit source and material/style reference; original kept unchanged.",
+          "sha256": "a8071c02a2afdd17fd399f005933b2c50bf96668357953358315e3a2520e1335"
+        },
+        {
+          "path": "/var/folders/5m/r44sn43d0pl48n6jplzm4x380000gn/T/codex-clipboard-fd9fdc18-96dc-43e0-a09c-6d9b8d1bd60d.png",
+          "role": "User-supplied martial-arts open-palm guard pose reference.",
+          "sha256": "f79f0f6f6f3dd4b8e801de4f6d15c5560735d2a25cd847634b090b2301f7cf2e"
+        }
+      ],
+      "notes": [
+        "Generated as a separate preview before approval for the current bare-hands icon."
+      ]
+    },
+    {
+      "tool": "image_gen",
+      "date": "2026-09-29",
+      "prompt": "Precise anatomy correction to this draft game icon. Keep the same single palm-forward hand, tucked thumb on the RIGHT side of the image, forearm, linen cuff, dark fantasy painterly texture, upper-left light, framing and transparent background. Change ONLY the anatomy and relative lengths of the four upright fingers so this is a normal LEFT hand: from the VIEWER'S LEFT to VIEWER'S RIGHT the upright fingers must be LITTLE finger (shortest and slimmest), RING finger (long), MIDDLE finger (longest), INDEX finger (slightly shorter than middle). The INDEX finger must be directly next to the tucked THUMB on the viewer's right; the LITTLE finger must be on the opposite, viewer-left edge of the hand. Currently the shortest finger is incorrectly next to the thumb; correct that. Four fingers together in the same martial-arts open-palm blocking stance, exactly five digits total. Natural joints and palm structure. Do NOT mirror the whole image: thumb remains on viewer's right and light remains upper left. Keep all fingertips and cuff visible. No other changes, no text, no background, retain true RGBA transparency.",
+      "transparentBackground": true,
+      "output": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-118f0671-b41c-44b6-b228-028a8e920ee7.png",
+      "references": [
+        {
+          "path": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-214c666d-c714-4669-9c99-b407e650a46b.png",
+          "role": "Edit target: correct the ordering of the four upright fingers for an anatomically left palm.",
+          "sha256": "5e3bdf175eb84db6a831425179b712e8a336cef704221b9bab8b0029df8a775a"
+        }
+      ]
+    },
+    {
+      "tool": "image_gen",
+      "date": "2026-09-29",
+      "prompt": "Use case: precise-object-edit.\nAsset type: preview of a dark gothic fantasy game's bare-hand block icon, square transparent PNG.\nCorrect the hand orientation and forearm angle of the previous illustration.\nInput image 1 (small martial artist photo): authoritative pose and visible hand orientation reference. Reproduce THAT hand orientation, without mirroring the photo.\nInput image 2 (painted hand): style and materials reference ONLY. Its hand orientation is wrong and its forearm too upright; replace the pose.\nSubject: a single open LEFT hand blocking as in the martial arts photo, palm toward the viewer, four fingers upright close together, thumb bent gently across the lower palm on VIEWER-LEFT, little finger on VIEWER-RIGHT. Follow the photo's visible orientation exactly.\nComposition: the short worn linen cuff starts near the LOWER-LEFT of the canvas; the forearm travels to the wrist at MID-RIGHT on a shallow ascending diagonal, approximately 25–35 degrees above horizontal. The forearm must run across the lower half of the picture rather than standing upright. The palm rises vertically from that wrist, with a natural wrist bend, making a clear defensive gesture. Hand and forearm stay fully inside the image with about 8% free margin. Anatomically plausible connection and exactly five fingers.\nPreserve the established painted gothic-fantasy treatment, muted warm skin, restrained skin creases, weathered ivory linen cuff, strong readable silhouette. Light from upper-left, shadows toward lower-right. Redraw with this fixed lighting rather than flipping the whole artwork.\nTrue transparent background. One hand and short forearm only, no other hand, body, robe or elbow, no blood, no decoration, no floor, no cast shadow, no text, no frame. Output a single polished icon.",
+      "transparentBackground": true,
+      "output": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-b5645566-543a-4ee1-9078-5c869b4624fc.png",
+      "references": [
+        {
+          "path": "/var/folders/5m/r44sn43d0pl48n6jplzm4x380000gn/T/codex-clipboard-fd9fdc18-96dc-43e0-a09c-6d9b8d1bd60d.png",
+          "role": "Authoritative user pose and visible orientation: thumb on viewer-left; do not mirror.",
+          "sha256": "f79f0f6f6f3dd4b8e801de4f6d15c5560735d2a25cd847634b090b2301f7cf2e"
+        },
+        {
+          "path": "images/basic-equipment/bare-hands-open-palm-preview.png",
+          "role": "Previous preview: style and materials only; orientation and forearm angle corrected.",
+          "sha256": "7883f951ee0cc679dcead2b604eafe2390dcce766842d59b7c8e489888935e8e"
+        }
+      ],
+      "notes": [
+        "Generated as a separate preview before approval for the current bare-hands icon."
+      ]
+    },
+    {
+      "tool": "image_gen",
+      "date": "2026-09-29",
+      "prompt": "Use case: precise-object-edit.\nEdit the attached fantasy hand icon. The user APPROVES the palm: preserve its shape, finger arrangement, thumb on VIEWER-LEFT, palm facing the camera, four fingers upright together, skin appearance and blocking gesture.\nChange ONLY the forearm's direction and perspective. Instead of traveling sideways from lower-left to upper-right across the picture, the arm extends FROM BACK TO FRONT, directly TOWARD THE VIEWER along the depth axis. The open upright palm is the nearest, dominant foreground object, as if pushing out toward us to block an attack. The wrist bends back naturally. The forearm recedes BEHIND the palm, strongly foreshortened and largely occluded by the hand. Show only a short compact length of foreshortened forearm and a small worn linen cuff behind/below the heel of the hand, centrally aligned rather than off to the left. There should be NO long sideways forearm and NO long vertical forearm. Convey real depth and overlap, not simply a shortened straight stump or a severed hand. No exposed cut surface.\nKeep the same painted gothic fantasy rendering, muted skin and worn ivory linen, deep shadows, light from upper-left. Keep the existing palm orientation without mirroring or changing the fingers. Center the compact palm-and-foreshortened-arm silhouette on a square canvas with comfortable transparent margins. True transparent RGBA background. Single hand and forearm only; no body, second hand, blood, motion trail, magic, frame, floor, text or watermark.",
+      "transparentBackground": true,
+      "output": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-e880a89f-d53e-476f-a1b2-40a19a3eb984.png",
+      "references": [
+        {
+          "path": "images/basic-equipment/bare-hands-open-palm-preview-v2.png",
+          "role": "Edit target: preserve the approved palm; redirect the forearm from a lateral diagonal into depth toward the viewer.",
+          "sha256": "5f6b770ee1d5ababd0c50d969b3bee2fb165531458838006082ea84a7915b8fc"
+        }
+      ],
+      "notes": [
+        "Generated as a separate preview before approval for the current bare-hands icon.",
+        "Approved by the user and copied unchanged to images/basic-equipment/bare-hands.png on 2026-09-29."
+      ]
     }
   ]
 }

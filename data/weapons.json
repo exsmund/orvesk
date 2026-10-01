@@ -532,7 +532,7 @@
       {
         "id": "heavy",
         "order": 2,
-        "name": "Прямой натиск",
+        "name": "Прикрытый выпад",
         "shape": [
           [
             0,
@@ -550,19 +550,39 @@
         "ignoreBlocked": false,
         "category": "attack",
         "copies": 2,
-        "staminaCost": 4,
+        "staminaCost": 1,
         "blockCost": 0,
-        "staminaDamagePerCell": 1,
-        "healthDamage": {
-          "base": 3,
-          "stats": [
-            "agility"
-          ],
-          "types": {
-            "pierce": 1
+        "description": "Две клетки блокируют атаки древком, клетка на конце наносит укол. Поворот меняет положение удара и защиты.",
+        "cellActions": [
+          {
+            "category": "defense",
+            "name": "Перехват древком",
+            "blocks": true,
+            "blockCost": 1,
+            "art": "/actions/spear-guard.png"
+          },
+          {
+            "category": "defense",
+            "name": "Перехват древком",
+            "blocks": true,
+            "blockCost": 1,
+            "art": "/actions/spear-guard.png"
+          },
+          {
+            "category": "attack",
+            "name": "Укол",
+            "healthDamage": {
+              "base": 3,
+              "stats": [
+                "agility"
+              ],
+              "types": {
+                "pierce": 1
+              }
+            },
+            "staminaDamagePerCell": 1
           }
-        },
-        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+        ]
       }
     ],
     "family": "spear",
@@ -1434,7 +1454,7 @@
       {
         "id": "heavy",
         "order": 2,
-        "name": "Прямой натиск",
+        "name": "Прикрытый выпад",
         "shape": [
           [
             0,
@@ -1452,19 +1472,39 @@
         "ignoreBlocked": false,
         "category": "attack",
         "copies": 2,
-        "staminaCost": 4,
+        "staminaCost": 1,
         "blockCost": 0,
-        "staminaDamagePerCell": 1,
-        "healthDamage": {
-          "base": 3,
-          "stats": [
-            "agility"
-          ],
-          "types": {
-            "pierce": 1
+        "description": "Две клетки блокируют атаки древком, клетка на конце наносит укол. Поворот меняет положение удара и защиты.",
+        "cellActions": [
+          {
+            "category": "defense",
+            "name": "Перехват древком",
+            "blocks": true,
+            "blockCost": 1,
+            "art": "/actions/spear-guard.png"
+          },
+          {
+            "category": "defense",
+            "name": "Перехват древком",
+            "blocks": true,
+            "blockCost": 1,
+            "art": "/actions/spear-guard.png"
+          },
+          {
+            "category": "attack",
+            "name": "Укол",
+            "healthDamage": {
+              "base": 3,
+              "stats": [
+                "agility"
+              ],
+              "types": {
+                "pierce": 1
+              }
+            },
+            "staminaDamagePerCell": 1
           }
-        },
-        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+        ]
       }
     ],
     "lore": {
@@ -2758,7 +2798,7 @@
       {
         "id": "heavy",
         "order": 2,
-        "name": "Воздушный натиск",
+        "name": "Прикрытый выпад",
         "shape": [
           [
             0,
@@ -2776,21 +2816,41 @@
         "ignoreBlocked": false,
         "category": "attack",
         "copies": 2,
-        "staminaCost": 4,
+        "staminaCost": 1,
         "blockCost": 0,
-        "staminaDamagePerCell": 1,
-        "healthDamage": {
-          "base": 3,
-          "stats": [
-            "agility",
-            "intelligence"
-          ],
-          "types": {
-            "pierce": 1,
-            "wind": 1
+        "description": "Две клетки блокируют атаки древком, клетка на конце наносит укол. Поворот меняет положение удара и защиты.",
+        "cellActions": [
+          {
+            "category": "defense",
+            "name": "Перехват древком",
+            "blocks": true,
+            "blockCost": 1,
+            "art": "/actions/spear-guard.png"
+          },
+          {
+            "category": "defense",
+            "name": "Перехват древком",
+            "blocks": true,
+            "blockCost": 1,
+            "art": "/actions/spear-guard.png"
+          },
+          {
+            "category": "attack",
+            "name": "Укол",
+            "healthDamage": {
+              "base": 3,
+              "stats": [
+                "agility",
+                "intelligence"
+              ],
+              "types": {
+                "pierce": 1,
+                "wind": 1
+              }
+            },
+            "staminaDamagePerCell": 1
           }
-        },
-        "description": "3 кл. Урон указан за клетку. При столкновении атак обе наносят половину урона."
+        ]
       }
     ],
     "lore": {

@@ -31,7 +31,8 @@ func equivalent(a, b) -> bool:
 
 func _initialize():
 	var data = Catalog.new()
-	var combat = Combat.new(data)
+	var reference_data = Catalog.new()
+	var combat = Combat.new(reference_data)
 	combat.rng.seed = 73129
 	var oracle = JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/combat-reference.json"))
 	if not oracle is Dictionary or oracle.get("version") != 1 or not oracle.get("decks") is Array or not oracle.get("cases") is Array:
@@ -42,12 +43,17 @@ func _initialize():
 		printerr("FAIL: Combat reference fixture must contain decks and clashes")
 		quit(1)
 		return
+	# These fixed numeric examples carry explicit balance inputs. Current defaults
+	# have separate hand-calculated regression cases in balance_rules.gd.
+	for key in oracle.balanceParameters:
+		if key == "enemyDamageMultiplier": combat.enemy_damage_multiplier = oracle.balanceParameters[key]
+		else: reference_data.balance[key] = oracle.balanceParameters[key]
 	for n in oracle.decks.size():
 		var fixture = oracle.decks[n]
 		var actual = combat.build_deck(fixture.fighter)
 		check(actual.size() == fixture.deck.size(), "Deck size %d" % n)
 		for i in mini(actual.size(), fixture.deck.size()):
-			for key in ["id", "templateId", "shape", "copies", "sourceLevel", "category", "staminaCost", "blockCost", "counter", "blocks", "healing", "evades", "name", "description", "healthDamage", "staminaDamagePerCell"]:
+			for key in ["id", "templateId", "shape", "copies", "sourceLevel", "category", "staminaCost", "blockCost", "counter", "blocks", "healing", "healingMaxHealthPercent", "evades", "name", "description", "healthDamage", "staminaDamagePerCell", "cellActions"]:
 				check(actual[i].get(key) == fixture.deck[i].get(key), "Deck %d card %d %s" % [n, i, key])
 			# Mobile also adds fallback equipment artwork; explicit figure art must match.
 			if fixture.deck[i].has("art"):
@@ -76,6 +82,8 @@ func _initialize():
 			check(close(health_sum, actual[side].damage) and close(stamina_sum, actual[side].staminaLoss), "Cell totals equal resource loss %d %s" % [n, side])
 			check(actual[side].exhausted == fixture.expected[side].exhausted, "Exhaustion %d %s" % [n, side])
 		check(close(combat.cost(fixture.fighters.player, fixture.moves.player, fixture.mods.player).total, fixture.blindCost.total), "Blind cost %d" % n)
+	combat = Combat.new(data)
+	combat.rng.seed = 73129
 	var session = Session.new(data)
 	session.combat.rng.seed = 12937
 	check(session.create("Test", {"strength": 2, "agility": 1, "vitality": 3, "intelligence": 1}, data.portraits[0].id).is_empty(), "Create hero")
@@ -126,7 +134,7 @@ func _initialize():
 		session.game.lastReactor = "player"
 		session.combat.prepare(session.game)
 	check(session.submit([]).is_empty() and session.game.clashPlan.stage == "reveal", "Reveal is explicit")
-	var store = SaveStore.new()
+	var store = SaveStore.new(OS.get_temp_dir().path_join("orvesk-combos-core-tests"))
 	var id = "test-" + Crypto.new().generate_random_bytes(8).hex_encode()
 	check(store.write(id, session), "Write save")
 	var restored = store.read(id)

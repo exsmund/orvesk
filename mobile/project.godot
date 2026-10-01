@@ -27,6 +27,9 @@ textures/default_filters/use_nearest_mipmap_filter=false
 textures/vram_compression/import_etc2_astc=true
 
 [input_devices]
+
+sensors/enable_gravity=true
+sensors/enable_accelerometer=true
 pointing/emulate_touch_from_mouse=true
 pointing/emulate_mouse_from_touch=true
 

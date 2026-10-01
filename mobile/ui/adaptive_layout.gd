@@ -5,6 +5,7 @@ const GUTTER = 18.0
 const PADDING = 18
 const HEADER_HEIGHT = 132.0
 const CONTENT_GAP = 12.0
+const WINDOW_MAX_HEIGHT = 920.0
 const COMBAT_FOOTER_HEIGHT = 78.0
 
 static func columns(width: float) -> int:

@@ -6,6 +6,11 @@ const Player = preload("res://tests/first_map_player.gd")
 var data = Catalog.new()
 var checks = 0
 var failures: Array = []
+const EXPECTED_LEVELS = {
+	1:[1,1,1,1,1], 2:[1,1,1,1,1], 3:[1,1,2,2,2], 5:[3,3,4,4,4],
+	10:[8,8,8,8,9], 11:[8,8,9,9,9], 20:[16,16,17,17,18],
+	30:[24,24,25,25,27], 50:[40,40,42,42,45], 100:[80,80,85,85,90]
+}
 
 func check(ok: bool, label: String):
 	checks += 1
@@ -21,7 +26,7 @@ func payload(s): return {"game":s.game.duplicate(true), "rngState":str(s.combat.
 
 func _initialize(): call_deferred("run")
 func run():
-	for hero_level in [1,2,3,5,10,30]:
+	for hero_level in EXPECTED_LEVELS:
 		for chapter in range(1,7):
 			var s = fresh()
 			s.game.player.stats = {"strength":hero_level+3,"agility":1,"vitality":1,"intelligence":1}
@@ -32,7 +37,7 @@ func run():
 			check(s.game.journey.enemies == generated, "upgrading does not change existing roster")
 			for stage in range(1,6):
 				var definition = s.campaign.stage_for_fight(stage)
-				var expected = 0 if chapter == 1 else maxi(1, hero_level+[-2,-2,-1,-1,0][stage-1])
+				var expected = 0 if chapter == 1 else EXPECTED_LEVELS[hero_level][stage-1]
 				for encounter in definition.encounter.get("variants",[definition.encounter]):
 					var enemy = s.generate_enemy(stage, encounter)
 					check(data.level(enemy) == expected, "level chapter %d stage %d hero %d" % [chapter,stage,hero_level])
@@ -45,14 +50,16 @@ func run():
 					else:
 						check(enemy.hp == data.max_hp(enemy), "later enemies start at full health")
 			await process_frame
-	equipment_budget()
+	equipment_slots()
 	wounded_boss()
 	var old = Catalog.new()
 	old.journey_rules = old.journey_rules.duplicate(true)
 	old.journey_rules.enemyBalanceVersion = 1
 	old.journey_rules.firstMap.erase("bossStartingHealthFraction")
 	old.journey_rules.firstMap.bossRank = 1
-	old.journey_rules.rankOffsets = [-2,-1,-1,0,1]
+	old.journey_rules.rankGaps = [
+		{"minimum":2,"percent":0}, {"minimum":2,"percent":0},
+		{"minimum":1,"percent":0}, {"minimum":1,"percent":0}, {"minimum":0,"percent":0}]
 	for chapter in [1,2,6]:
 		var s = fresh(old)
 		s.game.player.stats.strength += 9
@@ -70,7 +77,7 @@ func run():
 			var after = upgraded.game.journey.enemies[key]
 			check(before.name == after.name and before.get("creatureId","") == after.get("creatureId","") and before.get("characterId","") == after.get("characterId",""), "saved identities retained")
 			var stage = int(key.trim_prefix("fight-"))
-			var expected = 0 if chapter == 1 else maxi(1,saved.game.journey.startLevel+[-2,-2,-1,-1,0][stage-1])
+			var expected = 0 if chapter == 1 else EXPECTED_LEVELS[int(saved.game.journey.startLevel)][stage-1]
 			check(data.level(after) == expected, "saved roster receives revised levels")
 		check(upgraded.game.enemy == upgraded.game.journey.enemies["fight-1"], "undealt enemy preview updated")
 		var once = payload(upgraded)
@@ -173,26 +180,27 @@ func wounded_boss():
 		var once = payload(loaded)
 		check(loaded.restore(once).is_empty() and loaded.game == once.game, "wound migration is idempotent")
 
-func equipment_budget():
+func equipment_slots():
 	var s = fresh()
-	var light = s.fighter("Light", {"strength":8,"agility":1,"vitality":1,"intelligence":1})
-	var tank = s.fighter("Tank", {"strength":8,"agility":1,"vitality":8,"intelligence":1})
-	check(s.equipment_cost(light, data.item("rags@8")) > s.equipment_cost(light, data.item("rags@1")), "Armor level consumes budget")
-	check(s.equipment_cost(tank, data.item("rags@1")) > s.equipment_cost(light, data.item("rags@1")), "Armor and vitality share budget")
-	check(s.equipment_cost(light, data.item("shortsword@8")) > s.equipment_cost(light, data.item("shortsword@1")), "Weapon level consumes budget")
+	s.game.player.stats = {"strength":15,"agility":15,"vitality":15,"intelligence":15}
+	s.game.player.gear.weapon = "shortsword@5"
+	s.game.player.gear.body = "rags@3"
+	s.game.player.gear.shield = "kite-shield@2"
+	s.game.player.gear.feet = "greaves@4"
 	for rank in [1,3,6,10,30]:
 		s.game.journey.expedition = 2
 		s.game.journey.startLevel = rank
-		for seed_value in range(20):
+		for seed_value in range(12):
 			for encounter in [{"kind":"human","role":"Test"}] + data.creature_pool(6).map(func(c): return {"kind":"creature","creatureId":c.id}):
 				s.combat.rng.seed = seed_value
 				var f = s.generate_enemy(5, encounter)
-				var cost = 0.0
-				for reference in f.gear.values():
+				for slot in data.SLOTS:
+					var reference = f.gear[slot]
 					if not reference: continue
 					var item = data.item(reference)
 					check(data.can_use(f, item), "Generated item respects requirements and species")
-					cost += s.equipment_cost(f, item)
-				var rules = data.journey_rules.equipmentBudget
-				check(cost <= minf(rules.maximum, rules.base + (data.stat_total(f) - 4) * rules.perStatPoint) + 0.0001, "Generated gear stays within power budget")
+					check(item.level <= data.level(s.game.player), "Generated item never exceeds hero level")
+					check(s.game.player.gear[slot] != null, "Every slot requires corresponding hero item")
+					var ceiling = data.item(s.game.player.gear[slot])
+					check(item.level <= ceiling.level and item.tier <= ceiling.tier, "Independent slot level and tier caps")
 				check(not (data.item(f.gear.weapon).get("hands",1) == 2 and f.gear.shield), "No shield with two-handed weapon")

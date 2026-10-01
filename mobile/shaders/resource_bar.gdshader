@@ -8,7 +8,6 @@ uniform vec4 rim_region = vec4(0.0, 0.0, 1.0, 1.0);
 uniform vec2 bar_size = vec2(100.0, 12.0);
 uniform float fill : hint_range(0.0, 1.0) = 1.0;
 // Event-driven Tween, no TIME loop. Fixed two-pixel rails at any bar width.
-uniform bool animated = true;
 float slice(float p, float extent, float cut) {
 	float edge = min(2.0, extent * 0.25);
 	if (p < edge) return p / edge * cut;

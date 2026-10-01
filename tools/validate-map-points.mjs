@@ -33,6 +33,8 @@ export function validateMapPoints(root, suppliedStory, suppliedCatalog, supplied
     check(b[25] === 6 || b[25] === 4, `Map point PNG requires alpha ${src}`);
   };
   checkImage(catalog.presentation?.frame);
+  checkImage(catalog.presentation?.rim);
+  checkImage(catalog.presentation?.background);
   const points = new Map(), labels = new Map();
   for (const p of catalog.points ?? []) {
     check(typeof p.id === 'string' && /^[a-z]+(?:-[a-z]+)*$/.test(p.id), `Invalid map point ID ${p.id}`);

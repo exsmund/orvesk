@@ -14,7 +14,11 @@ class MemorySaves extends RefCounted:
 	func list_heroes(): return []
 	func write(_id, _session, _draft): return true
 class MemoryPreferences extends RefCounted:
-	var animated = false
+	var completed_difficulties: Array = []
+	func record_completed(ids):
+		for id in ids:
+			if id not in completed_difficulties: completed_difficulties.append(id)
+		return true
 	var last_hero = ""
 	func write(): return true
 
@@ -86,7 +90,7 @@ func inspect_placement(header):
 		if ancestor is Control: check(not ancestor.clip_contents, "Header/shadow has no clipping ancestor: " + ancestor.get_class())
 		ancestor = ancestor.get_parent()
 	var shadow = header.shadow.get_global_rect()
-	check(ui.get_global_rect().grow(1).encloses(shadow), "Shadow fades inside viewport, without cutting off its edges")
+	check(ui.get_global_rect().grow(1).encloses(shadow), "Shadow drawing bounds stay inside the viewport")
 	check(shadow.position.x < frame.position.x and shadow.position.y < frame.position.y and shadow.end.x > frame.end.x and shadow.end.y > frame.end.y, "Shadow extends past all four frame edges")
 
 func page_headers():
@@ -120,7 +124,7 @@ func run():
 		inspect(journey.header)
 		shared_bounds[pixels] = journey.header.get_global_rect()
 		check(ui.journey_view == journey and not ui.scroll.visible, "Fold keeps same unscrolled map")
-		check(journey.header.get_rect().end.y < journey.map_view.position.y, "Map starts below complete header")
+		check(journey.map_scroll.get_global_rect().is_equal_approx(journey.get_viewport_rect()), "Map viewport extends behind header to screen edges")
 		if pixels == Vector2i(432,1008): await shot("map-portrait")
 		if pixels == Vector2i(896,800): await shot("map-fold")
 		if pixels == Vector2i(2240,900): await shot("map-ultrawide")
@@ -141,7 +145,7 @@ func run():
 	var forecast = {"cost":{"remaining":5},"calculation":{"player":{"damage":4,"staminaLoss":1},"enemy":{"damage":12,"available":7,"staminaLoss":2}}}
 	for pixels in SIZES:
 		root.size = pixels
-		combat.header.configure(ui.data, ui.session.game, false, forecast)
+		combat.header.configure(ui.data, ui.session.game, forecast)
 		await settle()
 		inspect(combat.header)
 		check(combat.header.get_global_rect() == shared_bounds[pixels], "Map and combat header bounds match")
@@ -167,7 +171,7 @@ func run():
 	stress.title_override = "Очень длинное название каменистой тропы в северных степях"
 	for width in [280,320,444,800,1800]:
 		stress.size = Vector2(width,Header.HEIGHT)
-		stress.configure_journey(ui.data,game,false)
+		stress.configure_journey(ui.data,game)
 		await settle()
 		line_fits(stress.title)
 		line_fits(stress.map_number)
@@ -181,12 +185,13 @@ func run():
 		ui.show_game()
 		await settle()
 		var headers = page_headers()
-		var expected_title = "Победа" if phase == "victory" else ui.phase_name(phase)
+		var expected_title = "Победа" if phase == "victory" else ("Бой завершён" if phase == "defeat" else ui.phase_name(phase))
 		check(headers.size() == 1, "Exactly one shared header on " + phase)
 		check(headers[0].title.text == expected_title, "Result title inside header")
 		ui.session.game.souls += 1
 		ui.refresh_character_header()
-		check(headers[0].shards.amount == ui.session.game.souls and headers[0].title.text == expected_title, "Balance refresh preserves result title")
+		check(headers[0].title.text == expected_title, "Refresh preserves result title")
+		check(not headers[0].journey_mode if phase == "defeat" else headers[0].shards.amount == ui.session.game.souls, "Defeat keeps combat lanes; other results refresh balance")
 		var result_state = ui.session.game.duplicate(true)
 		var result_rng = ui.session.combat.rng.state
 		for pixels in SIZES:
@@ -242,9 +247,7 @@ func run():
 	ui.margin.add_theme_constant_override("margin_top", 32)
 	await settle()
 	inspect_placement(forge_headers[0])
-	forge_headers[0].mode_icon.pressed.emit()
-	await settle()
-	check(ui.get_children().any(func(c): return c is ModalDialog and c.visible), "Mode icon still opens menu")
+	check(forge_headers[0].mode_icon is TextureRect and forge_headers[0].mode_icon.mouse_filter == Control.MOUSE_FILTER_IGNORE, "Mode icon is decorative and ignores clicks")
 	for child in ui.get_children():
 		if child is ModalDialog: child.queue_free()
 	ui.show_home()
@@ -252,7 +255,7 @@ func run():
 	check(page_headers().is_empty(), "Game header does not leak into the home screen")
 	ui.margin.add_theme_constant_override("margin_left", Layout.PADDING)
 	ui.margin.add_theme_constant_override("margin_top", Layout.PADDING)
-	for spec in [["home",ui.show_home],["heroes",ui.show_heroes],["create",ui.show_create],["settings",ui.show_settings],["rules",ui.show_rules],["bestiary",func(): ui.show_debug_catalog(true)],["equipment",func(): ui.show_debug_catalog(false)]]:
+	for spec in [["home",ui.show_home],["heroes",ui.show_heroes],["create",ui.show_create],["bestiary",func(): ui.show_debug_catalog(true)],["equipment",func(): ui.show_debug_catalog(false)]]:
 		spec[1].call()
 		for pixels in [Vector2i(432,1008),Vector2i(2240,900)]:
 			root.size = pixels

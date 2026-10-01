@@ -1,0 +1,26 @@
+{
+  "default": "manageable",
+  "levels": [
+    {
+      "id": "easy",
+      "name": "Легко",
+      "enemyDamageMultiplier": 0.3
+    },
+    {
+      "id": "manageable",
+      "name": "По силам",
+      "enemyDamageMultiplier": 0.7
+    },
+    {
+      "id": "burdensome",
+      "name": "Тягостно",
+      "enemyDamageMultiplier": 1
+    },
+    {
+      "id": "legendary",
+      "name": "Легендарно",
+      "enemyDamageMultiplier": 1.2,
+      "requiresCompletion": "burdensome"
+    }
+  ]
+}

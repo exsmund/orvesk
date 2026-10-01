@@ -71,6 +71,7 @@ func check_shard_balance():
 		for spend_early in [false, true]:
 			session = make_session()
 			session.game.player.stats = {"strength": row[0] + 3, "agility": 1, "vitality": 1, "intelligence": 1}
+			session.game.player.hp = data.max_hp(session.game.player)
 			var initial_strength = session.game.player.stats.strength
 			for stage in range(1, 4):
 				check(session.travel("fight-%d" % stage).is_empty(), "Enter balance encounter")
@@ -91,6 +92,7 @@ func check_shard_balance():
 		# The fourth ordinary fight must not be classified as a boss.
 		session = make_session()
 		session.game.player.stats = {"strength": row[0] + 3, "agility": 1, "vitality": 1, "intelligence": 1}
+		session.game.player.hp = data.max_hp(session.game.player)
 		for stage in [4, 5]:
 			session.game.journey.path = ["camp-%d" % (stage - 1)]
 			session.game.journey.cleared = stage - 1
@@ -133,7 +135,38 @@ func check_reward_weights():
 	for _i in 20: check(rewards.pick(pair, rng).kind == "skill", "Reward type weights come from the catalog")
 	data.balance.loot.rewardKindWeights = configured_weights
 
+func check_empty_slots():
+	var s = make_session()
+	var p = s.game.player
+	var rules = s.rewards
+	var rng = RandomNumberGenerator.new()
+	rng.seed = 731
+	var body = {"kind":"item", "itemId":"plate"}
+	var weapon = {"kind":"item", "itemId":"dagger"}
+	var feet = {"kind":"item", "itemId":"bare-foot"}
+	p.gear.weapon = "shortsword"
+	p.gear.body = null
+	check(rules.item_weight(body, p) == 3 and rules.item_weight(weapon, p) == 1, "empty body has triple item weight")
+	p.gear.feet = "bare-foot"
+	check(rules.item_weight(feet, p) == 3, "basic equipment counts as an empty slot")
+	p.gear.weapon = "greatsword"
+	p.gear.shield = null
+	check(rules.item_weight({"kind":"item", "itemId":"buckler"}, p) == 1, "two-handed weapon blocks shield vacancy bonus")
+	p.gear.weapon = "shortsword"
+	var items = 0
+	var bodies = 0
+	for _i in 12000:
+		var selected = rules.pick([body, weapon, {"kind":"skill", "skillId":"dodge"}], rng, p)
+		if selected.kind == "item":
+			items += 1
+			if selected.itemId == "plate": bodies += 1
+	check(absf(float(items) / 12000 - 0.8) < 0.02, "vacant-slot weighting preserves 80 percent items")
+	check(absf(float(bodies) / items - 0.75) < 0.02, "3:1 item weights give 75 percent body among two item candidates")
+	p.gear.body = "plate"
+	check(rules.item_weight(body, p) == 1, "equipping armor removes its vacancy bonus")
+
 func _initialize():
+	check_empty_slots()
 	check_reward_weights()
 	check_reward_progression()
 	check_shard_balance()

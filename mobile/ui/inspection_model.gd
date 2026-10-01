@@ -26,7 +26,9 @@ func item(reference, player: Dictionary, status: String = "") -> Dictionary:
 		category = "Двуручное" if equipment.get("hands",1) == 2 else "Одноручное"
 		if equipment.get("unarmed",false): category = "Без оружия"
 	var metadata = "Уровень %d · %s" % [equipment.level, category]
-	return {"kind":"item", "reference":equipment.id, "title":equipment.name, "status":status,
+	var tier = data.weapon_tier(int(equipment.tier)) if equipment.kind == "weapon" else {}
+	if not tier.is_empty(): metadata = tier.name + " · " + metadata
+	return {"titleColor":tier.get("color", "text-home"), "kind":"item", "reference":equipment.id, "title":equipment.name, "status":status,
 		"texture":data.image(data.art.get(equipment.templateId, "")), "metadata":metadata,
 		"requirements":equipment.requirements, "defense":equipment.get("defense", {}),
 		"description":equipment.description, "figures":figures, "fighter":preview,
@@ -79,9 +81,9 @@ func lost_items(reference: String, player: Dictionary) -> Array:
 	return replaced_items(reference, player).filter(func(id): return not data.item(id).get("unarmed", false))
 
 func item_comparison(reference: String, player: Dictionary, offered: bool) -> Array:
-	if not offered: return [[item(reference, player, "Надето")]]
+	if not offered: return [[item(reference, player, "У вас")]]
 	var worn = replaced_items(reference, player)
-	var candidate = item(reference, player, "Предлагается")
+	var candidate = item(reference, player, "Новое")
 	var previous_defense: Dictionary = {}
 	for id in worn:
 		for type in data.item(id).get("defense", {}):
@@ -93,7 +95,7 @@ func item_comparison(reference: String, player: Dictionary, offered: bool) -> Ar
 	for type in candidate.defense:
 		candidate.defenseDelta[type] = candidate.defense[type] - previous_defense.get(type, 0)
 	if worn.is_empty(): return [[candidate]]
-	return [[candidate], worn.map(func(id): return item(id, player, "Надето"))]
+	return [[candidate], worn.map(func(id): return item(id, player, "У вас"))]
 
 func damage_label(type: String) -> String:
 	var name: String = damage_types.get(type, {}).get("name", type)
@@ -102,17 +104,46 @@ func damage_label(type: String) -> String:
 func formula_lines(fighter: Dictionary, card: Dictionary) -> Array:
 	return formula_runs(fighter, card).map(func(line): return line.prefix + line.result + line.suffix)
 
+func figure_runs(fighter: Dictionary, card: Dictionary, detailed: bool = false) -> Array:
+	var runs = formula_runs(fighter, card)
+	if detailed: return runs
+	for line in runs:
+		if not line.result.is_empty() and "×" in line.result:
+			line.prefix = line.prefix.get_slice(":", 0) + " = "
+	return runs
+
 func formula_runs(fighter: Dictionary, card: Dictionary) -> Array:
 	var lines: Array = []
+	if combat.Actions.mixed(card):
+		var groups = {}
+		for i in card.shape.size():
+			var key = str(card.cellActions[i])
+			if not groups.has(key): groups[key] = {"action":combat.Actions.action(card,i),"count":0}
+			groups[key].count += 1
+		lines.append({"prefix":"Смешанная фигура. " + card.get("description", ""),"result":"","suffix":""})
+		for group in groups.values():
+			lines.append({"prefix":"%s · клеток: %d" % [group.action.name,group.count],"result":"","suffix":""})
+			var profile = group.action.duplicate(true)
+			profile.shape.resize(group.count)
+			lines.append_array(formula_runs(fighter,profile))
+		var healing = data.figure_healing(fighter,card)
+		if healing > 0: lines.append({"prefix":"Лечение за всю фигуру: ","result":number(healing),"suffix":" после урона, только при выживании."})
+		return lines
 	var profile = card.get("healthDamage", {})
 	var parts = combat.parts(fighter, card)
 	if not profile.is_empty() and not parts.is_empty():
-		var level_bonus = profile.stats.size() * maxi(0, int(card.get("sourceLevel", 1)) - 1) * data.balance.damage.levelPerRequiredStat
-		var budget = number(profile.base + level_bonus)
+		var budget = number(profile.base)
 		for stat in profile.stats:
 			var term = "(%s %s − 1)" % [data.stat_abbreviation(stat), number(data.effective_stat(fighter, stat))]
 			if data.balance.damage.perStatPoint != 1: term = number(data.balance.damage.perStatPoint) + " × " + term
 			budget += " + " + term
+		var level = int(card.get("sourceLevel", 1))
+		var level_factor = combat.level_damage_factor(card)
+		if level > 1 and level_factor > 0:
+			budget += " + (%d − 1)" % level
+			if not is_equal_approx(level_factor, 1.0): budget += " × " + number(level_factor)
+		var raw = combat.unrounded_damage(fighter, card)
+		if not is_equal_approx(raw, roundf(raw)): budget = "окр(%s)" % budget
 		var weight = 0.0
 		var total = 0.0
 		for value in profile.types.values(): weight += value
@@ -140,5 +171,8 @@ func formula_runs(fighter: Dictionary, card: Dictionary) -> Array:
 	if card.get("blocks", false): lines.append({"prefix":"Блокирует урон в занятых клетках.", "result":"", "suffix":""})
 	if card.get("evades", false): lines.append({"prefix":"Уклонение от урона в занятых клетках.", "result":"", "suffix":""})
 	if card.get("counter", false): lines.append({"prefix":"Контратака — только против атаки.", "result":"", "suffix":""})
-	if card.get("healing", 0) > 0: lines.append({"prefix":"Лечение: ", "result":number(card.healing), "suffix":" за всю фигуру после урона."})
+	var healing = data.figure_healing(fighter, card)
+	if healing > 0:
+		var percentage = " (%s%% максимального здоровья)" % number(card.healingMaxHealthPercent) if card.get("healingMaxHealthPercent", 0) > 0 else ""
+		lines.append({"prefix":"Лечение: ", "result":number(healing), "suffix":percentage + " за всю фигуру после урона."})
 	return lines

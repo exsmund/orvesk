@@ -1,0 +1,10 @@
+{
+  "tool": "image_gen",
+  "prompt": "Create a production game UI asset, square full-bleed single board cell, using first reference exactly for geometry: dark fractured stone interior, thin worn sage green bronze chamfered border touching all four image edges, clipped corners transparent. Transform this cell into active combination state as seen in second screenshot: subtle antique golden light running through cracks throughout stone, brighter soft golden center, metal edges warm gold. Preserve dark stone legibility for action icons laid over it. NO action icon, no fist, no hands, no text, no symbols, no grid, no separate diamond, no extra margins. A single square cell texture filling canvas. True transparent outside clipped corners.",
+  "asset": "images/ui/combos/cell.png",
+  "references": [
+    "mobile/content/ui/cell-player-v2.png"
+  ],
+  "approvedMockup": "Макет пользователя: золотистый четырёхгранный ромб на общей границе, свечение в камне под действием.",
+  "transparentBackground": true
+}

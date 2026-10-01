@@ -1,0 +1,25 @@
+{
+  "asset": "mobile/content/ui/cell-player-v2.png",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "prompt": "Edit image 1 player tile: substantially brighten grey-green metal to clearly readable light sage green (midtones around #A8B783), with restrained silver highlights, not yellow. Preserve dark stone center. Match border width and simple continuous chamfered construction of image 2 enemy tile (about 3.5% width); no separate external silver metal rail or corner plates. Square straight-on gothic weathered painted stone/metal UI tile. No symbols or text. Keep stone dark. Transparent only outside chamfered outer silhouette, including corner triangles; opaque interior.",
+      "transparentBackground": true,
+      "references": [
+        {
+          "path": "mobile/content/ui/cell-player-v2.png",
+          "role": "Passed to generator: edit target",
+          "sha256": "29ed490086d5b38b4df4262457fc3d6239bbcfa1e2206ea02cfe8e657460c8f1"
+        },
+        {
+          "path": "mobile/content/ui/cell-enemy-v2.png",
+          "role": "Passed to generator: reference geometry and stone",
+          "sha256": "e0b2ad1281aec4fb8c423c3debe61ab554adf0476a457f4304fc79dcea71dce5"
+        }
+      ],
+      "output": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-46570951-cc08-4a3b-a7cb-74f952fcb633.png",
+      "sha256": "a7eb1be9935a0b1b072acf9aca736180b98409dcd1b4930233a45a17db54ca64"
+    }
+  ],
+  "sha256": "a7eb1be9935a0b1b072acf9aca736180b98409dcd1b4930233a45a17db54ca64"
+}

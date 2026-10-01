@@ -1,6 +1,10 @@
 extends SceneTree
 const ModalDialog = preload("res://ui/modal_dialog.gd")
+const TextMenuButton = preload("res://ui/menu_button.gd")
+const DifficultyOption = preload("res://ui/difficulty_option.gd")
+const OptionCheckbox = preload("res://ui/option_checkbox.gd")
 const SquareButton = preload("res://ui/square_button.gd")
+const WindowActions = preload("res://ui/window_actions.gd")
 ## Interaction/state regressions for the shared visual system; no real saves are touched.
 var ui
 var failures: Array = []
@@ -26,12 +30,16 @@ func shot(name: String):
 
 func check_buttons(node):
 	if node is Button and not node is CheckButton:
-		if node is SquareButton:
+		if node is DifficultyOption or node is OptionCheckbox:
+			check(node.get_theme_stylebox("normal") is StyleBoxEmpty, "Shared selection control has its own indicator")
+		elif node is TextMenuButton:
+			check(node.get_theme_stylebox("normal") is StyleBoxEmpty, "Shared text menu component")
+		elif node is SquareButton:
 			check(node.get_theme_stylebox("normal").texture == SquareButton.NORMAL, "Shared square button skin")
 		elif is_instance_valid(ui.home_view) and node.get_parent() == ui.home_view:
 			check(node.get_theme_stylebox("normal") is StyleBoxEmpty, "Home has text-only buttons")
-		elif is_instance_valid(ui.creation_view) and node == ui.creation_view.back_button:
-			check(node.get_theme_stylebox("normal") is StyleBoxEmpty, "Creation Back is a text action as in the mockup")
+		elif node.get_parent() is WindowActions and node == node.get_parent().back:
+			check(node.get_theme_stylebox("normal") is StyleBoxEmpty, "Shared footer secondary action is text-only")
 		else:
 			check(node.get_theme_stylebox("normal") == ui.theme.get_stylebox("normal", "Button"), "Shared button skin: " + node.text)
 	for child in node.get_children(): check_buttons(child)
@@ -65,11 +73,11 @@ func run():
 		check(ui.journey_view == journey and journey.selected == "fight-1", "Folding keeps selection and view")
 		check(not ui.scroll.visible, "Map has no screen scrolling")
 		var area = journey.get_global_rect().grow(1)
-		for control in [journey.header, journey.title, journey.map_view, journey.detail, journey.action]:
+		for control in [journey.header, journey.title, journey.detail, journey.action]:
 			check(area.encloses(control.get_global_rect()), "Map component fits %s: %s" % [pixels, control.get_class()])
 		for marker in journey.map_view.markers.values():
 			check(journey.map_view.get_global_rect().grow(1).encloses(marker.get_global_rect()), "Route marker fits map")
-		check(not journey.map_view.get_global_rect().intersects(journey.detail.get_global_rect()), "Map and destination panel do not overlap")
+		check(journey.map_scroll.clip_contents, "Scrollable world stays clipped behind the overlay panel")
 	check(JSON.stringify(ui.session.game) == before and ui.session.combat.rng.state == rng, "Map rendering/selection/folding preserve saved state and RNG")
 	var counter = journey.header.shards
 	check(counter.amount == 125 and not journey.header.enemy_portrait.visible, "Journey header replaces enemy with shards")
@@ -146,13 +154,29 @@ func run():
 	check(ui.scroll.visible and not is_instance_valid(ui.journey_view), "Unresolved forge opens equipment choices")
 	check_buttons(ui)
 	await shot("forge-cover")
+	var offers_view = ui.forge_view
+	check(offers_view.heading.text == "Кузница" and offers_view.choice_hint.text == "Можно выбрать только один предмет", "Forge uses requested title and choice hint")
+	check(offers_view.illustration.texture != null and offers_view.illustration.texture.get_image().get_pixel(0, 0).a < 0.01, "Forge illustration has a transparent source")
+	before = JSON.stringify(ui.session.game)
+	rng = ui.session.combat.rng.state
+	for pixels in [Vector2i(320,640), Vector2i(480,960), Vector2i(480,1600), Vector2i(1008,432), Vector2i(2240,900)]:
+		root.size = pixels
+		await settle()
+		check(offers_view.surface.size.y <= 920 and is_equal_approx(offers_view.surface.get_global_rect().end.y, ui.scroll.get_global_rect().end.y), "Result frame is height-limited and bottom-aligned")
+		check(offers_view.surface.get_global_rect().encloses(offers_view.canvas.get_global_rect()), "Result content stays inside the limited frame")
+		check(is_equal_approx(offers_view.size.x, ui.page_header_view.size.x), "Forge frame shares header width")
+		var area = offers_view.canvas.get_global_rect().grow(1)
+		for node in [offers_view.illustration, offers_view.heading, offers_view.choice_hint, offers_view.divider, offers_view.rewards, offers_view.skip_button]:
+			check(area.encloses(node.get_global_rect()), "Forge content stays in its frame: " + str(pixels))
+		check(offers_view.rewards.get_global_rect().end.y < offers_view.skip_button.global_position.y, "Forge offers do not overlap skip action")
+		await shot("forge-%dx%d" % [pixels.x, pixels.y])
+	check(JSON.stringify(ui.session.game) == before and ui.session.combat.rng.state == rng, "Forge layout preserves offers, game state and RNG")
 	check(ui.act(ui.session.forge), "Forge can be skipped")
 	check(is_instance_valid(ui.journey_view), "Resolved forge returns to route")
-	ui.show_settings()
-	check_buttons(ui)
-	await shot("settings-cover")
-	ui.show_rules()
+	ui.show_character(3)
+	ui.character_window.pages[3].show_rules()
 	await shot("rules-cover")
+	ui._notification(Node.NOTIFICATION_WM_GO_BACK_REQUEST)
 	ui.start_create()
 	check_buttons(ui)
 	await shot("create-cover")

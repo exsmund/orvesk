@@ -2,13 +2,13 @@
 
 Общая шапка карты, боя, кузницы и результатов: [материалы, деление атласа и запросы генерации](header-design.md).
 
-Созданы встроенным `image_gen` (навык `imagegen`), 27 сентября 2026.
-Референс для всех трёх запросов — утверждённый пользователем вертикальный макет боя
+Текстуры поля созданы встроенным `image_gen` (навык `imagegen`).
+Референс для исходных запросов — утверждённый пользователем вертикальный макет боя
 с текстом над шкалами и кнопкой «Подтвердить ход». Это отдельные материалы для
 нативных компонентов Godot, не растровый экран приложения.
 
-- `button-slate-v1.png` — общая девятисегментная текстура кнопки. Прозрачность сохранена.
-- Срезы основной кнопки уменьшены по утверждённому макету.
+- `button-gold-v1.png` — общая текстура основных кнопок по варианту 02: тёплый тёмный камень, двойная золотая рамка с вогнутыми углами и боковые ромбы. Прозрачность сохранена; импорт до 1024 px с mipmaps.
+- `framed_button_style.gd` масштабирует торцы по высоте и повторяет среднюю часть по ширине: ромбы и углы не растягиваются. Под нативной надписью рисуется мягкая тёмная тень со смещением вниз, включая недоступное состояние. Кнопка покупки характеристик с осколками использует такую же тень своего счётчика.
 - `board-tile-v1.png` — общая клетка поля, фигур руки и перетаскиваемой фигуры.
 - `guard-v1.png` — прежняя мобильная иллюстрация блока, удалена после перехода на общий арт.
   Актуальная иллюстрация берётся из общего `data/base-actions.json`.
@@ -19,8 +19,7 @@
 
 ## Рамки интерфейса
 
-- `portrait-frame.png` — большой портрет в окне героя и при создании персонажа.
-- `portrait-frame-round.png` — круглые портреты в шапке игры и списке героев.
+- `portrait-frame-round.png` — круглые портреты в шапке игры, списках героев и существ. Большие портреты отображаются без рамки и подложки.
 - `gothic-frame.png` — общая рамка окон, кнопок и ячеек; материал разделителей.
 
 Godot загружает эти PNG напрямую из `res://content/ui/`; `sync_content.py` их не копирует.
@@ -33,7 +32,7 @@ Godot загружает эти PNG напрямую из `res://content/ui/`; `
 
 ### Кнопка
 
-Create a production game UI asset, a single empty horizontal button from the bottom of this reference. Dark charcoal slate finely worn stone center, narrow antique bronze double bevel edge, clipped 45 degree corners. Almost rectangular, no protruding ornaments. Orthographic front view, no perspective. No text, no symbols, no scenery. The button fills nearly the whole image with only 2% transparent margin. Wide ratio 5:1. Border thickness ~2% of height; center very quiet and dark for readable ivory text. Reference is style only, output ONLY the empty button.
+Актуальный точный запрос и переданный макет: [button-gold-v1.json](../../../art-prompts/mobile/content/ui/button-gold-v1.json). Ассет сгенерирован встроенным `image_gen` без текста; надпись и её тень рисуются в приложении.
 
 ### Блок
 
@@ -43,7 +42,7 @@ Create a single game inventory icon matching the crossed forearms blocking illus
 
 Create a single square game board tile texture matching the dark empty board cells in reference. Orthographic front face of very dark rough slate, subtle engraved irregular cracks, scant moss only in crevices near edges. Narrow beveled cold steel rim with old bronze highlights, clipped corners. Sparse low contrast details so artwork overlays remain legible. No symbols, no letters, no objects, no scenery, no UI screenshot, no grid. The single square tile fills the entire square image. Reference is style only.
 
-## Уточнение материалов поля, 27 сентября 2026
+## Материалы поля
 
 `board-v2.png` — единое поле 3×3 с различающимися клетками (импорт до 1024 px).
 `cell-player-v2.png`, `cell-enemy-v2.png`, `cell-contested-v2.png` — три состояния
@@ -57,30 +56,27 @@ Create a single square game board tile texture matching the dark empty board cel
 без изменения колоды и параметров боя.
 `board-tile-v1.png` остаётся материалом фигур в руке и перетаскивания.
 
-Границы каменных ячеек `board-v2.png` размечены в `ui/board.gd` в координатах
-исходных 1254×1254 пикселей. У нарисованной сетки есть толщина, отступы и небольшое
-отклонение от точных третей. Цветные клетки масштабируются внутрь этих границ;
-срезы углов оставляют видимыми ромбы на пересечениях. Та же разметка используется
-для выбора клетки. При смене этой текстуры разметку необходимо сверить заново.
-Предпросмотр допустимого перетаскивания рисуется самим полем, без второй,
-свободно движущейся текстуры поверх его рамок. Общие изображения не редактируются.
+В `ui/board.gd` центры нарисованных перекладин размечены в координатах исходного PNG 1254×1254 (`SOURCE_X`, `SOURCE_Y`). При отрисовке они отображаются на равномерную сетку `GRID_AXES`; `CELL_X` и `CELL_Y` задают одинаковые квадратные области внутри перекладин. Эта же геометрия используется для касаний. Срезы углов оставляют видимыми ромбы на всех пересечениях. За внешним контуром поля — настоящий альфа-канал, без чёрных полос. При замене ассета нужно сверить разметку.
 
-### Целое поле — `board-v2.png`
+Для каждой занятой клетки выбирается одна текстура: серо-зелёная героя, багряная противника, двойная серо-зелёная/багряная либо один из вариантов комбинации из `data/combos.json.art`. `contested` — отдельный квадратный ассет с золотой левой и багряной правой половинами. Он не накладывается поверх зелёной рамки; камень не сжимается из квадратной текстуры. Свечение рисуется только под действием героя. У чисел урона предусмотрен отступ от нижнего обода.
 
-Use case: stylized-concept. Production native game UI texture for Heroes of Orvesk. Match the attached approved battle mockup's BOARD materials closely: charcoal cracked slate, small chips, faint moss, worn sculptural metal under upper-left ivory light. Straight-on orthographic, square canvas. No characters, hands, creatures, icons, words, numbers, symbols or scenery. Keep the dark textured interior suitable for overlaying separate item artwork. Generate the ENTIRE empty 3 by 3 board as ONE continuous square asset. Exactly 9 equal square cells, boundaries exactly at 1/3 and 2/3 in both axes. Each cell has different subtle slate cracks and moss, not a repeated identical tile. Connected thin aged steel grid frame and four small outer corner diamond studs, tiny stud at grid junctions. Thin rim about 2% of a cell. Entire board fills the square edge to edge with at most 1% transparent perimeter. Nine unoccupied cells, no green or orange occupant frames. Opaque cell interiors.
+Предпросмотр допустимого перетаскивания рисуется самим полем, без второй свободно движущейся текстуры поверх рамок. Иллюстрации действий сохраняют пропорции.
 
-### Клетка героя — `cell-player-v2.png`
-
-Use case: stylized-concept. Production native game UI texture for Heroes of Orvesk. Match the attached approved battle mockup's BOARD materials closely: charcoal cracked slate, small chips, faint moss, worn sculptural metal under upper-left ivory light. Straight-on orthographic, square canvas. No characters, hands, creatures, icons, words, numbers, symbols or scenery. Keep the dark textured interior suitable for overlaying separate item artwork. Generate ONE single square occupied-cell background, empty of artwork. Entire tile fills square edge to edge, no surrounding whitespace. Sculpted grey sage-green metal perimeter frame, width about 4% of tile edge, subtle worn bevel, clipped 45 degree corners. Frame clearly grey-green but subdued, not vivid glowing green. Rough charcoal slate interior. Only one frame, no internal divisions.
-
-### Клетка противника — `cell-enemy-v2.png`
-
-Use case: stylized-concept. Production native game UI texture for Heroes of Orvesk. Match the attached approved battle mockup's BOARD materials closely: charcoal cracked slate, small chips, faint moss, worn sculptural metal under upper-left ivory light. Straight-on orthographic, square canvas. No characters, hands, creatures, icons, words, numbers, symbols or scenery. Keep the dark textured interior suitable for overlaying separate item artwork. Generate ONE single square occupied-cell background, empty of artwork. Entire tile fills square edge to edge, no surrounding whitespace. Sculpted aged ochre bronze metal perimeter frame, width about 4% of tile edge, subtle worn bevel, clipped 45 degree corners. Frame clearly ochre, not bright glowing orange. Rough charcoal slate interior. Only one frame, no internal divisions. Match same structural shape as the green frames in reference.
-
-### Две фигуры в клетке — `cell-contested-v2.png`
-
-Use case: stylized-concept. Production native game UI texture for Heroes of Orvesk. Match the attached approved battle mockup's BOARD materials closely: charcoal cracked slate, small chips, faint moss, worn sculptural metal under upper-left ivory light. Straight-on orthographic, square canvas. No characters, hands, creatures, icons, words, numbers, symbols or scenery. Keep the dark textured interior suitable for overlaying separate item artwork. Generate ONE square occupied-cell background divided into exactly TWO equal vertical panels, filling the square edge to edge. Left half has a sculpted grey sage-green metal frame, right half has aged ochre bronze metal frame. Thin central seam. Outer border and central borders have same thickness, about 3% of whole square. Each panel dark rough slate, subtly different grain. Clipped corners, subtle bevel and patina. Empty panels without figure artwork. This is ONE square tile with TWO tall slots, not two squares side by side.
+Актуальные точные запросы и референсы:
+- [поле](../../../art-prompts/mobile/content/ui/board-v2.json);
+- [клетка героя](../../../art-prompts/mobile/content/ui/cell-player-v2.json);
+- [клетка противника](../../../art-prompts/mobile/content/ui/cell-enemy-v2.json);
+- [две фигуры](../../../art-prompts/mobile/content/ui/cell-contested-v2.json);
+- [две фигуры с комбинацией героя](../../../art-prompts/ui/combos/contested.json).
 
 ## Окно героя
 
 Квадратные кнопки «+ / −» используют текстуры `button-square-v1.png` и `button-square-pressed-v1.png`; подключение — `mobile/ui/square_button.gd`.
+
+### Рамки фигур
+
+`figure-player-frame.png` и `figure-enemy-frame.png` — цельные текстуры с тёмным каменным фоном для общего компонента фигур: светлый серо-зелёный металл игрока и багряный металл противника. Геометрия повторяет рамки клеток поля, обод толще для читаемости небольших фигур. Цветные контурные линии не используются. PNG RGBA; исходники и запросы — `art-prompts/mobile/content/ui`.
+
+Фон фигур встроен в текстуру и не рисуется отдельным квадратом. Внешние скошенные углы прозрачны, внутренняя каменная область непрозрачна. У спорной клетки только две цветные рамки (светлая серо-зелёная и багряная), без внешнего металлического обода; толщина цветных полос соответствует `cell-enemy-v2.png`.
+
+Цветовые варианты общей кнопки: `button-secondary-v1.png` (серый камень) и `button-danger-v1.png` (красный камень), с золотой рамкой. Тема предоставляет `SecondaryButton` и `DangerButton`; состояния и тень текста общие. Рецепты находятся в `art-prompts/mobile/content/ui/`.

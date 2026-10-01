@@ -1,7 +1,8 @@
 {
   "health": {
     "base": 30,
-    "perVitality": 20
+    "perVitality": 15,
+    "perLevel": 5
   },
   "stamina": {
     "max": 8,
@@ -13,12 +14,22 @@
     "rockChance": 0
   },
   "armorK": 10,
+  "armorMaxReduction": 0.5,
   "damage": {
     "levelPerRequiredStat": 1,
-    "perStatPoint": 1
+    "perStatPoint": 1,
+    "perTier": 0.1
   },
   "loot": {
-    "variation": [-1, 0, 1],
-    "rewardKindWeights": {"item": 80, "skill": 20}
+    "variation": [
+      -1,
+      0,
+      1
+    ],
+    "rewardKindWeights": {
+      "item": 80,
+      "skill": 20
+    },
+    "emptySlotWeight": 3
   }
 }

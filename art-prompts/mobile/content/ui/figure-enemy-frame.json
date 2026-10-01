@@ -1,0 +1,51 @@
+{
+  "asset": "mobile/content/ui/figure-enemy-frame.png",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "prompt": "Edit the attached square grey-green game UI frame into its opponent variant: change metal color to muted OCHRE and aged bronze, warm yellow-brown, same low saturation, dark recesses and narrow highlights. Preserve exactly the square geometry, border thickness, chamfered corners, chips, size and transparent hollow central opening. Material is old worked metal, dry-brush dark gothic fantasy illustration, not shiny plastic, not orange glow. Single reusable square frame overlay for small game pieces, no content, icons, text, symbols, or additional border. PNG RGBA with true transparency inside and outside.",
+      "transparentBackground": true,
+      "output": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-a224acbf-6673-4d3f-8211-e06f5cad0195.png",
+      "references": [
+        {
+          "path": "mobile/content/ui/figure-player-frame.png",
+          "role": "Passed to generator: frame geometry, material and thickness reference"
+        }
+      ]
+    },
+    {
+      "tool": "image_gen",
+      "prompt": "Edit image 1: preserve ochre metal frame color and thick chamfered square frame geometry. Fill transparent hollow center with opaque dark cracked stone like image 2. Single self-contained game tile with integrated background. Stone ends inside metal frame. Everything OUTSIDE the outer chamfered silhouette is truly transparent, especially four cut corner triangles: no square backing texture outside. Interior opaque. Same weathered gothic painted metal, no text/icons/glow. Keep original frame thickness and ochre.",
+      "transparentBackground": true,
+      "references": [
+        {
+          "path": "mobile/content/ui/figure-enemy-frame.png",
+          "role": "Passed to generator: edit target",
+          "sha256": "d517007e0871acfbb8030b4aa340465d23bae2abdd700b16989556d81dfcb717"
+        },
+        {
+          "path": "mobile/content/ui/cell-enemy-v2.png",
+          "role": "Passed to generator: reference geometry and stone",
+          "sha256": "e0b2ad1281aec4fb8c423c3debe61ab554adf0476a457f4304fc79dcea71dce5"
+        }
+      ],
+      "output": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-9a70786f-90be-4591-9669-ae433842daea.png",
+      "sha256": "149974e3dae8b992dca7f204a37aeb0457a92e06567df9952fee6043362ffb78"
+    },
+    {
+      "tool": "image_gen",
+      "date": "2026-10-01",
+      "prompt": "Edit exact game figure card frame. Recolor ALL ochre/gold metal including corner plates to rich DARK CRIMSON / blood-red burnished steel: burgundy shadows, red bevel highlights, tiny neutral worn silver nicks. Must clearly differ from gold combo states. Preserve square geometry, frame thickness, corner plates, stone texture interior, scratches and sculpted bevels. True transparent outside outer chamfered silhouette. No black backing, no added padding, no icons, no text, no other changes.",
+      "references": [
+        {
+          "path": "mobile/content/ui/figure-enemy-frame.png",
+          "role": "edit target and material reference",
+          "sha256": "149974e3dae8b992dca7f204a37aeb0457a92e06567df9952fee6043362ffb78"
+        }
+      ],
+      "transparentBackground": true,
+      "output": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-e9d644c8-ccf3-497a-847d-eb3f89304a84.png"
+    }
+  ],
+  "sha256": "9015d3a8aa37f364e0ecab5b0a0c53e7daa0b38cb254ccdd2ea586c053e86c49"
+}

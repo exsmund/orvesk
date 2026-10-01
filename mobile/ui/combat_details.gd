@@ -19,8 +19,18 @@ func contact_text(card: Dictionary, opposing: Dictionary) -> String:
 	if opposing.get("category", "") == "attack": return "Обмен ударами: проходит половина урона здоровью и выносливости."
 	return "Атака в открытое место: урон проходит полностью, с учётом брони."
 
+func combo_text(entries: Array) -> String:
+	var lines: Array = []
+	for combo in entries:
+		var state = "Сработает при выполнении условия." if combo.get("pending",false) else ("Активна." if combo.get("active",false) else "Условие не выполнено.")
+		lines.append(combo.name + "\n" + combo.description + "\n" + state)
+	return "\n\n".join(lines)
+
 func cell_text(cell: Dictionary) -> String:
 	var lines: Array = []
+	for side in ["player","enemy"]:
+		var text = combo_text(cell.get(side+"Combos",[]))
+		if not text.is_empty(): lines.append(("Ваши комбинации" if side == "player" else "Комбинации противника")+"\n"+text)
 	if not cell.known:
 		var card = cell.player
 		lines.append("Расстановка противника скрыта. Точный прогноз появится после раскрытия.")
@@ -47,8 +57,10 @@ func cell_text(cell: Dictionary) -> String:
 				parts.append("%s: %s → %s после брони %s" % [damage_types.get(part.type, {}).get("name", part.type), number(part.raw), str(snappedf(part.afterArmor, 0.001)), number(part.armor)])
 			if not parts.is_empty(): lines.append("\n".join(parts))
 			if attack.concentration != 1: lines.append("Сжатие: урон клетки ×%s." % number(attack.concentration))
+			if attack.get("damageMultiplier", 1.0) != 1.0: lines.append("Множитель урона противника: ×%s." % number(attack.damageMultiplier))
 			lines.append("После взаимодействия, до ограничения ресурсами: %s здоровья, %s выносливости." % [str(snappedf(attack.health, 0.001)), str(snappedf(attack.stamina, 0.001))])
 		if card.get("blocks", false): lines.append("Затраты блока в этой клетке: %s выносливости." % number(cell.get(side + "BlockCost", 0)))
+		if card.get("healingMaxHealthPercent", 0) > 0: lines.append("Лечение %s%% максимального здоровья за всю фигуру, после урона и только при выживании." % number(card.healingMaxHealthPercent))
 		if card.get("healing", 0) > 0: lines.append("Лечение %s за всю фигуру, после урона и только при выживании." % number(card.healing))
 		if card.get("staminaCost", 0) > 0: lines.append("Цена всей фигуры: %s выносливости (оплачивается один раз)." % number(card.staminaCost))
 	lines.append("Потери ограничены оставшимися ресурсами и распределены по клеткам с округлением до 0,1. Цена фигур учитывается отдельно от входящего урона.")

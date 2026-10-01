@@ -1,6 +1,8 @@
 extends Control
 ## Nine-slice frame with independent source/destination corners; ornaments never stretch.
 const DEFAULT_TEXTURE = preload("res://content/ui/gothic-frame.png")
+## Include the entire corner ornament, including the diamonds on the side strips.
+const SOURCE_CORNER_RATIO = 0.24
 var texture: Texture2D
 var corner = 12.0
 
@@ -16,7 +18,7 @@ func configure(_data, edge: float = 12, source_texture: Texture2D = DEFAULT_TEXT
 func _draw():
 	if not texture: return
 	var source = Vector2(texture.get_size())
-	var cut = source * 0.16
+	var cut = source * SOURCE_CORNER_RATIO
 	var edge = minf(corner, minf(size.x, size.y) / 2)
 	var xs = [0.0, edge, size.x - edge, size.x]
 	var ys = [0.0, edge, size.y - edge, size.y]

@@ -27,17 +27,69 @@ func restore(payload: Dictionary) -> String:
 	for f in [restored.player, restored.enemy] + restored.journey.get("enemies", {}).values():
 		var error = data.creature_variant_error(f)
 		if error: return error
+	var settings_error = restore_settings(restored)
+	if settings_error: return settings_error
 	game = restored
+	apply_difficulty()
+	if game.phase == "ended": record_completion()
+	ensure_start_camp()
 	game.journey.battleMode = "free"
 	for f in [game.player, game.enemy] + game.journey.get("enemies", {}).values():
 		f.erase("actionsFinished")
+		combat.refresh_skill_healing(f)
+		if f.hp > data.max_hp(f): f.hp = data.max_hp(f)
 		if f.has("battleMode"): f.battleMode = "free"
 	# Only fill the hero's vacant slots; dealt cards, reveal, history and RNG stay intact.
 	data.equip_basics(game.player)
 	campaign.merge_answer_echoes()
+	campaign.prune_removed_activities()
 	combat.rng.state = int(payload.rngState)
 	refresh_enemy_balance()
 	return ""
+
+func restore_settings(saved: Dictionary) -> String:
+	# Existing campaign saves gain the default difficulty without rerolling combat.
+	var entry = data.difficulty(str(saved.get("difficulty", data.difficulties.default)))
+	if entry.is_empty(): return "Неизвестная сложность сохранения."
+	var multiplier = saved.get("enemyDamageMultiplier", entry.enemyDamageMultiplier)
+	if not (multiplier is float or multiplier is int) or not is_finite(float(multiplier)) or float(multiplier) < 0 or float(multiplier) > 1:
+		return "Повреждена сложность сохранения."
+	if not saved.get("skipStory", false) is bool or not saved.get("completedDifficulties", []) is Array:
+		return "Повреждены настройки прохождения."
+	var cycle = saved.get("playthrough", 1)
+	if not (cycle is int or cycle is float) or not is_finite(float(cycle)) or cycle < 1 or cycle != int(cycle): return "Повреждён номер прохождения."
+	saved.difficulty = entry.id
+	saved.enemyDamageMultiplier = float(multiplier)
+	saved.skipStory = saved.get("skipStory", false) and cycle > 1
+	saved.playthrough = cycle
+	saved.completedDifficulties = saved.get("completedDifficulties", [])
+	return ""
+
+func apply_difficulty():
+	combat.enemy_damage_multiplier = float(game.enemyDamageMultiplier)
+
+func record_completion():
+	var completed: Array = game.get_or_add("completedDifficulties", [])
+	var id: String = game.get("difficulty", data.difficulties.default)
+	if id not in completed: completed.append(id)
+
+func replay(skip_story: bool = false) -> String:
+	if game.get("phase") != "ended": return "История ещё не завершена."
+	record_completion()
+	var next = data.next_difficulty(game.difficulty)
+	game.difficulty = next.id
+	game.enemyDamageMultiplier = float(next.enemyDamageMultiplier)
+	game.skipStory = skip_story
+	game.playthrough = int(game.get("playthrough", 1)) + 1
+	apply_difficulty()
+	game.story = campaign.initial()
+	# Keep the hero's permanent progress; discard the previous battle and route.
+	for key in ["deck", "charmsUsed", "battleMode"]: game.player.erase(key)
+	game.log = []
+	game.round = 1
+	game.fight = 1
+	new_journey(int(data.story.chapters[0].number))
+	return campaign.seek(data.story.scenes[data.story.chapters[0].introScene].entry)
 
 func refresh_enemy_balance():
 	var journey = game.journey
@@ -90,22 +142,39 @@ func creation_points_remaining(stats: Dictionary) -> int:
 func creation_name_error(name: String) -> String:
 	return "Введите имя: от 1 до %d символов." % MAX_NAME_LENGTH if name.strip_edges().is_empty() or name.length() > MAX_NAME_LENGTH else ""
 
-func create(name: String, stats: Dictionary, portrait_id: String) -> String:
+func create(name: String, stats: Dictionary, portrait_id: String, difficulty_id: String = "", completed: Array = []) -> String:
 	var name_error = creation_name_error(name)
 	if name_error: return name_error
 	for key in data.STATS:
 		if stats.get(key, 0) < MIN_STARTING_STAT or stats[key] != int(stats[key]): return "Характеристики должны быть целыми, не ниже %d." % MIN_STARTING_STAT
 	if creation_points_remaining(stats) != 0: return "Распределите %d очка характеристик." % CREATION_POINTS
 	if data.lookup(data.portraits, portrait_id).is_empty(): return "Выберите портрет."
-	game = {"version": data.story.rules.saveVersion, "player": fighter(name.strip_edges(), stats, portrait_id), "phase": "ready", "souls": 0, "wins": 0, "fight": 1, "round": 1, "log": [], "rewardOptions": []}
+	var difficulty = data.difficulty(difficulty_id)
+	if not data.difficulty_available(difficulty_id, completed): return "Эта сложность ещё недоступна."
+	game = {"difficulty": difficulty.id, "enemyDamageMultiplier": float(difficulty.enemyDamageMultiplier), "skipStory": false, "playthrough": 1, "completedDifficulties": [], "version": data.story.rules.saveVersion, "player": fighter(name.strip_edges(), stats, portrait_id), "phase": "ready", "souls": 0, "wins": 0, "fight": 1, "round": 1, "log": [], "rewardOptions": []}
+	apply_difficulty()
 	game.story = campaign.initial()
 	data.equip_basics(game.player)
 	new_journey(1)
 	return campaign.seek(data.story.entry)
 
+func start_camp() -> Dictionary:
+	return {"id": "camp-start", "kind": "camp", "stage": 0, "mapPointType": "campfire", "x": 50, "y": 100, "name": "Костёр"}
+
+func ensure_start_camp():
+	# Upgrade the saved graph without rerolling routes, enemies or granting healing.
+	if data.lookup(game.journey.map.nodes, "camp-start").is_empty():
+		game.journey.map.nodes.push_front(start_camp())
+		game.journey.map.edges.push_front(["camp-start", "fight-1"])
+	if "camp-start" not in game.journey.path:
+		if game.journey.get("awaitingFirstBattle", false) and game.phase in ["ready", "story"]:
+			game.journey.path = ["camp-start"]
+		else:
+			game.journey.path.push_front("camp-start")
+
 func map_layout() -> Dictionary:
-	var nodes: Array = []
-	var edges: Array = []
+	var nodes: Array = [start_camp()]
+	var edges: Array = [["camp-start", "fight-1"]]
 	var chapter = campaign.chapter(game.journey.expedition)
 	var stops = chapter.stages.filter(func(s): return s.kind == "stop")
 	var branches = combat.shuffled(stops.map(func(s): return s.id)).slice(0, combat.rng.randi_range(data.journey_rules.forgeBranches.min, data.journey_rules.forgeBranches.max))
@@ -132,7 +201,7 @@ func new_journey(expedition: int):
 	var chapter = campaign.chapter(expedition)
 	assert(not chapter.is_empty(), "Номер главы отсутствует в сценарии")
 	var modes: Array = data.journey_rules.battleModes
-	game.journey = {"expedition": expedition, "startLevel": data.level(game.player), "stage": 1, "cleared": 0, "path": ["fight-1"], "awaitingFirstBattle": true,
+	game.journey = {"expedition": expedition, "startLevel": data.level(game.player), "stage": 1, "cleared": 0, "path": ["camp-start"], "awaitingFirstBattle": true,
 		"enemyBalanceVersion": data.journey_rules.enemyBalanceVersion,
 		"battleMode": modes[(expedition-1) % modes.size()], "mapPreset": chapter.mapBinding.mapId, "enemies": {}, "enemySeeds": {}, "offers": [], "finished": false}
 	game.journey.map = map_layout()
@@ -158,7 +227,8 @@ func generate_enemy(stage: int, encounter: Dictionary) -> Dictionary:
 		if species.is_empty(): return {}
 	var rules = data.journey_rules
 	var first = rules.firstMap
-	var rank = (int(first.bossRank) if stage == int(rules.bossStage) else int(first.regularRank)) if j.expedition == first.expedition else maxi(int(rules.minimumRank), j.startLevel + int(rules.rankOffsets[stage-1]))
+	var introductory = j.expedition == first.expedition and int(game.get("playthrough", 1)) == 1
+	var rank = (int(first.bossRank) if stage == int(rules.bossStage) else int(first.regularRank)) if introductory else data.enemy_level(int(j.startLevel), stage)
 	var spare = 0 if rank == 0 else rank + 2
 	var stats = {}
 	for stat in data.STATS: stats[stat] = 1
@@ -169,15 +239,16 @@ func generate_enemy(stage: int, encounter: Dictionary) -> Dictionary:
 	var f = fighter(encounter.get("role", species.get("name", "")), stats)
 	if not species.is_empty():
 		f.creatureId = species.id
-		var variant = data.encounter_variant(j.expedition, stage)
+		var variant = data.encounter_variant(j.expedition, stage) if int(game.get("playthrough", 1)) == 1 else ""
 		if species.get("variants", {}).has(variant): f.creatureVariant = variant
 	var character_id: String = encounter.get("characterId", "")
 	if encounter.has("speakerId"):
 		character_id = data.story.speakers.get(encounter.speakerId, {}).get("characterId", "")
 	if character_id: f.characterId = character_id
 	f.style = style.id
-	if rank > 0: enemy_gear(f)
-	if j.expedition == first.expedition and stage == int(rules.bossStage):
+	if rank > 0:
+		enemy_gear(f, game.player)
+	if introductory and stage == int(rules.bossStage):
 		# The configured wound changes starting HP, not vitality or maximum health.
 		var health_fraction = clampf(float(first.get("bossStartingHealthFraction", 1.0)), 0.0, 1.0)
 		f.hp = maxf(1.0, ceilf(data.max_hp(f) * health_fraction))
@@ -188,7 +259,7 @@ func equipment_score(f: Dictionary, equipment: Dictionary) -> float:
 		var affinity = 0.0
 		for figure in equipment.figures:
 			if figure.get("category", "") == "attack":
-				for stat in figure.get("healthDamage", {}).get("stats", []): affinity += f.stats[stat] - 1
+				for stat in combat.Actions.stats(figure): affinity += f.stats[stat] - 1
 				break
 		return 1 + affinity * 4 + equipment.level * 2 + equipment.tier
 	var protection = 0.0
@@ -203,54 +274,54 @@ func choose_equipment(f: Dictionary, pool: Array) -> Dictionary:
 	var eligible = pool.filter(func(i): return equipment_score(f, i) >= best * 0.7)
 	return weighted(eligible, eligible.map(func(i): return equipment_score(f, i)))
 
-func equipment_cost(f: Dictionary, equipment: Dictionary) -> float:
-	var rules = data.journey_rules.equipmentBudget
-	var cost = 1.0 + float(equipment.tier)
-	if equipment.kind == "weapon":
-		cost += maxf(0, equipment.level - 1) * rules.weaponLevelCost
-	var strongest = 0.0
-	for value in equipment.get("defense", {}).values(): strongest = maxf(strongest, value)
-	# Extra effective HP against the best-protected damage type. High vitality
-	# and armor share the budget instead of multiplying survivability for free.
-	cost += data.max_hp(f) * strongest / data.balance.armorK / rules.healthPerArmorPoint
-	return cost
+func equipment_limits(hero: Dictionary, slot: String) -> Dictionary:
+	var hero_level = clampi(data.level(hero), 1, 999)
+	var reference = hero.gear.get(slot)
+	if not reference: return {}
+	var equipped = data.item(reference)
+	if equipped.get("unarmed", false): return {}
+	return {"level": mini(hero_level, equipped.level), "tier": int(equipped.tier)}
 
-func enemy_gear(f: Dictionary):
-	var growth = data.stat_total(f) - 4
-	var rules = data.journey_rules.equipmentBudget
-	var budget = minf(rules.maximum, rules.base + growth * rules.perStatPoint)
+func assign_natural_weapon(f: Dictionary, hero: Dictionary):
+	if not f.get("creatureId", ""): return
+	var attacks = data.creature_figures(f).filter(func(c):
+		return c.get("naturalLevel", false) and not combat.Actions.stats(c).is_empty())
+	if attacks.is_empty(): return
+	var limits = equipment_limits(hero, "weapon")
+	if limits.is_empty(): limits = data.journey_rules.enemyEquipment.naturalFallback
+	var rank = 1
+	for card in attacks:
+		var ceiling = int(limits.level)
+		for stat in combat.Actions.stats(card): ceiling = mini(ceiling, data.effective_stat(f, stat))
+		rank = maxi(rank, ceiling)
 	var candidates: Array = []
-	for template in data.items:
-		var rank = 999 if not template.requirements.is_empty() else 1
-		for stat in template.requirements: rank = mini(rank, f.stats[stat])
-		for item_level in range(1, rank + 1):
-			var equipment = data.item("%s@%d" % [template.id, item_level])
-			if equipment.level != item_level: break
-			if not equipment.get("unarmed", false) and data.can_use(f, equipment) and equipment.tier <= growth and equipment_cost(f, equipment) <= budget:
-				candidates.append(equipment)
-	var arms = candidates.filter(func(i): return i.kind == "weapon" and equipment_cost(f, i) <= budget)
-	if not arms.is_empty():
-		var chosen = choose_equipment(f, arms)
-		data.wear(f, chosen, false)
-		budget -= equipment_cost(f, chosen)
-	var skipped_slots: Array = []
+	for level in range(1, rank + 1):
+		candidates.append({"kind": "weapon", "tier": limits.tier, "level": level, "figures": attacks})
+	var chosen = choose_equipment(f, candidates)
+	f.naturalWeaponLevel = int(chosen.level)
+	f.naturalWeaponTier = int(chosen.tier)
+
+func enemy_gear(f: Dictionary, hero: Dictionary):
+	assign_natural_weapon(f, hero)
 	var species = data.lookup(data.creatures, f.get("creatureId", ""))
 	var chances: Dictionary = species.get("equipment", {}).get("generationSlotChance", {})
-	for slot in chances:
-		if combat.rng.randf() >= float(chances[slot]): skipped_slots.append(slot)
-	while budget > 0:
-		var slots: Array = []
-		var weights: Array = []
-		for slot in data.lookup(data.journey_rules.styles, f.style).slots:
-			if slot in skipped_slots or f.gear[slot] or (slot == "shield" and data.item(f.gear.weapon).get("hands", 1) == 2): continue
-			var pool = candidates.filter(func(i): return i.slot == slot and equipment_cost(f, i) <= budget)
-			if not pool.is_empty():
-				slots.append(pool)
-				weights.append(data.lookup(data.journey_rules.styles, f.style).slots[slot])
-		if slots.is_empty(): break
-		var chosen = choose_equipment(f, weighted(slots, weights))
-		data.wear(f, chosen, false)
-		budget -= equipment_cost(f, chosen)
+	# Weapon is the first catalog slot: handedness is known before choosing a shield.
+	for slot in data.SLOTS:
+		if slot == "shield" and data.item(f.gear.weapon).get("hands", 1) == 2: continue
+		var limits = equipment_limits(hero, slot)
+		if limits.is_empty(): continue
+		if chances.has(slot) and combat.rng.randf() >= float(chances[slot]): continue
+		var candidates: Array = []
+		for template in data.items:
+			if template.slot != slot or template.get("unarmed", false): continue
+			if limits.tier >= 0 and template.tier > limits.tier: continue
+			var rank = int(limits.level) if not template.requirements.is_empty() else 1
+			for stat in template.requirements: rank = mini(rank, data.effective_stat(f, stat))
+			for item_level in range(1, rank + 1):
+				var equipment = data.item("%s@%d" % [template.id, item_level])
+				if equipment.level != item_level: break
+				if data.can_use(f, equipment): candidates.append(equipment)
+		if not candidates.is_empty(): data.wear(f, choose_equipment(f, candidates), false)
 
 func current_node() -> String:
 	return game.journey.path.back()
@@ -303,8 +374,8 @@ func needs_combat_help() -> bool:
 	return not game.is_empty() and game.phase == "combat" and game.round == 1 and not game.player.get("combatHelpHidden", false) and not game.get("combatHelpAcknowledged", false)
 
 func acknowledge_combat_help(hide_future: bool):
-	if game.phase != "combat": return
-	game.combatHelpAcknowledged = true
+	if game.is_empty(): return
+	if game.phase == "combat": game.combatHelpAcknowledged = true
 	if hide_future: game.player.combatHelpHidden = true
 
 func reward(index: int, slot: int = -1) -> String:
@@ -405,14 +476,17 @@ func restart() -> String:
 	return ""
 
 func reset_chapter():
+	if game.get("defeatRecorded", false):
+		game.journey.returnFromDefeat = {"nodeId":game.journey.lostSouls.nodeId, "attempt":game.story.attempt, "playthrough":game.get("playthrough", 1)}
 	game.player.hp = data.max_hp(game.player)
 	game.player.stamina = data.max_stamina(game.player)
 	game.journey.stage = 1
 	game.journey.cleared = 0
-	game.journey.path = ["fight-1"]
+	game.journey.path = ["camp-start"]
 	game.journey.awaitingFirstBattle = true
 	game.journey.finished = false
 	game.journey.erase("service")
+	campaign.prune_removed_activities()
 	game.enemy = game.journey.enemies["fight-1"].duplicate(true)
 	game.phase = "ready"
 	game.erase("clashPlan")

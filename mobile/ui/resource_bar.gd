@@ -22,6 +22,8 @@ var limit = 1.0
 var palette
 var header_mode = false
 var estimated = false
+var shortage_motion: Tween
+var shortage_strength = 0.0
 
 func _init():
 	add_child(caption_row)
@@ -58,6 +60,7 @@ func _init():
 	shader_material.set_shader_parameter("rim_region", Vector4(region.position.x / extent.x, region.position.y / extent.y, region.size.x / extent.x, region.size.y / extent.y))
 	surface.material = shader_material
 	surface.resized.connect(func(): shader_material.set_shader_parameter("bar_size", surface.size))
+	resized.connect(func(): pivot_offset = size / 2)
 
 func make_compact():
 	track.custom_minimum_size.y = 10
@@ -94,17 +97,11 @@ func set_header_font_size(value: int):
 	for node in [value_label, forecast_label]: node.add_theme_font_size_override("font_size", value)
 	forecast_label.custom_minimum_size.x = ceilf(forecast_label.get_theme_font("font").get_string_size(forecast_label.text, HORIZONTAL_ALIGNMENT_LEFT, -1, value).x) if forecast_label.visible else 0
 
-func set_animation(enabled: bool):
-	shader_material.set_shader_parameter("animated", enabled)
-	if not enabled:
-		if animation: animation.kill()
-		set_fill(target_fraction)
-
 func set_fill(value: float):
 	fraction = value
 	shader_material.set_shader_parameter("fill", value)
 
-func configure(data, caption: String, value: float, maximum: float, kind: String, animate: bool, change: float = 0.0, estimate: bool = false):
+func configure(data, caption: String, value: float, maximum: float, kind: String, change: float = 0.0, estimate: bool = false):
 	palette = data
 	estimated = estimate
 	displayed_value = value
@@ -123,12 +120,11 @@ func configure(data, caption: String, value: float, maximum: float, kind: String
 	forecast_label.add_theme_color_override("font_color", data.color("text-danger" if change < 0 and kind == "health" else "text-highlight"))
 	label.add_theme_color_override("font_color", data.color("text-home"))
 	label.add_theme_color_override("font_outline_color", data.color("background-page"))
-	# Reuse the canonical effect colors used by the web ResourceBar.
+	# Use the canonical health and stamina colors.
 	shader_material.set_shader_parameter("tint", data.color("effect-resource-health" if kind == "health" else "effect-resource-stamina"))
 	shader_material.set_shader_parameter("empty", data.color("background-panel"))
-	set_animation(animate)
 	var next = clampf(value / limit, 0, 1)
-	if not initialized or not animate:
+	if not initialized:
 		set_fill(next)
 	elif not is_equal_approx(next, target_fraction):
 		if animation: animation.kill()
@@ -138,6 +134,18 @@ func configure(data, caption: String, value: float, maximum: float, kind: String
 	initialized = true
 	track.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
 	forecast_surface.queue_redraw()
+
+func pulse_shortage():
+	if shortage_motion and shortage_motion.is_valid(): shortage_motion.kill()
+	shortage_motion = create_tween()
+	shortage_motion.tween_method(set_shortage_strength, shortage_strength, 1.0, 0.13).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	shortage_motion.tween_method(set_shortage_strength, 1.0, 0.0, 0.36).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+
+func set_shortage_strength(value: float):
+	shortage_strength = value
+	pivot_offset = size / 2
+	scale = Vector2.ONE * (1.0 + 0.12 * value)
+	if palette: value_label.add_theme_color_override("font_color", palette.color("text-home").lerp(palette.color("text-danger"), value))
 
 func number(value: float) -> String:
 	return str(snappedf(value, 0.1)).trim_suffix(".0")

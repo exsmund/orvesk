@@ -2,12 +2,14 @@ extends RefCounted
 ## One theme for every native button, input, panel and dialog.
 const DISPLAY_FONT = preload("res://content/fonts/Prata-UI.tres")
 const BODY_FONT = preload("res://content/fonts/GolosText.ttf")
-const BUTTON = preload("res://content/ui/button-slate-v1.png")
+const BUTTON = preload("res://content/ui/button-gold-v1.png")
+const SECONDARY_BUTTON = preload("res://content/ui/button-secondary-v1.png")
+const DANGER_BUTTON = preload("res://content/ui/button-danger-v1.png")
 static var cropped: Dictionary = {}
 static var regions: Dictionary = {}
 
 static func button_text_size(design_size: float = 18) -> int:
-	return maxi(10, roundi(design_size * 0.85))
+	return maxi(10, roundi(design_size))
 
 static func fit_button_text(button: Button, width: float, design_size: float = 18):
 	var fitted = button_text_size(design_size)
@@ -60,20 +62,27 @@ static func make(data) -> Theme:
 	theme.set_font_size("font_size", "CheckButton", button_text_size())
 	var texture_region = visible_region(BUTTON)
 	for state in ["normal", "hover", "pressed", "disabled"]:
-		var style = StyleBoxTexture.new()
+		var style = preload("res://ui/framed_button_style.gd").new()
 		style.texture = BUTTON
 		style.region_rect = texture_region
-		for side in [SIDE_LEFT, SIDE_RIGHT]: style.set_texture_margin(side, 22)
-		for side in [SIDE_TOP, SIDE_BOTTOM]: style.set_texture_margin(side, 22)
-		style.axis_stretch_horizontal = StyleBoxTexture.AXIS_STRETCH_MODE_TILE
-		style.axis_stretch_vertical = StyleBoxTexture.AXIS_STRETCH_MODE_TILE
-		style.content_margin_left = 22
-		style.content_margin_right = 22
+		style.shadow_color = data.color("shadow-character-card-2")
+		style.content_margin_left = 32
+		style.content_margin_right = 32
 		style.content_margin_top = 12
 		style.content_margin_bottom = 12
 		style.modulate_color = Color(1.16, 1.13, 1.05) if state == "hover" else (Color(0.72, 0.76, 0.68) if state == "pressed" else (Color(0.48, 0.48, 0.45) if state == "disabled" else Color.WHITE))
 		theme.set_stylebox(state, "Button", style)
 		theme.set_stylebox(state, "LineEdit", panel(data))
+	for variant in ["SecondaryButton", "DangerButton"]:
+		theme.set_type_variation(variant, "Button")
+		for state in ["normal", "hover", "pressed", "disabled"]:
+			var original = theme.get_stylebox(state, "Button")
+			var skin = original.duplicate()
+			skin.modulate_color = original.modulate_color
+			skin.shadow_color = original.shadow_color
+			skin.texture = SECONDARY_BUTTON if variant == "SecondaryButton" else DANGER_BUTTON
+			skin.region_rect = visible_region(skin.texture)
+			theme.set_stylebox(state, variant, skin)
 	var focus = panel(data, 0)
 	focus.bg_color = Color.TRANSPARENT
 	focus.border_color = data.color("text-highlight")

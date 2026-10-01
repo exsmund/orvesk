@@ -4,6 +4,7 @@ const ROOT = "res://content/generated/"
 const STATS = ["strength", "agility", "vitality", "intelligence"]
 const STAT_NAMES = {"strength": "Сила", "agility": "Ловкость", "vitality": "Живучесть", "intelligence": "Интеллект"}
 const SLOTS = ["weapon", "shield", "body", "feet", "ring", "amulet"]
+var weapon_tiers: Array = []
 var items: Array = []
 var skills: Array = []
 var creatures: Array = []
@@ -16,9 +17,12 @@ var map_points: Dictionary
 var journey_rules: Dictionary
 var portrait_presentation: Dictionary
 var base: Array = []
+var difficulties: Dictionary
 var balance: Dictionary
 var palette: Dictionary
 var art: Dictionary
+var combos: Dictionary
+var result_art: Dictionary
 
 func _init():
 	for name in ["weapons", "shields", "armor", "footwear", "jewelry", "basic-equipment"]:
@@ -33,13 +37,39 @@ func _init():
 		if equipment.has("baseFigureAvailability"):
 			equipment.figures = base.filter(func(figure): return figure.get("availability", "") == equipment.baseFigureAvailability).duplicate(true)
 	balance = read_json("combat-balance")
+	difficulties = read_json("difficulties")
+	weapon_tiers = read_json("weapon-tiers")
 	palette = read_json("palette")
 	art = read_json("item-art")
+	result_art = read_json("result-art")
+	combos = read_json("combos")
 	story = read_json("story-runtime")
 	characters = read_json("characters")
 	map_points = read_json("map-points")
 	journey_rules = read_json("journey-rules")
 	portrait_presentation = read_json("portrait-presentation")
+
+func weapon_tier(tier: int) -> Dictionary:
+	for entry in weapon_tiers:
+		if int(entry.tier) == tier: return entry
+	return {}
+
+func equipment_slots(f: Dictionary) -> Array:
+	if not f.get("creatureId", ""): return SLOTS.duplicate()
+	return lookup(creatures, f.creatureId).get("equipment", {}).get("slots", []).duplicate()
+
+func difficulty(id: String = "") -> Dictionary:
+	return lookup(difficulties.levels, difficulties.default if id.is_empty() else id)
+
+func difficulty_available(id: String, completed: Array) -> bool:
+	var entry = difficulty(id)
+	return not entry.is_empty() and (not entry.has("requiresCompletion") or entry.requiresCompletion in completed)
+
+func next_difficulty(id: String) -> Dictionary:
+	for i in difficulties.levels.size():
+		if difficulties.levels[i].id == id:
+			return difficulties.levels[mini(i + 1, difficulties.levels.size() - 1)]
+	return difficulty()
 
 func stat_abbreviation(stat: String) -> String:
 	return str(STAT_NAMES.get(stat, stat)).left(3).to_upper()
@@ -51,6 +81,11 @@ func lookup(entries: Array, id: String) -> Dictionary:
 	for entry in entries:
 		if entry.id == id: return entry
 	return {}
+
+func enemy_level(map_level: int, stage: int) -> int:
+	var rule: Dictionary = journey_rules.rankGaps[stage - 1]
+	var gap = maxi(int(rule.minimum), ceili(map_level * float(rule.percent) / 100.0))
+	return maxi(int(journey_rules.minimumRank), map_level - gap)
 
 func encounter_variant(expedition: int, stage: int) -> String:
 	for rule in encounters:
@@ -85,7 +120,8 @@ func item(reference) -> Dictionary:
 		return {}
 	var scales = template.get("defenseScalesWithLevel", false)
 	for figure in template.figures:
-		if not figure.get("healthDamage", {}).get("stats", []).is_empty(): scales = true
+		for profile in preload("res://game/figure_actions.gd").profiles(figure):
+			if not profile.get("healthDamage", {}).get("stats", []).is_empty(): scales = true
 	var rank = clampi(int(parts[1]) if parts.size() > 1 else 1, 1, 999) if scales and not template.get("unarmed", false) else 1
 	var result = template.duplicate(true)
 	result.templateId = template.id
@@ -132,7 +168,14 @@ func equip_basics(f: Dictionary):
 		f.gear[equipment.slot] = equipment.id
 
 func max_hp(f: Dictionary) -> float:
-	return balance.health.base + balance.health.perVitality * (effective_stat(f, "vitality") - 1)
+	return balance.health.base + balance.health.perLevel * maxi(0, level(f) - 1) + balance.health.perVitality * (effective_stat(f, "vitality") - 1)
+
+func figure_healing(f: Dictionary, card: Dictionary) -> float:
+	return maxf(0, float(card.get("healing", 0)) + max_hp(f) * float(card.get("healingMaxHealthPercent", 0)) / 100.0)
+
+func armor_damage_factor(rating: float) -> float:
+	var protection = maxf(0, rating)
+	return (balance.armorK + (1.0 - balance.armorMaxReduction) * protection) / (balance.armorK + protection)
 
 func stat_total(f: Dictionary) -> int:
 	var total = 0
@@ -160,15 +203,6 @@ func portrait(f: Dictionary) -> Texture2D:
 	if selected.is_empty() and not portraits.is_empty(): selected = portraits[0]
 	return image(selected.get("src", ""))
 
-func framed_portrait(texture: Texture2D) -> Texture2D:
-	if texture == null or texture.get_width() != texture.get_height(): return texture
-	var crop: Dictionary = portrait_presentation.rectangle.squareCrop
-	var framed = AtlasTexture.new()
-	framed.atlas = texture
-	var side = float(texture.get_width())
-	framed.region = Rect2(crop.x * side, crop.y * side, crop.width * side, crop.height * side)
-	return framed
-
 func unarmed() -> Dictionary:
 	var equipment = basic_item("weapon")
 	if not equipment.is_empty(): return equipment
@@ -189,7 +223,7 @@ func speaker(id: String, player: Dictionary) -> Dictionary:
 	if not person.is_empty():
 		return {"name": binding.get("name", person.name), "texture": image(person.get("portrait", {}).get("src", "")), "side": person.dialogueSide}
 	var creature = lookup(creatures, binding.get("portrait", {}).get("id", ""))
-	return {"name": binding.get("name", ""), "texture": image(creature.get("dialoguePortrait", creature.get("portrait", {})).get("src", "")), "side": binding.get("portraitSide", "right")}
+	return {"name": binding.get("name", ""), "texture": image(creature.get("portrait", {}).get("src", "")), "side": binding.get("portraitSide", "right")}
 
 ## Permanent attributes remain the basis of level/upgrade prices. Skill bonuses
 ## are evaluated from their IDs, never baked into saves or applied again on load.

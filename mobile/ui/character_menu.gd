@@ -1,5 +1,6 @@
 extends ScrollContainer
-## Only the menu is allowed to scroll, including its settings/rules subpages.
+## Scrollable hero actions; Rules opens the shared illustrated tutorial.
+const TextMenuButton = preload("res://ui/menu_button.gd")
 const CharacterPage = preload("res://ui/character_page.gd")
 const GothicTheme = preload("res://ui/gothic_theme.gd")
 const Flags = preload("res://game/feature_flags.gd")
@@ -7,7 +8,6 @@ var host
 var owner_window
 var content = VBoxContainer.new()
 var padding = MarginContainer.new()
-var page = "menu"
 
 func configure(owner_ui, window):
 	host = owner_ui
@@ -22,8 +22,7 @@ func configure(owner_ui, window):
 	resized.connect(arrange)
 	show_menu()
 
-func clear(next: String):
-	page = next
+func clear():
 	for node in content.get_children():
 		content.remove_child(node)
 		node.queue_free()
@@ -31,11 +30,10 @@ func clear(next: String):
 	call_deferred("arrange")
 
 func action(caption: String, callback: Callable):
-	var button = Button.new()
-	button.text = caption
+	var button = TextMenuButton.new()
+	button.configure(caption, callback, host.data)
 	button.custom_minimum_size.y = 60
 	button.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	button.pressed.connect(callback)
 	content.add_child(button)
 	return button
 
@@ -47,51 +45,24 @@ func text(value: String):
 	return node
 
 func show_menu():
-	clear("menu")
+	clear()
 	action("Продолжить игру", owner_window.close)
-	action("Настройки", show_settings)
-	action("Правила", show_rules)
-	if Flags.enabled(Flags.DEBUG_TOOLS):
-		if not host.session.game.is_empty() and host.session.game.phase == "combat":
-			action("Победить врага", func():
-				owner_window.close()
-				host.debug_win())
-		action("Перейти карту…", host.show_debug_map_dialog)
 	action("Главное меню", func():
 		if host.persist():
 			owner_window.close()
 			host.show_home()
 		else: text(host.saves.error))
-
-func show_settings():
-	clear("settings")
-	action("Назад", show_menu)
-	var toggle = CheckButton.new()
-	toggle.text = "Анимация полосок ресурсов"
-	toggle.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	toggle.custom_minimum_size.y = 64
-	toggle.button_pressed = host.animated
-	content.add_child(toggle)
-	text("Плавное изменение здоровья и выносливости. При отключении шкалы обновляются мгновенно.")
-	var error = text("")
-	toggle.toggled.connect(func(enabled):
-		if not host.set_resource_animation(enabled):
-			toggle.set_pressed_no_signal(host.animated)
-			error.text = "Не удалось сохранить настройку."
-		else:
-			error.text = ""
-			host.refresh_character_header()
-			owner_window.pages[0].refresh())
+	action("Правила", show_rules)
+	if Flags.enabled(Flags.DEBUG_TOOLS):
+		var win = action("Победить врага", host.debug_win)
+		win.disabled = host.session.game.get("phase", "") != "combat"
+		action("Существа", func(): owner_window.close(); host.show_debug_catalog(true))
+		action("Экипировка", func(): owner_window.close(); host.show_debug_catalog(false))
+		action("Навыки", func(): owner_window.close(); host.show_skills_catalog())
+		action("Перейти на карту", host.show_debug_map_dialog)
 
 func show_rules():
-	clear("rules")
-	action("Назад", show_menu)
-	text(host.RULES_TEXT)
-
-func back() -> bool:
-	if page == "menu": return false
-	show_menu()
-	return true
+	host.show_combat_help(true)
 
 func arrange():
 	if not host: return
@@ -101,10 +72,10 @@ func arrange():
 	var inset = maxi(16, int((size.x - width) / 2))
 	padding.add_theme_constant_override("margin_left", inset)
 	padding.add_theme_constant_override("margin_right", inset)
-	padding.add_theme_constant_override("margin_top", int(size.y * 0.12) if page == "menu" else 20)
-	var height = CharacterPage.ACTION_HEIGHT * unit
-	content.add_theme_constant_override("separation", int(height * 0.30) if page == "menu" else 20)
+	padding.add_theme_constant_override("margin_top", int(size.y * 0.04))
+	var height = maxf(44, 48 * unit)
+	content.add_theme_constant_override("separation", maxi(4, roundi(6 * unit)))
 	for button in content.get_children():
 		if button is Button:
 			button.custom_minimum_size.y = height
-			GothicTheme.fit_button_text(button, width, 18 * unit)
+			button.add_theme_font_size_override("font_size", 2 * maxi(10, GothicTheme.button_text_size(18 * unit)))

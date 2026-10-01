@@ -9,7 +9,11 @@ class MemorySaves extends RefCounted:
 	func list_heroes(): return []
 	func write(_id, _session, _draft): return true
 class MemoryPreferences extends RefCounted:
-	var animated = false
+	var completed_difficulties: Array = []
+	func record_completed(ids):
+		for id in ids:
+			if id not in completed_difficulties: completed_difficulties.append(id)
+		return true
 	var last_hero = ""
 	func write(): return true
 func _initialize(): call_deferred("run")
@@ -103,9 +107,9 @@ func run():
 	for row in attributes.rows.values():
 		check(row.plus.visible and row.minus.visible and row.plus.disabled and row.minus.disabled, "Battle retains disabled stat controls")
 	shot("combat-attributes")
-	ui.show_battle_menu()
+	ui.show_info("Проверка окна", "Обычный информационный диалог")
 	await settle()
-	check(active() is Modal, "Battle menu uses ordinary dialog")
+	check(active() is Modal, "Information uses ordinary dialog")
 	active().cancel()
 	ui.show_debug_map_dialog()
 	await settle()

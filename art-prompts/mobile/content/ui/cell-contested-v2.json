@@ -1,0 +1,39 @@
+{
+  "asset": "mobile/content/ui/cell-contested-v2.png",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "prompt": "Edit image 1 contested tile: keep two equally wide vertical dark stone compartments, left player grey-green and right enemy ochre. REMOVE all exterior silver/grey metal rails and silver corner rivet plates, including top middle stud. Only the two colored continuous chamfered frames remain, as simple as image 2 enemy tile. Match each colored rail's absolute thickness to image 2 (about 3.5% of full square canvas width), even though each compartment is half width. Left rails much brighter light sage grey-green, midtones #A8B783 with silver highlights; right rails same ochre as image 2. Gothic distressed painted metal and dark stone, no glow/text/icons. Square canvas with two tall compartments. Transparent only outside chamfered outer corners; opaque stone interiors.",
+      "transparentBackground": true,
+      "references": [
+        {
+          "path": "mobile/content/ui/cell-contested-v2.png",
+          "role": "Passed to generator: edit target",
+          "sha256": "8b81d2ab5564769840478a60f7d81db0a2d1d21e75a80c2e79de04825731fa4b"
+        },
+        {
+          "path": "mobile/content/ui/cell-enemy-v2.png",
+          "role": "Passed to generator: reference geometry and stone",
+          "sha256": "e0b2ad1281aec4fb8c423c3debe61ab554adf0476a457f4304fc79dcea71dce5"
+        }
+      ],
+      "output": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-50aefa77-72f8-45ef-b288-479b529a9cc9.png",
+      "sha256": "1c829662b5cb585dcb3676c295b575f9fdbd5d06b043838e66d3598066c011f9"
+    },
+    {
+      "tool": "image_gen",
+      "date": "2026-10-01",
+      "prompt": "Edit this exact square game UI cell containing two equal tall vertical panels side by side. Preserve all geometry and the sage green LEFT frame and BOTH stone interiors exactly. Change ONLY the RIGHT panel's gold ochre metal frame to unmistakably dark crimson blood-red burnished steel with burgundy shadows, red highlights and tiny desaturated silver worn edges. No yellow or gold in right frame. Each half has exactly ONE border, no nested borders. Middle divider stays in exact center. Natural stone grain not stretched. True transparent outside clipped outer corners, otherwise opaque stone. Edge to edge square canvas, no padding. No letters, no symbols, no icons.",
+      "references": [
+        {
+          "path": "mobile/content/ui/cell-contested-v2.png",
+          "role": "edit target and material reference",
+          "sha256": "1c829662b5cb585dcb3676c295b575f9fdbd5d06b043838e66d3598066c011f9"
+        }
+      ],
+      "transparentBackground": true,
+      "output": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-e1a48a98-ef3d-4a7d-b74b-cab5cebea64b.png"
+    }
+  ],
+  "sha256": "0b164b62a55dbe17b3a8c7aa3c2243d63cff574cf0a6796b2309f0ef1bcd43c4"
+}

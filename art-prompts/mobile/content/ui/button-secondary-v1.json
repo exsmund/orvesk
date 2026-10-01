@@ -1,0 +1,10 @@
+{
+  "tool": "image_gen.imagegen",
+  "mode": "edit",
+  "transparentBackground": true,
+  "prompt": "Edit this exact game UI button. Preserve its canvas, transparent padding, silhouette, double GOLD frame, GOLD four-point ornaments and all geometry exactly. Change ONLY interior stone from warm brown to neutral dark charcoal GRAY. Keep its very soft matte LOW CONTRAST texture, subtle gentle mottling, no sharp cracks, no bright veins, no noisy highlights. Quiet gray stone body behind future UI text, not flat plastic. Gold frame remains gold. No text or baked text shadow. Transparent outside.",
+  "reference": "/Users/exsmund/.codex/generated_images/01a0dfd8-247d-7662-9197-dc693b1f8781/exec-5bdfb7da-89d1-4744-9b2a-293953067f37.png",
+  "referenceSha256": "d88f4938b41638cf3969c19cded72d82db6311dd9df5200d952dd4117859ad4a",
+  "output": "mobile/content/ui/button-secondary-v1.png",
+  "sha256": "080f575caba9aba13ba239af9e399ad34bce2d2908dbb9d10e5be2422fce2ecf"
+}

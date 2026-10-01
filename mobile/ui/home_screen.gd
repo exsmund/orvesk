@@ -3,12 +3,7 @@ extends Control
 signal continue_requested(id: String)
 signal create_requested
 signal heroes_requested
-signal settings_requested
-signal bestiary_requested
-signal skills_requested
-signal equipment_requested
-signal map_requested
-const Flags = preload("res://game/feature_flags.gd")
+const TextMenuButton = preload("res://ui/menu_button.gd")
 const GothicTheme = preload("res://ui/gothic_theme.gd")
 const DISPLAY_FONT = preload("res://content/fonts/Prata-Regular.ttf")
 var kicker = Label.new()
@@ -19,7 +14,7 @@ var divider: GradientTexture2D
 var divider_color: Color
 var layout_queued = false
 
-func configure(data, latest: Dictionary, failed: bool, has_hero: bool = false):
+func configure(data, latest: Dictionary, failed: bool, _has_hero: bool = false):
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	for node in [kicker, title, status]:
@@ -32,21 +27,13 @@ func configure(data, latest: Dictionary, failed: bool, has_hero: bool = false):
 	kicker.text = "Г Е Р О И"
 	title.text = "ОРВЕСКА"
 	status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	status.add_theme_font_size_override("font_size", 16)
+	status.add_theme_font_size_override("font_size", 12)
 	if not latest.is_empty():
 		add_action("Продолжить", func(): continue_requested.emit(latest.id), data)
 		status.text = "Последняя история · " + latest.payload.game.player.name
 	if failed: status.text = "Не все сохранения удалось открыть. Проверьте раздел «Герои»."
 	add_action("Новая игра", func(): create_requested.emit(), data)
 	add_action("Герои", func(): heroes_requested.emit(), data)
-	add_action("Настройки", func(): settings_requested.emit(), data)
-	if Flags.enabled(Flags.DEBUG_TOOLS):
-		add_action("Бестиарий", func(): bestiary_requested.emit(), data)
-		add_action("Экипировка", func(): equipment_requested.emit(), data)
-		add_action("Навыки", func(): skills_requested.emit(), data)
-		var jump = add_action("Перейти карту…", func(): map_requested.emit(), data)
-		jump.disabled = not has_hero
-		if not has_hero: jump.tooltip_text = "Сначала начните или продолжите игру"
 	divider_color = data.color("text-muted")
 	divider = GradientTexture2D.new()
 	divider.width = 256
@@ -65,22 +52,9 @@ func queue_arrange():
 	arrange.call_deferred()
 
 func add_action(text: String, callback: Callable, data):
-	var node = Button.new()
+	var node = TextMenuButton.new()
 	node.text = text
-	node.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-	node.add_theme_font_override("font", DISPLAY_FONT)
-	node.add_theme_color_override("font_color", data.color("text-primary"))
-	node.add_theme_color_override("font_hover_color", data.color("text-highlight"))
-	node.add_theme_color_override("font_pressed_color", data.color("text-highlight"))
-	for state in ["normal", "disabled", "pressed"]: node.add_theme_stylebox_override(state, StyleBoxEmpty.new())
-	for state in ["hover", "focus"]:
-		var accent = StyleBoxFlat.new()
-		accent.bg_color = data.color("background-start-screen-7")
-		accent.border_color = data.color("border-start-screen-border-block")
-		accent.border_width_top = 1
-		accent.border_width_bottom = 1
-		node.add_theme_stylebox_override(state, accent)
-	node.pressed.connect(callback)
+	node.configure(text, callback, data)
 	add_child(node)
 	menu_buttons.append(node)
 	return node

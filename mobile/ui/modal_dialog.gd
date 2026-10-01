@@ -22,6 +22,8 @@ var shade = ColorRect.new()
 var scroll = ScrollContainer.new()
 var content = VBoxContainer.new()
 var message = Label.new()
+var checkbox_text = ""
+var checkbox = preload("res://ui/option_checkbox.gd").new()
 var primary = Button.new()
 var secondary = Button.new()
 var requested_size = Vector2(430, 0)
@@ -38,6 +40,9 @@ func _init():
 	for node in [surface, shadow, header, scroll, secondary, primary, frame]: panel.add_child(node)
 	scroll.add_child(content)
 	content.add_child(message)
+	content.add_child(checkbox)
+	checkbox.hide()
+	checkbox.custom_minimum_size.y = 44
 	content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	content.add_theme_constant_override("separation", 14)
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
@@ -63,7 +68,7 @@ func popup_centered(dimensions: Vector2i = Vector2i.ZERO):
 		set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 		previous_focus = get_viewport().gui_get_focus_owner()
 		if is_instance_valid(previous_focus): previous_focus.release_focus()
-		var underlays = [host.margin, host.character_window, host.inspection_window]
+		var underlays = [host.margin, host.character_window, host.enemy_window, host.inspection_window]
 		for child in host.get_children():
 			if child != self and child.is_in_group("application_dialogs") and child.visible: underlays.append(child)
 		for node in underlays:
@@ -74,6 +79,7 @@ func popup_centered(dimensions: Vector2i = Vector2i.ZERO):
 		shade.color = Color(host.data.color("background-page"), 0.78)
 		shade.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		preload("res://ui/panel_shadow.gd").new().follow_panel(panel, host.data)
 		surface.configure(host.data, 26, 0.68)
 		surface.frame.hide()
 		surface.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -88,20 +94,21 @@ func popup_centered(dimensions: Vector2i = Vector2i.ZERO):
 		message.add_theme_font_override("font", GothicTheme.DISPLAY_FONT)
 		message.add_theme_font_size_override("font_size", 18)
 		message.add_theme_color_override("font_color", host.data.color("text-home"))
-		for button in [primary, secondary]:
-			button.add_theme_stylebox_override("focus", theme.get_stylebox("hover", "Button"))
+		checkbox.configure(host.data)
 		configured = true
 	requested_size = Vector2(dimensions) if dimensions.x > 0 else Vector2(430, 0)
 	header.title.text = title
 	message.text = dialog_text
 	message.visible = use_message and not dialog_text.is_empty()
+	checkbox.text = checkbox_text
+	checkbox.visible = not checkbox_text.is_empty()
 	primary.text = ok_button_text
 	secondary.text = cancel_button_text
 	secondary.visible = not cancel_button_text.is_empty()
-	if destructive:
-		primary.material = ShaderMaterial.new()
-		primary.material.shader = preload("res://shaders/destructive_button.gdshader")
-		primary.material.set_shader_parameter("tint", host.data.color("text-danger"))
+	primary.theme_type_variation = "DangerButton" if destructive else "Button"
+	secondary.theme_type_variation = "SecondaryButton"
+	for button in [primary, secondary]:
+		button.add_theme_stylebox_override("focus", theme.get_stylebox("hover", button.theme_type_variation))
 	show()
 	arrange()
 	(secondary if secondary.visible else primary).grab_focus()

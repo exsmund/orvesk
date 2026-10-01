@@ -38,15 +38,20 @@ func run():
 	root.gui_embed_subwindows = true
 	if not OS.get_cmdline_user_args().is_empty(): output = OS.get_cmdline_user_args()[0]
 	ui = load("res://scenes/main.tscn").instantiate()
+	ui.saves = preload("res://game/save_store.gd").new(OS.get_temp_dir().path_join("orvesk-combos-forecast-tests"))
+	# Fixed interaction fixture; live coefficient examples are in balance_rules.gd.
 	ui.session = preload("res://tests/campaign_driver.gd").new(ui.data)
 	root.add_child(ui)
 	await frame()
 	root.size = Vector2i(432, 1008)
 	ui.session.combat.rng.seed = 172
-	ui.session.create("Вереск", {"strength": 1, "agility": 1, "vitality": 1, "intelligence": 4}, ui.data.portraits[0].id)
+	ui.session.create("Вереск", {"strength": 1, "agility": 1, "vitality": 1, "intelligence": 4}, ui.data.portraits[0].id, "manageable")
 	ui.session.travel("fight-1")
 	var g = ui.session.game
 	var combat = ui.session.combat
+	# This numeric interaction fixture explicitly uses 0.6, independent of live difficulty tuning.
+	g.enemyDamageMultiplier = 0.6
+	combat.enemy_damage_multiplier = 0.6
 	# Small explicit fixtures make the interaction expectations independent of UI code.
 	var attack = {"id": "test-hit", "name": "Проверочный удар", "category": "attack", "shape": [[0, 0]], "staminaCost": 3, "staminaDamagePerCell": 3, "healthDamage": {"base": 6, "stats": [], "types": {"blunt": 1}}}
 	var guard = {"id": "test-block", "name": "Проверочный блок", "category": "defense", "shape": [[0, 0]], "blocks": true, "blockCost": 1}
@@ -123,25 +128,25 @@ func run():
 	ui.show_game()
 	await frame()
 	var screen = ui.combat_view
-	check(screen.header.bars[0].forecast_change == -6, "Health bar shows incoming damage before placing")
-	check(screen.header.bars[1].forecast_change == -3, "Stamina bar shows incoming stamina damage")
+	check(is_equal_approx(screen.header.bars[0].forecast_change, -3.6), "Health bar shows incoming damage before placing")
+	check(is_equal_approx(screen.header.bars[1].forecast_change, -1.8), "Stamina bar shows incoming stamina damage")
 	var source = screen.cards[0]
 	original = JSON.stringify(g)
 	rng = combat.rng.state
 	screen.start_drag(attack.id, source.get_global_rect().get_center(), source)
 	var point = screen.board.global_position + screen.drag_offset + Vector2(2, 2)
 	screen.move_drag(point)
-	check(screen.drop_valid and screen.forecast.cells[0].playerDamage == 3 and screen.forecast.cells[0].enemyDamage == 3, "Valid drag previews half-damage clash on both sides")
-	check(screen.header.bars[1].displayed_value == 5 and screen.header.bars[1].forecast_change == -1.5, "Bar separates placement cost from stamina damage")
+	check(screen.drop_valid and is_equal_approx(screen.forecast.cells[0].playerDamage, 1.8) and screen.forecast.cells[0].enemyDamage == 3, "Valid drag previews half-damage clash on both sides")
+	check(screen.header.bars[1].displayed_value == 5 and is_equal_approx(screen.header.bars[1].forecast_change, -0.9), "Bar separates placement cost from stamina damage")
 	check(screen.header.bars[2].forecast_change == -3 and screen.header.bars[3].forecast_change == -1.5, "Enemy bars use the same preview")
 	check(JSON.stringify(g) == original and combat.rng.state == rng and ui.draft.is_empty(), "Dragging preview is read-only")
 	await snapshot("forecast-drag")
 	screen.move_drag(Vector2(-100, -100))
-	check(screen.header.bars[0].forecast_change == -6 and screen.header.bars[2].forecast_change == 0, "Invalid hover returns to actual draft forecast")
+	check(is_equal_approx(screen.header.bars[0].forecast_change, -3.6) and screen.header.bars[2].forecast_change == 0, "Invalid hover returns to actual draft forecast")
 	screen.end_drag(Vector2(-100, -100), true)
-	check(ui.draft.is_empty() and screen.header.bars[0].forecast_change == -6, "Canceled drag resets forecast")
+	check(ui.draft.is_empty() and is_equal_approx(screen.header.bars[0].forecast_change, -3.6), "Canceled drag resets forecast")
 	ui.place_card(attack.id, 0, 0)
-	check(screen.header.bars[0].forecast_change == -3, "Committed placement refreshes forecast")
+	check(is_equal_approx(screen.header.bars[0].forecast_change, -1.8), "Committed placement refreshes forecast")
 	await snapshot("forecast-cover")
 	var cell_point = screen.board.get_global_rect().position + Vector2.ONE * screen.board.size.x / 6
 	var draft_before = ui.draft.duplicate(true)
@@ -150,16 +155,23 @@ func run():
 	touch(cell_point, false)
 	await frame()
 	var reports = ui.get_children().filter(func(c): return c is ModalDialog and c.visible)
-	check(reports.size() == 1 and reports[0].title.begins_with("Клетка 1"), "Hold opens cell report")
-	if not reports.is_empty():
+	check(reports.size() == 1 and reports[0].title == "Фигуры", "Hold opens figures occupying the cell")
+	for dialog in reports: dialog.close()
+	await frame()
+	ui.show_cell_details(screen.forecast.cells[0])
+	await frame()
+	reports = ui.get_children().filter(func(c): return c is ModalDialog and c.visible)
+	check(reports.size() == 1 and reports[0].title.begins_with("Клетка 1"), "Detailed calculation opens a cell report")
+	if not reports.is_empty() and reports[0].get("report") != null:
 		check(reports[0].report.text.contains("половина") and reports[0].report.text.contains("−3 здоровья"), "Cell report explains contact and actual losses")
+		check(reports[0].report.text.contains("Вы: −1.8 здоровья") and reports[0].report.text.contains("Множитель урона противника: ×0.6"), "Cell report explains the scaled enemy damage")
 		check(reports[0].size.x <= ui.size.x and reports[0].size.y <= ui.size.y, "Report fits narrow viewport")
 	check(ui.draft == draft_before, "Inspecting cell never removes or rotates figure")
 	await snapshot("forecast-cell")
 	root.size = Vector2i(896, 800)
 	await frame()
-	check(ui.draft == draft_before and ui.combat_view == screen and screen.forecast.cells[0].playerDamage == 3, "Unfold preserves placement and preview")
-	if not reports.is_empty(): check(reports[0].size.x <= ui.size.x and reports[0].size.y <= ui.size.y, "Report adapts on unfold")
+	check(ui.draft == draft_before and ui.combat_view == screen and is_equal_approx(screen.forecast.cells[0].playerDamage, 1.8), "Unfold preserves placement and preview")
+	if not reports.is_empty() and reports[0].get("report") != null: check(reports[0].size.x <= ui.size.x and reports[0].size.y <= ui.size.y, "Report adapts on unfold")
 	ui._notification(Control.NOTIFICATION_WM_GO_BACK_REQUEST)
 	await frame()
 	check(ui.screen == "game" and ui.get_children().filter(func(c): return c is ModalDialog and c.visible).is_empty(), "Back closes only cell report")

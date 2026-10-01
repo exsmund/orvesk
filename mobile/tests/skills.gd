@@ -13,10 +13,77 @@ func clash(combat, p, e, a, b = {}):
 	p.deck = {"hand":[a], "draw":[], "discard":[], "exchanged":false}
 	e.deck = {"hand":[b] if not b.is_empty() else [], "draw":[], "discard":[], "exchanged":false}
 	return combat.calculate({"player":p,"enemy":e}, {"player":[{"id":a.id,"x":0,"y":0,"rotation":0}],"enemy":[{"id":b.id,"x":0,"y":0,"rotation":0}] if not b.is_empty() else []}, {"player":{},"enemy":{}}, true)
+func test_bandage(data, session):
+	var combat = session.combat
+	combat.enemy_damage_multiplier = 1.0
+	var stats = {"strength":1,"agility":1,"vitality":1,"intelligence":1}
+	var p = session.fighter("Healing", stats)
+	var e = session.fighter("Incoming", stats)
+	var bandage = card(data, "bandage")
+	var attack = {"id":"test:hit","name":"Hit","shape":[[0,0]],"category":"attack","staminaCost":0,"healthDamage":{"base":3,"stats":[],"types":{"blunt":1}}}
+	p.hp = 12
+	var result = clash(combat, p, e, bandage, attack)
+	check(result.player.damage == 3 and result.player.healed == 6 and result.player.hpAfter == 15, "Bandage restores 20 percent of maximum after damage, once for three cells")
+	p.hp = 29
+	result = clash(combat, p, e, bandage)
+	check(result.player.healed == 1 and result.player.hpAfter == 30, "Bandage is capped by missing health")
+	p.hp = 30
+	check(clash(combat, p, e, bandage).player.healed == 0, "Full health gains nothing")
+	p.hp = 3
+	result = clash(combat, p, e, bandage, attack)
+	check(result.player.hpAfter == 0 and result.player.healed == 0, "Bandage cannot prevent lethal damage or resurrect")
+	p = session.fighter("Experienced", {"strength":10,"agility":1,"vitality":3,"intelligence":1})
+	p.hp = 10
+	result = clash(combat, p, e, bandage)
+	check(data.max_hp(p) == 100 and result.player.healed == 20 and result.player.hpAfter == 30, "Bandage grows with level and vitality: 20 of 100 HP")
+	p = session.fighter("Passive", stats)
+	p.skills = ["robust-health"]
+	p.hp = 12
+	check(clash(combat, p, e, bandage).player.healed == 12, "Bandage includes passive maximum-health bonuses")
+	p.skills = []
+	clash(combat, p, e, bandage)
+	var moves = {"player":[{"id":bandage.id,"x":0,"y":0,"rotation":0}],"enemy":[]}
+	var before = p.duplicate(true)
+	var rng_before = combat.rng.state
+	result = combat.calculate({"player":p,"enemy":e}, moves, {"player":{"compressed":bandage.id},"enemy":{}}, true)
+	check(result.player.healed == 6 and p == before and combat.rng.state == rng_before, "Compression and forecast do not multiply healing or mutate state")
+	var arbitrary = bandage.duplicate(true)
+	arbitrary.id = "test:percent-heal"
+	arbitrary.healing = 2
+	arbitrary.healingMaxHealthPercent = 10
+	check(clash(combat, p, e, arbitrary).player.healed == 5, "Healing is data-driven and supports flat plus percentage effects")
+	combat.enemy_damage_multiplier = 0.2
+	e.hp = 12
+	check(clash(combat, p, e, attack, bandage).enemy.healed == 6, "Enemy difficulty does not scale healing")
+	combat.enemy_damage_multiplier = 1.0
+	var model = preload("res://ui/inspection_model.gd").new(data, combat)
+	var text = "\n".join(model.formula_lines(p, bandage))
+	check("Лечение: 6 (20% максимального здоровья)" in text, "Skill card shows the actual heal and its percentage")
+	# A dealt skill from an older save updates without reshuffling or replacing cards.
+	session.create("Saved heal", {"strength":2,"agility":2,"vitality":1,"intelligence":2}, data.portraits[0].id)
+	var old_card = bandage.duplicate(true)
+	old_card.erase("healingMaxHealthPercent")
+	old_card.healing = 2
+	old_card.description = "Old healing"
+	old_card.skillId = "bandage"
+	old_card.id = "skill:bandage#1"
+	session.game.player.skills = ["bandage"]
+	session.game.player.hp = 10
+	session.game.player.deck = {"hand":[old_card.duplicate(true),attack.duplicate(true)],"draw":[old_card.duplicate(true)],"discard":[old_card.duplicate(true)],"exchanged":false}
+	var payload = {"game":session.game.duplicate(true),"draft":[{"id":old_card.id,"x":0,"y":0,"rotation":0}],"rngState":str(combat.rng.state)}
+	var restored = Session.new(data)
+	check(restored.restore(payload).is_empty(), "Restore dealt healing skill")
+	for pile in ["hand","draw","discard"]:
+		var saved_card = restored.game.player.deck[pile][0]
+		check(saved_card.id == old_card.id and data.figure_healing(restored.game.player, saved_card) == 6 and "20%" in saved_card.description, "Restored healing and description updated in " + pile)
+	check(restored.game.player.deck.hand[1] == attack and restored.combat.rng.state == combat.rng.state and restored.game.player.hp == 10, "Restoring healing preserves unrelated cards, RNG and HP")
+
 func _initialize():
 	var data = Catalog.new()
 	var session = Session.new(data)
 	var combat = session.combat
+	# Fixed unit fixture: five uncovered cells deal 5 × 3 HP and 5 × 1 SP.
+	combat.enemy_damage_multiplier = 1.0
 	var stats = {"strength":1,"agility":1,"vitality":1,"intelligence":1}
 	var p = session.fighter("Skills", stats)
 	var e = session.fighter("Enemy", stats)
@@ -50,13 +117,13 @@ func _initialize():
 	var rank = data.level(p)
 	p.hp = 12; p.stamina = 3
 	check(data.learn_skill(p,"robust-health").is_empty() and data.learn_skill(p,"tireless").is_empty(), "Learn passive skills")
-	check(data.max_hp(p) == 70 and data.max_stamina(p) == 10 and data.effective_stat(p,"vitality") == 3, "Bonus maximums")
+	check(data.max_hp(p) == 60 and data.max_stamina(p) == 10 and data.effective_stat(p,"vitality") == 3, "Bonus maximums")
 	check(p.stats == stats and data.level(p) == rank and p.hp == 12 and p.stamina == 3, "No base-level mutation or free healing")
 	combat.start_deck(p);check(p.stamina == 10, "Battle fills enhanced stamina")
 	p.stamina = 0
 	var rest = combat.calculate({"player":p,"enemy":e},{"player":[],"enemy":[]},{"player":{},"enemy":{}})
 	check(rest.player.staminaAfter == 10, "Skipping recovers enhanced maximum")
-	p.hp = 65
+	p.hp = 53
 	data.learn_skill(p,"bandage",0);data.learn_skill(p,"dodge",1)
 	check(data.max_hp(p) == 30 and p.hp == 30 and data.max_stamina(p) == 8, "Replacing removes bonuses and clamps HP")
 	p.skills = ["reaction"]
@@ -114,7 +181,8 @@ func _initialize():
 	for i in 3:
 		var restored = Session.new(data)
 		check(restored.restore(payload).is_empty(), "New skill save restores")
-		check(restored.game.player.stats.vitality == 1 and data.max_hp(restored.game.player) == 70 and restored.game.player.stamina == 10, "Restore does not stack or clamp bonuses")
+		check(restored.game.player.stats.vitality == 1 and data.max_hp(restored.game.player) == 60 and restored.game.player.stamina == 10, "Restore does not stack or clamp bonuses")
 		payload.game = restored.game.duplicate(true)
+	test_bandage(data, session)
 	print("SKILLS: %s (%d checks; %d failures)" % ["PASS" if failures.is_empty() else "FAIL", checks, failures.size()])
 	quit(0 if failures.is_empty() else 1)

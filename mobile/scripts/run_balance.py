@@ -96,7 +96,7 @@ def main():
     parser.add_argument('--godot', default=os.environ.get('GODOT_BIN') or shutil.which('godot') or shutil.which('godot4'))
     parser.add_argument('--samples', type=int, default=20)
     parser.add_argument('--seed', type=int, default=20260929)
-    parser.add_argument('--levels', default='1,5,10,20,50,100')
+    parser.add_argument('--levels', default='2,5,10,20,50,100')
     parser.add_argument('--builds', default='', help='Comma-separated build IDs; omit for all builds')
     parser.add_argument('--jobs', type=int, default=min(4, os.cpu_count() or 1))
     parser.add_argument('--max-rounds', type=int, default=500)

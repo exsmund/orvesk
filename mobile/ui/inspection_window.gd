@@ -10,6 +10,7 @@ const Divider = preload("res://ui/textured_divider.gd")
 const TabButton = preload("res://ui/character_tab_button.gd")
 const Card = preload("res://ui/inspection_card.gd")
 const Model = preload("res://ui/inspection_model.gd")
+const Flags = preload("res://game/feature_flags.gd")
 const FigureArt = preload("res://ui/figure_art.gd")
 const MIN_COMPARISON_COLUMN = 144.0
 const COMPARISON_GAP = 12
@@ -29,7 +30,6 @@ var groups: Array = []
 var column_slots: Array = []
 var warning = Label.new()
 var primary = Button.new()
-var secondary = Button.new()
 var close_button = TabButton.new()
 var footer_hint = Label.new()
 var header_separator = window_header.divider
@@ -51,7 +51,7 @@ func configure(owner_ui, entries: Array, settings: Dictionary = {}):
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	previous_focus = get_viewport().gui_get_focus_owner()
-	parent_window = host.character_window
+	parent_window = host.enemy_window if is_instance_valid(host.enemy_window) and host.enemy_window != self else host.character_window
 	had_parent = is_instance_valid(parent_window)
 	margin_mode = host.margin.process_mode
 	if had_parent:
@@ -65,6 +65,7 @@ func configure(owner_ui, entries: Array, settings: Dictionary = {}):
 	add_child(shade)
 	shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(panel)
+	preload("res://ui/panel_shadow.gd").new().follow_panel(panel, host.data)
 	panel.theme = host.theme.duplicate(false)
 	for kind in ["Label", "Button"]: panel.theme.set_color("font_color",kind,host.data.color("text-home"))
 	var surface = Surface.new()
@@ -108,9 +109,7 @@ func configure(owner_ui, entries: Array, settings: Dictionary = {}):
 	columns.add_theme_constant_override("h_separation",26)
 	columns.add_theme_constant_override("v_separation",24)
 	columns.sort_children.connect(func(): update_sticky_columns.call_deferred())
-	for button in [secondary,primary]:
-		panel.add_child(button)
-	secondary.pressed.connect(func(): canceled.emit())
+	panel.add_child(primary)
 	primary.pressed.connect(func():
 		if not primary.disabled and not closing: confirmed.emit())
 	panel.add_child(close_button)
@@ -151,16 +150,14 @@ func refresh(entries: Array, settings: Dictionary = {}):
 		for entry in entries_in_column:
 			var card = Card.new()
 			group.add_child(card)
-			var quote = options.get("requirements", {}) if entry.reference == options.get("requirements", {}).get("reference", "") and entry.status == "Предлагается" else {}
-			card.configure(host.data,renderer,model,entry,quote)
+			var quote = options.get("requirements", {}) if entry.reference == options.get("requirements", {}).get("reference", "") and entry.status == "Новое" else {}
+			card.configure(host.data,renderer,model,entry,quote, options.get("show_formulas", false) and Flags.enabled(Flags.DEBUG_TOOLS))
 			card.upgrade_requested.connect(func(request): upgrade_requested.emit(request))
 			cards.append(card)
 	title.text = options.get("title","Экипировка")
 	primary.text = options.get("action","")
 	primary.visible = not primary.text.is_empty()
 	primary.disabled = not options.get("eligible",true)
-	secondary.text = "Назад"
-	secondary.visible = primary.visible and entries.size() == 1
 	footer_hint.text = options.get("hint","")
 	footer_hint.visible = primary.visible and not footer_hint.text.is_empty()
 	footer_hint.add_theme_color_override("font_color",host.data.color("text-danger" if options.get("hint_danger",false) else "text-muted"))
@@ -183,15 +180,14 @@ func arrange():
 	if not host or not is_inside_tree(): return
 	var origin = Vector2(host.margin.get_theme_constant("margin_left"),host.margin.get_theme_constant("margin_top"))
 	var area = size - origin - Vector2(host.margin.get_theme_constant("margin_right"),host.margin.get_theme_constant("margin_bottom"))
-	panel.size = Vector2(minf(1120 if groups.size() > 1 else 380,host.AdaptiveLayout.content_width(area)),minf(900,area.y))
+	panel.size = Vector2(minf(1120 if groups.size() > 1 else options.get("max_width", 380),host.AdaptiveLayout.content_width(area)),minf(900,area.y))
 	panel.position = origin + (area - panel.size) / 2
 	if area.y > area.x * 1.65: panel.position.y = origin.y + area.y - panel.size.y
 	var head = window_header.arrange(panel.size)
-	var compact = primary.visible and secondary.visible and panel.size.x < 440
 	footer_hint.size.x = panel.size.x-40
 	var hint_height = maxf(18,footer_hint.get_minimum_size().y) if footer_hint.visible else 0.0
 	var hint_space = hint_height+8 if footer_hint.visible else 0.0
-	var foot = (140.0 if compact else 82.0)+hint_space
+	var foot = 82.0+hint_space
 	footer.position = Vector2(2,panel.size.y-foot-2)
 	footer.size = Vector2(panel.size.x-4,foot)
 	footer_separator.position = Vector2(12,footer.position.y)
@@ -219,16 +215,10 @@ func arrange():
 	close_separator.position = Vector2(close_button.position.x-8,y+4)
 	close_separator.size = Vector2(2,close_side-8)
 	if primary.visible:
-		var available = panel.size.x-40 if compact else panel.size.x-close_side-60
-		var width = (available-10)/2 if secondary.visible else available
-		secondary.position = Vector2(20,y)
-		secondary.size = Vector2(width,50)
-		primary.position = Vector2(30+width if secondary.visible else 20,y)
+		var width = panel.size.x-close_side-60
+		primary.position = Vector2(20,y)
 		primary.size = Vector2(width,50)
-		for button in [secondary,primary]: GothicTheme.fit_button_text(button,width)
-		if compact:
-			close_button.position = Vector2((panel.size.x-close_side)/2,y+58)
-			close_separator.hide()
+		GothicTheme.fit_button_text(primary,width)
 	else:
 		close_button.position.x = (panel.size.x-close_side)/2
 	shadow.material.set_shader_parameter("panel_size",panel.size)

@@ -12,8 +12,10 @@ var copies = Label.new()
 var model
 var surface: StyleBoxFlat
 var compact = false
+var detailed = false
 
-func configure(renderer, presenter, entry: Dictionary, card: Dictionary):
+func configure(renderer, presenter, entry: Dictionary, card: Dictionary, full_formula: bool = false):
+	detailed = full_formula
 	# Read-only figure panels must let touch drags reach the enclosing scroll.
 	for node in [self, layout, row, words]: node.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	model = presenter
@@ -26,6 +28,7 @@ func configure(renderer, presenter, entry: Dictionary, card: Dictionary):
 	layout.add_child(row)
 	row.add_theme_constant_override("separation", 10)
 	row.add_child(preview)
+	preview.opponent = entry.get("opponent", entry.get("kind", "") == "creature")
 	preview.configure(renderer, card, entry.fighter, {})
 	preview.interactive = false
 	preview.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -38,8 +41,9 @@ func configure(renderer, presenter, entry: Dictionary, card: Dictionary):
 	name_label.add_theme_font_size_override("font_size", 14)
 	name_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	words.add_child(formula)
-	formula.configure(renderer.data, model.formula_runs(entry.fighter, card))
-	copies.text = "В колоде: %d" % entry.copies.get(card.id, card.get("copies", 1))
+	formula.configure(renderer.data, model.figure_runs(entry.fighter, card, detailed))
+	copies.text = "Дополнительная клетка комбинации" if card.get("comboBonus",false) else "В колоде: %d" % entry.copies.get(card.id, card.get("copies", 1))
+	if card.get("comboConcentration",1) != 1: copies.text += "\nУрон исходной клетки ×%s" % model.number(card.comboConcentration)
 	copies.add_theme_font_size_override("font_size", 13)
 	copies.add_theme_color_override("font_color", renderer.data.color("text-muted"))
 	copies.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART

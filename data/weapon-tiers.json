@@ -1,0 +1,22 @@
+[
+  {
+    "tier": 0,
+    "name": "Безымянное",
+    "color": "text-weapon-tier-0"
+  },
+  {
+    "tier": 1,
+    "name": "Испытанное",
+    "color": "text-weapon-tier-1"
+  },
+  {
+    "tier": 2,
+    "name": "Редкое",
+    "color": "text-weapon-tier-2"
+  },
+  {
+    "tier": 3,
+    "name": "Легендарное",
+    "color": "text-weapon-tier-3"
+  }
+]

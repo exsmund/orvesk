@@ -1,0 +1,28 @@
+{
+  "asset": "images/basic-equipment/bare-feet-standing.png",
+  "sha256": "c0f9d782ebcc288b68cfb5e1146bb8e04944a87e6ed570452e406d9c3d60e512",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "date": "2026-09-29",
+      "prompt": "Use case: stylized-concept.\nAsset type: one production inventory equipment icon for the FEET slot of the dark fantasy game Heroes of Orvesk.\nPrimary request: a pair of ordinary adult human BARE FEET in a quiet, stable standing posture. Exactly two feet, each with five anatomically correct toes; both heels and forefeet bear weight on the same implied level plane. Short upright lower shins and ankles only, no knees or full person. Modest three-quarter view from slightly above and in front, both feet clearly separated by a small transparent gap, one foot set just slightly behind the other. Relaxed toes point mostly toward the viewer, with a slight natural outward angle. This is the neutral unequipped FEET item, not an attack: absolutely no raised foot, no forward kick, no visible sole thrust toward the viewer, no motion streaks.\nComposition: square 1024 by 1024, compact centered pair as a single readable icon, about 8 percent empty margin on all sides. Natural body proportions. Upper ends of the short shins dissolve gently into transparency in a painterly manner without exposing cross sections; no severed-limb appearance. No trousers, boots, sandals, socks, straps, bandages or jewelry. Small traces of travel dust on normal warm grey-brown skin, no wounds or blood.\nArt direction: dark gothic fantasy with strong sculptural volume, dry-brush painted texture, selective detail, deep charcoal-brown creases, muted warm skin and restrained bone-ivory highlights. Directional warm light comes from the upper left/front left, shadow on the right. Tactile weathered fantasy illustration; neither photorealistic photography nor a glossy 3D render, no cartoon or flat vector. Simple strong silhouette readable at 40–56 pixels.\nBackground: TRUE TRANSPARENT RGBA, alpha zero outside the pair and between the feet. The standing plane is only implied by the posture; do not draw a floor, ground, platform or cast shadow. Skin remains opaque, with clean edges. No black background, checkerboard, halo, colored rectangle, scenery, frame, UI, numbers, letters, labels or watermark. Output ONE finished asset, not a sheet.",
+      "transparentBackground": true,
+      "output": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-41acb638-b47b-47f3-98d8-fa9fbe87ba7d.png",
+      "references": [
+        {
+          "path": "images/basic-equipment/bare-foot.png",
+          "role": "Viewed for existing art style and distinction between action and equipment; not supplied to the generation tool.",
+          "sha256": "b04303f56bd8b31e9c73fe18af64b05425014d24e72a1e3f991523ec9ca38e2f"
+        },
+        {
+          "path": "images/footwear/wanderer-boots.png",
+          "role": "Viewed for existing art style and distinction between action and equipment; not supplied to the generation tool.",
+          "sha256": "7f0067f60e6bffc8d3d92ccd89d3efadd99fb3b4f57ff3616c6e76dd84f43657"
+        }
+      ],
+      "notes": [
+        "New equipment illustration for bare-foot. The kick action retains images/basic-equipment/bare-foot.png."
+      ]
+    }
+  ]
+}

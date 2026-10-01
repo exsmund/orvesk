@@ -1,0 +1,28 @@
+{
+  "asset": "images/ui/results/defeat-shield.png",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "prompt": "Use case: stylized-concept. Asset type: a single transparent defeat emblem for the mobile dark-fantasy game \"Герои Орвеска\", placed above the defeat title inside the game's existing stone-and-bronze UI.\nCreate ONE upright medieval heater shield, narrow pointed bottom, a shallow peaked upper edge, dark aged iron face and a thin riveted tarnished bronze rim. A large jagged diagonal fracture runs from the broken upper-right shoulder down through the center; a small missing upper-right chunk clearly communicates defeat. A torn, muted oxblood-red cloth hangs behind the shield on both sides, restrained and subordinate to the shield, with ragged ends.\nCentered isolated composition, almost frontal with a slight three-quarter turn, whole silhouette visible with about 8% transparent padding. Square 1024x1024 PNG RGBA. Genuinely transparent background, alpha zero outside the object and through gaps.\nStyle: gritty old gothic fantasy painted illustration, sculptural form, small broken dry-brush strokes following material, selectively detailed worn edges and rivets, deep rich shadow inside cracks, subtle warm brown oxidation. Low saturation graphite, aged bronze, bone-white narrow edge highlights and dark burgundy cloth. Strong directional light from above/front-left. Clear readable silhouette at 140px wide.\nNo scenery, ground, pedestal, separate frame or panel, vignette, cast shadow, background haze, text, letters, icons, numbers, logos, runes, heraldry, skulls, people or extra weapons. No shiny pristine gold, neon, glowing cracks, flat vector style, smooth 3D render or photographic product lighting. The shield and cloth remain opaque inside their silhouette; only the surrounding background and real holes are transparent.",
+      "transparentBackground": true,
+      "date": "2026-09-30",
+      "output": "/Users/exsmund/.codex/generated_images/01a0dfd8-247d-7662-9197-dc693b1f8781/exec-5272df8e-8ae4-47f2-9ce1-e45ae1e64254.png",
+      "sha256": "0884514ed48d3d308d03aa3cb6244bc99049555d82c7f9ae8ad900f27e9b9da2",
+      "references": [
+        {
+          "path": "refs/items/buckler.png",
+          "role": "Viewed by the agent for item materials and silhouette; not passed to the generator."
+        },
+        {
+          "path": "refs/image1.png",
+          "role": "Viewed by the agent for the project art direction; not passed to the generator."
+        },
+        {
+          "path": "refs/image2.png",
+          "role": "Viewed by the agent for the project art direction; not passed to the generator."
+        }
+      ]
+    }
+  ],
+  "sha256": "0884514ed48d3d308d03aa3cb6244bc99049555d82c7f9ae8ad900f27e9b9da2"
+}

@@ -1,0 +1,20 @@
+{
+  "asset": "mobile/content/ui/cell-enemy-v2.png",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "date": "2026-10-01",
+      "prompt": "Edit this exact square game UI cell asset. Change ONLY every gold/ochre metal part of its border into unmistakable rich dark crimson / blood-red burnished steel, burgundy base with red highlights and small desaturated silver worn edges. NO gold or yellow on the frame. Preserve original stone interior, roughness, square dimensions, frame thickness, bevels, cracks, chamfered corners and straight orthographic perspective. The border must contrast clearly with golden combo cells. Remove opaque material outside the chamfered outer silhouette; true transparent corner cutouts. Fill canvas edge to edge, no padding. No text or icons.",
+      "references": [
+        {
+          "path": "mobile/content/ui/cell-enemy-v2.png",
+          "role": "edit target and material reference",
+          "sha256": "e0b2ad1281aec4fb8c423c3debe61ab554adf0476a457f4304fc79dcea71dce5"
+        }
+      ],
+      "transparentBackground": true,
+      "output": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-1164aa43-d699-4c55-9136-0e93d1b7cd61.png"
+    }
+  ],
+  "sha256": "49f05517d8f9affb2ec96c91d46602151bb1f19aa3f3529592f4a0e86fcdf6d2"
+}

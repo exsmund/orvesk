@@ -29,6 +29,8 @@ func inspect(name: String):
 		root.size = pixels
 		await settle()
 		var view = ui.story_view
+		check(ui.overlay.color.a == 0, "dialogue background is undimmed")
+		check(view.panel_shadow.shading.shader == view.header.shading.shader, "dialogue uses header shadow")
 		if is_instance_valid(view.current_paragraph):
 			check(view.current_paragraph.position.y - view.text_scroll.scroll_vertical >= view.top_padding.custom_minimum_size.y - 1, "current speech starts below top fade " + name)
 		# Actions are allowed below the viewport until the player scrolls to them.

@@ -1,0 +1,10 @@
+{
+  "tool": "image_gen",
+  "prompt": "Extract/recreate ONLY the compact faceted diamond connector badge shown between fist and palm in second reference screenshot. Single symmetrical diamond rotated square, four triangular pale antique gold metal facets meeting at center, thick beveled dark aged bronze rim with worn gold raised edge, lit upper-left, same metal as board frame in references. Standalone small game UI icon centered filling 85 percent of square canvas. Clear bold silhouette at 18px. No chain, no circle, no stone, no glow halo, no background, no text. True transparent background.",
+  "asset": "images/ui/combos/diamond.png",
+  "references": [
+    "mobile/content/ui/cell-player-v2.png"
+  ],
+  "approvedMockup": "Макет пользователя: золотистый четырёхгранный ромб на общей границе, свечение в камне под действием.",
+  "transparentBackground": true
+}

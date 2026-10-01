@@ -1,0 +1,20 @@
+{
+  "asset": "images/ui/combos/contested.png",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "date": "2026-10-01",
+      "prompt": "Produce a dedicated square game UI cell with two equal narrow vertical panels, using reference as exact geometry and material guide. The LEFT panel is active combo: exactly ONE thin antique GOLD metal beveled border (replace all green entirely, no inner nested frame), dark graphite cracked stone with gentle warm golden light in natural fine cracks, low contrast golden glow in upper-middle behind future action art. The RIGHT panel has exactly ONE rich dark CRIMSON blood-red burnished steel border, plain dark graphite stone without glow. All frame rails same physical thickness horizontally and vertically, not compressed. IMPORTANT draw natural stone at same isotropic scale on both halves, do not squeeze a square texture into left rectangle. Leave bottom 15% of each stone interior especially dark, calm and clear for damage numbers. Straight thin central dividing rails, left gold and right crimson meet at exact center, no gap and no extra nested frame. Entire square fills canvas, four outer chamfered corners only transparent outside silhouette. No black outer backdrop, no text, no objects, no action icons, no diamonds. Crisp orthographic top-down flat UI asset.",
+      "references": [
+        {
+          "path": "mobile/content/ui/cell-contested-v2.png",
+          "role": "edit target and material reference",
+          "sha256": "1c829662b5cb585dcb3676c295b575f9fdbd5d06b043838e66d3598066c011f9"
+        }
+      ],
+      "transparentBackground": true,
+      "output": "/Users/exsmund/.codex/generated_images/01a0d555-2b12-7723-8f5d-25cee95fee70/exec-5715ef66-2aca-49f1-a84c-5605c68568fc.png"
+    }
+  ],
+  "sha256": "30a728cd6b0e609a673199461a87127d9d235c038a45923821b4e1514f9dd27e"
+}

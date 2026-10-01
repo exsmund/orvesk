@@ -45,9 +45,9 @@ func refresh():
 	for stat in rows:
 		rows[stat].refresh(host.session.MIN_STARTING_STAT, host.create_stats[stat] - host.session.MIN_STARTING_STAT, left > 0)
 	var hp = host.data.max_hp({"stats": host.create_stats})
-	health.configure(host.data, "Здоровье", hp, hp, "health", false)
+	health.configure(host.data, "Здоровье", hp, hp, "health")
 	var energy = host.data.balance.stamina.max
-	stamina.configure(host.data, "Выносливость", energy, energy, "stamina", false)
+	stamina.configure(host.data, "Выносливость", energy, energy, "stamina")
 	arrange()
 
 func layout_content():

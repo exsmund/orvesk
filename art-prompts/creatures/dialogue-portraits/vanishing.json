@@ -1,0 +1,9 @@
+{
+  "id": "vanishing",
+  "prompt": "Edit the reference into a square transparent PNG dialogue portrait. Keep this creature a PURE BLACK FLAT SHADOW SILHOUETTE with no visible face, no human features, no highlights, no lit fabric, no volume. Horned head and ragged shoulder outline turn LEFT. Zoom out so the entire bust shoulder outline fits within x10%-90%, crown y12%, implied eye height y30%, neck y50%, upper chest to bottom. Background genuinely transparent, silhouette black. No human reference, no new face or eyes.",
+  "source": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-5612c3ef-ab2b-4ae3-8b47-dcd40b5447cb.png",
+  "generator": "built-in imagegen",
+  "preparedOnly": true,
+  "target": "images/creatures/dialogue-portraits/vanishing.png",
+  "sha256": "ccf427cb34e5ac35f63a97d9b17c37e8b40bddd5bbd1720fdfda32bf3955a0cc"
+}

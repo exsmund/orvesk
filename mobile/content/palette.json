@@ -258,5 +258,9 @@
   "color-effect-resource-health-hot": "#c25226",
   "color-effect-resource-stamina-hot": "#c29e5c",
   "color-effect-resource-health-track": "#240905",
-  "color-effect-resource-stamina-track": "#261b0a"
+  "color-effect-resource-stamina-track": "#261b0a",
+  "color-text-weapon-tier-0": "#C2BEB2",
+  "color-text-weapon-tier-1": "#97B887",
+  "color-text-weapon-tier-2": "#91ADD9",
+  "color-text-weapon-tier-3": "#E0B76F"
 }

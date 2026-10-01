@@ -1,10 +1,16 @@
 extends RefCounted
 ## Pure rules: no nodes, rendering, filesystem or HTTP.
+const Actions = preload("res://game/figure_actions.gd")
 var catalog
+var combos
+# Session loads this from the hero save, independently of shared balance data.
+var enemy_damage_multiplier: float
 var rng = RandomNumberGenerator.new()
 
 func _init(data):
 	catalog = data
+	combos = preload("res://game/combos.gd").new(self)
+	enemy_damage_multiplier = float(data.difficulty().enemyDamageMultiplier)
 	rng.randomize()
 
 func shuffled(values: Array) -> Array:
@@ -27,10 +33,15 @@ func figures(f: Dictionary) -> Array:
 		var card = definition.duplicate(true)
 		card.id = "base:" + definition.id
 		card.sourceLevel = 1
+		card.sourceTier = 0
 		if card.get("naturalLevel", false):
-			var stats = card.get("healthDamage", {}).get("stats", [])
+			card.sourceTier = int(f.get("naturalWeaponTier", 0))
+			var stats: Array = []
+			for profile in Actions.profiles(card):
+				for stat in profile.get("healthDamage", {}).get("stats", []):
+					if stat not in stats: stats.append(stat)
 			if not stats.is_empty():
-				card.sourceLevel = 999
+				card.sourceLevel = clampi(int(f.get("naturalWeaponLevel", 1)), 1, 999)
 				for stat in stats: card.sourceLevel = mini(card.sourceLevel, catalog.effective_stat(f, stat))
 		result.append(card)
 	for slot in catalog.SLOTS:
@@ -41,7 +52,10 @@ func figures(f: Dictionary) -> Array:
 		for definition in equipment.figures:
 			var card = definition.duplicate(true)
 			card.id = equipment.id + ":" + definition.id
+			card.sourceKind = equipment.kind
+			card.sourceSlot = slot
 			card.sourceLevel = equipment.level
+			card.sourceTier = int(equipment.tier) if equipment.kind == "weapon" else 0
 			card.art = card.get("art", catalog.art.get(equipment.templateId, ""))
 			result.append(card)
 	for skill in catalog.skills:
@@ -64,6 +78,17 @@ func build_deck(f: Dictionary) -> Array:
 			copy.id = "%s#%d" % [card.id, i + 1]
 			result.append(copy)
 	return result
+
+func refresh_skill_healing(f: Dictionary):
+	# Preserve dealt IDs, placement, pile order and RNG when loading updated skills.
+	for pile in ["hand", "draw", "discard"]:
+		for card in f.get("deck", {}).get(pile, []):
+			var definition = catalog.lookup(catalog.skills, card.get("skillId", "")).get("figure", {})
+			if not definition.has("healingMaxHealthPercent"): continue
+			card.erase("healing")
+			if definition.has("healing"): card.healing = definition.healing
+			card.healingMaxHealthPercent = definition.healingMaxHealthPercent
+			card.description = definition.get("description", "")
 
 func fill_hand(f: Dictionary):
 	var deck = f.deck
@@ -118,12 +143,20 @@ func layer(f: Dictionary, placed: Array, mod: Dictionary = {}) -> Array:
 	for p in placed:
 		var card = card_by_id(f, p.id)
 		if card.is_empty(): continue
-		for cell in cells(card, p, mod):
-			if cell >= 0: result[cell] = card
+		var indices = cells(card, p, mod)
+		for i in indices.size():
+			if indices[i] >= 0: result[indices[i]] = placed_action(card,i,mod)
 	return result
 
+func placed_action(card: Dictionary, index: int, mod: Dictionary = {}) -> Dictionary:
+	return Actions.compressed(card) if mod.get("compressed", "") == card.id else Actions.action(card,index)
+
+func concentration(card: Dictionary, mod: Dictionary) -> float:
+	if card.has("cellComponents") or card.has("cellIndex"): return float(card.get("comboConcentration",1))
+	return float(card.shape.size()) if not card.get("comboBonus",false) and mod.get("compressed", "") == card.id else float(card.get("comboConcentration",1))
+
 func is_strike(card: Dictionary) -> bool:
-	return not card.is_empty() and card.get("category", "") == "attack"
+	return Actions.components(card).any(func(part): return part.get("category", "") == "attack")
 
 func is_guard(card: Dictionary) -> bool:
 	return card.get("blocks", false)
@@ -134,15 +167,7 @@ func contact(card: Dictionary, opposing: Dictionary) -> float:
 	return 0.5 if is_strike(opposing) else 1.0
 
 func cost(f: Dictionary, placed: Array, mod: Dictionary = {}, opposing: Array = []) -> Dictionary:
-	var attacks = 0.0
-	var blocks = 0.0
-	for p in placed:
-		var card = card_by_id(f, p.id)
-		attacks += card.get("staminaCost", 0)
-		for n in cells(card, p, mod):
-			if opposing.is_empty() or (n >= 0 and is_strike(opposing[n])):
-				blocks += card.get("blockCost", 0)
-	return {"attacks": attacks, "blocks": blocks, "total": attacks + blocks, "remaining": f.stamina - attacks - blocks}
+	return combos.expenses(f, placed, mod, opposing)
 
 func validate(f: Dictionary, placed: Array, mod: Dictionary = {}, opposing: Array = []) -> String:
 	var used: Array = []
@@ -158,12 +183,30 @@ func validate(f: Dictionary, placed: Array, mod: Dictionary = {}, opposing: Arra
 	if cost(f, placed, mod, opposing).remaining < 0: return "Не хватает выносливости."
 	return ""
 
-func parts(f: Dictionary, card: Dictionary) -> Array:
+func level_damage_factor(card: Dictionary) -> float:
+	return card.get("healthDamage", {}).get("stats", []).size() * catalog.balance.damage.levelPerRequiredStat \
+		* (1.0 + maxf(0, float(card.get("sourceTier", 0))) * catalog.balance.damage.get("perTier", 0.0))
+
+func unrounded_damage(f: Dictionary, card: Dictionary) -> float:
+	if card.has("cellComponents"):
+		var total = 0.0
+		for part in Actions.components(card): total += unrounded_damage(f,part)
+		return total
 	var profile = card.get("healthDamage", {})
-	if profile.is_empty(): return []
+	if profile.is_empty(): return 0.0
 	var invested = 0
 	for stat in profile.stats: invested += maxi(0, catalog.effective_stat(f, stat) - 1)
-	var total = maxi(0, roundi(profile.base + invested * catalog.balance.damage.perStatPoint + profile.stats.size() * maxi(0, int(card.get("sourceLevel", 1)) - 1) * catalog.balance.damage.levelPerRequiredStat))
+	return maxf(0.0, profile.base + invested * catalog.balance.damage.perStatPoint \
+		+ maxi(0, int(card.get("sourceLevel", 1)) - 1) * level_damage_factor(card))
+
+func parts(f: Dictionary, card: Dictionary) -> Array:
+	if card.has("cellComponents"):
+		var all: Array = []
+		for part in Actions.components(card): all.append_array(parts(f,part))
+		return all
+	var profile = card.get("healthDamage", {})
+	if profile.is_empty(): return []
+	var total = roundi(unrounded_damage(f, card))
 	var weight = 0.0
 	for n in profile.types.values(): weight += n
 	if weight <= 0: return []
@@ -184,6 +227,11 @@ func armor(f: Dictionary, type: String) -> float:
 	for reference in f.gear.values():
 		if reference: total += catalog.item(reference).get("defense", {}).get(type, 0)
 	return total
+
+func damage_multiplier(side: String, f: Dictionary = {}) -> float:
+	var species = catalog.lookup(catalog.creatures, f.get("creatureId", ""))
+	var species_multiplier = maxf(0.0, float(species.get("damageMultiplier", 1.0)))
+	return species_multiplier * (enemy_damage_multiplier if side == "enemy" else 1.0)
 
 ## Largest-remainder allocation in tenths, matching the browser. Cell losses add
 ## up to the actual capped loss, even for lethal hits and fractional armor damage.
@@ -213,44 +261,83 @@ func calculate(fighters: Dictionary, moves: Dictionary, mods: Dictionary, detail
 	var incoming = {"player": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "enemy": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]} if details else {}
 	var incoming_stamina = incoming.duplicate(true)
 	var breakdown = {"player": [{}, {}, {}, {}, {}, {}, {}, {}, {}], "enemy": [{}, {}, {}, {}, {}, {}, {}, {}, {}]} if details else {}
-	for side in ["player", "enemy"]: layers[side] = layer(fighters[side], moves[side], mods[side])
+	var contexts = {}
+	var expenses = {}
+	var refunds = {"player": 0.0, "enemy": 0.0}
+	for side in ["player", "enemy"]:
+		contexts[side] = combos.build(fighters[side], moves[side], mods[side])
+		layers[side] = contexts[side].layer
 	for side in ["player", "enemy"]:
 		var target = "enemy" if side == "player" else "player"
-		for p in moves[side]:
-			var card = card_by_id(fighters[side], p.id)
-			if not is_strike(card) and not card.get("counter", false): continue
-			var indices = cells(card, p, mods[side])
-			var concentration = float(card.shape.size()) / indices.size()
-			var per_cell = 0.0
-			var damage_parts: Array = []
-			for part in parts(fighters[side], card):
-				var rating = maxf(0, armor(fighters[target], part.type))
-				var mitigated = part.value * catalog.balance.armorK / (catalog.balance.armorK + rating)
-				per_cell += mitigated
-				if details: damage_parts.append({"type": part.type, "raw": part.value, "armor": rating, "afterArmor": mitigated})
-			for n in indices:
-				var factor = contact(card, layers[target][n]) * concentration
-				damage[target] += per_cell * factor
-				stamina_damage[target] += stamina_damage_per_cell(fighters[side], card) * factor
-				if details:
-					incoming[target][n] += per_cell * factor
-					incoming_stamina[target][n] += stamina_damage_per_cell(fighters[side], card) * factor
-					breakdown[side][n] = {"parts": damage_parts, "concentration": concentration, "contact": contact(card, layers[target][n]), "health": per_cell * factor, "stamina": stamina_damage_per_cell(fighters[side], card) * factor}
+		expenses[side] = combos.expenses(fighters[side],moves[side],mods[side],layers[target],contexts[side])
+		var multiplier = damage_multiplier(side, fighters[side])
+		for n in 9:
+			var card = layers[side][n]
+			var attacks: Array = []
+			var total_health = 0.0
+			var total_stamina = 0.0
+			for action in Actions.components(card):
+				if not is_strike(action) and not action.get("counter", false): continue
+				var q = concentration(action, mods[side])
+				var bonus_multiplier = 1.0
+				var ignore_armor = 0.0
+				for combo in contexts[side].combos:
+					if n not in combo.affected or not combos.active(combo,layers[target]): continue
+					if combos.role(fighters[side],action) == "weaponAttack": bonus_multiplier *= combo.effect.get("healthMultiplier",1.0)
+					ignore_armor = maxf(ignore_armor,combo.effect.get("armorIgnore",0.0))
+				var per_cell = 0.0
+				var damage_parts: Array = []
+				for part in parts(fighters[side], action):
+					var rating = maxf(0, armor(fighters[target], part.type)) * (1.0-ignore_armor)
+					var mitigated = part.value * catalog.armor_damage_factor(rating) * bonus_multiplier
+					per_cell += mitigated
+					if details: damage_parts.append({"type":part.type,"raw":part.value,"armor":rating,"afterArmor":mitigated})
+				var factor = contact(action, layers[target][n]) * q * multiplier
+				var hp = per_cell * factor
+				var sp = stamina_damage_per_cell(fighters[side], action) * factor
+				total_health += hp
+				total_stamina += sp
+				if details: attacks.append({"parts":damage_parts,"concentration":q,"contact":contact(action,layers[target][n]),"damageMultiplier":multiplier,"health":hp,"stamina":sp})
+			damage[target] += total_health
+			stamina_damage[target] += total_stamina
+			if details and not attacks.is_empty():
+				incoming[target][n] += total_health
+				incoming_stamina[target][n] += total_stamina
+				var summary = attacks[0].duplicate(true)
+				for extra in attacks.slice(1): summary.parts.append_array(extra.parts)
+				summary.health = total_health
+				summary.stamina = total_stamina
+				if attacks.size() > 1: summary.components = attacks
+				breakdown[side][n] = summary
+		for combo in contexts[side].combos:
+			if not combos.active(combo,layers[target]): continue
+			var extra = float(combo.effect.get("staminaDamage",0)) * multiplier
+			stamina_damage[target] += extra
+			if details and extra > 0:
+				# Attribute the once-per-combination effect to a successful kick cell.
+				for n in combo.groups[0].cells:
+					if contact(combo.groups[0].card,layers[target][n]) > 0:
+						incoming_stamina[target][n] += extra
+						breakdown[side][n].stamina += extra
+						break
+			refunds[side] += minf(combo.effect.get("staminaRefund",0),combo.groups[0].card.get("staminaCost",0))
 	var result = {}
 	for side in ["player", "enemy"]:
 		var f = fighters[side]
 		var target = "enemy" if side == "player" else "player"
-		var expense = cost(f, moves[side], mods[side], layers[target])
+		var expense = expenses[side]
 		var lost = minf(f.hp, snappedf(damage[side], 0.1))
 		var hp_after = maxf(0, snappedf(f.hp - lost, 0.1))
 		var healing = 0.0
-		for p in moves[side]: healing += card_by_id(f, p.id).get("healing", 0)
+		for p in moves[side]: healing += catalog.figure_healing(f, card_by_id(f, p.id))
 		var healed = minf(healing, catalog.max_hp(f) - hp_after) if hp_after > 0 else 0.0
 		hp_after += healed
 		var loss = minf(maxf(0, expense.remaining), stamina_damage[side])
 		var resting = moves[side].is_empty() and hp_after > 0
+		var refunded = minf(refunds[side],catalog.max_stamina(f)-maxf(0,expense.remaining-loss)) if hp_after > 0 else 0.0
 		result[side] = {"hpBefore": f.hp, "hpAfter": hp_after, "damage": lost, "healed": healed, "staminaLoss": loss,
-			"staminaAfter": catalog.max_stamina(f) if resting else maxf(0, expense.remaining - loss),
+			"staminaAfter": catalog.max_stamina(f) if resting else maxf(0, expense.remaining - loss) + refunded,
+			"comboRefund": refunded,
 			"exhausted": stamina_damage[side] > 0 and expense.remaining - stamina_damage[side] <= 0 and not resting,
 			"staminaBefore": f.stamina, "available": expense.remaining, "attackCost": expense.attacks, "blockCost": expense.blocks,
 			"staminaRecovered": catalog.max_stamina(f) - maxf(0, expense.remaining - loss) if resting else 0.0, "cost": expense.total}
@@ -267,8 +354,10 @@ func calculate(fighters: Dictionary, moves: Dictionary, mods: Dictionary, detail
 				"playerDamage": health.player[n], "enemyDamage": health.enemy[n],
 				"playerStaminaDamage": stamina.player[n], "enemyStaminaDamage": stamina.enemy[n],
 				"playerAttack": breakdown.player[n], "enemyAttack": breakdown.enemy[n],
-				"playerBlockCost": layers.player[n].get("blockCost", 0) if is_strike(layers.enemy[n]) else 0,
-				"enemyBlockCost": layers.enemy[n].get("blockCost", 0) if is_strike(layers.player[n]) else 0})
+				"playerCombos": combos.cell_combos(contexts.player,n,layers.enemy),
+				"enemyCombos": combos.cell_combos(contexts.enemy,n,layers.player),
+				"playerBlockCost": expenses.player.cells[n],
+				"enemyBlockCost": expenses.enemy.cells[n]})
 	return result
 
 ## Presentation may inspect only public moves. Never plan AI or advance RNG here.
@@ -276,12 +365,13 @@ func forecast(g: Dictionary, draft: Array) -> Dictionary:
 	var plan = g.clashPlan
 	var known = plan.stage == "reveal" or plan.preparer == "enemy"
 	var moves = plan.playerPlaced if plan.stage == "reveal" else draft
-	var opposing = layer(g.enemy, plan.enemyPlaced, plan.enemyModifiers) if known else []
+	var opposing = combos.build(g.enemy, plan.enemyPlaced, plan.enemyModifiers).layer if known else []
 	var expense = cost(g.player, moves, plan.playerModifiers, opposing)
 	if known:
 		var calc = calculate(g, {"player": moves, "enemy": plan.enemyPlaced}, {"player": plan.playerModifiers, "enemy": plan.enemyModifiers}, true)
 		return {"known": true, "cost": expense, "calculation": calc, "cells": calc.cells}
-	var own = layer(g.player, moves, plan.playerModifiers)
+	var own_context = combos.build(g.player,moves,plan.playerModifiers)
+	var own = own_context.layer
 	# Public, provisional damage against open cells. Reuse armor, compression,
 	# rounding and resource caps; never inspect the hidden placement or roll AI.
 	var estimate = calculate(g, {"player": moves, "enemy": []}, {"player": plan.playerModifiers, "enemy": {}}, true)
@@ -289,11 +379,12 @@ func forecast(g: Dictionary, draft: Array) -> Dictionary:
 	for n in 9:
 		var card = own[n]
 		var potential = 0.0
-		var multiplier = card.get("shape", []).size() if plan.playerModifiers.get("compressed", "") == card.get("id", "-") else 1
+		var multiplier = concentration(card,plan.playerModifiers) if not card.is_empty() else 1.0
 		if is_strike(card):
 			for part in parts(g.player, card): potential += part.value * multiplier
 		result.append({"index": n, "known": false, "player": card, "enemy": {}, "potential": potential,
 			"potentialStamina": stamina_damage_per_cell(g.player, card) * multiplier if is_strike(card) else 0,
+			"playerCombos": combos.cell_combos(own_context,n,[{},{},{},{},{},{},{},{},{}],false), "enemyCombos": [],
 			"previewDamage": estimate.cells[n].enemyDamage, "previewStaminaDamage": estimate.cells[n].enemyStaminaDamage})
 	return {"known": false, "cost": expense, "calculation": {}, "estimate": estimate, "cells": result}
 
@@ -309,38 +400,60 @@ func options(card: Dictionary, used: Array, mod: Dictionary) -> Array:
 				if valid: result.append(p)
 	return result
 
+func ai_score(g: Dictionary, moves: Array, known: bool) -> float:
+	var plan = g.clashPlan
+	var calc = calculate(g, {"player": plan.playerPlaced if known else [], "enemy": moves}, {"player": plan.playerModifiers if known else {}, "enemy": plan.enemyModifiers})
+	var weights = catalog.combos.ai
+	var score = calc.player.damage - calc.enemy.damage + calc.enemy.healed
+	score += weights.staminaWeight * (calc.player.staminaLoss - calc.enemy.staminaLoss)
+	score += weights.reserveWeight * calc.enemy.staminaAfter
+	if calc.player.hpAfter <= 0: score += weights.lethalScore
+	if calc.enemy.hpAfter <= 0: score -= weights.lethalScore * 1.2
+	if not known:
+		# Value public geometry only, never read the hero's hidden hand or moves.
+		score += combos.build(g.enemy,moves,plan.enemyModifiers).combos.size() * weights.setupWeight
+	return score
+
 func plan_ai(g: Dictionary) -> Array:
 	var plan = g.clashPlan
 	var known = plan.preparer == "player"
-	var opposing = layer(g.player, plan.playerPlaced, plan.playerModifiers) if known else []
-	var candidates: Array = []
-	for _attempt in 16:
-		var moves: Array = []
-		var used: Array = []
-		for card in shuffled(g.enemy.deck.hand):
-			var legal: Array = []
-			for p in shuffled(options(card, used, plan.enemyModifiers)):
-				if cost(g.enemy, moves + [p], plan.enemyModifiers, opposing).remaining >= 0: legal.append(p)
-			if legal.is_empty(): continue
-			var best: Dictionary = {}
-			var best_score = -INF
-			for p in legal.slice(0, 16):
-				var score = 0.0
-				if known:
-					var calc = calculate(g, {"player": plan.playerPlaced, "enemy": moves + [p]}, {"player": plan.playerModifiers, "enemy": plan.enemyModifiers})
-					score = calc.player.damage - calc.enemy.damage + 0.5 * (calc.player.staminaLoss - calc.enemy.staminaLoss) + rng.randf()
-				else:
-					for part in parts(g.enemy, card): score += part.value * card.shape.size()
-					score += rng.randf() * 3
-				if score > best_score:
-					best = p
-					best_score = score
-			moves.append(best)
-			used.append_array(cells(card, best, plan.enemyModifiers))
-		var calc = calculate(g, {"player": plan.playerPlaced if known else [], "enemy": moves}, {"player": plan.playerModifiers, "enemy": plan.enemyModifiers})
-		candidates.append({"moves": moves, "score": calc.player.damage - calc.enemy.damage + 0.5 * (calc.player.staminaLoss - calc.enemy.staminaLoss)})
-	candidates.sort_custom(func(a, b): return a.score > b.score)
-	return candidates[rng.randi_range(0, mini(2, candidates.size() - 1))].moves
+	var opposing = combos.build(g.player,plan.playerPlaced,plan.playerModifiers).layer if known else []
+	var width = int(catalog.combos.ai.beamWidth)
+	var beam: Array = [{"moves": [], "used": [], "ids": [], "score": ai_score(g,[],known)}]
+	var best = beam[0]
+	# Search across card order too: a defensive first piece may enable a strong
+	# second or third piece. Keep partial plans and legal rest as candidates.
+	for depth in g.enemy.deck.hand.size():
+		var next: Array = []
+		var seen = {}
+		for candidate in beam:
+			for card in g.enemy.deck.hand:
+				if card.id in candidate.ids: continue
+				var unique = {}
+				var placements = options(card,candidate.used,plan.enemyModifiers)
+				for p in placements:
+					var indices = cells(card,p,plan.enemyModifiers)
+					indices.sort()
+					# A symmetric outline can still have different attack/guard orientations.
+					var geometry = str(cells(card,p,plan.enemyModifiers)) if Actions.mixed(card) else str(indices)
+					if unique.has(geometry): continue
+					unique[geometry] = true
+					var moves = candidate.moves + [p]
+					var key_parts: Array = []
+					for move in moves: key_parts.append(str(move))
+					key_parts.sort()
+					var key = str(key_parts)
+					if seen.has(key): continue
+					seen[key] = true
+					if cost(g.enemy,moves,plan.enemyModifiers,opposing).remaining < 0: continue
+					var score = ai_score(g,moves,known)
+					var entry = {"moves":moves,"used":candidate.used+indices,"ids":candidate.ids+[card.id],"score":score}
+					next.append(entry)
+					if score > best.score: best = entry
+		if next.is_empty(): break
+		next.sort_custom(func(a,b): return a.score > b.score)
+		beam = next.slice(0,width)
+	return best.moves
 
 func prepare(g: Dictionary):
 	if g.phase != "combat" or g.has("clashPlan"): return
@@ -369,7 +482,7 @@ func submit(g: Dictionary, placed: Array) -> String:
 	if g.phase != "combat" or not g.has("clashPlan"): return "Бой завершён."
 	var p = g.clashPlan
 	if p.stage != "reveal":
-		var opposing = layer(g.enemy, p.enemyPlaced, p.enemyModifiers) if p.preparer == "enemy" else []
+		var opposing = combos.build(g.enemy, p.enemyPlaced, p.enemyModifiers).layer if p.preparer == "enemy" else []
 		var error = validate(g.player, placed, p.playerModifiers, opposing)
 		if error: return error
 		p.playerPlaced = placed.duplicate(true)
@@ -414,6 +527,10 @@ func exchange(g: Dictionary, id: String) -> String:
 	return ""
 
 func stamina_damage_per_cell(f: Dictionary, card: Dictionary) -> float:
+	if card.has("cellComponents"):
+		var total = 0.0
+		for part in Actions.components(card): total += stamina_damage_per_cell(f,part)
+		return total
 	var profile = card.get("staminaDamage", {})
 	if profile.is_empty(): return card.get("staminaDamagePerCell", 0)
 	var invested = 0

@@ -9,12 +9,14 @@
     ],
     "adapter": "mobile/game/campaign.gd",
     "rules": "data/story-gameplay.json",
-    "note": "Godot использует весь каталог. Браузер пока сохраняет прежние четыре значка."
+    "note": "Godot использует весь каталог."
   },
   "artDirection": "docs/ART_DIRECTION.md",
   "presentation": {
     "shape": "circle",
     "frame": "/map-points/frame.png",
+    "rim": "/map-points/rim.png",
+    "background": "/map-points/background.png",
     "symbolBox": {
       "x": 0.19,
       "y": 0.19,
@@ -29,8 +31,8 @@
     ],
     "minimumDisplaySize": 48,
     "shadow": "0 2px 3px #000b",
-    "labelPolicy": "showNameOrStoryLabel; tooltipAndAccessibleNameRequired",
-    "statePolicy": "sameIconWithExternalStateMarker; neverTintWholeIconOrReduceOpacity",
+    "labelPolicy": "tooltipAndAccessibleNameRequired; selectedPointDetails",
+    "statePolicy": "completedGrayscaleWithRoundCheck; skippedGrayscale; futureEmptyFrame; currentHeroPortrait; selectedGoldShadow",
     "unknownPolicy": "doNotShowHiddenCharacterIdentityOrContentsOfCargo",
     "backing": {
       "color": "#111513",

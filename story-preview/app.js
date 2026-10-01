@@ -7,7 +7,7 @@ let config,run,catalog,creatures,portraits,heroPortrait;let treeButtons=new Map(
 const storage='duelyant-story-preview-v1';
 function act(fn){try{$('error').textContent='';fn();render();}catch(e){$('error').textContent=e.message;}}
 function save(){try{localStorage.setItem(storage,JSON.stringify({fingerprint:{sources:config.sources,revision:config.revision},run,heroPortrait}));}catch{$('error').textContent='Не удалось сохранить проверку в браузере.';}}
-function creatureDialoguePortrait(id){const c=creatures.find(c=>c.id===id);return c?.dialoguePortrait||c?.portrait;}
+function creatureDialoguePortrait(id){const c=creatures.find(c=>c.id===id);return c?.portrait;}
 function speakerInfo(node){
  const binding=config.speakers[node.speaker];if(!binding)return null;
  const char=binding.characterId?catalog.find(c=>c.id===binding.characterId):binding;

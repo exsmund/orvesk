@@ -17,7 +17,11 @@ func _initialize():
 				f.creatureId = id
 				f.style = "duelist"
 				session.combat.rng.seed = seed
-				session.enemy_gear(f)
+				var hero = f.duplicate(true)
+				hero.erase("creatureId")
+				hero.gear.weapon = "shortsword@%d" % strength
+				hero.gear.shield = "kite-shield@%d" % strength
+				session.enemy_gear(f, hero)
 				check(f.gear.weapon != null, id + ": weapon required")
 				var weapon = data.item(f.gear.weapon)
 				check(data.can_use(f, weapon), id + ": wearable weapon")

@@ -17,7 +17,7 @@ OUT = MOBILE / 'content' / 'generated'
 MIPMAP_ART = {'/ui/logos-shards.png'}
 CATALOGS = ['weapons', 'shields', 'armor', 'footwear', 'jewelry', 'basic-equipment', 'base-actions', 'skills', 'creatures',
             'hero-portraits', 'maps', 'journey-encounters', 'item-art', 'combat-balance', 'damage-types',
-            'story', 'characters', 'story-gameplay', 'map-points', 'journey-rules', 'portrait-presentation']
+            'story', 'characters', 'story-gameplay', 'map-points', 'journey-rules', 'portrait-presentation', 'combat-help', 'difficulties', 'weapon-tiers', 'result-art', 'combos']
 
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
@@ -32,6 +32,17 @@ def main():
     (OUT / "story-runtime.json").write_text(json.dumps(runtime, ensure_ascii=False, indent=2) + "\n")
     manifest = {}
     def collect(value):
+        if isinstance(value, dict) and 'cellActions' in value:
+            cells, shape = value['cellActions'], value.get('shape', [])
+            if not isinstance(cells, list) or not cells or len(cells) != len(shape):
+                raise ValueError('cellActions must match shape: ' + str(value.get('id')))
+            allowed = {'category', 'name', 'description', 'art', 'blocks', 'evades', 'counter',
+                       'blockCost', 'healthDamage', 'staminaDamage', 'staminaDamagePerCell'}
+            for cell in cells:
+                if not isinstance(cell, dict) or cell.get('category') not in ('attack', 'defense', 'support') or set(cell) - allowed:
+                    raise ValueError('Invalid cell action profile: ' + str(value.get('id')))
+                if cell.get('blockCost', 0) < 0 or (cell.get('blockCost', 0) and not cell.get('blocks', False)):
+                    raise ValueError('blockCost requires blocks: ' + str(value.get('id')))
         if isinstance(value, str) and value.startswith('/') and value.endswith(('.png', '.webp', '.jpg')):
             paths.add(value)
         elif isinstance(value, list):

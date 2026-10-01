@@ -1,0 +1,20 @@
+{
+  "asset": "images/map-points/rim.png",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "date": "2026-09-29",
+      "prompt": "Edit target is the supplied circular map icon. Generate a separate reusable RIM ONLY asset, square PNG RGBA. Preserve the exact reference circle center, outer diameter, silver aged metal, fine warm inner lip, four rivets, front-on view, lighting and thin rim proportions. Remove the entire dark interior disk to TRUE ZERO ALPHA transparency. Exterior also true transparent. Only the metal circular annulus remains, empty hole completely transparent. No shadow, no symbols, no text, no glow. This will overlay any portrait and a separately supplied dark background. Match reference composition precisely, circular outer edge about 92% of canvas, centered. Do not fill hole with black or checkerboard.",
+      "transparentBackground": true,
+      "references": [
+        {
+          "path": "images/map-points/frame.png",
+          "role": "Edit target passed to image_gen"
+        }
+      ],
+      "output": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-2af2cf7e-0c44-436a-9eb9-0763609546d0.png",
+      "sha256": "73f5c4f77bc0d9fdffdc75ee319e52f132cd3e292eca3d48ab09e0faa8236495"
+    }
+  ],
+  "sha256": "73f5c4f77bc0d9fdffdc75ee319e52f132cd3e292eca3d48ab09e0faa8236495"
+}

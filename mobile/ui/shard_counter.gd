@@ -2,6 +2,7 @@ extends Control
 ## Number first; the visible shard silhouette is slightly taller than the visible numerals, centered on their ink bounds.
 const GothicTheme = preload("res://ui/gothic_theme.gd")
 var prefix = ""
+var text_shadow = Color.TRANSPARENT
 var alignment = HORIZONTAL_ALIGNMENT_RIGHT
 var amount = 0
 # Presentation only; amount always remains the committed balance.
@@ -66,5 +67,8 @@ func _draw():
 	var baseline = size.y / 2 - bounds.get_center().y
 	number_rect = Rect2(Vector2(left, baseline + bounds.position.y), Vector2(width, height))
 	icon_rect = Rect2(Vector2(left + width + 8, number_rect.get_center().y - icon_height / 2), extent)
+	if text_shadow.a > 0:
+		preload("res://ui/button_text_shadow.gd").draw_oval(get_canvas_item(), number_rect, fitted, text_shadow)
+		preload("res://ui/button_text_shadow.gd").draw_string(get_canvas_item(), font, Vector2(left, baseline + 1.5), text, fitted, text_shadow)
 	draw_string(font, Vector2(left, baseline), text, HORIZONTAL_ALIGNMENT_LEFT, -1, fitted, tint)
 	draw_texture_rect(icon, icon_rect, false)

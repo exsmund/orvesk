@@ -1,0 +1,10 @@
+{
+  "tool": "image_gen.imagegen",
+  "mode": "edit",
+  "transparentBackground": true,
+  "prompt": "Edit this exact game button asset. Keep its entire transparent canvas, shape, dimensions, double GOLD frame, bright gold rails, concave corners and two four-point gold end ornaments unchanged. Change ONLY the interior brown stone material: make it a MUCH SOFTER low-contrast dark warm brown/bronze stone. Remove sharp black cracks, bright veins, speckled highlights and noisy contrast. Very subtle broad mottled mineral texture, matte, gently lit, quiet behind readable UI text. Retain fine stone texture, not flat color, but reduce interior texture contrast by about 75%. No text, no baked text shadow, no new symbols. Fully transparent outside the button. Same long horizontal shape and padding.",
+  "reference": "mobile/content/ui/button-gold-v1.png",
+  "referenceSha256": "7adb32904873afb1188317fd93237c0b2f022a8b0dc3cc7226910d523f93b366",
+  "output": "mobile/content/ui/button-gold-v1.png",
+  "sha256": "d88f4938b41638cf3969c19cded72d82db6311dd9df5200d952dd4117859ad4a"
+}

@@ -7,7 +7,7 @@ var figure_rows: Array = []
 var title_label: Label
 var upgrade_button = preload("res://ui/requirement_upgrades.gd").new()
 var requirement_rows: Array = []
-var artwork = preload("res://ui/inspection_art.gd").new()
+var artwork
 var data
 var compact = false
 var responsive_text: Array = []
@@ -32,10 +32,10 @@ func separator():
 
 func status_badge():
 	if entry.status.is_empty(): return
-	var offered = entry.status == "Предлагается"
-	var tint = data.color("border-journey-map-2-2" if offered else "border-action-figures")
+	var offered = entry.status == "Новое"
+	var tint = data.color("border-action-figures" if offered else "border-journey-map-2-2")
 	var style = StyleBoxFlat.new()
-	style.bg_color = Color(data.color("background-action-figures-2" if offered else "background-action-figures"),0.5)
+	style.bg_color = Color(data.color("background-action-figures" if offered else "background-action-figures-2"),0.5)
 	style.border_color = tint
 	style.set_border_width_all(1)
 	style.content_margin_left = 12
@@ -54,17 +54,22 @@ func status_badge():
 	caption.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	badge.add_child(caption)
 
-func configure(catalog, renderer, presenter, definition: Dictionary, upgrade_quote: Dictionary = {}):
+func configure(catalog, renderer, presenter, definition: Dictionary, upgrade_quote: Dictionary = {}, detailed: bool = false):
 	data = catalog
 	entry = definition
 	size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	add_theme_constant_override("separation", 12)
 	status_badge()
+	artwork = preload("res://ui/portrait_art.gd").new() if entry.kind == "creature" else preload("res://ui/inspection_art.gd").new()
 	add_child(artwork)
 	artwork.configure(data,entry.texture)
+	if entry.kind == "creature":
+		resized.connect(arrange_portrait)
+		arrange_portrait()
 	title_label = text(entry.title, 24, true)
-	text(entry.description, 14, false, true)
+	title_label.add_theme_color_override("font_color", data.color(entry.get("titleColor", "text-home")))
 	text(entry.metadata, 15, false, true)
+	text(entry.description, 14, false, true)
 	separator()
 	if entry.has("stats"):
 		text("Базовый профиль без экипировки", 15, false, true)
@@ -124,7 +129,7 @@ func configure(catalog, renderer, presenter, definition: Dictionary, upgrade_quo
 		for card in entry.figures:
 			var figure = Figure.new()
 			add_child(figure)
-			figure.configure(renderer, presenter, entry, card)
+			figure.configure(renderer, presenter, entry, card, detailed)
 			figure_rows.append(figure)
 
 func set_compact(value: bool):
@@ -138,3 +143,7 @@ func set_compact(value: bool):
 		item[0].add_theme_font_size_override("font_size", font_size)
 	upgrade_button.set_compact(compact)
 	for figure in figure_rows: figure.set_compact(compact)
+	if entry.kind == "creature": arrange_portrait()
+
+func arrange_portrait():
+	artwork.custom_minimum_size.y = minf(360, maxf(172, size.x))

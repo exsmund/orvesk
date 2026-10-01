@@ -5,7 +5,8 @@ var data
 var combat
 var textures: Dictionary = {}
 var current_art: Dictionary = {}
-var tile = preload("res://content/ui/board-tile-v1.png")
+const PLAYER_FRAME = preload("res://content/ui/figure-player-frame.png")
+const ENEMY_FRAME = preload("res://content/ui/figure-enemy-frame.png")
 
 func _init(catalog, rules):
 	data = catalog
@@ -41,11 +42,6 @@ func box(bg: String, border: String, radius: int = 3) -> StyleBoxFlat:
 	style.set_corner_radius_all(radius)
 	return style
 
-func outline(token: String) -> StyleBoxFlat:
-	var style = box("base-transparent", token, 3)
-	style.set_border_width_all(2)
-	return style
-
 func number(value: float) -> String:
 	return str(snappedf(value, 0.1)).trim_suffix(".0")
 
@@ -58,7 +54,7 @@ func symbol(card: Dictionary) -> String:
 	if card.get("counter", false): return "↩"
 	if card.get("blocks", false): return "▣"
 	if card.get("evades", false): return "↗"
-	if card.get("healing", 0) > 0: return "+"
+	if card.get("healing", 0) > 0 or card.get("healingMaxHealthPercent", 0) > 0: return "+"
 	return "×"
 
 func texture_for(card: Dictionary) -> Texture2D:
@@ -67,15 +63,31 @@ func texture_for(card: Dictionary) -> Texture2D:
 	var source = key.get_slice(":", 0)
 	if key.contains(":") and source.contains("@") and source.get_slice("@", 1).is_valid_int():
 		key = source.get_slice("@", 0) + key.substr(source.length())
-	var path: String = current_art.get(key, card.get("art", ""))
-	if card.get("skillId", ""):
+	var path: String = card.get("cellArt", current_art.get(key, card.get("art", "")))
+	if card.get("skillId", "") and not card.has("cellArt"):
 		var skill = data.lookup(data.skills, card.skillId)
 		path = skill.get("figure", {}).get("art", skill.get("art", path))
 	# Keep textures alive until the canvas command is rendered, not only during _draw.
 	if not textures.has(path): textures[path] = load(path) if path.begins_with("res://") else data.image(path)
 	return textures[path]
 
+func display_actions(card: Dictionary) -> Array:
+	var result: Array = []
+	var seen: Array = []
+	for action in combat.Actions.components(card):
+		var key = str(action.get("cellArt",action.get("art","")))+symbol(action)
+		if key not in seen:
+			seen.append(key)
+			result.append(action)
+	return result
+
 func source(canvas: CanvasItem, rect: Rect2, card: Dictionary):
+	if card.has("cellComponents"):
+		var actions = display_actions(card)
+		for i in actions.size():
+			var part_rect = Rect2(rect.position+Vector2(0,rect.size.y*i/actions.size()),Vector2(rect.size.x,rect.size.y/actions.size()))
+			source(canvas,part_rect,actions[i])
+		return
 	var texture = texture_for(card)
 	if texture:
 		var extent = texture.get_size() * minf(rect.size.x / texture.get_width(), rect.size.y / texture.get_height())
@@ -97,18 +109,20 @@ func power(canvas: CanvasItem, rect: Rect2, hp: float, stamina: float):
 	canvas.draw_string(font, badge.position + Vector2(3, font_size), a, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, data.color("text-danger"))
 	canvas.draw_string(font, badge.position + Vector2(aw + 6, font_size), b, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, data.color("text-success"))
 
-func piece(canvas: CanvasItem, card: Dictionary, fighter: Dictionary, rotation: int, mod: Dictionary, origin: Vector2, pitch: float, selected: bool = false, cost_badge: bool = true):
+func piece(canvas: CanvasItem, card: Dictionary, fighter: Dictionary, rotation: int, mod: Dictionary, origin: Vector2, pitch: float, selected: bool = false, cost_badge: bool = true, opponent: bool = false):
 	var cells = points(card, rotation, mod)
-	var hp = damage(fighter, card) * card.shape.size() / cells.size()
-	var stamina = combat.stamina_damage_per_cell(fighter, card) * float(card.shape.size()) / cells.size()
-	for point in cells:
-		var rect = Rect2(origin + point * pitch, Vector2.ONE * (pitch - CELL_GAP))
-		canvas.draw_texture_rect(tile, rect, false)
-		canvas.draw_style_box(outline("border-action-figures-2" if selected else "border-action-figures"), rect.grow(-1))
-		source(canvas, rect.grow(-2), card)
+	var maximum = float(card.get("staminaCost",0))
+	for i in cells.size():
+		var action = combat.placed_action(card,i,mod)
+		var q = combat.concentration(action,mod)
+		var hp = damage(fighter,action)*q
+		var stamina = combat.stamina_damage_per_cell(fighter,action)*q
+		maximum += action.get("blockCost",0)
+		var rect = Rect2(origin + cells[i] * pitch, Vector2.ONE * (pitch - CELL_GAP))
+		canvas.draw_texture_rect(ENEMY_FRAME if opponent else PLAYER_FRAME, rect, false, Color(1.15, 1.15, 1.15) if selected else Color.WHITE)
+		source(canvas, rect.grow(-rect.size.x * 0.075), action)
 		power(canvas, rect.grow(-1), hp, stamina)
 	var cost = card.get("staminaCost", 0)
-	var maximum = cost + card.get("blockCost", 0) * cells.size()
 	if cost_badge and maximum > 0:
 		var text = number(cost) + ("–" + number(maximum) if maximum > cost else "")
 		var width = ThemeDB.fallback_font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, 13).x + 8

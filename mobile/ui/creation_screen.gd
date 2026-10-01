@@ -1,5 +1,5 @@
 extends Control
-## Two bounded pages using the textures and fitted content of the character window.
+## Three bounded pages using the textures and fitted content of the character window.
 const GothicTheme = preload("res://ui/gothic_theme.gd")
 const FittedLabel = preload("res://ui/fitted_label.gd")
 var host
@@ -15,6 +15,7 @@ var divider = window_header.divider
 var body = Control.new()
 var identity = preload("res://ui/creation_identity.gd").new()
 var attributes = preload("res://ui/creation_attributes.gd").new()
+var difficulty = preload("res://ui/creation_difficulty.gd").new()
 var actions = preload("res://ui/window_actions.gd").new()
 var action = actions.primary
 var back_button = actions.back
@@ -26,6 +27,7 @@ func configure(owner_ui):
 	host = owner_ui
 	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	add_child(panel)
+	preload("res://ui/panel_shadow.gd").new().follow_panel(panel, host.data)
 	panel.theme = host.theme.duplicate(false)
 	for kind in ["Label", "Button", "LineEdit", "RichTextLabel"]:
 		panel.theme.set_color("default_color" if kind == "RichTextLabel" else "font_color", kind, host.data.color("text-home"))
@@ -47,7 +49,7 @@ func configure(owner_ui):
 	warning.add_theme_color_override("font_color", host.data.color("text-danger"))
 	warning.base_font_size = 15
 	body.clip_contents = true
-	for page in [identity, attributes]:
+	for page in [identity, attributes, difficulty]:
 		body.add_child(page)
 		page.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 		page.configure(host)
@@ -62,12 +64,13 @@ func configure(owner_ui):
 	refresh()
 
 func refresh():
-	title.text = "Новый герой" if step == 0 else "Характеристики"
-	subtitle.text = "Шаг %d из 2" % (step + 1)
+	title.text = ["Новый герой", "Характеристики", "Сложность"][step]
+	subtitle.text = "Шаг %d из 3" % (step + 1)
 	identity.visible = step == 0
 	attributes.visible = step == 1
-	action.text = "Далее" if step == 0 else "Начать путешествие"
-	action.disabled = not host.session.creation_name_error(host.create_name).is_empty() or (step == 1 and host.session.creation_points_remaining(host.create_stats) != 0)
+	difficulty.visible = step == 2
+	action.text = "Далее" if step < 2 else "Начать путешествие"
+	action.disabled = not host.session.creation_name_error(host.create_name).is_empty() or (step >= 1 and host.session.creation_points_remaining(host.create_stats) != 0) or (step == 2 and difficulty.buttons[host.create_difficulty].disabled)
 	warning.text = ""
 	# Keep body geometry stable when the final point hides the hint.
 	actions.reserve_hint_space = step == 1
@@ -82,8 +85,8 @@ func dismiss_keyboard():
 func advance():
 	if not is_inside_tree() or host.creation_view != self or action.disabled or host.busy: return
 	dismiss_keyboard()
-	if step == 0:
-		step = 1
+	if step < 2:
+		step += 1
 		attributes.refresh()
 		refresh()
 	else: host.finish_creation()
@@ -94,8 +97,8 @@ func back():
 		dismiss_keyboard()
 		return
 	dismiss_keyboard()
-	if step == 1:
-		step = 0
+	if step > 0:
+		step -= 1
 		refresh()
 	else: host.show_home()
 

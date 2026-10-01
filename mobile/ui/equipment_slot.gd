@@ -21,6 +21,7 @@ func configure(data, texture: Texture2D):
 	inset_shadow.material.set_shader_parameter("shadow_color", data.color("shadow-character-card-2"))
 	add_child(inset_shadow)
 	inset_shadow.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	inset_shadow.resized.connect(func(): inset_shadow.material.set_shader_parameter("panel_size", inset_shadow.size))
 	var art = TextureRect.new()
 	art.texture = texture
 	art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE

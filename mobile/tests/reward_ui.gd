@@ -89,13 +89,16 @@ func run():
 	await shot("reward-choices")
 	var before = ui.session.game.duplicate(true)
 	var view = ui.victory_view
-	for pixels in [Vector2i(320,640), Vector2i(896,800), Vector2i(1008,432), Vector2i(1880,880), Vector2i(432,1008)]:
+	for pixels in [Vector2i(320,640), Vector2i(896,800), Vector2i(1008,432), Vector2i(1880,880), Vector2i(480,1600), Vector2i(432,1008)]:
 		root.size = pixels
 		await settle()
 		check(ui.victory_view == view and ui.session.game == before, "Folding keeps reward view, offers and already credited shards")
 		for tile in grid().buttons:
 			check(ui.scroll.get_global_rect().grow(1).encloses(tile.get_global_rect()) and is_equal_approx(tile.size.x, tile.size.y), "Reward remains square and visible: %s" % pixels)
 		check(not grid().buttons[0].get_global_rect().intersects(grid().buttons[1].get_global_rect()), "Offers do not overlap")
+		check(view.surface.size.y <= 920 and is_equal_approx(view.surface.get_global_rect().end.y, ui.scroll.get_global_rect().end.y), "Reward frame is height-limited and bottom-aligned")
+		check(view.choice_divider.visible and view.choice_divider.position.y > view.choice_hint.position.y + view.choice_hint.size.y, "Reward choice hint has a separator below")
+		check(grid().position.y > view.choice_divider.position.y + view.choice_divider.size.y, "Reward artwork follows separator with a gap")
 		check(ui.victory_view.skip_button.visible and ui.scroll.get_global_rect().grow(1).encloses(ui.victory_view.skip_button.get_global_rect()), "Skip reward is visible on every layout")
 		for tile in grid().buttons:
 			check(not tile.get_global_rect().intersects(ui.victory_view.skip_button.get_global_rect()), "Skip button does not overlap reward artwork")
@@ -288,7 +291,7 @@ func check_progression_flow(reward_state: Dictionary):
 					continue
 				await shot("reward-progression")
 				var view = ui.victory_view
-				for pixels in [Vector2i(320,640), Vector2i(896,800), Vector2i(1880,880), Vector2i(432,1008)]:
+				for pixels in [Vector2i(320,640), Vector2i(896,800), Vector2i(1880,880), Vector2i(480,1600), Vector2i(432,1008)]:
 					root.size = pixels
 					await settle()
 					check(ui.victory_view == view, "Resize preserves progression screen")

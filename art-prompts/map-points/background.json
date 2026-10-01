@@ -1,0 +1,20 @@
+{
+  "asset": "images/map-points/background.png",
+  "steps": [
+    {
+      "tool": "image_gen",
+      "date": "2026-09-29",
+      "prompt": "Edit target supplied circular fantasy map medallion. Produce its BACKGROUND ONLY as separate reusable square PNG RGBA: remove all metal rim, rivets, bronze outlines and decorations; replace their area with continuous matching nearly black charcoal matte hammered slate texture. A single perfectly centered circular disk, diameter 92% of canvas, perfectly round, front-on, calm subtle low-contrast texture #111513 as in original interior. Fully opaque disk, true zero alpha outside circle. No hole, no rim, no bevel, no glow, no shadow, no symbol, no letters, no metal. Original dark-fantasy painterly texture. This disk will go behind a separate thin rim and portraits.",
+      "transparentBackground": true,
+      "references": [
+        {
+          "path": "images/map-points/frame.png",
+          "role": "Edit target passed to image_gen"
+        }
+      ],
+      "output": "/Users/exsmund/.codex/generated_images/01a0c47c-12f5-7b22-9f55-76842de0fa77/exec-21a45997-5413-4265-8725-5b91d1754545.png",
+      "sha256": "8880c221c7e595df9905765f256badf3c4a998ee137e79255818f720babc2096"
+    }
+  ],
+  "sha256": "8880c221c7e595df9905765f256badf3c4a998ee137e79255818f720babc2096"
+}

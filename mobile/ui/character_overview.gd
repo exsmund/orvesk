@@ -1,8 +1,6 @@
 extends "res://ui/character_page.gd"
-const Frame = preload("res://ui/texture_frame.gd")
 const Shards = preload("res://ui/shard_counter.gd")
-var portrait: TextureRect
-var frame = Frame.new()
+var portrait = preload("res://ui/portrait_art.gd").new()
 var hero_name: Label
 var level: Label
 var shards = Shards.new()
@@ -13,12 +11,8 @@ var divider = preload("res://ui/textured_divider.gd").new()
 
 func configure(owner_ui):
 	setup(owner_ui)
-	portrait = picture(host.data.framed_portrait(host.data.portrait(host.session.game.player)))
-	portrait.material = ShaderMaterial.new()
-	portrait.material.shader = preload("res://shaders/portrait_background.gdshader")
-	canvas.add_child(frame)
-	frame.configure(host.data, 22, preload("res://content/ui/portrait-frame.png"))
-	frame.modulate = host.data.color("text-home")
+	canvas.add_child(portrait)
+	portrait.configure(host.data, host.data.portrait(host.session.game.player))
 	canvas.add_child(divider)
 	divider.configure(host.data)
 	hero_name = label("", 30, true)
@@ -37,34 +31,24 @@ func refresh():
 	var forecast = host.combat_view.forecast if is_instance_valid(host.combat_view) else {}
 	var summary = forecast.get("calculation", {}).get("player", {})
 	var available = forecast.get("cost", {}).get("remaining", player.stamina)
-	health.configure(host.data, "Здоровье", player.hp, host.data.max_hp(player), "health", host.animated, -summary.get("damage", 0))
-	stamina.configure(host.data, "Выносливость", available, host.data.max_stamina(player), "stamina", host.animated, -summary.get("staminaLoss", 0))
+	health.configure(host.data, "Здоровье", player.hp, host.data.max_hp(player), "health", -summary.get("damage", 0))
+	stamina.configure(host.data, "Выносливость", available, host.data.max_stamina(player), "stamina", -summary.get("staminaLoss", 0))
 	arrange()
 
 func layout_content():
 	if not portrait: return
 	if wide:
-		fit_portrait(Rect2(20, 6, 250, 304))
+		portrait.fit_in(Rect2(0, 6, 294, 304))
 		put(hero_name, 298, 10, 400, 54)
 		put(level, 310, 72, 206, 40)
 		put(shards, 516, 72, 170, 40)
 		put(divider, 300, 136, 398, divider.THICKNESS)
 		put(resources, 322, 168, 350, resources.HEIGHT)
 	else:
-		fit_portrait(Rect2(42, 2, 276, 314))
+		portrait.fit_in(Rect2(0, 2, 360, 314))
 		put(hero_name, 8, 322, 344, 44)
 		put(level, 20, 368, 200, 40)
 		put(shards, 220, 368, 120, 40)
 		put(divider, 8, 429, 344, divider.THICKNESS)
 		put(resources, 20, 447, 320, resources.HEIGHT)
 	fit_label(hero_name, 30, 14)
-
-func fit_portrait(area: Rect2):
-	var inset = 16.0
-	var texture_size = Vector2(portrait.texture.get_size())
-	var available = area.size - Vector2.ONE * inset * 2
-	var factor = minf(available.x / texture_size.x, available.y / texture_size.y)
-	portrait.size = texture_size * factor
-	portrait.position = area.get_center() - portrait.size / 2
-	frame.position = portrait.position - Vector2.ONE * inset
-	frame.size = portrait.size + Vector2.ONE * inset * 2
